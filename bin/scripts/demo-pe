@@ -1,0 +1,48 @@
+#!/bin/sh
+
+BASEDIR=$2
+COMMAND="fractalpoolelement -logcolor=off -loglevel=6 -cspreportaddress=$3 -identifier=$4 -failureafter=$5 -ph=fractaldemopool"
+LOGFILE=$BASEDIR/demo-pe$4.log
+PIDFILE=$BASEDIR/pe$4.pid
+APPNAME="fractalpoolelem"
+
+case "$1" in
+start)
+   echo starting $APPNAME
+   if test -f $PIDFILE ; then
+      echo pid-File present!
+      exit 0
+   fi
+   if test -f $LOGFILE ; then
+         mv $LOGFILE $LOGFILE.old
+   fi
+   $BASEDIR/$COMMAND -logfile=$LOGFILE &
+   echo $! > $PIDFILE
+   if [ ! $? = 0 ] ; then
+      echo "ERROR: $BASEDIR/$COMMAND failed!"
+      exit 1
+   fi
+   ;;
+stop)
+   if test -f $PIDFILE ; then
+      if ps -p `cat $PIDFILE` | grep $APPNAME   1> /dev/null 2> /dev/null ; then
+         echo killing $APPNAME
+         kill $6 $7 `cat $PIDFILE` 1> /dev/null 2> /dev/null
+      fi
+      rm $PIDFILE
+   fi
+   ;;
+logfile)
+   if test -f $LOGFILE ; then
+       konsole -e less $LOGFILE
+   fi
+   ;;
+
+restart)
+   $0 stop
+   $0 start
+   ;;
+*)
+   echo "Usage: $0 {start|stop|restart}"
+   ;;
+esac

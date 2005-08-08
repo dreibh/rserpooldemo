@@ -1,0 +1,46 @@
+#!/bin/sh
+
+BASEDIR=$2 COMMAND="fractalexample/fractalpooluser -configdir=$BASEDIR/fractalexample/config/ -logcolor=off -loglevel=6 -cspreportaddress=$3 -identifier=$4 -ph=fractaldemopool"
+LOGFILE=$BASEDIR/demo-pu$4.log PIDFILE=$BASEDIR/pu$4.pid
+APPNAME="fractalpooluser"
+
+case "$1" in
+start)
+   echo starting $APPNAME
+   if test -f $PIDFILE ; then
+      echo pid-File present!
+      exit 0
+   fi
+   if test -f $LOGFILE ; then
+         mv $LOGFILE $LOGFILE.old
+   fi
+   $BASEDIR/$COMMAND -logfile=$LOGFILE &
+   echo $! > $PIDFILE
+   if [ ! $? = 0 ] ; then
+      echo "ERROR: $BASEDIR/$COMMAND failed!"
+      exit 1
+   fi
+   ;;
+stop)
+   if test -f $PIDFILE ; then
+      if ps -p `cat $PIDFILE` | grep $APPNAME   1> /dev/null 2> /dev/null ; then
+         echo killing $APPNAME
+         kill $5 $6 `cat $PIDFILE` 1> /dev/null 2> /dev/null
+      fi
+      rm $PIDFILE
+   fi
+   ;;
+restart)
+   $0 stop
+   $0 start
+   ;;
+logfile)
+   if test -f $LOGFILE ; then
+       konsole -e less $LOGFILE
+   fi
+   ;;
+
+*)
+   echo "Usage: $0 {start|stop|restart}"
+   ;;
+esac
