@@ -1,3 +1,4 @@
+/* $Id$ */
 /***************************************************************************
  *   The RSerPool Demo System                                              *
  *                                                                         *
@@ -61,7 +62,7 @@ void CRSerPoolNode::updateStatus()
       m_State = NOTREACHABLE;
       m_ConnectedUIDsMap.clear();
       m_StatusText = "";
-      m_IPText = "";
+      m_LocationText = "";
    }
    else {
       m_State = ACTIVE;

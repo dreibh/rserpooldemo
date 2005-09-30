@@ -1,10 +1,10 @@
 #!/bin/sh
 
 BASEDIR=$2
-COMMAND="fractalpoolelement -logcolor=off -loglevel=6 -cspreportaddress=$3 -identifier=$4 -failureafter=$5 -ph=fractaldemopool"
+COMMAND="server -fractal -logcolor=off -loglevel=6 -cspserver=$3 -cspinterval=200000 -identifier=$4 -fgpfailureafter=$5 -poolhandle=FractalDemoPool"
 LOGFILE=$BASEDIR/demo-pe$4.log
 PIDFILE=$BASEDIR/pe$4.pid
-APPNAME="fractalpoolelem"
+APPNAME="server"
 
 case "$1" in
 start)

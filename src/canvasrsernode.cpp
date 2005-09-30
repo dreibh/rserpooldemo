@@ -1,3 +1,4 @@
+/* $Id$ */
 /***************************************************************************
  *   The RSerPool Demo System                                              *
  *                                                                         *
@@ -57,30 +58,30 @@
    m_pStatusText->setZ(m_ZPosition + 6);
    m_pStatusText->show();
 
-   m_pIPText = new QCanvasText(m_RSerNode->getIPText(), canvas());
-   m_pIPText->setFont(QFont("Helvetica", 8, QFont::Bold ));
-   m_pIPText->move((width() / 2) - ((m_pIPText->boundingRect().width())/ 2)
+   m_pLocationText = new QCanvasText(m_RSerNode->getLocationText(), canvas());
+   m_pLocationText->setFont(QFont("Helvetica", 8, QFont::Bold ));
+   m_pLocationText->move((width() / 2) - ((m_pLocationText->boundingRect().width())/ 2)
       + m_RSerNode->getPositionX(sizeX), m_RSerNode->getPositionY(sizeY) +  m_pText->boundingRect().height() +  m_pStatusText->boundingRect().height() + height());
-   m_pIPText->setZ(m_ZPosition + 6);
-   m_pIPText->show();
+   m_pLocationText->setZ(m_ZPosition + 6);
+   m_pLocationText->show();
 
    const int margin = 10;
    int textWidth = m_pText->boundingRect().width();
    int statustextWidth = m_pStatusText->boundingRect().width();
-   int ipTextWidth = m_pIPText->boundingRect().width();
+   int ipTextWidth = m_pLocationText->boundingRect().width();
    int boundingWidth = textWidth > statustextWidth ? textWidth : statustextWidth;
    boundingWidth = boundingWidth > ipTextWidth ? boundingWidth : ipTextWidth;
    boundingWidth += margin;
 
    int boundingHeight;
-   if(m_pStatusText->text() == "" && m_pIPText->text() == "") {
+   if(m_pStatusText->text() == "" && m_pLocationText->text() == "") {
       boundingHeight = m_pText->boundingRect().height();
    }
-   else if (m_pIPText->text() == "") {
+   else if (m_pLocationText->text() == "") {
       boundingHeight = m_pText->boundingRect().height() + m_pStatusText->boundingRect().height();
    }
    else {
-      boundingHeight = m_pText->boundingRect().height() + m_pStatusText->boundingRect().height() + m_pIPText->boundingRect().height();
+      boundingHeight = m_pText->boundingRect().height() + m_pStatusText->boundingRect().height() + m_pLocationText->boundingRect().height();
    }
    boundingHeight += margin;
 
@@ -120,27 +121,27 @@ void CCanvasRSerNode::advance(int phase)
       m_pStatusText->setText(m_RSerNode->getStatusText());
       m_pStatusText->move((width() / 2) - ((m_pStatusText->boundingRect().right() - m_pStatusText->boundingRect().left())/ 2)
          + m_RSerNode->getPositionX(sizeX), m_RSerNode->getPositionY(sizeY) +  m_pText->boundingRect().bottom() - m_pText->boundingRect().top() + height());
-      m_pIPText->setText(m_RSerNode->getIPText());
-      m_pIPText->move((width() / 2) - ((m_pIPText->boundingRect().width())/ 2)
+      m_pLocationText->setText(m_RSerNode->getLocationText());
+      m_pLocationText->move((width() / 2) - ((m_pLocationText->boundingRect().width())/ 2)
          + m_RSerNode->getPositionX(sizeX), m_RSerNode->getPositionY(sizeY) +  m_pText->boundingRect().height() +  m_pStatusText->boundingRect().height() + height());
 
       const int margin          = 10;
       const int textWidth       = m_pText->boundingRect().width();
       const int statusTextWidth = m_pStatusText->boundingRect().width();
-      const int ipTextWidth     = m_pIPText->boundingRect().width();
+      const int ipTextWidth     = m_pLocationText->boundingRect().width();
       int boundingWidth   = textWidth > statusTextWidth ? textWidth : statusTextWidth;
       boundingWidth = boundingWidth > ipTextWidth ? boundingWidth : ipTextWidth;
       boundingWidth += margin;
 
       int boundingHeight;
-      if(m_pStatusText->text() == "" && m_pIPText->text() == "") {
+      if(m_pStatusText->text() == "" && m_pLocationText->text() == "") {
          boundingHeight = m_pText->boundingRect().height();
       }
-      else if (m_pIPText->text() == "") {
+      else if (m_pLocationText->text() == "") {
          boundingHeight = m_pText->boundingRect().height() + m_pStatusText->boundingRect().height();
       }
       else {
-         boundingHeight = m_pText->boundingRect().height() + m_pStatusText->boundingRect().height() + m_pIPText->boundingRect().height();
+         boundingHeight = m_pText->boundingRect().height() + m_pStatusText->boundingRect().height() + m_pLocationText->boundingRect().height();
       }
 
       boundingHeight += margin;
@@ -267,7 +268,7 @@ void CCanvasRSerNode::updatePostion()
    m_pText->move((width() / 2) - ((m_pText->boundingRect().right() - m_pText->boundingRect().left())/ 2) + m_RSerNode->getPositionX(sizeX), m_RSerNode->getPositionY(sizeY) + spriteHeight);
    m_pStatusText->move((width() / 2) - ((m_pStatusText->boundingRect().right() - m_pStatusText->boundingRect().left())/ 2)
       + m_RSerNode->getPositionX(sizeX), m_RSerNode->getPositionY(sizeY) +  m_pText->boundingRect().bottom() - m_pText->boundingRect().top() + height());
-   m_pIPText->move((width() / 2) - (m_pIPText->boundingRect().width()/ 2)
+   m_pLocationText->move((width() / 2) - (m_pLocationText->boundingRect().width()/ 2)
       + m_RSerNode->getPositionX(sizeX), m_RSerNode->getPositionY(sizeY) +  m_pText->boundingRect().height() + m_pStatusText->boundingRect().height() + height());
 
    int thisX = 0;
@@ -275,20 +276,20 @@ void CCanvasRSerNode::updatePostion()
    const int margin = 10;
    int textWidth = m_pText->boundingRect().width();
    int statusTextWidth = m_pStatusText->boundingRect().width();
-   int ipTextWidth = m_pIPText->boundingRect().width();
+   int ipTextWidth = m_pLocationText->boundingRect().width();
    int boundingWidth = textWidth > statusTextWidth ? textWidth : statusTextWidth;
    boundingWidth = boundingWidth > ipTextWidth ? boundingWidth : ipTextWidth;
    boundingWidth += margin;
 
    int boundingHeight;
-   if(m_pStatusText->text() == "" && m_pIPText->text() == "") {
+   if(m_pStatusText->text() == "" && m_pLocationText->text() == "") {
       boundingHeight = m_pText->boundingRect().height();
    }
-   else if (m_pIPText->text() == "") {
+   else if (m_pLocationText->text() == "") {
       boundingHeight = m_pText->boundingRect().height() + m_pStatusText->boundingRect().height();
    }
    else {
-      boundingHeight = m_pText->boundingRect().height() + m_pStatusText->boundingRect().height() + m_pIPText->boundingRect().height();
+      boundingHeight = m_pText->boundingRect().height() + m_pStatusText->boundingRect().height() + m_pLocationText->boundingRect().height();
    }
    boundingHeight += margin;
 

@@ -1,3 +1,4 @@
+/* $Id$ */
 /***************************************************************************
  *   The RSerPool Demo System                                              *
  *                                                                         *
@@ -31,19 +32,7 @@
 #include <qsocketdevice.h>
 
 #include "rsernode.h"
-
-
-#define CSP_VERSION  0x0101
-#define CSPHT_STATUS 0x0001
-
-#define CID_GROUP(id)  ((id >> 56) & (0xffff))
-#define CID_OBJECT(id) (id & 0xffffffffffffffLL)
-
-#define CID_GROUP_NAMESERVER  0x0001
-#define CID_GROUP_POOLELEMENT 0x0002
-#define CID_GROUP_POOLUSER    0x0003
-
-#define CID_COMPOUND(group, object)  (((uint64_t)group << 56) | object)
+#include "componentstatuspackets.h"
 
 
 class CRSerPoolNode;
@@ -51,32 +40,6 @@ class CRSerPoolNode;
 class CNetworkListener
 {
    public:
-   struct ComponentAssociationEntry
-   {
-      uint64_t ReceiverID;
-      uint64_t Duration;
-      uint16_t Flags;
-      uint16_t ProtocolID;
-      uint32_t PPID;
-   };
-
-   struct ComponentStatusProtocolHeader
-   {
-      uint16_t                         Type;
-      uint16_t                         Version;
-      uint32_t                         Length;
-
-      uint64_t                         SenderID;
-      uint64_t                         ReportInterval;
-      uint64_t                         SenderTimeStamp;
-      char                             StatusText[128];
-      char                             ComponentAddress[128];
-
-      uint32_t                         Associations;
-      struct ComponentAssociationEntry AssociationArray[];
-   };
-
-
    CNetworkListener(int                            _ListenPort,
                     QMap<QString, CRSerPoolNode*>& _RSerPoolNodesMap);
    ~CNetworkListener();
@@ -95,9 +58,14 @@ class CNetworkListener
    */
    static inline uint64_t hton64(const uint64_t value)
    {
+#if BYTE_ORDER == LITTLE_ENDIAN
       return(bswap_64(value));
+#elif BYTE_ORDER == BIG_ENDIAN
+      return(value);
+#else
+#error Byte order is not defined!
+#endif
    }
-
 
    /**
    * Convert 64-bit value to host byte order.
@@ -107,7 +75,13 @@ class CNetworkListener
    */
    static inline uint64_t ntoh64(const uint64_t value)
    {
+#if BYTE_ORDER == LITTLE_ENDIAN
       return(bswap_64(value));
+#elif BYTE_ORDER == BIG_ENDIAN
+      return(value);
+#else
+#error Byte order is not defined!
+#endif
    }
 
    int                            m_ListenPort;

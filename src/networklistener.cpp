@@ -1,3 +1,4 @@
+/* $Id$ */
 /***************************************************************************
  *   The RSerPool Demo System                                              *
  *                                                                         *
@@ -51,68 +52,63 @@ CNetworkListener::~CNetworkListener()
 
 void CNetworkListener::update()
 {
-   char buffer[2048];
+   char buffer[65536];
    while(m_SocketDevice->bytesAvailable()) {
       uint received = m_SocketDevice->readBlock(buffer, sizeof(buffer));
-      if(received >= sizeof(ComponentStatusProtocolHeader)) {
-         ComponentStatusProtocolHeader* pHeader = reinterpret_cast<struct ComponentStatusProtocolHeader *>(buffer);
-         ComponentStatusProtocolHeader  csph;
-         csph.Type = ntohs(pHeader->Type);
-         if(csph.Type != CSPHT_STATUS) {
-            std::cerr << "WARNING: Wrong status message type received!" << std::endl;
+      if(received >= sizeof(ComponentStatusReport)) {
+         ComponentStatusReport* cspReport = (ComponentStatusReport*)&buffer;
+         cspReport->Header.Length          = ntohs(cspReport->Header.Length);
+         cspReport->Header.Version         = ntohl(cspReport->Header.Version);
+         cspReport->Header.SenderID        = ntoh64(cspReport->Header.SenderID);
+         cspReport->Header.SenderTimeStamp = ntoh64(cspReport->Header.SenderTimeStamp);
+         if(cspReport->Header.Version != CSP_VERSION) {
+            std::cerr << "WARNING: Wrong message version received!" << std::endl;
             continue;
          }
-         csph.Version = ntohs(pHeader->Version);
-         if(csph.Version != CSP_VERSION) {
-            std::cerr << "WARNING: Status message of wrong CSP protocol version received!" << std::endl;
+         if(cspReport->Header.Type != CSPT_REPORT) {
+            std::cerr << "WARNING: Wrong message type received!" << std::endl;
             continue;
          }
-         csph.Length   = ntohl(pHeader->Length);
-         csph.SenderID = ntoh64(pHeader->SenderID);
+         cspReport->ReportInterval = ntohl(cspReport->ReportInterval);
+         cspReport->Associations   = ntohs(cspReport->Associations);
+         if(received < sizeof(ComponentStatusReport) + cspReport->Associations * sizeof(ComponentAssociation)) {
+            std::cerr << "WARNING: Malformed report message received (too short)!" << std::endl;
+            continue;
+         }
 
          char nameBuffer[32];
-         snprintf(nameBuffer, sizeof(nameBuffer), "%Lx", csph.SenderID);
+         snprintf(nameBuffer, sizeof(nameBuffer), "%Lx", cspReport->Header.SenderID);
          QString name(nameBuffer);
          QMap<QString, CRSerPoolNode*>::iterator nodeIterator;
-         if((nodeIterator = m_RSerPoolNodesMap.find(name)) != m_RSerPoolNodesMap.end())
-         {
-            CRSerPoolNode *pNode = nodeIterator.data();
+         if((nodeIterator = m_RSerPoolNodesMap.find(name)) != m_RSerPoolNodesMap.end()) {
+            CRSerPoolNode* pNode = nodeIterator.data();
             pNode->setUpdated();
+            pNode->setReportInterval(cspReport->ReportInterval);
 
-            csph.SenderTimeStamp = ntoh64(pHeader->SenderTimeStamp);
-            csph.ReportInterval  = ntoh64(pHeader->ReportInterval);
-            pNode->setReportInterval(csph.ReportInterval);
-
-            strncpy((char*)&csph.StatusText, pHeader->StatusText, sizeof(csph.StatusText));
-            QString StatusText(csph.StatusText);
-            pNode->setStatusText(StatusText);
-
-            strncpy((char*)&csph.ComponentAddress, pHeader->ComponentAddress, sizeof(csph.ComponentAddress));
-            QString ComponentAddress(csph.ComponentAddress);
-            pNode->setIPText(ComponentAddress);
+            cspReport->Status[sizeof(cspReport->Status) - 1]     = 0x00;
+            cspReport->Location[sizeof(cspReport->Location) - 1] = 0x00;
+            pNode->setStatusText(cspReport->Status);
+            pNode->setLocationText(cspReport->Location);
 
             pNode->getConnectedUIDsMap().clear();
             pNode->getConnectedUIDsDurationMap().clear();
 
-            csph.Associations = ntohl(pHeader->Associations);
+            for(uint i = 0;i < cspReport->Associations;i++) {
+               cspReport->AssociationArray[i].ReceiverID = ntoh64(cspReport->AssociationArray[i].ReceiverID);
+               cspReport->AssociationArray[i].Duration   = ntoh64(cspReport->AssociationArray[i].Duration);
+               cspReport->AssociationArray[i].Flags      = ntohs(cspReport->AssociationArray[i].Flags);
+               cspReport->AssociationArray[i].ProtocolID = ntohs(cspReport->AssociationArray[i].ProtocolID);
+               cspReport->AssociationArray[i].PPID       = ntohl(cspReport->AssociationArray[i].PPID);
 
-            for(uint i = 0;i < csph.Associations;i++) {
-               ComponentAssociationEntry assocEntry;
-               assocEntry.ReceiverID = ntoh64(pHeader->AssociationArray[i].ReceiverID);
-               assocEntry.Duration   = ntoh64(pHeader->AssociationArray[i].Duration);
-               assocEntry.Flags      = ntohs(pHeader->AssociationArray[i].Flags);
-               assocEntry.ProtocolID = ntohs(pHeader->AssociationArray[i].ProtocolID);
-               assocEntry.PPID       = ntohl(pHeader->AssociationArray[i].PPID);
-
-               snprintf(nameBuffer, sizeof(nameBuffer), "%Lx", assocEntry.ReceiverID);
+               snprintf(nameBuffer, sizeof(nameBuffer), "%Lx", cspReport->AssociationArray[i].ReceiverID);
                QString peerName(nameBuffer);
                QMap<QString, CRSerPoolNode*>::iterator nodeIterator;
                if((nodeIterator = m_RSerPoolNodesMap.find(peerName)) != m_RSerPoolNodesMap.end()) {
-                  pNode->getConnectedUIDsDurationMap()[peerName] = assocEntry.Duration;
-                  pNode->getConnectedUIDsMap()[peerName]         = assocEntry.PPID;
+                  pNode->getConnectedUIDsDurationMap()[peerName] = cspReport->AssociationArray[i].Duration;
+                  pNode->getConnectedUIDsMap()[peerName]         = cspReport->AssociationArray[i].PPID;
                }
                else {
-                  std::cerr << "WARNING: Received status about unknwon connection from " << name << " to " << peerName << std::endl;
+                  std::cerr << "WARNING: Received status for unknwon connection from " << name << " to " << peerName << std::endl;
                }
             }
          }

@@ -1,3 +1,4 @@
+/* $Id$ */
 /***************************************************************************
  *   The RSerPool Demo System                                              *
  *                                                                         *
@@ -72,8 +73,8 @@ class CRSerPoolNode
    inline const QString& getStatusText() {
       return m_StatusText;
    }
-   inline const QString& getIPText() {
-      return m_IPText;
+   inline const QString& getLocationText() {
+      return m_LocationText;
    }
 
    inline QPtrList<CContextMenuConfig>& getContextMenuConfig() {
@@ -91,11 +92,11 @@ class CRSerPoolNode
       return m_State;
    }
 
-   inline void setStatusText(QString &_rStatusText) {
+   inline void setStatusText(const QString &_rStatusText) {
       m_StatusText = _rStatusText;
    }
-   inline void setIPText(QString &_rIPText) {
-      m_IPText = _rIPText;
+   inline void setLocationText(const QString &_rLocationText) {
+      m_LocationText = _rLocationText;
    }
    inline void setReportInterval(uint64_t _ReportInterval) {
       m_ReportInterval = _ReportInterval;
@@ -120,7 +121,7 @@ class CRSerPoolNode
    QMap<QString, int>           m_ConnectedUIDsMap;
    QMap<QString, uint64_t>      m_ConnectionDurationMap;
    QString                      m_StatusText;
-   QString                      m_IPText;
+   QString                      m_LocationText;
    NodeStatus                      m_State;
    uint64_t                     m_ReportInterval;
    uint64_t                     m_LastUpdated;
