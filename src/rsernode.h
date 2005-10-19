@@ -112,9 +112,9 @@ class CRSerPoolNode
    QString m_ImageActive;
    QString m_ImageInactive;
    QString m_ImageNotReachable;
-   int m_PositionX;
-   int m_PositionY;
-   int m_TimeoutMultiplier;
+   int     m_PositionX;
+   int     m_PositionY;
+   int     m_TimeoutMultiplier;
 
    // Values need in RunTime
    QPtrList<CContextMenuConfig> m_ContextMenuEntries;
@@ -122,7 +122,7 @@ class CRSerPoolNode
    QMap<QString, uint64_t>      m_ConnectionDurationMap;
    QString                      m_StatusText;
    QString                      m_LocationText;
-   NodeStatus                      m_State;
+   NodeStatus                   m_State;
    uint64_t                     m_ReportInterval;
    uint64_t                     m_LastUpdated;
 };
