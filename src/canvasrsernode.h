@@ -52,6 +52,7 @@ class CCanvasRSerNode : public QCanvasSprite
    int               m_ZPosition;
    CRSerPoolCanvas*  m_Canvas;
    CRSerPoolNode*    m_RSerNode;
+   QCanvasText*      m_pWorkload;
    QCanvasText*      m_pLocationText;
    QCanvasText*      m_pStatusText;
    QCanvasText*      m_pText;

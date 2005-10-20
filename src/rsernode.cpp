@@ -44,7 +44,8 @@ CRSerPoolNode::CRSerPoolNode(QString _UniqueID,
      m_TimeoutMultiplier(_TimeoutMultiplier),
      m_State(NOTREACHABLE),
      m_ReportInterval(6000000),
-     m_LastUpdated(0)
+     m_LastUpdated(0),
+     m_Workload(-1.0)
 {
    m_ContextMenuEntries.setAutoDelete(true);
 }
@@ -53,6 +54,17 @@ CRSerPoolNode::CRSerPoolNode(QString _UniqueID,
 void CRSerPoolNode::setUpdated()
 {
    m_LastUpdated = CNetworkListener::getMicroTime();
+}
+
+
+const QString CRSerPoolNode::getWorkload() const
+{
+   if(m_Workload >= 0.0) {
+      char str[16];
+      snprintf((char*)&str, sizeof(str), "%1.0f%%", 100.0 * m_Workload);
+      return(QString(str));
+   }
+   return(QString(""));
 }
 
 

@@ -51,6 +51,15 @@
    m_pText->move((width() / 2) - ((m_pText->boundingRect().right() - m_pText->boundingRect().left())/ 2) + m_RSerNode->getPositionX(sizeX), m_RSerNode->getPositionY(sizeY) + spriteHeight);
    m_pText->setZ(m_ZPosition + 6);
    m_pText->show();
+
+   m_pWorkload = new QCanvasText("", canvas());
+   m_pWorkload->setFont(QFont("Helvetica", 18, QFont::Bold ));
+   m_pWorkload->setColor(QColor("#222222"));
+   m_pWorkload->move(m_RSerNode->getPositionX(sizeX) + (width() - (m_pText->boundingRect().right() - m_pText->boundingRect().left())),
+                     m_RSerNode->getPositionY(sizeY));
+   m_pWorkload->setZ(m_ZPosition + 11);
+   m_pWorkload->show();
+
    m_pStatusText = new QCanvasText(m_RSerNode->getStatusText(), canvas());
    m_pStatusText->setFont(QFont("Helvetica", 12, QFont::Bold ));
    m_pStatusText->move((width() / 2) - ((m_pStatusText->boundingRect().right() - m_pStatusText->boundingRect().left())/ 2)
@@ -118,6 +127,9 @@ void CCanvasRSerNode::advance(int phase)
       int thisY = 0;
 
       m_RSerNode->updateStatus();
+      m_pWorkload->move(m_RSerNode->getPositionX(sizeX) + 10,
+                        m_RSerNode->getPositionY(sizeY) + 10);
+      m_pWorkload->setText(m_RSerNode->getWorkload());
       m_pStatusText->setText(m_RSerNode->getStatusText());
       m_pStatusText->move((width() / 2) - ((m_pStatusText->boundingRect().right() - m_pStatusText->boundingRect().left())/ 2)
          + m_RSerNode->getPositionX(sizeX), m_RSerNode->getPositionY(sizeY) +  m_pText->boundingRect().bottom() - m_pText->boundingRect().top() + height());
@@ -266,6 +278,8 @@ void CCanvasRSerNode::updatePostion()
    move(m_RSerNode->getPositionX(sizeX), m_RSerNode->getPositionY(sizeY));
    int spriteHeight = height();
    m_pText->move((width() / 2) - ((m_pText->boundingRect().right() - m_pText->boundingRect().left())/ 2) + m_RSerNode->getPositionX(sizeX), m_RSerNode->getPositionY(sizeY) + spriteHeight);
+   m_pWorkload->move(m_RSerNode->getPositionX(sizeX) + (width() - m_pText->boundingRect().width()),
+                     m_RSerNode->getPositionY(sizeY));
    m_pStatusText->move((width() / 2) - ((m_pStatusText->boundingRect().right() - m_pStatusText->boundingRect().left())/ 2)
       + m_RSerNode->getPositionX(sizeX), m_RSerNode->getPositionY(sizeY) +  m_pText->boundingRect().bottom() - m_pText->boundingRect().top() + height());
    m_pLocationText->move((width() / 2) - (m_pLocationText->boundingRect().width()/ 2)

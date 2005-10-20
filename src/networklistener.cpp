@@ -71,6 +71,7 @@ void CNetworkListener::update()
          }
          cspReport->ReportInterval = ntohl(cspReport->ReportInterval);
          cspReport->Associations   = ntohs(cspReport->Associations);
+         cspReport->Workload       = ntohs(cspReport->Workload);
          if(received < sizeof(ComponentStatusReport) + cspReport->Associations * sizeof(ComponentAssociation)) {
             std::cerr << "WARNING: Malformed report message received (too short)!" << std::endl;
             continue;
@@ -87,6 +88,7 @@ void CNetworkListener::update()
 
             cspReport->Status[sizeof(cspReport->Status) - 1]     = 0x00;
             cspReport->Location[sizeof(cspReport->Location) - 1] = 0x00;
+            pNode->setWorkload(CSR_GET_WORKLOAD(cspReport->Workload));
             pNode->setStatusText(cspReport->Status);
             pNode->setLocationText(cspReport->Location);
 

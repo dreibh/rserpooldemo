@@ -49,31 +49,32 @@ class CRSerPoolNode
       ACTIVE       = 2
    };
 
-   inline const QString& getImageNotReachable() {
+   inline const QString& getImageNotReachable() const {
       return m_ImageNotReachable;
    }
-   inline const QString& getImageInactive() {
+   inline const QString& getImageInactive() const {
       return m_ImageInactive;
    }
-   inline const QString& getImageActive() {
+   inline const QString& getImageActive() const {
       return m_ImageActive;
    }
-   inline const QString& getUniqueID() {
+   inline const QString& getUniqueID() const {
       return m_UniqueID;
    }
-   inline int getPositionX(int _TotalSizeX) {
+   inline int getPositionX(int _TotalSizeX) const {
       return (m_PositionX * _TotalSizeX / 100);
    }
-   inline int getPositionY(int _TotalSizeY) {
+   inline int getPositionY(int _TotalSizeY) const {
       return (m_PositionY * _TotalSizeY / 100);
    }
-   inline const QString& getDisplayName() {
+   inline const QString& getDisplayName() const {
       return m_DisplayName;
    }
-   inline const QString& getStatusText() {
+   const QString getWorkload() const;
+   inline const QString& getStatusText() const {
       return m_StatusText;
    }
-   inline const QString& getLocationText() {
+   inline const QString& getLocationText() const {
       return m_LocationText;
    }
 
@@ -87,11 +88,14 @@ class CRSerPoolNode
       return m_ConnectionDurationMap;
    }
 
-
-   inline NodeStatus getStatus() {
+   inline NodeStatus getStatus() const {
       return m_State;
    }
 
+
+   inline void setWorkload(const double _rWorkload) {
+      m_Workload = _rWorkload;
+   }
    inline void setStatusText(const QString &_rStatusText) {
       m_StatusText = _rStatusText;
    }
@@ -104,6 +108,7 @@ class CRSerPoolNode
 
    void setUpdated();
    void updateStatus();
+
 
    private:
    // Values loaded from config files
@@ -125,6 +130,7 @@ class CRSerPoolNode
    NodeStatus                   m_State;
    uint64_t                     m_ReportInterval;
    uint64_t                     m_LastUpdated;
+   double                       m_Workload;
 };
 
 
