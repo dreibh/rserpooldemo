@@ -1,6 +1,28 @@
 #!/bin/sh
-SLEEP=2
+# $Id$
+# ***************************************************************************
+# *   The RSerPool Demo System                                              *
+# *                                                                         *
+# *   Authors: Thomas Dreibholz, dreibh@exp-math.uni-essen.de               *
+# *            Sebastian Rohde, rohde@exp-math.uni-essen.de                 *
+# *                                                                         *
+# *   This program is free software; you can redistribute it and/or modify  *
+# *   it under the terms of the GNU General Public License as published by  *
+# *   the Free Software Foundation; either version 2 of the License, or     *
+# *   (at your option) any later version.                                   *
+# *                                                                         *
+# *   This program is distributed in the hope that it will be useful,       *
+# *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+# *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+# *   GNU General Public License for more details.                          *
+# *                                                                         *
+# *   You should have received a copy of the GNU General Public License     *
+# *   along with this program; if not, write to the                         *
+# *   Free Software Foundation, Inc.,                                       *
+# *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+# ***************************************************************************
 
+SLEEP=2
 
 # Args:
 #   $1 = Signal
@@ -17,20 +39,20 @@ kill_all() {
 }
 
 
-if [ x$1 = "xSIGKILL" ] ; then
-   kill_all -SIGKILL "../../rsplib2/rsplib/fractalexample/fractalpooluser" -w
-   kill_all -SIGKILL "../../rsplib2/rsplib/fractalpoolelement" -w
-   kill_all -SIGKILL "../../rsplib2/rsplib/registrar" -w
+if [ x$1 = "xKILL" ] ; then
+   kill_all -KILL "../../rsplib2/rsplib/fractalexample/fractalpooluser" -w
+   kill_all -KILL "../../rsplib2/rsplib/fractalpoolelement" -w
+   kill_all -KILL "../../rsplib2/rsplib/registrar" -w
    rm -rf ../../rsplib2/rsplib/*.pid
 else
-   ./scripts/demo-pu stop ../../rsplib2/rsplib 127.0.0.1:2960 2 -s SIGKILL
-   ./scripts/demo-pu stop ../../rsplib2/rsplib 127.0.0.1:2960 1 -s SIGKILL
-   ./scripts/demo-pe stop ../../rsplib2/rsplib 127.0.0.1:2960 256 20 -s SIGINT
-   ./scripts/demo-pe stop ../../rsplib2/rsplib 127.0.0.1:2960 257 20 -s SIGINT
-   ./scripts/demo-pe stop ../../rsplib2/rsplib 127.0.0.1:2960 258 20 -s SIGINT
+   ./scripts/demo-pu stop ../../rsplib2/rsplib 127.0.0.1:2960 2 -s KILL
+   ./scripts/demo-pu stop ../../rsplib2/rsplib 127.0.0.1:2960 1 -s KILL
+   ./scripts/demo-pe stop ../../rsplib2/rsplib 127.0.0.1:2960 256 20 -s INT
+   ./scripts/demo-pe stop ../../rsplib2/rsplib 127.0.0.1:2960 257 20 -s INT
+   ./scripts/demo-pe stop ../../rsplib2/rsplib 127.0.0.1:2960 258 20 -s INT
    sleep $SLEEP
-   ./scripts/demo-ns stop ../../rsplib2/rsplib 127.0.0.1:2960 65537 -s SIGINT
-   ./scripts/demo-ns stop ../../rsplib2/rsplib 127.0.0.1:2960 65536 -s SIGINT
+   ./scripts/demo-pr stop ../../rsplib2/rsplib 127.0.0.1:2960 65537 -s INT
+   ./scripts/demo-pr stop ../../rsplib2/rsplib 127.0.0.1:2960 65536 -s INT
 fi
 
 

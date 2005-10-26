@@ -1,1 +1,1 @@
-ssh root@beta nohup $@ > /dev/null 2> /dev/null &
+ssh root@beta nohup $@ &
