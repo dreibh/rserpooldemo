@@ -47,13 +47,13 @@
 
    const int spriteHeight = height();
    m_pText = new QCanvasText(m_RSerNode->getDisplayName(), canvas());
-   m_pText->setFont(QFont("Helvetica", 14, QFont::Bold ));
+   m_pText->setFont(QFont("Helvetica", 12, QFont::Bold ));
    m_pText->move((width() / 2) - ((m_pText->boundingRect().right() - m_pText->boundingRect().left())/ 2) + m_RSerNode->getPositionX(sizeX), m_RSerNode->getPositionY(sizeY) + spriteHeight);
    m_pText->setZ(m_ZPosition + 6);
    m_pText->show();
 
    m_pWorkload = new QCanvasText("", canvas());
-   m_pWorkload->setFont(QFont("Helvetica", 18, QFont::Bold ));
+   m_pWorkload->setFont(QFont("Helvetica", 16, QFont::Bold ));
    m_pWorkload->setColor(QColor("#222222"));
    m_pWorkload->move(m_RSerNode->getPositionX(sizeX) + (width() - (m_pText->boundingRect().right() - m_pText->boundingRect().left())),
                      m_RSerNode->getPositionY(sizeY));
@@ -61,14 +61,14 @@
    m_pWorkload->show();
 
    m_pStatusText = new QCanvasText(m_RSerNode->getStatusText(), canvas());
-   m_pStatusText->setFont(QFont("Helvetica", 12, QFont::Bold ));
+   m_pStatusText->setFont(QFont("Helvetica", 10, QFont::Bold ));
    m_pStatusText->move((width() / 2) - ((m_pStatusText->boundingRect().right() - m_pStatusText->boundingRect().left())/ 2)
       + m_RSerNode->getPositionX(sizeX), m_RSerNode->getPositionY(sizeY) +  m_pText->boundingRect().bottom() - m_pText->boundingRect().top() + height());
    m_pStatusText->setZ(m_ZPosition + 6);
    m_pStatusText->show();
 
    m_pLocationText = new QCanvasText(m_RSerNode->getLocationText(), canvas());
-   m_pLocationText->setFont(QFont("Helvetica", 8, QFont::Bold ));
+   m_pLocationText->setFont(QFont("Helvetica", 8));
    m_pLocationText->move((width() / 2) - ((m_pLocationText->boundingRect().width())/ 2)
       + m_RSerNode->getPositionX(sizeX), m_RSerNode->getPositionY(sizeY) +  m_pText->boundingRect().height() +  m_pStatusText->boundingRect().height() + height());
    m_pLocationText->setZ(m_ZPosition + 6);

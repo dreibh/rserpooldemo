@@ -43,9 +43,8 @@ class CRSerPoolNode
 
    enum NodeStatus
    {
-      NOTREACHABLE = 0,
-      INACTIVE     = 1,
-      ACTIVE       = 2
+      INACTIVE = 0,
+      ACTIVE   = 1
    };
 
    inline const QString& getImageInactive() const {
