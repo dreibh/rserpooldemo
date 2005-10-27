@@ -161,23 +161,23 @@ $Id$
       <PositionY>75</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element reliable</Name>
-         <Command>./scripts/remotebeta nohup /rserpool/src/rserpooldemo/bin/scripts/demo-pe start /rserpool/src/rsplib2/rsplib alpha:2960 258 0</Command>
+         <Command>./scripts/remotebeta nohup /home/demo/src/rserpooldemo/bin/scripts/demo-pe start /home/demo/src/rsplib2/rsplib alpha:2960 258 0</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element unreliable</Name>
-         <Command>./scripts/remotebeta nohup /rserpool/src/rserpooldemo/bin/scripts/demo-pe start /rserpool/src/rsplib2/rsplib alpha:2960 258 20</Command>
+         <Command>./scripts/remotebeta nohup /home/demo/src/rserpooldemo/bin/scripts/demo-pe start /home/demo/src/rsplib2/rsplib alpha:2960 258 20</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Stop Pool Element (SIGINT)</Name>
-         <Command>./scripts/remotebeta nohup /rserpool/src/rserpooldemo/bin/scripts/demo-pe stop /rserpool/src/rsplib2/rsplib alpha:2960 258 0 -s INT</Command>
+         <Command>./scripts/remotebeta nohup /home/demo/src/rserpooldemo/bin/scripts/demo-pe stop /home/demo/src/rsplib2/rsplib alpha:2960 258 0 -s INT</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Pool Element (SIGKILL)</Name>
-         <Command>./scripts/remotebeta nohup /rserpool/src/rserpooldemo/bin/scripts/demo-pe stop /rserpool/src/rsplib2/rsplib alpha:2960 258 0 -s KILL</Command>
+         <Command>./scripts/remotebeta nohup /home/demo/src/rserpooldemo/bin/scripts/demo-pe stop /home/demo/src/rsplib2/rsplib alpha:2960 258 0 -s KILL</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Show logfile</Name>
-         <Command>./scripts/remotebeta nohup /rserpool/src/rserpooldemo/bin/scripts/demo-pe logfile /rserpool/src/rsplib2/rsplib alpha:2960 258 0</Command>
+         <Command>./scripts/remotebeta nohup /home/demo/src/rserpooldemo/bin/scripts/demo-pe logfile /home/demo/src/rsplib2/rsplib alpha:2960 258 0</Command>
       </ContextMenuEntry>
    </RSPNode>
 
