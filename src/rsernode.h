@@ -37,7 +37,6 @@ class CRSerPoolNode
                  QString _DisplayName,
                  QString _ImageActive,
                  QString _ImageInactive,
-                 QString _ImageNotReachable,
                  int _PositionX,
                  int _PositionY,
                  int _TimeoutMultiplier);
@@ -49,9 +48,6 @@ class CRSerPoolNode
       ACTIVE       = 2
    };
 
-   inline const QString& getImageNotReachable() const {
-      return m_ImageNotReachable;
-   }
    inline const QString& getImageInactive() const {
       return m_ImageInactive;
    }
@@ -116,7 +112,6 @@ class CRSerPoolNode
    QString m_DisplayName;
    QString m_ImageActive;
    QString m_ImageInactive;
-   QString m_ImageNotReachable;
    int     m_PositionX;
    int     m_PositionY;
    int     m_TimeoutMultiplier;

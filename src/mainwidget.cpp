@@ -66,7 +66,6 @@ void CMainWidget::createCanvasObjects()
    QPtrList<CRSerPoolNode>& rNodeList = m_Configuration.getRSerPoolNodes();
    for (CRSerPoolNode* pNode = rNodeList.first();pNode;pNode = rNodeList.next()) {
       QValueList<QPixmap> pixmapList;
-      pixmapList.push_back(pNode->getImageNotReachable());
       pixmapList.push_back(pNode->getImageInactive());
       pixmapList.push_back(pNode->getImageActive());
       CCanvasRSerNode* pSprite = new CCanvasRSerNode(m_Canvas, pNode, pixmapList);

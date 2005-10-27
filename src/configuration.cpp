@@ -41,10 +41,9 @@ const char g_displayNameTag[]          = "DisplayName";
 const char g_refreshTimeoutTag[]       = "RefreshTimeout";
 const char g_ActiveImageURLTag[]       = "ActiveImageURL";
 const char g_InactiveImageURLTag[]     = "InactiveImageURL";
-const char g_NotReachableImageURLTag[] = "NotReachableImageURL";
 const char g_ContextMenuEntryTag[]     = "ContextMenuEntry";
 const char g_NameTag[]                 = "Name";
-const char g_CMDTag[]                  = "CMD";
+const char g_CMDTag[]                  = "Command";
 const char g_NodePositionXTag[]        = "PositionX";
 const char g_NodePositionYTag[]        = "PositionY";
 const char g_BackgroundImageTag[]      = "BackgroundImage";
@@ -122,7 +121,6 @@ CRSerPoolNode *CConfiguration::createRSPNode(QDomElement _RSPElement)
    QString                      displayName;
    QString                      imageActive;
    QString                      imageInactive;
-   QString                      imageNotReachable;
    int                          refreshTimeout = 0;
    int                          positionX      = 0;
    int                          positionY      = 0;
@@ -148,10 +146,6 @@ CRSerPoolNode *CConfiguration::createRSPNode(QDomElement _RSPElement)
          else if(currentNode.toElement().tagName() == QString(g_InactiveImageURLTag))
          {
             imageInactive = currentNode.toElement().text();
-         }
-         else if(currentNode.toElement().tagName() == QString(g_NotReachableImageURLTag))
-         {
-            imageNotReachable = currentNode.toElement().text();
          }
          else if(currentNode.toElement().tagName() == QString(g_NodePositionXTag))
          {
@@ -181,7 +175,7 @@ CRSerPoolNode *CConfiguration::createRSPNode(QDomElement _RSPElement)
 
       currentNode = currentNode.nextSibling();
    }
-   CRSerPoolNode *pNewRSerNode = new CRSerPoolNode(uniqueID,displayName,imageActive,imageInactive,imageNotReachable,positionX, positionY, refreshTimeout);
+   CRSerPoolNode *pNewRSerNode = new CRSerPoolNode(uniqueID,displayName,imageActive,imageInactive,positionX, positionY, refreshTimeout);
    pNewRSerNode->getContextMenuConfig() = contextNodes;
    return pNewRSerNode;
 }

@@ -38,26 +38,25 @@ $Id$
       <UID>100000000010000</UID>
       <DisplayName>Registrar 1</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/RegistrarActive.png</ActiveImageURL>
-      <InactiveImageURL>pictures/RegistrarInactive.png</InactiveImageURL>
-      <NotReachableImageURL>pictures/RegistrarUnreachable.png</NotReachableImageURL>
+      <ActiveImageURL>pictures/RegistrarActive2.png</ActiveImageURL>
+      <InactiveImageURL>pictures/RegistrarInactive2.png</InactiveImageURL>
       <PositionX>10</PositionX>
       <PositionY>20</PositionY>
       <ContextMenuEntry>
          <Name>Start Registrar</Name>
-         <CMD>./scripts/demo-pr start ../../rsplib2/rsplib 127.0.0.1:2960 65536</CMD>
+         <Command>./scripts/demo-pr start ../../rsplib2/rsplib 127.0.0.1:2960 65536</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Stop Registrar (SIGINT)</Name>
-         <CMD>./scripts/demo-pr stop ../../rsplib2/rsplib 127.0.0.1:2960 65536 -s INT</CMD>
+         <Command>./scripts/demo-pr stop ../../rsplib2/rsplib 127.0.0.1:2960 65536 -s INT</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Registrar (SIGKILL)</Name>
-         <CMD>./scripts/demo-pr stop ../../rsplib2/rsplib 127.0.0.1:2960 65536 -s KILL</CMD>
+         <Command>./scripts/demo-pr stop ../../rsplib2/rsplib 127.0.0.1:2960 65536 -s KILL</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Show logfile</Name>
-         <CMD>./scripts/demo-pr logfile ../../rsplib2/rsplib 127.0.0.1:2960 65536</CMD>
+         <Command>./scripts/demo-pr logfile ../../rsplib2/rsplib 127.0.0.1:2960 65536</Command>
       </ContextMenuEntry>
    </RSPNode>
 
@@ -66,26 +65,25 @@ $Id$
       <UID>100000000010001</UID>
       <DisplayName>Registrar 2</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/RegistrarActive.png</ActiveImageURL>
-      <InactiveImageURL>pictures/RegistrarInactive.png</InactiveImageURL>
-      <NotReachableImageURL>pictures/RegistrarUnreachable.png</NotReachableImageURL>
+      <ActiveImageURL>pictures/RegistrarActive2.png</ActiveImageURL>
+      <InactiveImageURL>pictures/RegistrarInactive2.png</InactiveImageURL>
       <PositionX>10</PositionX>
       <PositionY>60</PositionY>
       <ContextMenuEntry>
          <Name>Start Registrar</Name>
-         <CMD>./scripts/demo-pr start ../../rsplib2/rsplib 127.0.0.1:2960 65537</CMD>
+         <Command>./scripts/demo-pr start ../../rsplib2/rsplib 127.0.0.1:2960 65537</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Stop Registrar (SIGINT)</Name>
-         <CMD>./scripts/demo-pr stop ../../rsplib2/rsplib 127.0.0.1:2960 65537 -s INT</CMD>
+         <Command>./scripts/demo-pr stop ../../rsplib2/rsplib 127.0.0.1:2960 65537 -s INT</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Registrar (SIGKILL)</Name>
-         <CMD>./scripts/demo-pr stop ../../rsplib2/rsplib 127.0.0.1:2960 65537 -s KILL</CMD>
+         <Command>./scripts/demo-pr stop ../../rsplib2/rsplib 127.0.0.1:2960 65537 -s KILL</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Show logfile</Name>
-         <CMD>./scripts/demo-pr logfile ../../rsplib2/rsplib 127.0.0.1:2960 65537</CMD>
+         <Command>./scripts/demo-pr logfile ../../rsplib2/rsplib 127.0.0.1:2960 65537</Command>
       </ContextMenuEntry>
    </RSPNode>
 
@@ -94,30 +92,29 @@ $Id$
       <UID>200000000000100</UID>
       <DisplayName>Pool Element 1</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/PoolElementActive.png</ActiveImageURL>
-      <InactiveImageURL>pictures/PoolElementInactive.png</InactiveImageURL>
-      <NotReachableImageURL>pictures/PoolElementUnreachable.png</NotReachableImageURL>
+      <ActiveImageURL>pictures/PoolElementActive2.png</ActiveImageURL>
+      <InactiveImageURL>pictures/PoolElementInactive2.png</InactiveImageURL>
       <PositionX>30</PositionX>
       <PositionY>75</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element reliable</Name>
-         <CMD>./scripts/demo-pe start ../../rsplib2/rsplib 127.0.0.1:2960 256 0</CMD>
+         <Command>./scripts/demo-pe start ../../rsplib2/rsplib 127.0.0.1:2960 256 0</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element unreliable</Name>
-         <CMD>./scripts/demo-pe start ../../rsplib2/rsplib 127.0.0.1:2960 256 20</CMD>
+         <Command>./scripts/demo-pe start ../../rsplib2/rsplib 127.0.0.1:2960 256 20</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Stop Pool Element (SIGINT)</Name>
-         <CMD>./scripts/demo-pe stop ../../rsplib2/rsplib 127.0.0.1:2960 256 20 -s INT</CMD>
+         <Command>./scripts/demo-pe stop ../../rsplib2/rsplib 127.0.0.1:2960 256 20 -s INT</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Pool Element (SIGKILL)</Name>
-         <CMD>./scripts/demo-pe stop ../../rsplib2/rsplib 127.0.0.1:2960 256 20 -s KILL</CMD>
+         <Command>./scripts/demo-pe stop ../../rsplib2/rsplib 127.0.0.1:2960 256 20 -s KILL</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Show logfile</Name>
-         <CMD>./scripts/demo-pe logfile ../../rsplib2/rsplib 127.0.0.1:2960 256 20</CMD>
+         <Command>./scripts/demo-pe logfile ../../rsplib2/rsplib 127.0.0.1:2960 256 20</Command>
       </ContextMenuEntry>
 
    </RSPNode>
@@ -127,30 +124,29 @@ $Id$
       <UID>200000000000101</UID>
       <DisplayName>Pool Element 2</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/PoolElementActive.png</ActiveImageURL>
-      <InactiveImageURL>pictures/PoolElementInactive.png</InactiveImageURL>
-      <NotReachableImageURL>pictures/PoolElementUnreachable.png</NotReachableImageURL>
+      <ActiveImageURL>pictures/PoolElementActive2.png</ActiveImageURL>
+      <InactiveImageURL>pictures/PoolElementInactive2.png</InactiveImageURL>
       <PositionX>55</PositionX>
       <PositionY>75</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element reliable</Name>
-         <CMD>./scripts/demo-pe start ../../rsplib2/rsplib 127.0.0.1:2960 257 0</CMD>
+         <Command>./scripts/demo-pe start ../../rsplib2/rsplib 127.0.0.1:2960 257 0</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element unreliable</Name>
-         <CMD>./scripts/demo-pe start ../../rsplib2/rsplib 127.0.0.1:2960 257 10</CMD>
+         <Command>./scripts/demo-pe start ../../rsplib2/rsplib 127.0.0.1:2960 257 10</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Stop Pool Element (SIGINT)</Name>
-         <CMD>./scripts/demo-pe stop ../../rsplib2/rsplib 127.0.0.1:2960 257 20 -s INT</CMD>
+         <Command>./scripts/demo-pe stop ../../rsplib2/rsplib 127.0.0.1:2960 257 20 -s INT</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Pool Element (SIGKILL)</Name>
-         <CMD>./scripts/demo-pe stop ../../rsplib2/rsplib 127.0.0.1:2960 257 20 -s KILL</CMD>
+         <Command>./scripts/demo-pe stop ../../rsplib2/rsplib 127.0.0.1:2960 257 20 -s KILL</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Show logfile</Name>
-         <CMD>./scripts/demo-pe logfile ../../rsplib2/rsplib 127.0.0.1:2960 257 20</CMD>
+         <Command>./scripts/demo-pe logfile ../../rsplib2/rsplib 127.0.0.1:2960 257 20</Command>
       </ContextMenuEntry>
    </RSPNode>
 
@@ -159,30 +155,29 @@ $Id$
       <UID>200000000000102</UID>
       <DisplayName>Pool Element 3</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/PoolElementActive.png</ActiveImageURL>
-      <InactiveImageURL>pictures/PoolElementInactive.png</InactiveImageURL>
-      <NotReachableImageURL>pictures/PoolElementUnreachable.png</NotReachableImageURL>
+      <ActiveImageURL>pictures/PoolElementActive2.png</ActiveImageURL>
+      <InactiveImageURL>pictures/PoolElementInactive2.png</InactiveImageURL>
       <PositionX>80</PositionX>
       <PositionY>75</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element reliable</Name>
-         <CMD>./scripts/remotebeta nohup /rserpool/src/rserpooldemo/bin/scripts/demo-pe start /rserpool/src/rsplib2/rsplib alpha:2960 258 0</CMD>
+         <Command>./scripts/remotebeta nohup /rserpool/src/rserpooldemo/bin/scripts/demo-pe start /rserpool/src/rsplib2/rsplib alpha:2960 258 0</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element unreliable</Name>
-         <CMD>./scripts/remotebeta nohup /rserpool/src/rserpooldemo/bin/scripts/demo-pe start /rserpool/src/rsplib2/rsplib alpha:2960 258 20</CMD>
+         <Command>./scripts/remotebeta nohup /rserpool/src/rserpooldemo/bin/scripts/demo-pe start /rserpool/src/rsplib2/rsplib alpha:2960 258 20</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Stop Pool Element (SIGINT)</Name>
-         <CMD>./scripts/remotebeta nohup /rserpool/src/rserpooldemo/bin/scripts/demo-pe stop /rserpool/src/rsplib2/rsplib alpha:2960 258 0 -s INT</CMD>
+         <Command>./scripts/remotebeta nohup /rserpool/src/rserpooldemo/bin/scripts/demo-pe stop /rserpool/src/rsplib2/rsplib alpha:2960 258 0 -s INT</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Pool Element (SIGKILL)</Name>
-         <CMD>./scripts/remotebeta nohup /rserpool/src/rserpooldemo/bin/scripts/demo-pe stop /rserpool/src/rsplib2/rsplib alpha:2960 258 0 -s KILL</CMD>
+         <Command>./scripts/remotebeta nohup /rserpool/src/rserpooldemo/bin/scripts/demo-pe stop /rserpool/src/rsplib2/rsplib alpha:2960 258 0 -s KILL</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Show logfile</Name>
-         <CMD>./scripts/remotebeta nohup /rserpool/src/rserpooldemo/bin/scripts/demo-pe logfile /rserpool/src/rsplib2/rsplib alpha:2960 258 0</CMD>
+         <Command>./scripts/remotebeta nohup /rserpool/src/rserpooldemo/bin/scripts/demo-pe logfile /rserpool/src/rsplib2/rsplib alpha:2960 258 0</Command>
       </ContextMenuEntry>
    </RSPNode>
 
@@ -191,22 +186,21 @@ $Id$
       <UID>300000000000001</UID>
       <DisplayName>Pool User 1</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/PoolUserActive.png</ActiveImageURL>
-      <InactiveImageURL>pictures/PoolUserInactive.png</InactiveImageURL>
-      <NotReachableImageURL>pictures/PoolUserUnreachable.png</NotReachableImageURL>
+      <ActiveImageURL>pictures/PoolUserActive2.png</ActiveImageURL>
+      <InactiveImageURL>pictures/PoolUserInactive2.png</InactiveImageURL>
       <PositionX>40</PositionX>
       <PositionY>5</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool User</Name>
-         <CMD>./scripts/demo-pu start ../../rsplib2/rsplib 127.0.0.1:2960 1</CMD>
+         <Command>./scripts/demo-pu start ../../rsplib2/rsplib 127.0.0.1:2960 1</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Pool User (SIGKILL)</Name>
-         <CMD>./scripts/demo-pu stop ../../rsplib2/rsplib 127.0.0.1:2960 1 -s KILL</CMD>
+         <Command>./scripts/demo-pu stop ../../rsplib2/rsplib 127.0.0.1:2960 1 -s KILL</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Show logfile</Name>
-         <CMD>./scripts/demo-pu logfile ../../rsplib2/rsplib 127.0.0.1:2960 1</CMD>
+         <Command>./scripts/demo-pu logfile ../../rsplib2/rsplib 127.0.0.1:2960 1</Command>
       </ContextMenuEntry>
    </RSPNode>
 
@@ -215,22 +209,21 @@ $Id$
       <UID>300000000000002</UID>
       <DisplayName>Pool User 2</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/PoolUserActive.png</ActiveImageURL>
-      <InactiveImageURL>pictures/PoolUserInactive.png</InactiveImageURL>
-      <NotReachableImageURL>pictures/PoolUserUnreachable.png</NotReachableImageURL>
+      <ActiveImageURL>pictures/PoolUserActive2.png</ActiveImageURL>
+      <InactiveImageURL>pictures/PoolUserInactive2.png</InactiveImageURL>
       <PositionX>70</PositionX>
       <PositionY>5</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool User</Name>
-         <CMD>./scripts/demo-pu start ../../rsplib2/rsplib 127.0.0.1:2960 2</CMD>
+         <Command>./scripts/demo-pu start ../../rsplib2/rsplib 127.0.0.1:2960 2</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Pool User (SIGKILL)</Name>
-         <CMD>./scripts/demo-pu stop ../../rsplib2/rsplib 127.0.0.1:2960 2 -s KILL</CMD>
+         <Command>./scripts/demo-pu stop ../../rsplib2/rsplib 127.0.0.1:2960 2 -s KILL</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Show logfile</Name>
-         <CMD>./scripts/demo-pu logfile ../../rsplib2/rsplib 127.0.0.1:2960 2</CMD>
+         <Command>./scripts/demo-pu logfile ../../rsplib2/rsplib 127.0.0.1:2960 2</Command>
       </ContextMenuEntry>
    </RSPNode>
 
@@ -239,22 +232,21 @@ $Id$
       <UID>NOUID</UID>
       <DisplayName>Control</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/control.png</ActiveImageURL>
-      <InactiveImageURL>pictures/control.png</InactiveImageURL>
-      <NotReachableImageURL>pictures/control.png</NotReachableImageURL>
+      <ActiveImageURL>pictures/Controller.png</ActiveImageURL>
+      <InactiveImageURL>pictures/Controller.png</InactiveImageURL>
       <PositionX>0</PositionX>
       <PositionY>0</PositionY>
       <ContextMenuEntry>
          <Name>Start All</Name>
-         <CMD>./scripts/startall</CMD>
+         <Command>./scripts/startall</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Stop All SIGINT</Name>
-         <CMD>./scripts/stopall INT</CMD>
+         <Command>./scripts/stopall INT</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Stop All SIGKILL</Name>
-         <CMD>./scripts/stopall KILL</CMD>
+         <Command>./scripts/stopall KILL</Command>
       </ContextMenuEntry>
    </RSPNode>
 </RSerPoolDemoConfigurationRoot>
