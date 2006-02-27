@@ -159,6 +159,7 @@ $Id$
       <InactiveImageURL>pictures/PoolElementInactive2.png</InactiveImageURL>
       <PositionX>80</PositionX>
       <PositionY>75</PositionY>
+      <!--
       <ContextMenuEntry>
          <Name>Start Pool Element reliable</Name>
          <Command>./scripts/remotebeta nohup /home/demo/src/rserpooldemo/bin/scripts/demo-pe start /home/demo/src/rsplib2/rsplib alpha:2960 258 0</Command>
@@ -178,6 +179,27 @@ $Id$
       <ContextMenuEntry>
          <Name>Show logfile</Name>
          <Command>./scripts/remotebeta nohup /home/demo/src/rserpooldemo/bin/scripts/demo-pe logfile /home/demo/src/rsplib2/rsplib alpha:2960 258 0</Command>
+      </ContextMenuEntry>
+      -->
+      <ContextMenuEntry>
+         <Name>Start Pool Element reliable</Name>
+         <Command>./scripts/demo-pe start ../../rsplib2/rsplib 127.0.0.1:2960 258 0</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Start Pool Element unreliable</Name>
+         <Command>./scripts/demo-pe start ../../rsplib2/rsplib 127.0.0.1:2960 258 10</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Stop Pool Element (SIGINT)</Name>
+         <Command>./scripts/demo-pe stop ../../rsplib2/rsplib 127.0.0.1:2960 258 20 -s INT</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Kill Pool Element (SIGKILL)</Name>
+         <Command>./scripts/demo-pe stop ../../rsplib2/rsplib 127.0.0.1:2960 258 20 -s KILL</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Show logfile</Name>
+         <Command>./scripts/demo-pe logfile ../../rsplib2/rsplib 127.0.0.1:2960 258 20</Command>
       </ContextMenuEntry>
    </RSPNode>
 
