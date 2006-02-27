@@ -1,0 +1,45 @@
+#!/bin/bash
+
+if [ $# -ne 2 ] ; then
+   echo "Usage: prepare-demo [Local User] [SVN User]"
+   exit
+fi
+
+echo "This script will do the following:"
+echo " - Check out or update directory \"trunk\" from the SCTP repository"
+echo "    + Local Account: $LOCAL_USER"
+echo "    + SVN Account:   $SVN_USER"
+echo " - Compile and install the RSerPool demo system"
+echo ""
+echo "Are you really sure (yes/no)?"
+read answer
+if [ "$answer" != "yes" ] ; then
+   echo "Aborted."
+   exit
+fi
+if [ $UID -ne 0 ] ; then
+   echo "ERROR: This script must be run as root!"
+   exit
+fi
+
+
+if [ ! -e trunk ] ; then
+   rm -f sctplib1 socketapi rsplib2 rserpooldemo
+
+   svn co svn+ssh://svn.exp-math.uni-essen.de/home/svn/sctp/trunk && \
+   \
+   ln -s trunk/sctplib1 . && \
+   ln -s trunk/socketapi . && \
+   ln -s trunk/rsplib2 . && \
+   ln -s trunk/rserpooldemo .
+else
+   cd trunk && svn update && cd ..
+fi
+
+
+cd sctplib1 && ./autogen.sh && make install && cd .. && \
+cd socketapi && ./autogen.sh && make install && cd .. && \
+cd rsplib2 && ./autogen.sh --enable-csp --enable-qt && make install && cd .. && \
+cd rserpooldemo && qmake && make && cd .. && \
+\
+chown -R demo:demo /home/demo/src
