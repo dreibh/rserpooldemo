@@ -23,7 +23,7 @@
 # ***************************************************************************
 
 BASEDIR=$2
-COMMAND="fractalpooluser -configdir=$BASEDIR/fgpconfig -logcolor=off -loglevel=6 -cspserver=$3 -cspinterval=200000 -identifier=$4 -poolhandle=FractalDemoPool"
+COMMAND="fractalpooluser -configdir=$BASEDIR/fgpconfig -logcolor=off -loglevel=6 -cspserver=$3 -cspinterval=200 -identifier=$4 -poolhandle=FractalDemoPool"
 LOGFILE=$BASEDIR/demo-pu$4.log
 PIDFILE=$BASEDIR/demo-pu$4.pid
 APPNAME="fractalpooluser"

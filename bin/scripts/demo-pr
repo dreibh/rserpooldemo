@@ -23,7 +23,7 @@
 # ***************************************************************************
 
 BASEDIR=$2
-COMMAND="registrar -asap=auto -asapannounce=auto -enrp=auto -enrpmulticast=auto -maxbadpereports=99999999 -logcolor=off -loglevel=6 -cspserver=$3 -cspinterval=200000 -identifier=$4"
+COMMAND="registrar -asap=auto -asapannounce=auto -enrp=auto -enrpmulticast=auto -maxbadpereports=99999999 -logcolor=off -loglevel=6 -cspserver=$3 -cspinterval=200 -identifier=$4"
 LOGFILE=$BASEDIR/demo-pr$4.log
 PIDFILE=$BASEDIR/demo-pr$4.pid
 APPNAME="registrar"
