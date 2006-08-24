@@ -52,16 +52,18 @@ class CCanvasRSerNode : public QCanvasSprite
    int               m_ZPosition;
    CRSerPoolCanvas*  m_Canvas;
    CRSerPoolNode*    m_RSerNode;
-   QCanvasText*      m_pWorkload;
-   QCanvasText*      m_pLocationText;
+
+   QCanvasRectangle* m_pBackground;
+   QCanvasText*      m_pTitle;
    QCanvasText*      m_pStatusText;
-   QCanvasText*      m_pText;
-   QCanvasRectangle* m_pTextBackground;
+   QCanvasText*      m_pLocationText;
+   QCanvasText*      m_pWorkload;
+   QCanvasRectangle* m_pWorkloadBackground;
 
    struct LinkText
    {
-      QCanvasText* m_pText;
-      QCanvasRectangle *m_pBoundingRectangle;
+      QCanvasText*      m_pDurationText;
+      QCanvasRectangle* m_pBackground;
    };
 
    QMap<QString, QCanvasLine*> m_ConUIDsLinesMap;

@@ -65,7 +65,8 @@ class CRSerPoolNode
    inline const QString& getDisplayName() const {
       return m_DisplayName;
    }
-   const QString getWorkload() const;
+   const double CRSerPoolNode::getWorkload() const;
+   const QString getWorkloadString() const;
    inline const QString& getStatusText() const {
       return m_StatusText;
    }

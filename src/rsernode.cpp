@@ -55,7 +55,13 @@ void CRSerPoolNode::setUpdated()
 }
 
 
-const QString CRSerPoolNode::getWorkload() const
+const double CRSerPoolNode::getWorkload() const
+{
+   return(100.0 * m_Workload);
+}
+
+
+const QString CRSerPoolNode::getWorkloadString() const
 {
    if((m_State == ACTIVE) &&
       (m_Workload >= 0.0)) {

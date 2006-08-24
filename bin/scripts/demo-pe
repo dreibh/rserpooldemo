@@ -23,7 +23,7 @@
 # ***************************************************************************
 
 BASEDIR=$2
-COMMAND="server -fractal -logcolor=off -loglevel=6 -cspserver=$3 -cspinterval=200 -identifier=$4 -fgpfailureafter=$5 -rereginterval=5000 -poolhandle=FractalDemoPool"
+COMMAND="server -fractal -logcolor=off -loglevel=6 -cspserver=$3 -cspinterval=200 -identifier=$4 -fgpfailureafter=$5 -rereginterval=5000 -poolhandle=FractalDemoPool $@"
 LOGFILE=$BASEDIR/demo-pe$4.log
 PIDFILE=$BASEDIR/demo-pe$4.pid
 APPNAME="server"
