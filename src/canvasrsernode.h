@@ -49,7 +49,7 @@ class CCanvasRSerNode : public QCanvasSprite
    QPopupMenu*       m_ContextMenu;
 
    private:
-   int               m_ZPosition;
+   double            m_ZPosition;
    CRSerPoolCanvas*  m_Canvas;
    CRSerPoolNode*    m_RSerNode;
 

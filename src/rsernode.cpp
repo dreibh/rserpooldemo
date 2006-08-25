@@ -57,7 +57,11 @@ void CRSerPoolNode::setUpdated()
 
 const double CRSerPoolNode::getWorkload() const
 {
-   return(100.0 * m_Workload);
+   if((m_State == ACTIVE) &&
+      (m_Workload >= 0.0)) {
+      return(m_Workload);
+   }
+   return(-1.0);
 }
 
 

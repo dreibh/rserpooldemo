@@ -44,7 +44,7 @@ void CContextMenuConfig::execute()
       return;
    }
 
-   QStringList commandList = QStringList::split(" ", m_CommandLine);
+   QStringList commandList = QStringList::split(" ", QString("nice " + m_CommandLine));
 
    m_pProcess = new QProcess(commandList);
    connect(m_pProcess, SIGNAL(processExited()), this, SLOT(processFinished()));

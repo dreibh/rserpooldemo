@@ -47,8 +47,8 @@
    int sizeX = static_cast<CMainWidget *>(canvas()->parent())->m_Configuration.getDisplaySizeX();
    int sizeY = static_cast<CMainWidget *>(canvas()->parent())->m_Configuration.getDisplaySizeY();
    move(m_RSerNode->getPositionX(sizeX), m_RSerNode->getPositionY(sizeY));
-   m_ZPosition = (((m_RSerNode->getPositionX(sizeX) % 1024) << 10) +
-                    (m_RSerNode->getPositionY(sizeY) % 1024)) << 4;
+   m_ZPosition = 1000000000 + ((((m_RSerNode->getPositionX(sizeX) % 1024) << 10) +
+                                 (m_RSerNode->getPositionY(sizeY) % 1024)) << 4);
    setZ(m_ZPosition + 10);
 
    const int spriteHeight = height();
@@ -112,15 +112,15 @@ void CCanvasRSerNode::advance(int phase)
       m_pWorkloadBackground->move(m_RSerNode->getPositionX(sizeX) + (width() / 2),
                                   m_RSerNode->getPositionY(sizeY));
       const double workload = m_RSerNode->getWorkload();
-      if(workload >= 0.0) {
+      if(workload >= 0.00) {
          QColor workloadColor;
-         if(workload > 75.0) {
+         if(workload > 0.75) {
             workloadColor = Qt::red;
          }
-         else if(workload >= 50.0) {
+         else if(workload >= 0.50) {
             workloadColor = Qt::yellow;
          }
-         else if(workload > 0.0) {
+         else if(workload > 0.001) {
             workloadColor = Qt::green;
          }
          else {
@@ -131,6 +131,9 @@ void CCanvasRSerNode::advance(int phase)
          m_pWorkloadBackground->setBrush(QBrush(QColor("#D7D7ff")));
          m_pWorkloadBackground->setPen(QPen(QColor("#202020")));
          m_pWorkloadBackground->show();
+      }
+      else {
+         m_pWorkloadBackground->hide();
       }
       m_pWorkload->setText(m_RSerNode->getWorkloadString());
       m_pWorkload->move(m_pWorkloadBackground->x() + (MARGIN_WORKLOAD / 2) + ((m_pWorkloadBackground->boundingRect().right() - m_pWorkloadBackground->boundingRect().left()) / 2),
@@ -225,15 +228,17 @@ void CCanvasRSerNode::advance(int phase)
 
             uint64_t duration = m_RSerNode->getConnectedUIDsDurationMap()[it.key()];
             if(duration != ~0ULL) {
+               const double z = (((m_RSerNode->getPositionX(sizeX) % 1024) << 10) +
+                                   (m_RSerNode->getPositionY(sizeY) % 1024)) << 4;
                if(m_ConUIDsTextMap.find(it.key()) == m_ConUIDsTextMap.end()) {
                   m_ConUIDsTextMap[it.key()] = new LinkText();
                   m_ConUIDsTextMap[it.key()]->m_pDurationText = new QCanvasText(m_Canvas);
-                  m_ConUIDsTextMap[it.key()]->m_pDurationText->setZ(2);
+                  m_ConUIDsTextMap[it.key()]->m_pDurationText->setZ(z + 1);
                   m_ConUIDsTextMap[it.key()]->m_pDurationText->setFont(QFont("Helvetica", 11, QFont::Bold ));
                   m_ConUIDsTextMap[it.key()]->m_pBackground = new QCanvasRectangle(m_Canvas);
                   m_ConUIDsTextMap[it.key()]->m_pBackground->setBrush(QBrush(QColor("#FFFF00")));
                   m_ConUIDsTextMap[it.key()]->m_pBackground->setPen(QPen(QColor("#7C7777")));
-                  m_ConUIDsTextMap[it.key()]->m_pBackground->setZ(1);
+                  m_ConUIDsTextMap[it.key()]->m_pBackground->setZ(z);
                }
                QCanvasText*      pDurationText      = m_ConUIDsTextMap[it.key()]->m_pDurationText;
                QCanvasRectangle* pDurationRectangle = m_ConUIDsTextMap[it.key()]->m_pBackground;
