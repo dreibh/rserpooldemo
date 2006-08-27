@@ -1,0 +1,26 @@
+Erstellen des Demo-Hintergrundes mit Gimp:
+
+A. Hintergrund
+1. Farben anpassen
+Werkzeuge -> Farben -> Farbton-Sättigung
+   Primärfarbe: alle
+   Farbton: 120
+
+2. Relief
+Filter -> Verzerren -> Relief
+   Funktion: Bumpmap
+   Längengrad/Breitengrad/Tiefe: 30.0/45.0/20
+
+B. Logo
+dia -> Hintergrund grün (#00ff00) -> Export
+convert -density 150x150 xxx.png - transparent "#00ff00" yyy.png
+
+
+C. URL-Test
+Text mit Font "GRW Gothic Semi-Bold"
+Script-Fu -> Alpha als Logo -> Glatt
+   Farbverlauf (Text): Yellow Orange
+
+D. Export nach PNG in verschiedene Auflösungen
+Bild -> Bild skalieren
+   Interpolation: kubisch
