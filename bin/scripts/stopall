@@ -40,8 +40,8 @@ kill_all() {
 
 
 if [ x$1 = "xKILL" ] ; then
-   kill_all -KILL "../../rsplib2/rsplib/fractalexample/fractalpooluser" -w
-   kill_all -KILL "../../rsplib2/rsplib/fractalpoolelement" -w
+   kill_all -KILL "../../rsplib2/rsplib/fractalpooluser" -w
+   kill_all -KILL "../../rsplib2/rsplib/server" -w
    kill_all -KILL "../../rsplib2/rsplib/registrar" -w
    rm -rf ../../rsplib2/rsplib/*.pid
 else
