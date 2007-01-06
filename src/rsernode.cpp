@@ -21,25 +21,26 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "rsernode.h"
 #include <qmessagebox.h>
+
+#include "rsernode.h"
 #include "networklistener.h"
 
 
-CRSerPoolNode::CRSerPoolNode(QString _UniqueID,
-                             QString _DisplayName,
-                             QString _ImageActive,
-                             QString _ImageInactive,
-                             int _PositionX,
-                             int _PositionY,
-                             int _TimeoutMultiplier)
-   : m_UniqueID(_UniqueID),
-     m_DisplayName(_DisplayName),
-     m_ImageActive(_ImageActive),
-     m_ImageInactive(_ImageInactive),
-     m_PositionX(_PositionX),
-     m_PositionY(_PositionY),
-     m_TimeoutMultiplier(_TimeoutMultiplier),
+CNode::CNode(QString uniqueID,
+             QString displayName,
+             QString imageActive,
+             QString imageInactive,
+             int     positionX,
+             int     positionY,
+             int     timeoutMultiplier)
+   : m_UniqueID(uniqueID),
+     m_DisplayName(displayName),
+     m_ImageActive(imageActive),
+     m_ImageInactive(imageInactive),
+     m_PositionX(positionX),
+     m_PositionY(positionY),
+     m_TimeoutMultiplier(timeoutMultiplier),
      m_State(INACTIVE),
      m_ReportInterval(6000000),
      m_LastUpdated(0),
@@ -49,13 +50,13 @@ CRSerPoolNode::CRSerPoolNode(QString _UniqueID,
 }
 
 
-void CRSerPoolNode::setUpdated()
+void CNode::setUpdated()
 {
    m_LastUpdated = CNetworkListener::getMicroTime();
 }
 
 
-const double CRSerPoolNode::getWorkload() const
+const double CNode::getWorkload() const
 {
    if((m_State == ACTIVE) &&
       (m_Workload >= 0.0)) {
@@ -65,7 +66,7 @@ const double CRSerPoolNode::getWorkload() const
 }
 
 
-const QString CRSerPoolNode::getWorkloadString() const
+const QString CNode::getWorkloadString() const
 {
    if((m_State == ACTIVE) &&
       (m_Workload >= 0.0)) {
@@ -77,7 +78,7 @@ const QString CRSerPoolNode::getWorkloadString() const
 }
 
 
-void CRSerPoolNode::updateStatus()
+void CNode::updateStatus()
 {
    if((m_LastUpdated + (m_ReportInterval*m_TimeoutMultiplier)) < CNetworkListener::getMicroTime()) {
       m_State = INACTIVE;

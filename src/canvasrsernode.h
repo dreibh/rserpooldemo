@@ -26,20 +26,20 @@
 
 #include <qcanvas.h>
 #include <qpopupmenu.h>
-#include "rserpoolcanvas.h"
 #include <qmap.h>
+#include "rserpoolcanvas.h"
 
 
-class CRSerPoolNode;
+class CNode;
 
 
-class CCanvasRSerNode : public QCanvasSprite
+class CCanvasNode : public QCanvasSprite
 {
    public:
-   CCanvasRSerNode(CRSerPoolCanvas*     _Canvas,
-                   CRSerPoolNode*       _RSerNode,
-                   QValueList<QPixmap>& _PixmapList);
-   virtual ~CCanvasRSerNode();
+   CCanvasNode(CCanvas*             canvas,
+               CNode*               node,
+               QValueList<QPixmap>& pixmapList);
+   virtual ~CCanvasNode();
 
    virtual void advance(int phase);
 
@@ -50,8 +50,8 @@ class CCanvasRSerNode : public QCanvasSprite
 
    private:
    double            m_ZPosition;
-   CRSerPoolCanvas*  m_Canvas;
-   CRSerPoolNode*    m_RSerNode;
+   CCanvas*          m_Canvas;
+   CNode*            m_Node;
 
    QCanvasRectangle* m_pBackground;
    QCanvasText*      m_pTitle;

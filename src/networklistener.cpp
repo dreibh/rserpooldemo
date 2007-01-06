@@ -28,16 +28,16 @@
 #include "networklistener.h"
 
 
-CNetworkListener::CNetworkListener(int                            _ListenPort,
-                                   QMap<QString, CRSerPoolNode*>& _RSerPoolNodesMap)
-   : m_ListenPort(_ListenPort),
-     m_RSerPoolNodesMap(_RSerPoolNodesMap),
+CNetworkListener::CNetworkListener(int                    listenPort,
+                                   QMap<QString, CNode*>& nodesMap)
+   : m_ListenPort(listenPort),
+     m_NodesMap(nodesMap),
      m_SocketDevice(0)
 {
    m_SocketDevice = new QSocketDevice(QSocketDevice::Datagram);
    m_SocketDevice->setAddressReusable(TRUE);
    if(m_SocketDevice->bind(QHostAddress(), m_ListenPort) == false) {
-      QMessageBox::critical( 0, "Error!", "Error binding Address!");
+      QMessageBox::critical(0, "Error!", "Error binding socket!");
    }
    m_SocketDevice->setBlocking(false);
    m_SocketDevice->setReceiveBufferSize (49152);
@@ -80,9 +80,9 @@ void CNetworkListener::update()
          char nameBuffer[32];
          snprintf(nameBuffer, sizeof(nameBuffer), "%Lx", cspReport->Header.SenderID);
          QString name(nameBuffer);
-         QMap<QString, CRSerPoolNode*>::iterator nodeIterator;
-         if((nodeIterator = m_RSerPoolNodesMap.find(name)) != m_RSerPoolNodesMap.end()) {
-            CRSerPoolNode* pNode = nodeIterator.data();
+         QMap<QString, CNode*>::iterator nodeIterator;
+         if((nodeIterator = m_NodesMap.find(name)) != m_NodesMap.end()) {
+            CNode* pNode = nodeIterator.data();
             pNode->setUpdated();
             pNode->setReportInterval(cspReport->ReportInterval);
 
@@ -104,8 +104,8 @@ void CNetworkListener::update()
 
                snprintf(nameBuffer, sizeof(nameBuffer), "%Lx", cspReport->AssociationArray[i].ReceiverID);
                QString peerName(nameBuffer);
-               QMap<QString, CRSerPoolNode*>::iterator nodeIterator;
-               if((nodeIterator = m_RSerPoolNodesMap.find(peerName)) != m_RSerPoolNodesMap.end()) {
+               QMap<QString, CNode*>::iterator nodeIterator;
+               if((nodeIterator = m_NodesMap.find(peerName)) != m_NodesMap.end()) {
                   pNode->getConnectedUIDsDurationMap()[peerName] = cspReport->AssociationArray[i].Duration;
                   pNode->getConnectedUIDsMap()[peerName]         = cspReport->AssociationArray[i].PPID;
                }

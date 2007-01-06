@@ -34,20 +34,26 @@ class CContextMenuConfig : public QObject
 {
    Q_OBJECT
    public:
-   CContextMenuConfig(QString _Name, QString _CommandLine);
-   virtual ~CContextMenuConfig() {}
+   CContextMenuConfig(const QString& nodeName,
+                      const QString& itemName,
+                      const QString& commandLine);
+   virtual ~CContextMenuConfig();
 
-   inline const QString& getName() {return m_Name;}
+   inline const QString& getName() const {
+      return m_ItemName;
+   }
 
    public slots:
    virtual void execute();
 
    private slots:
    virtual void processFinished();
-
+   virtual void readStdout();
+   virtual void readStderr();
 
    private:
-   QString          m_Name;
+   QString          m_NodeName;
+   QString          m_ItemName;
    QString          m_CommandLine;
    static QProcess* m_pProcess;
 };

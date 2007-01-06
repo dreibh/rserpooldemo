@@ -29,7 +29,7 @@ $Id: config.xml 1034 2006-03-17 11:41:05Z dreibh $
    <ListenPort>2960</ListenPort>
    <DiagramResolutionX>1200</DiagramResolutionX>
    <DiagramResolutionY>800</DiagramResolutionY>
-   <BackgroundImage>pictures/background.png</BackgroundImage>
+   <BackgroundImage>pictures/Europe.jpeg</BackgroundImage>
    <ProtocolColor ID="11">blue</ProtocolColor>
    <ProtocolColor ID="12">red</ProtocolColor>
 
@@ -44,19 +44,25 @@ $Id: config.xml 1034 2006-03-17 11:41:05Z dreibh $
       <PositionY>20</PositionY>
       <ContextMenuEntry>
          <Name>Start Registrar</Name>
-         <Command>./scripts/demo-pr start ../../rsplib2/rsplib 127.0.0.1:2960 65536</Command>
+         <Command>./ComponentControl ./RSerPoolDemo-PR.config 1 start -identifier=0x10000</Command>
       </ContextMenuEntry>
+      <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop Registrar (SIGINT)</Name>
-         <Command>./scripts/demo-pr stop ../../rsplib2/rsplib 127.0.0.1:2960 65536 -s INT</Command>
+         <Command>./ComponentControl ./RSerPoolDemo-PR.config 1 stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Registrar (SIGKILL)</Name>
-         <Command>./scripts/demo-pr stop ../../rsplib2/rsplib 127.0.0.1:2960 65536 -s KILL</Command>
+         <Command>./ComponentControl ./RSerPoolDemo-PR.config 1 kill</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Show Logfile</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PR.config 1 log -T "Logfile of Registrar 2"</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
-         <Name>Show logfile</Name>
-         <Command>./scripts/demo-pr logfile ../../rsplib2/rsplib 127.0.0.1:2960 65536</Command>
+         <Name>Monitor Logfile</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PR.config 1 monitor -T "Logfile of Registrar 2"</Command>
       </ContextMenuEntry>
    </RSPNode>
 
@@ -71,19 +77,25 @@ $Id: config.xml 1034 2006-03-17 11:41:05Z dreibh $
       <PositionY>60</PositionY>
       <ContextMenuEntry>
          <Name>Start Registrar</Name>
-         <Command>./scripts/demo-pr start ../../rsplib2/rsplib 127.0.0.1:2960 65537</Command>
+         <Command>./ComponentControl ./RSerPoolDemo-PR.config 2 start -identifier=0x10001</Command>
       </ContextMenuEntry>
+      <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop Registrar (SIGINT)</Name>
-         <Command>./scripts/demo-pr stop ../../rsplib2/rsplib 127.0.0.1:2960 65537 -s INT</Command>
+         <Command>./ComponentControl ./RSerPoolDemo-PR.config 2 stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Registrar (SIGKILL)</Name>
-         <Command>./scripts/demo-pr stop ../../rsplib2/rsplib 127.0.0.1:2960 65537 -s KILL</Command>
+         <Command>./ComponentControl ./RSerPoolDemo-PR.config 2 kill</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>View Logfile</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PR.config 2 log -T "Logfile of Registrar 2"</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
-         <Name>Show logfile</Name>
-         <Command>./scripts/demo-pr logfile ../../rsplib2/rsplib 127.0.0.1:2960 65537</Command>
+         <Name>Monitor Logfile</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PR.config 2 monitor -T "Logfile of Registrar 2"</Command>
       </ContextMenuEntry>
    </RSPNode>
 
@@ -97,26 +109,40 @@ $Id: config.xml 1034 2006-03-17 11:41:05Z dreibh $
       <PositionX>30</PositionX>
       <PositionY>75</PositionY>
       <ContextMenuEntry>
-         <Name>Start Pool Element reliable</Name>
-         <Command>./scripts/demo-pe start ../../rsplib2/rsplib 127.0.0.1:2960 256 0 -policy=LeastUsed</Command>
+         <Name>Start Pool Element (Reliable Mode)</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PE.config 1 start -identifier=0x100</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
-         <Name>Start Pool Element unreliable</Name>
-         <Command>./scripts/demo-pe start ../../rsplib2/rsplib 127.0.0.1:2960 256 20 -policy=LeastUsed</Command>
+         <Name>Start Pool Element (Unreliable Mode)</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PE.config 1 start -identifier=0x100 -fgpfailureafter=13</Command>
       </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Restart Pool Element (Reliable Mode)</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PE.config 1 restart -identifier=0x100</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Restart Pool Element (Unreliable Mode)</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PE.config 1 restart -identifier=0x100 -fgpfailureafter=13</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop Pool Element (SIGINT)</Name>
-         <Command>./scripts/demo-pe stop ../../rsplib2/rsplib 127.0.0.1:2960 256 20 -s INT</Command>
+         <Command>./ComponentControl ./RSerPoolDemo-PE.config 1 stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Pool Element (SIGKILL)</Name>
-         <Command>./scripts/demo-pe stop ../../rsplib2/rsplib 127.0.0.1:2960 256 20 -s KILL</Command>
+         <Command>./ComponentControl ./RSerPoolDemo-PE.config 1 kill</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>View Logfile</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PE.config 1 log -T "Logfile of Pool Element 3"</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
-         <Name>Show logfile</Name>
-         <Command>./scripts/demo-pe logfile ../../rsplib2/rsplib 127.0.0.1:2960 256 20</Command>
+         <Name>Monitor Logfile</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PE.config 1 monitor -T "Logfile of Pool Element 1"</Command>
       </ContextMenuEntry>
-
    </RSPNode>
 
 
@@ -129,24 +155,39 @@ $Id: config.xml 1034 2006-03-17 11:41:05Z dreibh $
       <PositionX>55</PositionX>
       <PositionY>75</PositionY>
       <ContextMenuEntry>
-         <Name>Start Pool Element reliable</Name>
-         <Command>./scripts/demo-pe start ../../rsplib2/rsplib 127.0.0.1:2960 257 0 -policy=LeastUsed</Command>
+         <Name>Start Pool Element (Reliable Mode)</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PE.config 2 start -identifier=0x101</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
-         <Name>Start Pool Element unreliable</Name>
-         <Command>./scripts/demo-pe start ../../rsplib2/rsplib 127.0.0.1:2960 257 10 -policy=LeastUsed</Command>
+         <Name>Start Pool Element (Unreliable Mode)</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PE.config 2 start -identifier=0x101 -fgpfailureafter=13</Command>
       </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Restart Pool Element (Reliable Mode)</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PE.config 2 restart -identifier=0x101</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Restart Pool Element (Unreliable Mode)</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PE.config 2 restart -identifier=0x101 -fgpfailureafter=13</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop Pool Element (SIGINT)</Name>
-         <Command>./scripts/demo-pe stop ../../rsplib2/rsplib 127.0.0.1:2960 257 20 -s INT</Command>
+         <Command>./ComponentControl ./RSerPoolDemo-PE.config 2 stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Pool Element (SIGKILL)</Name>
-         <Command>./scripts/demo-pe stop ../../rsplib2/rsplib 127.0.0.1:2960 257 20 -s KILL</Command>
+         <Command>./ComponentControl ./RSerPoolDemo-PE.config 2 kill</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>View Logfile</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PE.config 2 log -T "Logfile of Pool Element 2"</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
-         <Name>Show logfile</Name>
-         <Command>./scripts/demo-pe logfile ../../rsplib2/rsplib 127.0.0.1:2960 257 20</Command>
+         <Name>Monitor Logfile</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PE.config 2 monitor -T "Logfile of Pool Element 2"</Command>
       </ContextMenuEntry>
    </RSPNode>
 
@@ -159,48 +200,40 @@ $Id: config.xml 1034 2006-03-17 11:41:05Z dreibh $
       <InactiveImageURL>pictures/PoolElementInactive2.png</InactiveImageURL>
       <PositionX>80</PositionX>
       <PositionY>75</PositionY>
-
-      <!--
       <ContextMenuEntry>
-         <Name>Start Pool Element reliable</Name>
-         <Command>./scripts/remotebeta nohup /home/demo/src/rserpooldemo/bin/scripts/demo-pe start /home/demo/src/rsplib2/rsplib alpha:2960 258 0 -policy=LeastUsed</Command>
+         <Name>Start Pool Element (Reliable Mode)</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PE.config 3 start -identifier=0x102</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
-         <Name>Start Pool Element unreliable</Name>
-         <Command>./scripts/remotebeta nohup /home/demo/src/rserpooldemo/bin/scripts/demo-pe start /home/demo/src/rsplib2/rsplib alpha:2960 258 20 -policy=LeastUsed</Command>
+         <Name>Start Pool Element (Unreliable Mode)</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PE.config 3 start -identifier=0x102 -fgpfailureafter=13</Command>
       </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Restart Pool Element (Reliable Mode)</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PE.config 3 restart -identifier=0x102</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Restart Pool Element (Unreliable Mode)</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PE.config 3 restart -identifier=0x102 -fgpfailureafter=13</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop Pool Element (SIGINT)</Name>
-         <Command>./scripts/remotebeta nohup /home/demo/src/rserpooldemo/bin/scripts/demo-pe stop /home/demo/src/rsplib2/rsplib alpha:2960 258 0 -s INT</Command>
+         <Command>./ComponentControl ./RSerPoolDemo-PE.config 3 stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Pool Element (SIGKILL)</Name>
-         <Command>./scripts/remotebeta nohup /home/demo/src/rserpooldemo/bin/scripts/demo-pe stop /home/demo/src/rsplib2/rsplib alpha:2960 258 0 -s KILL</Command>
+         <Command>./ComponentControl ./RSerPoolDemo-PE.config 3 kill</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>View Logfile</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PE.config 3 log -T "Logfile of Pool Element 3"</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
-         <Name>Show logfile</Name>
-         <Command>./scripts/remotebeta nohup /home/demo/src/rserpooldemo/bin/scripts/demo-pe logfile /home/demo/src/rsplib2/rsplib alpha:2960 258 0</Command>
-      </ContextMenuEntry>
-      -->
-      <ContextMenuEntry>
-         <Name>Start Pool Element reliable</Name>
-         <Command>./scripts/demo-pe start ../../rsplib2/rsplib 127.0.0.1:2960 258 0 -policy=LeastUsed</Command>
-      </ContextMenuEntry>
-      <ContextMenuEntry>
-         <Name>Start Pool Element unreliable</Name>
-         <Command>./scripts/demo-pe start ../../rsplib2/rsplib 127.0.0.1:2960 258 10 -policy=LeastUsed</Command>
-      </ContextMenuEntry>
-      <ContextMenuEntry>
-         <Name>Stop Pool Element (SIGINT)</Name>
-         <Command>./scripts/demo-pe stop ../../rsplib2/rsplib 127.0.0.1:2960 258 20 -s INT</Command>
-      </ContextMenuEntry>
-      <ContextMenuEntry>
-         <Name>Kill Pool Element (SIGKILL)</Name>
-         <Command>./scripts/demo-pe stop ../../rsplib2/rsplib 127.0.0.1:2960 258 20 -s KILL</Command>
-      </ContextMenuEntry>
-      <ContextMenuEntry>
-         <Name>Show logfile</Name>
-         <Command>./scripts/demo-pe logfile ../../rsplib2/rsplib 127.0.0.1:2960 258 20</Command>
+         <Name>Monitor Logfile</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PE.config 3 monitor -T "Logfile of Pool Element 3"</Command>
       </ContextMenuEntry>
    </RSPNode>
 
@@ -215,15 +248,20 @@ $Id: config.xml 1034 2006-03-17 11:41:05Z dreibh $
       <PositionY>5</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool User</Name>
-         <Command>./scripts/demo-pu start ../../rsplib2/rsplib 127.0.0.1:2960 1</Command>
+         <Command>./ComponentControl ./RSerPoolDemo-PU.config 1 start -identifier=0x1</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
-         <Name>Kill Pool User (SIGKILL)</Name>
-         <Command>./scripts/demo-pu stop ../../rsplib2/rsplib 127.0.0.1:2960 1 -s KILL</Command>
+         <Name>Stop Pool User</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PU.config 1 kill</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>View Logfile</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PU.config 1 log -T "Logfile of Pool User 1"</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
-         <Name>Show logfile</Name>
-         <Command>./scripts/demo-pu logfile ../../rsplib2/rsplib 127.0.0.1:2960 1</Command>
+         <Name>Monitor Logfile</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PU.config 1 monitor -T "Logfile of Pool User 1"</Command>
       </ContextMenuEntry>
    </RSPNode>
 
@@ -238,15 +276,20 @@ $Id: config.xml 1034 2006-03-17 11:41:05Z dreibh $
       <PositionY>5</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool User</Name>
-         <Command>./scripts/demo-pu start ../../rsplib2/rsplib 127.0.0.1:2960 2</Command>
+         <Command>./ComponentControl ./RSerPoolDemo-PU.config 2 start -identifier=0x2</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
-         <Name>Kill Pool User (SIGKILL)</Name>
-         <Command>./scripts/demo-pu stop ../../rsplib2/rsplib 127.0.0.1:2960 2 -s KILL</Command>
+         <Name>Stop Pool User</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PU.config 2 kill</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>View Logfile</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PU.config 2 log -T "Logfile of Pool User 2"</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
-         <Name>Show logfile</Name>
-         <Command>./scripts/demo-pu logfile ../../rsplib2/rsplib 127.0.0.1:2960 2</Command>
+         <Name>Monitor Logfile</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PU.config 2 monitor -T "Logfile of Pool User 2"</Command>
       </ContextMenuEntry>
    </RSPNode>
 
@@ -259,17 +302,17 @@ $Id: config.xml 1034 2006-03-17 11:41:05Z dreibh $
       <InactiveImageURL>pictures/Controller.png</InactiveImageURL>
       <PositionX>0</PositionX>
       <PositionY>0</PositionY>
-      <!-- <ContextMenuEntry>
+      <ContextMenuEntry>
          <Name>Start All</Name>
-         <Command>./scripts/startall</Command>
-      </ContextMenuEntry> -->
+         <Command>./startall</Command>
+      </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Stop All SIGINT</Name>
-         <Command>./scripts/stopall INT</Command>
+         <Command>./stopall INT</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Stop All SIGKILL</Name>
-         <Command>./scripts/stopall KILL</Command>
+         <Command>./stopall KILL</Command>
       </ContextMenuEntry>
    </RSPNode>
 </RSerPoolDemoConfigurationRoot>

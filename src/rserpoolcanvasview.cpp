@@ -21,10 +21,11 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include <qmessagebox.h>
+#include <qimage.h>
+
 #include "rserpoolcanvasview.h"
 #include "canvasrsernode.h"
-#include "qmessagebox.h"
-#include <qimage.h>
 #include "mainwidget.h"
 
 
@@ -39,14 +40,14 @@ CSerPoolCanvasView::~CSerPoolCanvasView()
 }
 
 
-void CSerPoolCanvasView::contentsContextMenuEvent(QContextMenuEvent* pEvent)
+void CSerPoolCanvasView::contentsContextMenuEvent(QContextMenuEvent* event)
 {
-   QCanvasItemList  list  = canvas()->collisions(pEvent->pos());
-   CCanvasRSerNode* pNode = 0;
+   QCanvasItemList list  = canvas()->collisions(event->pos());
+   CCanvasNode*    node = 0;
    for(QCanvasItemList::iterator it = list.begin();it != list.end();++it) {
-      pNode = dynamic_cast<CCanvasRSerNode *>(*it) ;
-      if(pNode) {
-         pNode->m_ContextMenu->exec(pEvent->globalPos());
+      node = dynamic_cast<CCanvasNode *>(*it) ;
+      if(node) {
+         node->m_ContextMenu->exec(event->globalPos());
          return;
       }
    }

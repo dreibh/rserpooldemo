@@ -34,8 +34,7 @@ int main(int argc, char** argv)
       QString configFileTag = "-config=";
       for(int i = 1;i < argc;i++) {
          QString command = argv[i];
-         if(command.find(configFileTag) == 0)
-         {
+         if(command.find(configFileTag) == 0) {
             configFile = command.mid(configFileTag.length());
          }
       }

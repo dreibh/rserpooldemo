@@ -35,13 +35,13 @@
 #include "componentstatuspackets.h"
 
 
-class CRSerPoolNode;
+class CNode;
 
 class CNetworkListener
 {
    public:
-   CNetworkListener(int                            _ListenPort,
-                    QMap<QString, CRSerPoolNode*>& _RSerPoolNodesMap);
+   CNetworkListener(int                    listenPort,
+                    QMap<QString, CNode*>& nodesMap);
    ~CNetworkListener();
 
 
@@ -84,9 +84,9 @@ class CNetworkListener
 #endif
    }
 
-   int                            m_ListenPort;
-   QMap<QString, CRSerPoolNode*>& m_RSerPoolNodesMap;
-   QSocketDevice*                 m_SocketDevice;
+   int                    m_ListenPort;
+   QMap<QString, CNode*>& m_NodesMap;
+   QSocketDevice*         m_SocketDevice;
 };
 
 #endif

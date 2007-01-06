@@ -41,19 +41,19 @@ class CMainWidget : public QMainWindow
 {
    Q_OBJECT
    public:
-   CMainWidget(QString _ConfigFile = "config.xml");
+   CMainWidget(const QString& configFile = "config.xml");
    virtual ~CMainWidget();
 
    CConfiguration m_Configuration;
    QImage m_BackgroundImage;
 
    protected:
-   void resizeEvent(QResizeEvent* _pEvent);
+   void resizeEvent(QResizeEvent* event);
 
    private:
    void createCanvasObjects();
 
-   CRSerPoolCanvas*    m_Canvas;
+   CCanvas*            m_Canvas;
    CSerPoolCanvasView* m_CanvasView;
 };
 

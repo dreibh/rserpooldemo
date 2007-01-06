@@ -38,10 +38,11 @@ class ELoadFileException
 class EXMLSyntaxException
 {
    public:
-   EXMLSyntaxException(QString _Message, int _Line) : m_Message(_Message), m_Line(_Line) {}
+   EXMLSyntaxException(QString message, int line)
+      : m_Message(message), m_Line(line) {}
 
    QString m_Message;
-   int    m_Line;
+   int     m_Line;
 };
 
 
@@ -50,7 +51,7 @@ class CNetworkListener;
 class CConfiguration
 {
    public:
-   CConfiguration(QString _ConfigFile);
+   CConfiguration(const QString& configFile);
    ~CConfiguration();
 
    inline int getDisplaySizeX() {
@@ -68,36 +69,37 @@ class CConfiguration
    inline const QString getBackgroundImageName() {
       return m_BackgroundImageName;
    }
-   inline QPtrList<CRSerPoolNode>& getRSerPoolNodes() {
-      return m_RSerPoolNodes;
+   inline QPtrList<CNode>& getNodes() {
+      return m_Nodes;
    }
-   inline QMap<QString, CRSerPoolNode*>& getRSerPoolNodesMap() {
-      return m_RSerPoolNodesMap;
+   inline QMap<QString, CNode*>& getNodesMap() {
+      return m_NodesMap;
    }
    inline QMap<int, QString>& getColorMap() {
       return m_ColorMap;
    }
 
-   inline void updateDisplaySize(int _X, int _Y)
+   inline void updateDisplaySize(int x, int y)
    {
-      m_DisplaySizeX = _X;
-      m_DisplaySizeY = _Y;
+      m_DisplaySizeX = x;
+      m_DisplaySizeY = y;
    }
    void updateNodeData();
 
    private:
-   CRSerPoolNode* createRSPNode(QDomElement _RSPElement);
-   CContextMenuConfig* createContextMenuEntry(QDomElement _RSPElement);
+   CNode* createNode(QDomElement element);
+   CContextMenuConfig* createContextMenuEntry(const QString&     displayName,
+                                              const QDomElement& element);
 
-   int                           m_DisplaySizeX;
-   int                           m_DisplaySizeY;
-   int                           m_RefreshTime;
-   int                           m_ListenPort;
-   QString                       m_BackgroundImageName;
-   QPtrList<CRSerPoolNode>       m_RSerPoolNodes;
-   QMap<QString, CRSerPoolNode*> m_RSerPoolNodesMap;
-   QMap<int, QString>            m_ColorMap;
-   CNetworkListener*             m_NetworkListener;
+   int                   m_DisplaySizeX;
+   int                   m_DisplaySizeY;
+   int                   m_RefreshTime;
+   int                   m_ListenPort;
+   QString               m_BackgroundImageName;
+   QPtrList<CNode>       m_Nodes;
+   QMap<QString, CNode*> m_NodesMap;
+   QMap<int, QString>    m_ColorMap;
+   CNetworkListener*     m_NetworkListener;
 };
 
 #endif

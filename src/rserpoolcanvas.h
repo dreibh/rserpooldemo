@@ -21,31 +21,31 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef RSERPOOLCANVAS_H
-#define RSERPOOLCANVAS_H
+#ifndef CANVAS_H
+#define CANVAS_H
 
 #include <qcanvas.h>
 #include <qmap.h>
 #include <qstring.h>
 
 
-class CCanvasRSerNode;
+class CCanvasNode;
 
 
-class CRSerPoolCanvas : public QCanvas
+class CCanvas : public QCanvas
 {
    public:
-   CRSerPoolCanvas(QObject *_pParent);
+   CCanvas(QObject *_pParent);
 
-   inline QMap<QString, CCanvasRSerNode*>& getCanvasRSerPoolNodesMap() {
-      return m_CanvasRSerPoolNodesMap;
+   inline QMap<QString, CCanvasNode*>& getCanvasNodesMap() {
+      return m_CanvasNodesMap;
    }
 
    public slots:
    virtual void advance();
 
    private:
-   QMap<QString, CCanvasRSerNode*> m_CanvasRSerPoolNodesMap;
+   QMap<QString, CCanvasNode*> m_CanvasNodesMap;
 };
 
 

@@ -21,25 +21,26 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef RSERNODE_H
-#define RSERNODE_H
+#ifndef NODE_H
+#define NODE_H
 
 #include <netinet/in.h>
 #include <qstring.h>
 #include <qptrlist.h>
+
 #include "contextmenuconfig.h"
 
 
-class CRSerPoolNode
+class CNode
 {
    public:
-   CRSerPoolNode(QString _UniqueID,
-                 QString _DisplayName,
-                 QString _ImageActive,
-                 QString _ImageInactive,
-                 int _PositionX,
-                 int _PositionY,
-                 int _TimeoutMultiplier);
+   CNode(QString uniqueID,
+         QString displayName,
+         QString imageActive,
+         QString imageInactive,
+         int     positionX,
+         int     positionY,
+         int     timeoutMultiplier);
 
    enum NodeStatus
    {

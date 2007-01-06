@@ -26,6 +26,7 @@
 #include <qdom.h>
 #include <qfile.h>
 #include <qmessagebox.h>
+
 #include "networklistener.h"
 
 
@@ -35,13 +36,14 @@ const char g_RefreshTimeTag[]          = "RefreshTime";
 const char g_ProtocolColorTag[]        = "ProtocolColor";
 const char g_ProtocolColorIDTag[]      = "ID";
 const char g_ListenPortTag[]           = "ListenPort";
-const char g_RSPNodeTag[]              = "RSPNode";
+const char g_NodeTag[]                 = "RSPNode";
 const char g_UIDTag[]                  = "UID";
 const char g_displayNameTag[]          = "DisplayName";
 const char g_refreshTimeoutTag[]       = "RefreshTimeout";
 const char g_ActiveImageURLTag[]       = "ActiveImageURL";
 const char g_InactiveImageURLTag[]     = "InactiveImageURL";
 const char g_ContextMenuEntryTag[]     = "ContextMenuEntry";
+const char g_ContextMenuSeparatorTag[] = "ContextMenuSeparator";
 const char g_NameTag[]                 = "Name";
 const char g_CMDTag[]                  = "Command";
 const char g_NodePositionXTag[]        = "PositionX";
@@ -49,14 +51,14 @@ const char g_NodePositionYTag[]        = "PositionY";
 const char g_BackgroundImageTag[]      = "BackgroundImage";
 
 
-CConfiguration::CConfiguration(QString _ConfigFile)
+CConfiguration::CConfiguration(const QString& configFile)
    : m_DisplaySizeX(0),
      m_DisplaySizeY(0)
 {
-   m_RSerPoolNodes.setAutoDelete(true);
+   m_Nodes.setAutoDelete(true);
 
-   QDomDocument doc("mydocument");
-   QFile file(_ConfigFile);
+   QDomDocument doc("ScenarioSetup");
+   QFile file(configFile);
    if(!file.open(IO_ReadOnly)) {
       throw ELoadFileException();
    }
@@ -93,19 +95,20 @@ CConfiguration::CConfiguration(QString _ConfigFile)
          else if(currentNode.toElement().tagName() == QString(g_BackgroundImageTag)) {
             m_BackgroundImageName = currentNode.toElement().text();
          }
-         else if(currentNode.toElement().tagName() == QString(g_RSPNodeTag)) {
-            CRSerPoolNode* pNewNode = createRSPNode(currentNode.toElement());
-            m_RSerPoolNodes.append(pNewNode);
-            m_RSerPoolNodesMap[pNewNode->getUniqueID()] = pNewNode;
+         else if(currentNode.toElement().tagName() == QString(g_NodeTag)) {
+            CNode* node = createNode(currentNode.toElement());
+            m_Nodes.append(node);
+            m_NodesMap[node->getUniqueID()] = node;
          }
          else {
-            QMessageBox::critical( 0, "Error!", "Found unknown tag in config file: " + currentNode.toElement().tagName());
+            QMessageBox::critical(0, "Error!", "Found unknown tag in config file: " +
+                                  currentNode.toElement().tagName());
          }
       }
       currentNode = currentNode.nextSibling();
    }
 
-   m_NetworkListener = new CNetworkListener(m_ListenPort, m_RSerPoolNodesMap);
+   m_NetworkListener = new CNetworkListener(m_ListenPort, m_NodesMap);
 }
 
 
@@ -114,7 +117,7 @@ CConfiguration::~CConfiguration()
 }
 
 
-CRSerPoolNode *CConfiguration::createRSPNode(QDomElement _RSPElement)
+CNode* CConfiguration::createNode(QDomElement element)
 {
    QPtrList<CContextMenuConfig> contextNodes;
    QString                      uniqueID;
@@ -125,67 +128,64 @@ CRSerPoolNode *CConfiguration::createRSPNode(QDomElement _RSPElement)
    int                          positionX      = 0;
    int                          positionY      = 0;
 
-   QDomNode currentNode = _RSPElement.firstChild();
+   QDomNode currentNode = element.firstChild();
    while(!currentNode.isNull()) {
       if(QDomNode::ElementNode == currentNode.nodeType()) {
          if(currentNode.toElement().tagName() == QString(g_UIDTag)) {
             uniqueID = currentNode.toElement().text();
          }
-         else if(currentNode.toElement().tagName() == QString(g_displayNameTag))
-         {
+         else if(currentNode.toElement().tagName() == QString(g_displayNameTag)) {
             displayName = currentNode.toElement().text();
          }
-         else if(currentNode.toElement().tagName() == QString(g_refreshTimeoutTag))
-         {
+         else if(currentNode.toElement().tagName() == QString(g_refreshTimeoutTag)) {
             refreshTimeout = currentNode.toElement().text().toInt();
          }
-         else if(currentNode.toElement().tagName() == QString(g_ActiveImageURLTag))
-         {
+         else if(currentNode.toElement().tagName() == QString(g_ActiveImageURLTag)) {
             imageActive = currentNode.toElement().text();
          }
-         else if(currentNode.toElement().tagName() == QString(g_InactiveImageURLTag))
-         {
+         else if(currentNode.toElement().tagName() == QString(g_InactiveImageURLTag)) {
             imageInactive = currentNode.toElement().text();
          }
-         else if(currentNode.toElement().tagName() == QString(g_NodePositionXTag))
-         {
+         else if(currentNode.toElement().tagName() == QString(g_NodePositionXTag)) {
             positionX = currentNode.toElement().text().toInt();
-            if((positionX < 0) || (positionX > 100))
-            {
-               QMessageBox::critical( 0, "Error!", "Wrong SizeX: " + positionX);
+            if((positionX < 0) || (positionX > 100)) {
+               QMessageBox::critical(0, "Error!", "Wrong SizeX: " + positionX);
             }
          }
-         else if(currentNode.toElement().tagName() == QString(g_NodePositionYTag))
-         {
+         else if(currentNode.toElement().tagName() == QString(g_NodePositionYTag)) {
             positionY = currentNode.toElement().text().toInt();
-            if((positionY < 0) || (positionY > 100))
-            {
-               QMessageBox::critical( 0, "Error!", "Wrong SizeY: " + positionY);
+            if((positionY < 0) || (positionY > 100)) {
+               QMessageBox::critical(0, "Error!", "Wrong SizeY: " + positionY);
             }
          }
-         else if(currentNode.toElement().tagName() == QString(g_ContextMenuEntryTag))
-         {
-            contextNodes.append(createContextMenuEntry(currentNode.toElement()));
+         else if(currentNode.toElement().tagName() == QString(g_ContextMenuEntryTag)) {
+            contextNodes.append(createContextMenuEntry(displayName, currentNode.toElement()));
          }
-         else
-         {
-            QMessageBox::critical( 0, "Error!", "Found unknown tag in config file: " + currentNode.toElement().tagName());
+         else if(currentNode.toElement().tagName() == QString(g_ContextMenuSeparatorTag)) {
+            contextNodes.append(new CContextMenuConfig("", "", ""));
+         }
+         else {
+            QMessageBox::critical(0, "Error!", "Found unknown tag in config file: " +
+                                  currentNode.toElement().tagName());
          }
       }
 
       currentNode = currentNode.nextSibling();
    }
-   CRSerPoolNode *pNewRSerNode = new CRSerPoolNode(uniqueID,displayName,imageActive,imageInactive,positionX, positionY, refreshTimeout);
-   pNewRSerNode->getContextMenuConfig() = contextNodes;
-   return pNewRSerNode;
+   CNode* node = new CNode(uniqueID, displayName,
+                           imageActive, imageInactive,
+                           positionX, positionY, refreshTimeout);
+   node->getContextMenuConfig() = contextNodes;
+   return node;
 }
 
 
-CContextMenuConfig *CConfiguration::createContextMenuEntry(QDomElement _RSPElement)
+CContextMenuConfig* CConfiguration::createContextMenuEntry(const QString&     nodeName,
+                                                           const QDomElement& element)
 {
-   QString  nodeName;
+   QString  itemName;
    QString  commandLine;
-   QDomNode currentNode = _RSPElement.firstChild();
+   QDomNode currentNode = element.firstChild();
 
    while(!currentNode.isNull()) {
       if(QDomNode::ElementNode == currentNode.nodeType()) {
@@ -193,22 +193,22 @@ CContextMenuConfig *CConfiguration::createContextMenuEntry(QDomElement _RSPEleme
             commandLine = currentNode.toElement().text();
          }
          else if(currentNode.toElement().tagName() == QString(g_NameTag)) {
-            nodeName = currentNode.toElement().text();
+            itemName = currentNode.toElement().text();
          }
          else {
-            QMessageBox::critical( 0, "Error!", "Found unknown tag in config file: " + currentNode.toElement().tagName());
+            QMessageBox::critical(0, "Error!", "Found unknown tag in config file: " +
+                                  currentNode.toElement().tagName());
          }
       }
       currentNode = currentNode.nextSibling();
    }
 
-   CContextMenuConfig* pNewNode = new CContextMenuConfig(nodeName, commandLine);
-   return pNewNode;
+   CContextMenuConfig* node = new CContextMenuConfig(nodeName, itemName, commandLine);
+   return node;
 }
 
 
 void CConfiguration::updateNodeData()
 {
    m_NetworkListener->update();
-
 }

@@ -34,7 +34,7 @@ class CSerPoolCanvasView : public QCanvasView
    virtual ~CSerPoolCanvasView();
 
    protected:
-   void contentsContextMenuEvent(QContextMenuEvent* pEvent);
+   void contentsContextMenuEvent(QContextMenuEvent* event);
 };
 
 #endif

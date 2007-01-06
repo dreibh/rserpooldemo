@@ -24,14 +24,23 @@
 #include "contextmenuconfig.h"
 #include <qmessagebox.h>
 #include <qprocess.h>
+#include <iostream>
 
 
-QProcess *CContextMenuConfig::m_pProcess = NULL;
+QProcess* CContextMenuConfig::m_pProcess = NULL;
 
 
-CContextMenuConfig::CContextMenuConfig(QString _Name, QString _CommandLine)
-   : m_Name(_Name),
-     m_CommandLine(_CommandLine)
+CContextMenuConfig::CContextMenuConfig(const QString& nodeName,
+                                       const QString& itemName,
+                                       const QString& commandLine)
+   : m_NodeName(nodeName),
+     m_ItemName(itemName),
+     m_CommandLine(commandLine)
+{
+}
+
+
+CContextMenuConfig::~CContextMenuConfig()
 {
 }
 
@@ -39,25 +48,53 @@ CContextMenuConfig::CContextMenuConfig(QString _Name, QString _CommandLine)
 void CContextMenuConfig::execute()
 {
    if(m_pProcess) {
-      QMessageBox::critical( 0, "Error!",
-         "Former process has not been ended: " + m_CommandLine + "\nstderr:" + m_pProcess->readLineStderr() + "\nstdout:" + m_pProcess->readLineStdout());
+      QMessageBox::critical(0, "Error!",
+         "Another command is still running:\n" +
+         m_CommandLine +
+         "\nSee console output for error messages!");
       return;
    }
 
-   QStringList commandList = QStringList::split(" ", QString("nice " + m_CommandLine));
+   const QStringList commandList =
+      QStringList::split(" ", QString("nice " + m_CommandLine));
+
+   std::cout << "Command> " << m_CommandLine << std::endl;
 
    m_pProcess = new QProcess(commandList);
    connect(m_pProcess, SIGNAL(processExited()), this, SLOT(processFinished()));
+   connect(m_pProcess, SIGNAL(readyReadStdout()), this, SLOT(readStdout()));
+   connect(m_pProcess, SIGNAL(readyReadStderr()), this, SLOT(readStderr()));
    if(!m_pProcess->start()) {
-      QMessageBox::critical( 0, "Error!",
-         "Failed to start program: " + m_CommandLine + "\nstderr:" + m_pProcess->readLineStderr() + "\nstdout:" + m_pProcess->readLineStdout());
+      QMessageBox::critical(0, "Error!",
+         "Failed to run command:\n" +
+         m_CommandLine +
+         "\nSee console output for error messages!");
       delete m_pProcess;
+      m_pProcess = NULL;
    }
+}
+
+
+void CContextMenuConfig::readStdout()
+{
+   std::cout << "stdout " << m_NodeName << "> " << m_pProcess->readLineStdout() << std::endl;
+}
+
+
+void CContextMenuConfig::readStderr()
+{
+   std::cerr << "stderr " << m_NodeName << "> " << m_pProcess->readLineStderr() << std::endl;
 }
 
 
 void CContextMenuConfig::processFinished()
 {
+   if(m_pProcess->exitStatus() != 0) {
+      QMessageBox::critical(0, "Error!",
+         "Command execution failed:\n" +
+         m_CommandLine +
+         "\nSee console output for error messages!");
+   }
    delete m_pProcess;
-   m_pProcess = 0;
+   m_pProcess = NULL;
 }

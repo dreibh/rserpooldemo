@@ -26,12 +26,13 @@
  #include "mainwidget.h"
 
 
- CRSerPoolCanvas::CRSerPoolCanvas(QObject *_pParent) : QCanvas(_pParent)
+ CCanvas::CCanvas(QObject *pParent)
+   : QCanvas(pParent)
  {
  }
 
 
- void CRSerPoolCanvas::advance()
+ void CCanvas::advance()
  {
    static_cast<CMainWidget *>(parent())->m_Configuration.updateNodeData();
    QCanvas::advance();

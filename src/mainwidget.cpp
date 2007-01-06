@@ -20,23 +20,23 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#include <mainwidget.h>
-#include "canvasrsernode.h"
-
 
 #include <qfont.h>
 #include <qcanvas.h>
 #include <qmessagebox.h>
+
+#include <mainwidget.h>
+#include "canvasrsernode.h"
 #include "rserpoolcanvasview.h"
 #include "rserpoolcanvas.h"
 
 
 
-CMainWidget::CMainWidget(QString _ConfigFile)
-   : QMainWindow( 0, 0, WDestructiveClose),
-     m_Configuration(_ConfigFile)
+CMainWidget::CMainWidget(const QString& configFile)
+   : QMainWindow( 0, "Demonstration Tool " + configFile, WDestructiveClose),
+     m_Configuration(configFile)
 {
-   m_Canvas = new CRSerPoolCanvas(this);
+   m_Canvas = new CCanvas(this);
    m_Canvas->resize(m_Configuration.getDisplaySizeX(),
                     m_Configuration.getDisplaySizeY());
    m_BackgroundImage = QPixmap(m_Configuration.getBackgroundImageName());
@@ -48,7 +48,7 @@ CMainWidget::CMainWidget(QString _ConfigFile)
    m_CanvasView = new CSerPoolCanvasView(m_Canvas, this);
    m_CanvasView->setVScrollBarMode(QScrollView::AlwaysOff);
    m_CanvasView->setHScrollBarMode(QScrollView::AlwaysOff);
-   setCentralWidget( m_CanvasView );
+   setCentralWidget(m_CanvasView);
 
    createCanvasObjects();
    m_Canvas->setAdvancePeriod(m_Configuration.getRefreshTime());
@@ -63,26 +63,26 @@ CMainWidget::~CMainWidget()
 
 void CMainWidget::createCanvasObjects()
 {
-   QPtrList<CRSerPoolNode>& rNodeList = m_Configuration.getRSerPoolNodes();
-   for (CRSerPoolNode* pNode = rNodeList.first();pNode;pNode = rNodeList.next()) {
+   QPtrList<CNode>& rNodeList = m_Configuration.getNodes();
+   for (CNode* pNode = rNodeList.first();pNode;pNode = rNodeList.next()) {
       QValueList<QPixmap> pixmapList;
       pixmapList.push_back(pNode->getImageInactive());
       pixmapList.push_back(pNode->getImageActive());
-      CCanvasRSerNode* pSprite = new CCanvasRSerNode(m_Canvas, pNode, pixmapList);
+      CCanvasNode* pSprite = new CCanvasNode(m_Canvas, pNode, pixmapList);
       pSprite->setAnimated(true);
       pSprite->show();
    }
 }
 
 
-void CMainWidget::resizeEvent(QResizeEvent* _pEvent)
+void CMainWidget::resizeEvent(QResizeEvent* event)
 {
-   m_Canvas->resize(_pEvent->size().width(), _pEvent->size().height());
-   m_Canvas->setBackgroundPixmap(m_BackgroundImage.smoothScale(_pEvent->size().width(), _pEvent->size().height()));
-   m_Configuration.updateDisplaySize(_pEvent->size().width(), _pEvent->size().height());
+   m_Canvas->resize(event->size().width(), event->size().height());
+   m_Canvas->setBackgroundPixmap(m_BackgroundImage.smoothScale(event->size().width(), event->size().height()));
+   m_Configuration.updateDisplaySize(event->size().width(), event->size().height());
 
-   QMap<QString, CCanvasRSerNode*>& rNodeMap = m_Canvas->getCanvasRSerPoolNodesMap();
-   for(QMap<QString, CCanvasRSerNode*>::iterator it = rNodeMap.begin();it != rNodeMap.end();++it) {
+   QMap<QString, CCanvasNode*>& rNodeMap = m_Canvas->getCanvasNodesMap();
+   for(QMap<QString, CCanvasNode*>::iterator it = rNodeMap.begin();it != rNodeMap.end();++it) {
       it.data()->updatePostion();
    }
 }
