@@ -55,12 +55,57 @@ void CContextMenuConfig::execute()
       return;
    }
 
-   const QStringList commandList =
-      QStringList::split(" ", QString("nice " + m_CommandLine));
+   QString commandLine = QString("nice " + m_CommandLine);
+   m_pProcess = new QProcess(this);
 
-   std::cout << "Command> " << m_CommandLine << std::endl;
+   bool inBlock = FALSE;
+   while(commandLine != "") {
 
-   m_pProcess = new QProcess(commandList);
+      int pos;
+      pos=commandLine.find("\"");
+      if(!inBlock) {
+         QString part;
+         if(pos >= 0) {
+            inBlock = TRUE;
+            part = commandLine.left(pos).stripWhiteSpace();
+            commandLine = commandLine.mid(pos + 1);
+         }
+         else {
+            part = commandLine.stripWhiteSpace();
+            commandLine = "";
+         }
+
+         int sectionNumber = 0;
+         QString section = part.section(' ', sectionNumber, sectionNumber,
+                                        QString::SectionSkipEmpty);
+         while(!section.isNull()) {
+            m_pProcess->addArgument(section.stripWhiteSpace());
+
+            sectionNumber++;
+            section = part.section(' ', sectionNumber, sectionNumber,
+                                   QString::SectionSkipEmpty);
+         }
+      }
+      else {
+         inBlock = FALSE;
+         const QString section = commandLine.left(pos);
+         m_pProcess->addArgument("\"" + section.stripWhiteSpace() + "\"");
+         commandLine = commandLine.mid(pos + 1);
+         if(pos < 0) {
+            commandLine = "";   // Missing last "
+         }
+      }
+   }
+
+   QStringList commandList = m_pProcess->arguments();
+   QStringList::Iterator iterator = commandList.begin();
+   std::cout << "Command> ";
+   while(iterator != commandList.end()) {
+       std::cout << *iterator << " ";
+       ++iterator;
+   }
+   std::cout << std::endl;
+
    connect(m_pProcess, SIGNAL(processExited()), this, SLOT(processFinished()));
    connect(m_pProcess, SIGNAL(readyReadStdout()), this, SLOT(readStdout()));
    connect(m_pProcess, SIGNAL(readyReadStderr()), this, SLOT(readStderr()));

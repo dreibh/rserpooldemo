@@ -23,6 +23,7 @@
 
 #include <qapplication.h>
 #include <qstring.h>
+#include <iostream>
 
 #include "mainwidget.h"
 
@@ -30,16 +31,73 @@
 int main(int argc, char** argv)
 {
    try {
+      const QString configFileTag = "-config=";
       QString configFile;
-      QString configFileTag = "-config=";
+      const QString ttag = "-t=";
+      QString t;
       for(int i = 1;i < argc;i++) {
          QString command = argv[i];
          if(command.find(configFileTag) == 0) {
             configFile = command.mid(configFileTag.length());
          }
+         else if(command.find(ttag) == 0) {
+            t = command.mid(ttag.length());
+         }
       }
-      QApplication application(argc, argv);
 
+//       QProcess m_pProcess;
+//       QString commandLine = configFile;
+//
+//       bool inBlock = FALSE;
+//       while(commandLine != "") {
+//
+//          int pos;
+//          pos=commandLine.find("\"");
+//          if(!inBlock) {
+//             QString part;
+//             if(pos >= 0) {
+//                inBlock = TRUE;
+//                part = commandLine.left(pos).stripWhiteSpace();
+//                commandLine = commandLine.mid(pos + 1);
+//             }
+//             else {
+//                part = commandLine.stripWhiteSpace();
+//                commandLine = "";
+//             }
+//
+//             int sectionNumber = 0;
+//             QString section = part.section(' ', sectionNumber, sectionNumber,
+//                                            QString::SectionSkipEmpty);
+//             while(!section.isNull()) {
+//                m_pProcess.addArgument(section.stripWhiteSpace());
+//
+//                sectionNumber++;
+//                section = part.section(' ', sectionNumber, sectionNumber,
+//                                       QString::SectionSkipEmpty);
+//             }
+//          }
+//          else {
+//             inBlock = FALSE;
+//             const QString section = commandLine.left(pos);
+//             m_pProcess.addArgument(section.stripWhiteSpace());
+//             commandLine = commandLine.mid(pos + 1);
+//             if(pos < 0) {
+//                commandLine = "";   // Missing last "
+//             }
+//          }
+//       }
+//
+//
+//  QStringList list = m_pProcess.arguments();
+//     QStringList::Iterator it = list.begin();
+//     while( it != list.end() ) {
+//         std::cout << ">>>>>> " << *it << "." << std::endl;
+//         ++it;
+//     }
+//     exit(1);
+//
+
+      QApplication application(argc, argv);
       CMainWidget* mainWidget;
       if(configFile.length() > 0) {
          mainWidget = new CMainWidget(configFile);

@@ -33,9 +33,10 @@
 
 
 CMainWidget::CMainWidget(const QString& configFile)
-   : QMainWindow( 0, "Demonstration Tool " + configFile, WDestructiveClose),
+   : QMainWindow(NULL, NULL, WDestructiveClose),
      m_Configuration(configFile)
 {
+   setCaption("Demonstration Tool - " + configFile);
    m_Canvas = new CCanvas(this);
    m_Canvas->resize(m_Configuration.getDisplaySizeX(),
                     m_Configuration.getDisplaySizeY());
