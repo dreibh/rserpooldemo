@@ -54,19 +54,22 @@ class CConfiguration
    CConfiguration(const QString& configFile);
    ~CConfiguration();
 
-   inline int getDisplaySizeX() {
+   inline int getDisplaySizeX() const {
       return m_DisplaySizeX;
    }
-   inline int getDisplaySizeY() {
+   inline int getDisplaySizeY() const {
       return m_DisplaySizeY;
    }
-   inline int getRefreshTime() {
+   inline int getRefreshTime() const {
       return m_RefreshTime;
    }
-   inline int getListenPort() {
+   inline int getListenPort() const {
       return m_ListenPort;
    }
-   inline const QString getBackgroundImageName() {
+   inline const QString getCaption() const {
+      return m_Caption;
+   }
+   inline const QString getBackgroundImageName() const {
       return m_BackgroundImageName;
    }
    inline QPtrList<CNode>& getNodes() {
@@ -78,7 +81,6 @@ class CConfiguration
    inline QMap<int, QString>& getColorMap() {
       return m_ColorMap;
    }
-
    inline void updateDisplaySize(int x, int y)
    {
       m_DisplaySizeX = x;
@@ -95,6 +97,7 @@ class CConfiguration
    int                   m_DisplaySizeY;
    int                   m_RefreshTime;
    int                   m_ListenPort;
+   QString               m_Caption;
    QString               m_BackgroundImageName;
    QPtrList<CNode>       m_Nodes;
    QMap<QString, CNode*> m_NodesMap;

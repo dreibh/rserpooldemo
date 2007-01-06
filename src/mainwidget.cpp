@@ -36,7 +36,7 @@ CMainWidget::CMainWidget(const QString& configFile)
    : QMainWindow(NULL, NULL, WDestructiveClose),
      m_Configuration(configFile)
 {
-   setCaption("Demonstration Tool - " + configFile);
+   setCaption(m_Configuration.getCaption() + " - " + configFile);
    m_Canvas = new CCanvas(this);
    m_Canvas->resize(m_Configuration.getDisplaySizeX(),
                     m_Configuration.getDisplaySizeY());

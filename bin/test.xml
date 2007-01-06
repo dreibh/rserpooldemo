@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <!--
-$Id: config.xml 1034 2006-03-17 11:41:05Z dreibh $
+$Id$
 ***************************************************************************
 *   The RSerPool Demo System                                              *
 *                                                                         *
@@ -29,12 +29,13 @@ $Id: config.xml 1034 2006-03-17 11:41:05Z dreibh $
    <ListenPort>2960</ListenPort>
    <DiagramResolutionX>1200</DiagramResolutionX>
    <DiagramResolutionY>800</DiagramResolutionY>
+   <Caption>Thomas Dreibholz's RSerPool Demonstration Tool</Caption>
    <BackgroundImage>pictures/Europe.jpeg</BackgroundImage>
    <ProtocolColor ID="11">blue</ProtocolColor>
    <ProtocolColor ID="12">red</ProtocolColor>
 
 
-   <RSPNode>
+   <Node>
       <UID>100000000010000</UID>
       <DisplayName>Registrar 1</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
@@ -64,10 +65,10 @@ $Id: config.xml 1034 2006-03-17 11:41:05Z dreibh $
          <Name>Monitor Logfile</Name>
          <Command>./ComponentControl ./RSerPoolDemo-PR.config 1 monitor -T "Logfile of Registrar 2"</Command>
       </ContextMenuEntry>
-   </RSPNode>
+   </Node>
 
 
-   <RSPNode>
+   <Node>
       <UID>100000000010001</UID>
       <DisplayName>Registrar 2</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
@@ -97,10 +98,10 @@ $Id: config.xml 1034 2006-03-17 11:41:05Z dreibh $
          <Name>Monitor Logfile</Name>
          <Command>./ComponentControl ./RSerPoolDemo-PR.config 2 monitor -T "Logfile of Registrar 2"</Command>
       </ContextMenuEntry>
-   </RSPNode>
+   </Node>
 
 
-   <RSPNode>
+   <Node>
       <UID>200000000000100</UID>
       <DisplayName>Pool Element 1</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
@@ -143,10 +144,10 @@ $Id: config.xml 1034 2006-03-17 11:41:05Z dreibh $
          <Name>Monitor Logfile</Name>
          <Command>./ComponentControl ./RSerPoolDemo-PE.config 1 monitor -T "Logfile of Pool Element 1"</Command>
       </ContextMenuEntry>
-   </RSPNode>
+   </Node>
 
 
-   <RSPNode>
+   <Node>
       <UID>200000000000101</UID>
       <DisplayName>Pool Element 2</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
@@ -189,10 +190,10 @@ $Id: config.xml 1034 2006-03-17 11:41:05Z dreibh $
          <Name>Monitor Logfile</Name>
          <Command>./ComponentControl ./RSerPoolDemo-PE.config 2 monitor -T "Logfile of Pool Element 2"</Command>
       </ContextMenuEntry>
-   </RSPNode>
+   </Node>
 
 
-   <RSPNode>
+   <Node>
       <UID>200000000000102</UID>
       <DisplayName>Pool Element 3</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
@@ -235,10 +236,10 @@ $Id: config.xml 1034 2006-03-17 11:41:05Z dreibh $
          <Name>Monitor Logfile</Name>
          <Command>./ComponentControl ./RSerPoolDemo-PE.config 3 monitor -T "Logfile of Pool Element 3"</Command>
       </ContextMenuEntry>
-   </RSPNode>
+   </Node>
 
 
-   <RSPNode>
+   <Node>
       <UID>300000000000001</UID>
       <DisplayName>Pool User 1</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
@@ -248,7 +249,7 @@ $Id: config.xml 1034 2006-03-17 11:41:05Z dreibh $
       <PositionY>5</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool User</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PU.config 1 start -identifier=0x1</Command>
+         <Command>./ComponentControl ./RSerPoolDemo-PU.config 1 start -identifier=0x1 -caption=PoolUser-1</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Stop Pool User</Name>
@@ -263,10 +264,10 @@ $Id: config.xml 1034 2006-03-17 11:41:05Z dreibh $
          <Name>Monitor Logfile</Name>
          <Command>./ComponentControl ./RSerPoolDemo-PU.config 1 monitor -T "Logfile of Pool User 1"</Command>
       </ContextMenuEntry>
-   </RSPNode>
+   </Node>
 
 
-   <RSPNode>
+   <Node>
       <UID>300000000000002</UID>
       <DisplayName>Pool User 2</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
@@ -276,7 +277,7 @@ $Id: config.xml 1034 2006-03-17 11:41:05Z dreibh $
       <PositionY>5</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool User</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PU.config 2 start -identifier=0x2</Command>
+         <Command>./ComponentControl ./RSerPoolDemo-PU.config 2 start -identifier=0x2 -caption=PoolUser-2</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Stop Pool User</Name>
@@ -285,16 +286,16 @@ $Id: config.xml 1034 2006-03-17 11:41:05Z dreibh $
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>View Logfile</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PU.config 2 log -T "Logfile of Pool User 2"</Command>
+         <Command>./ComponentControl ./RSerPoolDemo-PU.config 2 log -T "Logfile of Pool User 2</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Monitor Logfile</Name>
          <Command>./ComponentControl ./RSerPoolDemo-PU.config 2 monitor -T "Logfile of Pool User 2"</Command>
       </ContextMenuEntry>
-   </RSPNode>
+   </Node>
 
 
-   <RSPNode>
+   <Node>
       <UID>NOUID</UID>
       <DisplayName>Control</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
@@ -304,21 +305,21 @@ $Id: config.xml 1034 2006-03-17 11:41:05Z dreibh $
       <PositionY>0</PositionY>
       <ContextMenuEntry>
          <Name>Start All Components</Name>
-         <Command>./startall</Command>
+         <Command>./RSerPoolDemo-StartAll</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop All Components (SIGINT)</Name>
-         <Command>./stopall INT</Command>
+         <Command>./RSerPoolDemo-StopAll stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill All Components (SIGKILL)</Name>
-         <Command>./stopall KILL</Command>
+         <Command>./RSerPoolDemo-StopAll kill</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Run Wireshark</Name>
          <Command>kdesu wireshark</Command>
       </ContextMenuEntry>
-   </RSPNode>
+   </Node>
 </RSerPoolDemoConfigurationRoot>
