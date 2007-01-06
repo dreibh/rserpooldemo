@@ -21,9 +21,10 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
- #include "rserpoolcanvas.h"
- #include <qmessagebox.h>
- #include "mainwidget.h"
+#include <qmessagebox.h>
+
+#include "canvas.h"
+#include "mainwidget.h"
 
 
  CCanvas::CCanvas(QObject *pParent)

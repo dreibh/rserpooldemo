@@ -23,7 +23,7 @@
 
 #include <qmessagebox.h>
 
-#include "rsernode.h"
+#include "node.h"
 #include "networklistener.h"
 
 

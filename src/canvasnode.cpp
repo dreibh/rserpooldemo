@@ -27,8 +27,8 @@
 #include <qstringlist.h>
 #include <qdatetime.h>
 
-#include "canvasrsernode.h"
-#include "rsernode.h"
+#include "canvasnode.h"
+#include "node.h"
 #include "mainwidget.h"
 
 

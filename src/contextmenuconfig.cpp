@@ -21,10 +21,11 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "contextmenuconfig.h"
 #include <qmessagebox.h>
 #include <qprocess.h>
 #include <iostream>
+
+#include "contextmenuconfig.h"
 
 
 QProcess* CContextMenuConfig::m_pProcess = NULL;

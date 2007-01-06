@@ -26,7 +26,8 @@
 
 #include <qptrlist.h>
 #include <qdom.h>
-#include "rsernode.h"
+
+#include "node.h"
 
 
 class ECriticalException

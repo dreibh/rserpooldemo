@@ -31,7 +31,7 @@
 #include <qptrlist.h>
 #include <qsocketdevice.h>
 
-#include "rsernode.h"
+#include "node.h"
 #include "componentstatuspackets.h"
 
 

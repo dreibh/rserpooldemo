@@ -3,7 +3,8 @@
  *   The RSerPool Demo System                                              *
  *                                                                         *
  *   Authors: Thomas Dreibholz, dreibh@exp-math.uni-essen.de               *
- *            Sebastian Rohde, rohde@exp-math.uni-essen.de                 *              *                                                                         *
+ *            Sebastian Rohde, rohde@exp-math.uni-essen.de                 *
+ *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
@@ -20,21 +21,34 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef RSERPOOLCANVASVIEW_H
-#define RSERPOOLCANVASVIEW_H
+#include <qmessagebox.h>
+#include <qimage.h>
 
-#include <qcanvas.h>
+#include "canvasview.h"
+#include "canvasnode.h"
+#include "mainwidget.h"
 
 
-class CSerPoolCanvasView : public QCanvasView
+CSerPoolCanvasView::CSerPoolCanvasView(QCanvas *canvas, QWidget* parent = 0)
+   : QCanvasView(canvas, parent)
 {
-   Q_OBJECT
-   public:
-   CSerPoolCanvasView(QCanvas* canvas, QWidget* parent);
-   virtual ~CSerPoolCanvasView();
+}
 
-   protected:
-   void contentsContextMenuEvent(QContextMenuEvent* event);
-};
 
-#endif
+CSerPoolCanvasView::~CSerPoolCanvasView()
+{
+}
+
+
+void CSerPoolCanvasView::contentsContextMenuEvent(QContextMenuEvent* event)
+{
+   QCanvasItemList list  = canvas()->collisions(event->pos());
+   CCanvasNode*    node = 0;
+   for(QCanvasItemList::iterator it = list.begin();it != list.end();++it) {
+      node = dynamic_cast<CCanvasNode *>(*it) ;
+      if(node) {
+         node->m_ContextMenu->exec(event->globalPos());
+         return;
+      }
+   }
+}

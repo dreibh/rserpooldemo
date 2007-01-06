@@ -25,11 +25,12 @@
 #define MAINWIDGET_H
 
 #include <qmainwindow.h>
-#include "configuration.h"
-#include "canvasrsernode.h"
-#include "rserpoolcanvas.h"
 #include <qmap.h>
 #include <qimage.h>
+
+#include "configuration.h"
+#include "canvasnode.h"
+#include "canvas.h"
 
 
 class CConfiguration;

@@ -21,13 +21,13 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef CANVASRSERNODE_H
-#define CANVASRSERNODE_H
+#ifndef CANVASNODE_H
+#define CANVASNODE_H
 
 #include <qcanvas.h>
 #include <qpopupmenu.h>
 #include <qmap.h>
-#include "rserpoolcanvas.h"
+#include "canvas.h"
 
 
 class CNode;

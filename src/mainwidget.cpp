@@ -24,11 +24,11 @@
 #include <qfont.h>
 #include <qcanvas.h>
 #include <qmessagebox.h>
-
 #include <mainwidget.h>
-#include "canvasrsernode.h"
-#include "rserpoolcanvasview.h"
-#include "rserpoolcanvas.h"
+
+#include "canvasnode.h"
+#include "canvasview.h"
+#include "canvas.h"
 
 
 
