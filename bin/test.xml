@@ -319,7 +319,15 @@ $Id$
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Run Wireshark</Name>
-         <Command>kdesu wireshark</Command>
+         <Command>./RunProgram kdesu wireshark</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Run Shell</Name>
+         <Command>./RunProgram konsole</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>View RSerPool Page</Name>
+         <Command>./RunProgram konqueror http://tdrwww.exp-math.uni-essen.de/dreibholz/rserpool/</Command>
       </ContextMenuEntry>
    </Node>
 </RSerPoolDemoConfigurationRoot>
