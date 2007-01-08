@@ -329,4 +329,5 @@ $Id$
          <Command>./RunProgram konqueror http://tdrwww.exp-math.uni-essen.de/dreibholz/rserpool/</Command>
       </ContextMenuEntry>
    </Node>
+
 </RSerPoolDemoConfigurationRoot>

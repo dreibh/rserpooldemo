@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<!--
+$Id$
+***************************************************************************
+*   The RSerPool Demo System                                              *
+*                                                                         *
+*   Author: Thomas Dreibholz, dreibh@exp-math.uni-essen.de                *
+*                                                                         *
+*   This program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU General Public License as published by  *
+*   the Free Software Foundation; either version 2 of the License, or     *
+*   (at your option) any later version.                                   *
+*                                                                         *
+*   This program is distributed in the hope that it will be useful,       *
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+*   GNU General Public License for more details.                          *
+*                                                                         *
+*   You should have received a copy of the GNU General Public License     *
+*   along with this program; if not, write to the                         *
+*   Free Software Foundation, Inc.,                                       *
+*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+***************************************************************************
+-->
+
+<RSerPoolDemoConfigurationRoot>
+   <RefreshTime>500</RefreshTime>
+   <ListenPort>2960</ListenPort>
+   <DiagramResolutionX>150</DiagramResolutionX>
+   <DiagramResolutionY>400</DiagramResolutionY>
+   <Caption>Thomas Dreibholz's RSerPool Demonstration Tool</Caption>
+   <BackgroundImage>pictures/Background.png</BackgroundImage>
+   <ProtocolColor ID="11">blue</ProtocolColor>
+   <ProtocolColor ID="12">red</ProtocolColor>
+
+
+   <Node>
+      <UID>300000000000001</UID>
+      <DisplayName>Pool User 1</DisplayName>
+      <RefreshTimeout>5</RefreshTimeout>
+      <ActiveImageURL>pictures/PoolUserActive2.png</ActiveImageURL>
+      <InactiveImageURL>pictures/PoolUserActive2.png</InactiveImageURL>
+      <PositionX>30</PositionX>
+      <PositionY>40</PositionY>
+      <ContextMenuEntry>
+         <Name>Start Pool User</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PU.config 1 start -cspserver=127.0.0.1:2960 -identifier=0x1 -caption=PoolUser-1</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Stop Pool User</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PU.config 1 kill</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>View Logfile</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PU.config 1 log -T "Logfile of Pool User 1"</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Monitor Logfile</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PU.config 1 monitor -T "Logfile of Pool User 1"</Command>
+      </ContextMenuEntry>
+   </Node>
+
+
+   <Node>
+      <UID>300000000000002</UID>
+      <DisplayName>Pool User 2</DisplayName>
+      <RefreshTimeout>5</RefreshTimeout>
+      <ActiveImageURL>pictures/PoolUserActive2.png</ActiveImageURL>
+      <InactiveImageURL>pictures/PoolUserActive2.png</InactiveImageURL>
+      <PositionX>30</PositionX>
+      <PositionY>70</PositionY>
+      <ContextMenuEntry>
+         <Name>Start Pool User</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PU.config 2 start -cspserver=127.0.0.1:2960 -identifier=0x2 -caption=PoolUser-2</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Stop Pool User</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PU.config 2 kill</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>View Logfile</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PU.config 2 log -T "Logfile of Pool User 1"</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Monitor Logfile</Name>
+         <Command>./ComponentControl ./RSerPoolDemo-PU.config 2 monitor -T "Logfile of Pool User 1"</Command>
+      </ContextMenuEntry>
+   </Node>
+
+
+   <Node>
+      <UID>NOUID</UID>
+      <DisplayName>Control</DisplayName>
+      <RefreshTimeout>5</RefreshTimeout>
+      <ActiveImageURL>pictures/Controller.png</ActiveImageURL>
+      <InactiveImageURL>pictures/Controller.png</InactiveImageURL>
+      <PositionX>30</PositionX>
+      <PositionY>0</PositionY>
+      <ContextMenuEntry>
+         <Name>Run Wireshark</Name>
+         <Command>./RunProgram kdesu wireshark</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Run Shell</Name>
+         <Command>./RunProgram konsole</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>View RSerPool Page</Name>
+         <Command>./RunProgram konqueror http://tdrwww.exp-math.uni-essen.de/dreibholz/rserpool/</Command>
+      </ContextMenuEntry>
+   </Node>
+
+</RSerPoolDemoConfigurationRoot>
