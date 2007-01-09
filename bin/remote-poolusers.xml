@@ -44,7 +44,7 @@ $Id$
       <PositionY>40</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool User</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PU.config 1 start -cspserver=127.0.0.1:2960 -identifier=0x1 -caption=PoolUser-1</Command>
+         <Command>./ComponentControl ./RSerPoolDemo-PU.config 1 start -cspserver=alpha:2960 -identifier=0x1 -caption=PoolUser-1</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Stop Pool User</Name>
@@ -72,7 +72,7 @@ $Id$
       <PositionY>70</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool User</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PU.config 2 start -cspserver=127.0.0.1:2960 -identifier=0x2 -caption=PoolUser-2</Command>
+         <Command>./ComponentControl ./RSerPoolDemo-PU.config 2 start -cspserver=alpha:2960 -identifier=0x2 -caption=PoolUser-2</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Stop Pool User</Name>
