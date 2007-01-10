@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [ $# -lt 1 ] ; then
+   echo >&2 "Usage: RSerPoolDemo-Killall [stop|kill]"
+   exit 1
+fi
+
+
+if [ "x$1" = "xstop" ] ; then
+   command=stopall
+elif [ "x$1" = "xkill" ] ; then
+   command=killall
+else
+   echo >&2 "ERROR: Bad command $1!"
+   exit 1
+fi
+
+
+./ComponentControl ./RSerPoolDemo-PE.config 1 $command
+./ComponentControl ./RSerPoolDemo-PE.config 2 $command
+./RemoteComponentControl ./RSerPoolDemo-Remote.config beta ./RSerPoolDemo-PE.config 3 $command
+
+./ComponentControl ./RSerPoolDemo-PR.config 1 $command
+./ComponentControl ./RSerPoolDemo-PR.config 2 $command

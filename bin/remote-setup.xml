@@ -194,7 +194,7 @@ $Id: test.xml 1268 2007-01-08 10:29:57Z dreibh $
 
    <Node>
       <UID>200000000000102</UID>
-      <DisplayName>Pool Element 3</DisplayName>
+      <DisplayName>Remote Pool Element</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
       <ActiveImageURL>pictures/PoolElementActive2.png</ActiveImageURL>
       <InactiveImageURL>pictures/PoolElementInactive2.png</InactiveImageURL>
@@ -261,16 +261,16 @@ $Id: test.xml 1268 2007-01-08 10:29:57Z dreibh $
       <PositionY>0</PositionY>
       <ContextMenuEntry>
          <Name>Start All Components</Name>
-         <Command>./RSerPoolDemo-StartAll</Command>
+	 <Command>./RSerPoolDemo-Remote-StartAll</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop All Components (SIGINT)</Name>
-         <Command>./RSerPoolDemo-StopAll stop</Command>
+         <Command>./RSerPoolDemo-Remote-StopAll stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill All Components (SIGKILL)</Name>
-         <Command>./RSerPoolDemo-StopAll kill</Command>
+	 <Command>./RSerPoolDemo-Remote-StopAll kill</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
