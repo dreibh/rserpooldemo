@@ -52,8 +52,10 @@ const char g_BackgroundImageTag[]      = "BackgroundImage";
 const char g_CaptionTag[]              = "Caption";
 
 
-CConfiguration::CConfiguration(const QString& configFile)
-   : m_DisplaySizeX(0),
+CConfiguration::CConfiguration(QWidget*       canvasWidget,
+                               const QString& configFile)
+   : m_CanvasWidget(canvasWidget),
+     m_DisplaySizeX(0),
      m_DisplaySizeY(0)
 {
    m_Nodes.setAutoDelete(true);
@@ -167,7 +169,7 @@ CNode* CConfiguration::createNode(QDomElement element)
             contextNodes.append(createContextMenuEntry(displayName, currentNode.toElement()));
          }
          else if(currentNode.toElement().tagName() == QString(g_ContextMenuSeparatorTag)) {
-            contextNodes.append(new CContextMenuConfig("", "", ""));
+            contextNodes.append(new CContextMenuConfig(m_CanvasWidget, "", "", ""));
          }
          else {
             QMessageBox::critical(0, "Error!", "Found unknown tag in config file: " +
@@ -208,7 +210,7 @@ CContextMenuConfig* CConfiguration::createContextMenuEntry(const QString&     no
       currentNode = currentNode.nextSibling();
    }
 
-   CContextMenuConfig* node = new CContextMenuConfig(nodeName, itemName, commandLine);
+   CContextMenuConfig* node = new CContextMenuConfig(m_CanvasWidget, nodeName, itemName, commandLine);
    return node;
 }
 

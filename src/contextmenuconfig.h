@@ -34,7 +34,8 @@ class CContextMenuConfig : public QObject
 {
    Q_OBJECT
    public:
-   CContextMenuConfig(const QString& nodeName,
+   CContextMenuConfig(QWidget*       parent,
+                      const QString& nodeName,
                       const QString& itemName,
                       const QString& commandLine);
    virtual ~CContextMenuConfig();
@@ -52,6 +53,7 @@ class CContextMenuConfig : public QObject
    virtual void readStderr();
 
    private:
+   QWidget*         m_Parent;
    QString          m_NodeName;
    QString          m_ItemName;
    QString          m_CommandLine;

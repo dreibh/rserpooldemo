@@ -28,7 +28,7 @@ $Id: remote-poolusers.xml 1268 2007-01-08 10:29:57Z dreibh $
    <ListenPort>2960</ListenPort>
    <DiagramResolutionX>150</DiagramResolutionX>
    <DiagramResolutionY>400</DiagramResolutionY>
-   <Caption>Thomas Dreibholz's RSerPool Demonstration Tool</Caption>
+   <Caption>Remote Pool Users</Caption>
    <BackgroundImage>pictures/Background.png</BackgroundImage>
    <ProtocolColor ID="11">blue</ProtocolColor>
    <ProtocolColor ID="12">red</ProtocolColor>

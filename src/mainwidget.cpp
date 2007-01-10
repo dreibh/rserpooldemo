@@ -34,7 +34,7 @@
 
 CMainWidget::CMainWidget(const QString& configFile)
    : QMainWindow(NULL, NULL, WDestructiveClose),
-     m_Configuration(configFile)
+     m_Configuration(this, configFile)
 {
    setCaption(m_Configuration.getCaption() + " - " + configFile);
    m_Canvas = new CCanvas(this);

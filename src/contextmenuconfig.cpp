@@ -23,6 +23,7 @@
 
 #include <qmessagebox.h>
 #include <qprocess.h>
+#include <qcursor.h>
 #include <iostream>
 
 #include "contextmenuconfig.h"
@@ -31,10 +32,12 @@
 QProcess* CContextMenuConfig::m_pProcess = NULL;
 
 
-CContextMenuConfig::CContextMenuConfig(const QString& nodeName,
+CContextMenuConfig::CContextMenuConfig(QWidget*       parent,
+                                       const QString& nodeName,
                                        const QString& itemName,
                                        const QString& commandLine)
-   : m_NodeName(nodeName),
+   : m_Parent(parent),
+     m_NodeName(nodeName),
      m_ItemName(itemName),
      m_CommandLine(commandLine)
 {
@@ -55,6 +58,8 @@ void CContextMenuConfig::execute()
          "\nSee console output for error messages!");
       return;
    }
+
+   m_Parent->setCursor(Qt::WaitCursor);
 
    QString commandLine = QString("nice " + m_CommandLine);
    m_pProcess = new QProcess(this);
@@ -110,6 +115,7 @@ void CContextMenuConfig::execute()
    connect(m_pProcess, SIGNAL(processExited()), this, SLOT(processFinished()));
    connect(m_pProcess, SIGNAL(readyReadStdout()), this, SLOT(readStdout()));
    connect(m_pProcess, SIGNAL(readyReadStderr()), this, SLOT(readStderr()));
+
    if(!m_pProcess->start()) {
       QMessageBox::critical(0, "Error!",
          "Failed to run command:\n" +
@@ -117,6 +123,7 @@ void CContextMenuConfig::execute()
          "\nSee console output for error messages!");
       delete m_pProcess;
       m_pProcess = NULL;
+      m_Parent->setCursor(Qt::ArrowCursor);
    }
 }
 
@@ -143,4 +150,5 @@ void CContextMenuConfig::processFinished()
    }
    delete m_pProcess;
    m_pProcess = NULL;
+   m_Parent->setCursor(Qt::ArrowCursor);
 }

@@ -52,7 +52,8 @@ class CNetworkListener;
 class CConfiguration
 {
    public:
-   CConfiguration(const QString& configFile);
+   CConfiguration(QWidget*       canvasWidet,
+                  const QString& configFile);
    ~CConfiguration();
 
    inline int getDisplaySizeX() const {
@@ -94,6 +95,7 @@ class CConfiguration
    CContextMenuConfig* createContextMenuEntry(const QString&     displayName,
                                               const QDomElement& element);
 
+   QWidget*              m_CanvasWidget;
    int                   m_DisplaySizeX;
    int                   m_DisplaySizeY;
    int                   m_RefreshTime;

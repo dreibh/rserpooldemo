@@ -59,7 +59,7 @@
    m_pTitle->show();
 
    m_pWorkload = new QCanvasText("", canvas());
-   m_pWorkload->setFont(QFont("Helvetica", 12, QFont::Bold ));
+   m_pWorkload->setFont(QFont("Helvetica", 12, QFont::Bold));
    m_pWorkload->setColor(QColor("#222222"));
    m_pWorkload->setTextFlags(Qt::AlignCenter);
    m_pWorkload->setZ(2000000001);
@@ -87,9 +87,10 @@
    QPtrList<CContextMenuConfig>& rNodeList = m_Node->getContextMenuConfig();
    for(CContextMenuConfig* pNode = rNodeList.first(); pNode; pNode = rNodeList.next()) {
       if(pNode->getName() != "") {
-         QAction* pNewAction = new QAction(pNode->getName(),QKeySequence(),canvas()->parent());
-         QObject::connect(pNewAction, SIGNAL(activated()), pNode, SLOT(execute()));
-         pNewAction->addTo(m_ContextMenu);
+         QAction* action = new QAction(pNode->getName(),QKeySequence(),canvas()->parent());
+         Q_CHECK_PTR(action);
+         action->addTo(m_ContextMenu);
+         QObject::connect(action, SIGNAL(activated()), pNode, SLOT(execute()));
       }
       else {
          m_ContextMenu->insertSeparator();
@@ -213,9 +214,10 @@ void CCanvasNode::advance(int phase)
             int otherY = 0;
             pOtherNode->getAnchor(otherX, otherY);
             if(m_ConUIDsLinesMap.find(it.key()) == m_ConUIDsLinesMap.end()) {
-               QCanvasLine* pLine = new QCanvasLine(m_Canvas);
-               pLine->setPoints(thisX, thisY, otherX, otherY);
-               m_ConUIDsLinesMap[it.key()] = pLine;
+               QCanvasLine* line = new QCanvasLine(m_Canvas);
+               Q_CHECK_PTR(line);
+               line->setPoints(thisX, thisY, otherX, otherY);
+               m_ConUIDsLinesMap[it.key()] = line;
                QColor newColor;
                QMap<int, QString>::iterator colorName = static_cast<CMainWidget *>(canvas()->parent())->m_Configuration.getColorMap().find(it.data());
                if(colorName != static_cast<CMainWidget *>(canvas()->parent())->m_Configuration.getColorMap().end()) {
@@ -225,9 +227,9 @@ void CCanvasNode::advance(int phase)
                   newColor.setNamedColor("black");
                }
                QPen linePen(newColor, 5);
-               pLine->setZ(0);
-               pLine->setPen(linePen);
-               pLine->show();
+               line->setZ(0);
+               line->setPen(linePen);
+               line->show();
 
             }
 
@@ -333,9 +335,9 @@ void CCanvasNode::updatePostion()
          int otherX = 0;
          int otherY = 0;
          pOtherNode->getAnchor(otherX, otherY);
-         QCanvasLine *pLine = m_ConUIDsLinesMap[it.key()];
-         if(pLine) {
-            pLine->setPoints(thisX, thisY, otherX, otherY);
+         QCanvasLine *line = m_ConUIDsLinesMap[it.key()];
+         if(line) {
+            line->setPoints(thisX, thisY, otherX, otherY);
 
             uint64_t duration = m_Node->getConnectedUIDsDurationMap()[it.key()];
             LinkText* pLinkText = m_ConUIDsTextMap[it.key()];
