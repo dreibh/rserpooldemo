@@ -113,7 +113,7 @@ $Id$
          <Command>./ComponentControl ./RSerPoolDemo-PE.config 1 start -identifier=0x100</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
-         <Name>Start Pool Element (Unreliable Mode)</Name>
+         <Name>Start Pool Element (Failure Mode)</Name>
          <Command>./ComponentControl ./RSerPoolDemo-PE.config 1 start -identifier=0x100 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
@@ -122,7 +122,7 @@ $Id$
          <Command>./ComponentControl ./RSerPoolDemo-PE.config 1 restart -identifier=0x100</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
-         <Name>Restart Pool Element (Unreliable Mode)</Name>
+         <Name>Restart Pool Element (Failure Mode)</Name>
          <Command>./ComponentControl ./RSerPoolDemo-PE.config 1 restart -identifier=0x100 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
@@ -159,7 +159,7 @@ $Id$
          <Command>./ComponentControl ./RSerPoolDemo-PE.config 2 start -identifier=0x101</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
-         <Name>Start Pool Element (Unreliable Mode)</Name>
+         <Name>Start Pool Element (Failure Mode)</Name>
          <Command>./ComponentControl ./RSerPoolDemo-PE.config 2 start -identifier=0x101 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
@@ -168,7 +168,7 @@ $Id$
          <Command>./ComponentControl ./RSerPoolDemo-PE.config 2 restart -identifier=0x101</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
-         <Name>Restart Pool Element (Unreliable Mode)</Name>
+         <Name>Restart Pool Element (Failure Mode)</Name>
          <Command>./ComponentControl ./RSerPoolDemo-PE.config 2 restart -identifier=0x101 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
@@ -205,7 +205,7 @@ $Id$
          <Command>./ComponentControl ./RSerPoolDemo-PE.config 3 start -identifier=0x102</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
-         <Name>Start Pool Element (Unreliable Mode)</Name>
+         <Name>Start Pool Element (Failure Mode)</Name>
          <Command>./ComponentControl ./RSerPoolDemo-PE.config 3 start -identifier=0x102 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
@@ -214,7 +214,7 @@ $Id$
          <Command>./ComponentControl ./RSerPoolDemo-PE.config 3 restart -identifier=0x102</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
-         <Name>Restart Pool Element (Unreliable Mode)</Name>
+         <Name>Restart Pool Element (Failure Mode)</Name>
          <Command>./ComponentControl ./RSerPoolDemo-PE.config 3 restart -identifier=0x102 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
