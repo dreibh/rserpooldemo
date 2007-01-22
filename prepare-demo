@@ -39,8 +39,8 @@ else
 fi
 
 
-cd sctplib1 && ./autogen.sh && make install && cd .. && \
-cd socketapi && ./autogen.sh && make install && cd .. && \
+cd sctplib1 && ./autogen.sh --enable-sctp-over-udp && make install && cd .. && \
+cd socketapi && ./autogen.sh --enable-sctp-over-udp && make install && cd .. && \
 cd rsplib2 && ./autogen.sh --enable-csp --enable-qt && make install && cd .. && \
 cd rserpooldemo && qmake && make && cd .. && \
 \

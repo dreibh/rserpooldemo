@@ -1,14 +1,13 @@
 [Desktop Entry]
 Comment=
-Comment[de]=
+Comment[de_DE]=
 Encoding=UTF-8
-Exec='/home/dreibh/src/rserpooldemo/bin/rserpooldemo'  -config=test.xml
+Exec=kdesu "/home/demo/src/rserpooldemo/bin/rserpooldemo  -config=test.xml"
 GenericName=
-GenericName[de]=
+GenericName[de_DE]=
 Icon=package_network
 MimeType=
 Name=RSerPool Demo
-Name[de]=RSerPool Demo
 Path=$HOME/src/rserpooldemo/bin
 StartupNotify=true
 Terminal=true
