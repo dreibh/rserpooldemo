@@ -44,25 +44,25 @@ $Id$
       <PositionY>20</PositionY>
       <ContextMenuEntry>
          <Name>Start Registrar</Name>
-         <Command>./ComponentControl ./LocalDemo.config PR 1 start -identifier=0x10000</Command>
+         <Command>./ComponentControl ./LocalScenario.config PR 1 start -identifier=0x10000</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop Registrar (SIGINT)</Name>
-         <Command>./ComponentControl ./LocalDemo.config PR 1 stop</Command>
+         <Command>./ComponentControl ./LocalScenario.config PR 1 stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Registrar (SIGKILL)</Name>
-         <Command>./ComponentControl ./LocalDemo.config PR 1 kill</Command>
+         <Command>./ComponentControl ./LocalScenario.config PR 1 kill</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Show Logfile</Name>
-         <Command>./ComponentControl ./LocalDemo.config PR 1 log -T "Logfile of Registrar 2"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PR 1 log -T "Logfile of Registrar 2"</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Monitor Logfile</Name>
-         <Command>./ComponentControl ./LocalDemo.config PR 1 monitor -T "Logfile of Registrar 2"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PR 1 monitor -T "Logfile of Registrar 2"</Command>
       </ContextMenuEntry>
    </Node>
 
@@ -77,25 +77,25 @@ $Id$
       <PositionY>60</PositionY>
       <ContextMenuEntry>
          <Name>Start Registrar</Name>
-         <Command>./ComponentControl ./LocalDemo.config PR 2 start -identifier=0x10001</Command>
+         <Command>./ComponentControl ./LocalScenario.config PR 2 start -identifier=0x10001</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop Registrar (SIGINT)</Name>
-         <Command>./ComponentControl ./LocalDemo.config PR 2 stop</Command>
+         <Command>./ComponentControl ./LocalScenario.config PR 2 stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Registrar (SIGKILL)</Name>
-         <Command>./ComponentControl ./LocalDemo.config PR 2 kill</Command>
+         <Command>./ComponentControl ./LocalScenario.config PR 2 kill</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>View Logfile</Name>
-         <Command>./ComponentControl ./LocalDemo.config PR 2 log -T "Logfile of Registrar 2"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PR 2 log -T "Logfile of Registrar 2"</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Monitor Logfile</Name>
-         <Command>./ComponentControl ./LocalDemo.config PR 2 monitor -T "Logfile of Registrar 2"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PR 2 monitor -T "Logfile of Registrar 2"</Command>
       </ContextMenuEntry>
    </Node>
 
@@ -110,38 +110,38 @@ $Id$
       <PositionY>75</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalDemo.config PE 1 start -identifier=0x100</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 start -identifier=0x100</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalDemo.config PE 1 start -identifier=0x100 -fgpfailureafter=20</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 start -identifier=0x100 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalDemo.config PE 1 restart -identifier=0x100</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 restart -identifier=0x100</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalDemo.config PE 1 restart -identifier=0x100 -fgpfailureafter=20</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 restart -identifier=0x100 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop Pool Element (SIGINT)</Name>
-         <Command>./ComponentControl ./LocalDemo.config PE 1 stop</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Pool Element (SIGKILL)</Name>
-         <Command>./ComponentControl ./LocalDemo.config PE 1 kill</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 kill</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>View Logfile</Name>
-         <Command>./ComponentControl ./LocalDemo.config PE 1 log -T "Logfile of Pool Element 3"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 log -T "Logfile of Pool Element 3"</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Monitor Logfile</Name>
-         <Command>./ComponentControl ./LocalDemo.config PE 1 monitor -T "Logfile of Pool Element 1"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 monitor -T "Logfile of Pool Element 1"</Command>
       </ContextMenuEntry>
    </Node>
 
@@ -156,38 +156,38 @@ $Id$
       <PositionY>75</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalDemo.config PE 2 start -identifier=0x101</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 start -identifier=0x101</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalDemo.config PE 2 start -identifier=0x101 -fgpfailureafter=20</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 start -identifier=0x101 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalDemo.config PE 2 restart -identifier=0x101</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 restart -identifier=0x101</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalDemo.config PE 2 restart -identifier=0x101 -fgpfailureafter=20</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 restart -identifier=0x101 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop Pool Element (SIGINT)</Name>
-         <Command>./ComponentControl ./LocalDemo.config PE 2 stop</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Pool Element (SIGKILL)</Name>
-         <Command>./ComponentControl ./LocalDemo.config PE 2 kill</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 kill</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>View Logfile</Name>
-         <Command>./ComponentControl ./LocalDemo.config PE 2 log -T "Logfile of Pool Element 2"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 log -T "Logfile of Pool Element 2"</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Monitor Logfile</Name>
-         <Command>./ComponentControl ./LocalDemo.config PE 2 monitor -T "Logfile of Pool Element 2"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 monitor -T "Logfile of Pool Element 2"</Command>
       </ContextMenuEntry>
    </Node>
 
@@ -202,38 +202,38 @@ $Id$
       <PositionY>75</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalDemo.config PE 3 start -identifier=0x102</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 start -identifier=0x102</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalDemo.config PE 3 start -identifier=0x102 -fgpfailureafter=20</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 start -identifier=0x102 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalDemo.config PE 3 restart -identifier=0x102</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 restart -identifier=0x102</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalDemo.config PE 3 restart -identifier=0x102 -fgpfailureafter=20</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 restart -identifier=0x102 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop Pool Element (SIGINT)</Name>
-         <Command>./ComponentControl ./LocalDemo.config PE 3 stop</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Pool Element (SIGKILL)</Name>
-         <Command>./ComponentControl ./LocalDemo.config PE 3 kill</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 kill</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>View Logfile</Name>
-         <Command>./ComponentControl ./LocalDemo.config PE 3 log -T "Logfile of Pool Element 3"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 log -T "Logfile of Pool Element 3"</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Monitor Logfile</Name>
-         <Command>./ComponentControl ./LocalDemo.config PE 3 monitor -T "Logfile of Pool Element 3"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 monitor -T "Logfile of Pool Element 3"</Command>
       </ContextMenuEntry>
    </Node>
 
@@ -248,20 +248,20 @@ $Id$
       <PositionY>5</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool User</Name>
-         <Command>./ComponentControl ./LocalDemo.config PU 1 start -identifier=0x1 -caption=PoolUser-1</Command>
+         <Command>./ComponentControl ./LocalScenario.config PU 1 start -identifier=0x1 -caption=PoolUser-1</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Stop Pool User</Name>
-         <Command>./ComponentControl ./LocalDemo.config PU 1 kill</Command>
+         <Command>./ComponentControl ./LocalScenario.config PU 1 kill</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>View Logfile</Name>
-         <Command>./ComponentControl ./LocalDemo.config PU 1 log -T "Logfile of Pool User 1"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PU 1 log -T "Logfile of Pool User 1"</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Monitor Logfile</Name>
-         <Command>./ComponentControl ./LocalDemo.config PU 1 monitor -T "Logfile of Pool User 1"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PU 1 monitor -T "Logfile of Pool User 1"</Command>
       </ContextMenuEntry>
    </Node>
 
@@ -276,20 +276,20 @@ $Id$
       <PositionY>5</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool User</Name>
-         <Command>./ComponentControl ./LocalDemo.config PU 2 start -identifier=0x2 -caption=PoolUser-2</Command>
+         <Command>./ComponentControl ./LocalScenario.config PU 2 start -identifier=0x2 -caption=PoolUser-2</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Stop Pool User</Name>
-         <Command>./ComponentControl ./LocalDemo.config PU 2 kill</Command>
+         <Command>./ComponentControl ./LocalScenario.config PU 2 kill</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>View Logfile</Name>
-         <Command>./ComponentControl ./LocalDemo.config PU 2 log -T "Logfile of Pool User 2</Command>
+         <Command>./ComponentControl ./LocalScenario.config PU 2 log -T "Logfile of Pool User 2</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Monitor Logfile</Name>
-         <Command>./ComponentControl ./LocalDemo.config PU 2 monitor -T "Logfile of Pool User 2"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PU 2 monitor -T "Logfile of Pool User 2"</Command>
       </ContextMenuEntry>
    </Node>
 
@@ -304,16 +304,16 @@ $Id$
       <PositionY>0</PositionY>
       <ContextMenuEntry>
          <Name>Start All Components</Name>
-         <Command>./RSerPoolDemo-StartAll</Command>
+         <Command>./LocalScenario-StartAll</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop All Components (SIGINT)</Name>
-         <Command>./RSerPoolDemo-StopAll stop</Command>
+         <Command>./LocalScenario-StopAll stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill All Components (SIGKILL)</Name>
-         <Command>./RSerPoolDemo-StopAll kill</Command>
+         <Command>./LocalScenario-StopAll kill</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>

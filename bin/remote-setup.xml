@@ -44,25 +44,25 @@ $Id: test.xml 1268 2007-01-08 10:29:57Z dreibh $
       <PositionY>20</PositionY>
       <ContextMenuEntry>
          <Name>Start Registrar</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PR.config 1 start -identifier=0x10000</Command>
+         <Command>./ComponentControl ./LocalScenario.config PR 1 start -identifier=0x10000</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop Registrar (SIGINT)</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PR.config 1 stop</Command>
+         <Command>./ComponentControl ./LocalScenario.config PR 1 stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Registrar (SIGKILL)</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PR.config 1 kill</Command>
+         <Command>./ComponentControl ./LocalScenario.config PR 1 kill</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Show Logfile</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PR.config 1 log -T "Logfile of Registrar 2"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PR 1 log -T "Logfile of Registrar 2"</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Monitor Logfile</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PR.config 1 monitor -T "Logfile of Registrar 2"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PR 1 monitor -T "Logfile of Registrar 2"</Command>
       </ContextMenuEntry>
    </Node>
 
@@ -77,25 +77,25 @@ $Id: test.xml 1268 2007-01-08 10:29:57Z dreibh $
       <PositionY>60</PositionY>
       <ContextMenuEntry>
          <Name>Start Registrar</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PR.config 2 start -identifier=0x10001</Command>
+         <Command>./ComponentControl ./LocalScenario.config PR 2 start -identifier=0x10001</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop Registrar (SIGINT)</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PR.config 2 stop</Command>
+         <Command>./ComponentControl ./LocalScenario.config PR 2 stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Registrar (SIGKILL)</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PR.config 2 kill</Command>
+         <Command>./ComponentControl ./LocalScenario.config PR 2 kill</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>View Logfile</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PR.config 2 log -T "Logfile of Registrar 2"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PR 2 log -T "Logfile of Registrar 2"</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Monitor Logfile</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PR.config 2 monitor -T "Logfile of Registrar 2"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PR 2 monitor -T "Logfile of Registrar 2"</Command>
       </ContextMenuEntry>
    </Node>
 
@@ -110,38 +110,38 @@ $Id: test.xml 1268 2007-01-08 10:29:57Z dreibh $
       <PositionY>75</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PE.config 1 start -identifier=0x100</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 start -identifier=0x100</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PE.config 1 start -identifier=0x100 -fgpfailureafter=20</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 start -identifier=0x100 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PE.config 1 restart -identifier=0x100</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 restart -identifier=0x100</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PE.config 1 restart -identifier=0x100 -fgpfailureafter=20</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 restart -identifier=0x100 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop Pool Element (SIGINT)</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PE.config 1 stop</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Pool Element (SIGKILL)</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PE.config 1 kill</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 kill</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>View Logfile</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PE.config 1 log -T "Logfile of Pool Element 3"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 log -T "Logfile of Pool Element 3"</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Monitor Logfile</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PE.config 1 monitor -T "Logfile of Pool Element 1"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 monitor -T "Logfile of Pool Element 1"</Command>
       </ContextMenuEntry>
    </Node>
 
@@ -156,38 +156,38 @@ $Id: test.xml 1268 2007-01-08 10:29:57Z dreibh $
       <PositionY>75</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PE.config 2 start -identifier=0x101</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 start -identifier=0x101</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PE.config 2 start -identifier=0x101 -fgpfailureafter=20</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 start -identifier=0x101 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PE.config 2 restart -identifier=0x101</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 restart -identifier=0x101</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PE.config 2 restart -identifier=0x101 -fgpfailureafter=20</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 restart -identifier=0x101 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop Pool Element (SIGINT)</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PE.config 2 stop</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Pool Element (SIGKILL)</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PE.config 2 kill</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 kill</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>View Logfile</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PE.config 2 log -T "Logfile of Pool Element 2"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 log -T "Logfile of Pool Element 2"</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Monitor Logfile</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PE.config 2 monitor -T "Logfile of Pool Element 2"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 monitor -T "Logfile of Pool Element 2"</Command>
       </ContextMenuEntry>
    </Node>
 
@@ -202,29 +202,29 @@ $Id: test.xml 1268 2007-01-08 10:29:57Z dreibh $
       <PositionY>75</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-	 <Command>./RemoteComponentControl ./RSerPoolDemo-Remote.config beta ./RSerPoolDemo-PE.config 3 start -cspserver=alpha:2960 -identifier=0x102</Command>
+         <Command>./RemoteComponentControl ./RemoteScenario-User.config beta ./LocalScenario.config PE 3 start -cspserver=alpha:2960 -identifier=0x102</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-	 <Command>./RemoteComponentControl ./RSerPoolDemo-Remote.config beta ./RSerPoolDemo-PE.config 3 start -cspserver=alpha:2960 -identifier=0x102 -fgpfailureafter=20</Command>
+         <Command>./RemoteComponentControl ./RemoteScenario-User.config beta ./LocalScenario.config PE 3 start -cspserver=alpha:2960 -identifier=0x102 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-	 <Command>./RemoteComponentControl ./RSerPoolDemo-Remote.config beta ./RSerPoolDemo-PE.config 3 restart -cspserver=alpha:2960 -identifier=0x102</Command>
+         <Command>./RemoteComponentControl ./RemoteScenario-User.config beta ./LocalScenario.config PE 3 restart -cspserver=alpha:2960 -identifier=0x102</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-	 <Command>./RemoteComponentControl ./RSerPoolDemo-Remote.config beta ./RSerPoolDemo-PE.config 3 restart -cspserver=alpha:2960 -identifier=0x102 -fgpfailureafter=20</Command>
+         <Command>./RemoteComponentControl ./RemoteScenario-User.config beta ./LocalScenario.config PE 3 restart -cspserver=alpha:2960 -identifier=0x102 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop Pool Element (SIGINT)</Name>
-	 <Command>./RemoteComponentControl ./RSerPoolDemo-Remote.config beta ./RSerPoolDemo-PE.config 3 stop</Command>
+         <Command>./RemoteComponentControl ./RemoteScenario-User.config beta ./LocalScenario.config PE 3 stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Pool Element (SIGKILL)</Name>
-	 <Command>./RemoteComponentControl ./RSerPoolDemo-Remote.config beta ./RSerPoolDemo-PE.config 3 kill</Command>
+         <Command>./RemoteComponentControl ./RemoteScenario-User.config beta ./LocalScenario.config PE 3 kill</Command>
       </ContextMenuEntry>
    </Node>
 
@@ -261,16 +261,16 @@ $Id: test.xml 1268 2007-01-08 10:29:57Z dreibh $
       <PositionY>0</PositionY>
       <ContextMenuEntry>
          <Name>Start All Components</Name>
-	 <Command>./RSerPoolDemo-Remote-StartAll</Command>
+         <Command>./RemoteScenario-StartAll</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop All Components (SIGINT)</Name>
-         <Command>./RSerPoolDemo-Remote-StopAll stop</Command>
+         <Command>./RemoteScenario-StopAll stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill All Components (SIGKILL)</Name>
-	 <Command>./RSerPoolDemo-Remote-StopAll kill</Command>
+         <Command>./RemoteScenario-StopAll kill</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>

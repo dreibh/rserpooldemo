@@ -44,20 +44,20 @@ $Id: remote-poolusers.xml 1268 2007-01-08 10:29:57Z dreibh $
       <PositionY>40</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool User</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PU.config 1 start -cspserver=alpha:2960 -identifier=0x1 -caption=PoolUser-1</Command>
+         <Command>./ComponentControl ./LocalScenario.config PU 1 start -cspserver=alpha:2960 -identifier=0x1 -caption=PoolUser-1</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Stop Pool User</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PU.config 1 kill</Command>
+         <Command>./ComponentControl ./LocalScenario.config PU 1 kill</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>View Logfile</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PU.config 1 log -T "Logfile of Pool User 1"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PU 1 log -T "Logfile of Pool User 1"</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Monitor Logfile</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PU.config 1 monitor -T "Logfile of Pool User 1"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PU 1 monitor -T "Logfile of Pool User 1"</Command>
       </ContextMenuEntry>
    </Node>
 
@@ -72,20 +72,20 @@ $Id: remote-poolusers.xml 1268 2007-01-08 10:29:57Z dreibh $
       <PositionY>70</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool User</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PU.config 2 start -cspserver=alpha:2960 -identifier=0x2 -caption=PoolUser-2</Command>
+         <Command>./ComponentControl ./LocalScenario.config PU 2 start -cspserver=alpha:2960 -identifier=0x2 -caption=PoolUser-2</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Stop Pool User</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PU.config 2 kill</Command>
+         <Command>./ComponentControl ./LocalScenario.config PU 2 kill</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>View Logfile</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PU.config 2 log -T "Logfile of Pool User 2"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PU 2 log -T "Logfile of Pool User 2"</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Monitor Logfile</Name>
-         <Command>./ComponentControl ./RSerPoolDemo-PU.config 2 monitor -T "Logfile of Pool User 2"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PU 2 monitor -T "Logfile of Pool User 2"</Command>
       </ContextMenuEntry>
    </Node>
 

@@ -22,17 +22,14 @@
 # ***************************************************************************
 
 if [ $# -lt 3 ] ; then
-   echo >&2 "Usage: ComponentControl [Configuration File] [Identifier] [start|stop|kill|stopall|killall|restart|status|log|monitor] {Arguments ...}"
+   echo >&2 "Usage: ComponentControl [Configuration File] {Configuration File Options} [Identifier] [start|stop|kill|stopall|killall|restart|status|log|monitor] {Arguments ...}"
    exit 1
 fi
 
 
 # ====== Get configuration ==================================================
 CC_CONFIGFILE=$1
-CC_IDENTIFIER=$2
-CC_COMMAND=$3
-shift ; shift ; shift
-CC_MISCARGS=$@
+shift
 
 if [ ! -e "$CC_CONFIGFILE" ] ; then
    echo >&2 "ERROR: Configuration file $CC_CONFIGFILE does not exist!"
@@ -40,6 +37,11 @@ if [ ! -e "$CC_CONFIGFILE" ] ; then
 fi
 
 . $CC_CONFIGFILE
+
+CC_IDENTIFIER=$1
+CC_COMMAND=$2
+shift ; shift
+CC_MISCARGS=$@
 
 
 # ====== Check directories and program ======================================

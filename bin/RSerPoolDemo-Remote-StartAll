@@ -1,8 +1,0 @@
-#!/bin/bash
-
-./ComponentControl ./RSerPoolDemo-PR.config 1 start -identifier=0x10000
-./ComponentControl ./RSerPoolDemo-PR.config 2 start -identifier=0x10001
-sleep 5
-./ComponentControl ./RSerPoolDemo-PE.config 1 start -identifier=0x100
-./ComponentControl ./RSerPoolDemo-PE.config 2 start -identifier=0x101
-./RemoteComponentControl ./RSerPoolDemo-Remote.config beta ./RSerPoolDemo-PE.config 3 start -cspserver=alpha:2960 -identifier=0x102
