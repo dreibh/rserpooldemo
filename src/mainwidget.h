@@ -42,7 +42,7 @@ class CMainWidget : public QMainWindow
 {
    Q_OBJECT
    public:
-   CMainWidget(const QString& configFile = "config.xml");
+   CMainWidget(const QString& configFile = "local-setup.xml");
    virtual ~CMainWidget();
 
    CConfiguration m_Configuration;

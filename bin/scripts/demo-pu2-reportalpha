@@ -1,3 +1,0 @@
-#!/bin/bash
-
-./demo-pu $1 ../../../rsplib2/rsplib alpha:2960 2

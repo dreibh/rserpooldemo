@@ -58,11 +58,11 @@ $Id$
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Show Logfile</Name>
-         <Command>./ComponentControl ./LocalScenario.config PR 1 log -T "Logfile of Registrar 2"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PR 1 log -T "Logfile of Registrar 1"</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Monitor Logfile</Name>
-         <Command>./ComponentControl ./LocalScenario.config PR 1 monitor -T "Logfile of Registrar 2"</Command>
+         <Command>./ComponentControl ./LocalScenario.config PR 1 monitor -T "Logfile of Registrar 1"</Command>
       </ContextMenuEntry>
    </Node>
 
