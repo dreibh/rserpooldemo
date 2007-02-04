@@ -43,10 +43,16 @@ fi
 
 
 . ./$CC_REMOTECONFIG
-CC_PATH=`pwd`
+CC_LOCALUSER="`whoami`"
+if [ "x$CC_PATH" = "x" ] ; then
+   CC_PATH="`pwd | sed -e \"s/$CC_LOCALUSER/$CC_REMOTEUSER/g\"`"
+fi
+
+command="$CC_REMOTEPRECOMMAND nohup ./ComponentControl $CC_CONFIGFILE $CC_IDENTIFIER $CC_COMMAND $CC_MISCARGS >/dev/null 2>/dev/null &"
+
 
 echo "Contacting $CC_REMOTEUSER@$CC_HOST using key $CC_REMOTEKEY ..."
-ssh -i $CC_REMOTEKEY $CC_REMOTEUSER@$CC_HOST "
+ssh -i $CC_REMOTEKEY $CC_SSHOPT $CC_REMOTEUSER@$CC_HOST "
 if [ ! -e $CC_PATH ] ; then
    echo \"ERROR: Directory $CC_PATH does not exist on host $CC_HOST!\"
    exit 1
@@ -56,5 +62,5 @@ if [ ! -e ComponentControl ] ; then
    echo \"ERROR: ComponentControl not found in directory $CC_PATH of host $CC_HOST!\"
    exit 1
 fi &&
-echo Ready &&
-nohup ./ComponentControl $CC_CONFIGFILE $CC_IDENTIFIER $CC_COMMAND $CC_MISCARGS >/dev/null 2>/dev/null &"
+echo \"$command\" &&
+$command"

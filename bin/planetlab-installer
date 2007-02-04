@@ -1,0 +1,88 @@
+#!/bin/bash
+# $Id$
+# ***************************************************************************
+# *   The RSerPool Demo System                                              *
+# *                                                                         *
+# *   Author: Thomas Dreibholz, dreibh@exp-math.uni-essen.de                *
+# *                                                                         *
+# *   This program is free software; you can redistribute it and/or modify  *
+# *   it under the terms of the GNU General Public License as published by  *
+# *   the Free Software Foundation; either version 2 of the License, or     *
+# *   (at your option) any later version.                                   *
+# *                                                                         *
+# *   This program is distributed in the hope that it will be useful,       *
+# *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+# *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+# *   GNU General Public License for more details.                          *
+# *                                                                         *
+# *   You should have received a copy of the GNU General Public License     *
+# *   along with this program; if not, write to the                         *
+# *   Free Software Foundation, Inc.,                                       *
+# *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+# ***************************************************************************
+
+. ./PlanetLab-User.config
+
+SERVER=$1
+if [ x$SERVER = "x" ]; then
+   echo "ERROR: No server name/IP given!"
+   exit 1
+fi
+
+
+tar cf - RemoteComponentControl ComponentControl RunProgram *Scenario.config | bzip2 -c9 >planetlab-setup.tar.bz2
+
+
+SERVER_LIST=`\
+( \
+while [ x$1 != "x" ] ; do \
+   echo $1 && \
+   shift ; \
+done \
+) | sort -u`
+
+
+
+for SERVER in $SERVER_LIST; do
+   echo -e "\x1b[34m`date`: Contacting $SERVER ...\x1b[0m"
+
+   cmd="\
+      echo \"\`date\`: Transfering scripts to $SERVER ...\" && \
+      cat > /tmp/planetlab-setup.tar.bz2 && \
+      echo \"\`date\`: Unpacking scripts on $SERVER ...\" && \
+      if [ ! -e src/ ] ; then \
+         echo \"\`date\`: Creating new src/ directory on $SERVER ...\" &&
+         mkdir src/ ; \
+      fi && \
+      if [ ! -e src/rsplib2 ] ; then \
+         echo \"\`date\`: Creating new src/rsplib2 directory on $SERVER ...\" &&
+         mkdir src/rsplib2 ; \
+      fi && \
+      rm -f ~/src/rsplib2/rsplib && \
+      ln -s ~/bin ~/src/rsplib2/rsplib && \
+      if [ ! -e src/rserpooldemo ] ; then \
+         echo \"\`date\`: Creating new src/rserpooldemo directory on $SERVER ...\" &&
+         mkdir src/rserpooldemo ; \
+      fi && \
+      if [ ! -e src/rserpooldemo/bin ] ; then \
+         echo \"\`date\`: Creating new src/rserpooldemo/bin directory on $SERVER ...\" &&
+         mkdir src/rserpooldemo/bin ; \
+      fi && \
+      rm -rf src/rserpooldemo/bin && \
+      mkdir src/rserpooldemo/bin && \
+      if [ ! -e src/rserpooldemo/bin/output ] ; then \
+         echo \"\`date\`: Creating new src/rserpooldemo/bin/output directory on $SERVER ...\" &&
+         mkdir src/rserpooldemo/bin/output ; \
+      fi && \
+      cd src/rserpooldemo/bin && \
+      tar xjf /tmp/planetlab-setup.tar.bz2 && \
+      rm -f /tmp/$DISTNAME-bin.tar.bz2 && \
+      date >LastUpdate && \
+      echo \"\`date\`: $SERVER is ready!\""
+
+   cat planetlab-setup.tar.bz2 | nice ssh -C -i $CC_REMOTEKEY -oPasswordAuthentication=no $CC_REMOTEUSER@$SERVER $cmd &
+done
+
+wait
+
+rm -f planetlab-setup.tar.bz2
