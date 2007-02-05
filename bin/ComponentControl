@@ -36,6 +36,10 @@ if [ ! -e "$CC_CONFIGFILE" ] ; then
    exit 1
 fi
 
+CC_CONFIGMISCARGS=
+# The config file has to store miscellaneous arguments into CC_CONFIGMISCARGS.
+# ComponentControl only expects its own arguments after calling the
+# configuration file!
 . $CC_CONFIGFILE
 
 CC_IDENTIFIER=$1
@@ -162,9 +166,11 @@ elif [ "x$CC_COMMAND" = "xkillall" ] ; then
    rm -f "$CC_PROGRAM_DIRECTORY/$CC_PROGRAM-*.pid"
 
 elif [ "x$CC_COMMAND" = "xrestart" ] ; then
-   $0 $CC_CONFIGFILE $CC_IDENTIFIER stop $CC_MISCARGS
+   # IMPORTANT: ComponentControl expects arguments shifted-away in the
+   #            configuration file in CC_CONFIGMISCARGS. They are needed here.
+   $0 $CC_CONFIGFILE $CC_CONFIGMISCARGS $CC_IDENTIFIER stop $CC_MISCARGS
    sleep 2
-   $0 $CC_CONFIGFILE $CC_IDENTIFIER start $CC_MISCARGS
+   $0 $CC_CONFIGFILE $CC_CONFIGMISCARGS $CC_IDENTIFIER start $CC_MISCARGS
 
 elif [ "x$CC_COMMAND" = "xstatus" ] ; then
    echo -n "Status of $CC_PROGRAM, identifier $CC_IDENTIFIER is: "

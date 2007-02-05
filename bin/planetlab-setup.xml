@@ -202,29 +202,29 @@ $Id$
       <PositionY>15</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./RemoteComponentControl ./PlanetLab-User.config planetvs2.informatik.uni-stuttgart.de ./PlanetLabScenario.config PE 5 start -identifier=0x104</Command>
+         <Command>./RemoteComponentControl ./PlanetLab-User.config planetvs2.informatik.uni-stuttgart.de ./PlanetLabScenario.config PE-STATIC 5 start -identifier=0x104</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./RemoteComponentControl ./PlanetLab-User.config planetvs2.informatik.uni-stuttgart.de ./PlanetLabScenario.config PE 5 start -identifier=0x104 -fgpfailureafter=20</Command>
+         <Command>./RemoteComponentControl ./PlanetLab-User.config planetvs2.informatik.uni-stuttgart.de ./PlanetLabScenario.config PE-STATIC 5 start -identifier=0x104 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./RemoteComponentControl ./PlanetLab-User.config planetvs2.informatik.uni-stuttgart.de ./PlanetLabScenario.config PE 5 restart -identifier=0x104</Command>
+         <Command>./RemoteComponentControl ./PlanetLab-User.config planetvs2.informatik.uni-stuttgart.de ./PlanetLabScenario.config PE-STATIC 5 restart -identifier=0x104</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./RemoteComponentControl ./PlanetLab-User.config planetvs2.informatik.uni-stuttgart.de ./PlanetLabScenario.config PE 5 restart -identifier=0x104 -fgpfailureafter=20</Command>
+         <Command>./RemoteComponentControl ./PlanetLab-User.config planetvs2.informatik.uni-stuttgart.de ./PlanetLabScenario.config PE-STATIC 5 restart -identifier=0x104 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop Pool Element (SIGINT)</Name>
-         <Command>./RemoteComponentControl ./PlanetLab-User.config planetvs2.informatik.uni-stuttgart.de ./PlanetLabScenario.config PE 5 stop</Command>
+         <Command>./RemoteComponentControl ./PlanetLab-User.config planetvs2.informatik.uni-stuttgart.de ./PlanetLabScenario.config PE-STATIC 5 stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Pool Element (SIGKILL)</Name>
-         <Command>./RemoteComponentControl ./PlanetLab-User.config planetvs2.informatik.uni-stuttgart.de ./PlanetLabScenario.config PE 5 kill</Command>
+         <Command>./RemoteComponentControl ./PlanetLab-User.config planetvs2.informatik.uni-stuttgart.de ./PlanetLabScenario.config PE-STATIC 5 kill</Command>
       </ContextMenuEntry>
    </Node>
 
@@ -239,29 +239,29 @@ $Id$
       <PositionY>40</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./RemoteComponentControl ./PlanetLab-User.config planet-lab-2.csse.monash.edu.au ./PlanetLabScenario.config PE 4 start -identifier=0x103</Command>
+         <Command>./RemoteComponentControl ./PlanetLab-User.config planet-lab-2.csse.monash.edu.au ./PlanetLabScenario.config PE-STATIC 4 start -identifier=0x103</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./RemoteComponentControl ./PlanetLab-User.config planet-lab-2.csse.monash.edu.au ./PlanetLabScenario.config PE 4 start -identifier=0x103 -fgpfailureafter=20</Command>
+         <Command>./RemoteComponentControl ./PlanetLab-User.config planet-lab-2.csse.monash.edu.au ./PlanetLabScenario.config PE-STATIC 4 start -identifier=0x103 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./RemoteComponentControl ./PlanetLab-User.config planet-lab-2.csse.monash.edu.au ./PlanetLabScenario.config PE 4 restart -identifier=0x103</Command>
+         <Command>./RemoteComponentControl ./PlanetLab-User.config planet-lab-2.csse.monash.edu.au ./PlanetLabScenario.config PE-STATIC 4 restart -identifier=0x103</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./RemoteComponentControl ./PlanetLab-User.config planet-lab-2.csse.monash.edu.au ./PlanetLabScenario.config PE 4 restart -identifier=0x103 -fgpfailureafter=20</Command>
+         <Command>./RemoteComponentControl ./PlanetLab-User.config planet-lab-2.csse.monash.edu.au ./PlanetLabScenario.config PE-STATIC 4 restart -identifier=0x103 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop Pool Element (SIGINT)</Name>
-         <Command>./RemoteComponentControl ./PlanetLab-User.config planet-lab-2.csse.monash.edu.au ./PlanetLabScenario.config PE 4 stop</Command>
+         <Command>./RemoteComponentControl ./PlanetLab-User.config planet-lab-2.csse.monash.edu.au ./PlanetLabScenario.config PE-STATIC 4 stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Pool Element (SIGKILL)</Name>
-         <Command>./RemoteComponentControl ./PlanetLab-User.config planet5.cs.huji.ac.il ./PlanetLabScenario.config PE 4 kill</Command>
+         <Command>./RemoteComponentControl ./PlanetLab-User.config planet5.cs.huji.ac.il ./PlanetLabScenario.config PE-STATIC 4 kill</Command>
       </ContextMenuEntry>
    </Node>
 
@@ -277,29 +277,29 @@ $Id$
       <PositionY>65</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./RemoteComponentControl ./PlanetLab-User.config planet5.cs.huji.ac.il ./PlanetLabScenario.config PE 3 start -identifier=0x102</Command>
+         <Command>./RemoteComponentControl ./PlanetLab-User.config planet5.cs.huji.ac.il ./PlanetLabScenario.config PE-STATIC 3 start -identifier=0x102</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./RemoteComponentControl ./PlanetLab-User.config planet5.cs.huji.ac.il ./PlanetLabScenario.config PE 3 start -identifier=0x102 -fgpfailureafter=20</Command>
+         <Command>./RemoteComponentControl ./PlanetLab-User.config planet5.cs.huji.ac.il ./PlanetLabScenario.config PE-STATIC 3 start -identifier=0x102 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./RemoteComponentControl ./PlanetLab-User.config planet5.cs.huji.ac.il ./PlanetLabScenario.config PE 3 restart -identifier=0x102</Command>
+         <Command>./RemoteComponentControl ./PlanetLab-User.config planet5.cs.huji.ac.il ./PlanetLabScenario.config PE-STATIC 3 restart -identifier=0x102</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./RemoteComponentControl ./PlanetLab-User.config planet5.cs.huji.ac.il ./PlanetLabScenario.config PE 3 restart -identifier=0x102 -fgpfailureafter=20</Command>
+         <Command>./RemoteComponentControl ./PlanetLab-User.config planet5.cs.huji.ac.il ./PlanetLabScenario.config PE-STATIC 3 restart -identifier=0x102 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop Pool Element (SIGINT)</Name>
-         <Command>./RemoteComponentControl ./PlanetLab-User.config planet5.cs.huji.ac.il ./PlanetLabScenario.config PE 3 stop</Command>
+         <Command>./RemoteComponentControl ./PlanetLab-User.config planet5.cs.huji.ac.il ./PlanetLabScenario.config PE-STATIC 3 stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Pool Element (SIGKILL)</Name>
-         <Command>./RemoteComponentControl ./PlanetLab-User.config planet5.cs.huji.ac.il ./PlanetLabScenario.config PE 3 kill</Command>
+         <Command>./RemoteComponentControl ./PlanetLab-User.config planet5.cs.huji.ac.il ./PlanetLabScenario.config PE-STATIC 3 kill</Command>
       </ContextMenuEntry>
    </Node>
 -->
@@ -315,29 +315,29 @@ $Id$
       <PositionY>65</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./RemoteComponentControl ./PlanetLab-User.config planetlab3.ucsd.edu ./PlanetLabScenario.config PE 6 start -identifier=0x105</Command>
+         <Command>./RemoteComponentControl ./PlanetLab-User.config planetlab3.ucsd.edu ./PlanetLabScenario.config PE-STATIC 6 start -identifier=0x105</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./RemoteComponentControl ./PlanetLab-User.config planetlab3.ucsd.edu ./PlanetLabScenario.config PE 6 start -identifier=0x105 -fgpfailureafter=20</Command>
+         <Command>./RemoteComponentControl ./PlanetLab-User.config planetlab3.ucsd.edu ./PlanetLabScenario.config PE-STATIC 6 start -identifier=0x105 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./RemoteComponentControl ./PlanetLab-User.config planetlab3.ucsd.edu ./PlanetLabScenario.config PE 6 restart -identifier=0x105</Command>
+         <Command>./RemoteComponentControl ./PlanetLab-User.config planetlab3.ucsd.edu ./PlanetLabScenario.config PE-STATIC 6 restart -identifier=0x105</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./RemoteComponentControl ./PlanetLab-User.config planetlab3.ucsd.edu ./PlanetLabScenario.config PE 6 restart -identifier=0x105 -fgpfailureafter=20</Command>
+         <Command>./RemoteComponentControl ./PlanetLab-User.config planetlab3.ucsd.edu ./PlanetLabScenario.config PE-STATIC 6 restart -identifier=0x105 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop Pool Element (SIGINT)</Name>
-         <Command>./RemoteComponentControl ./PlanetLab-User.config planetlab3.ucsd.edu ./PlanetLabScenario.config PE 6 stop</Command>
+         <Command>./RemoteComponentControl ./PlanetLab-User.config planetlab3.ucsd.edu ./PlanetLabScenario.config PE-STATIC 6 stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Pool Element (SIGKILL)</Name>
-         <Command>./RemoteComponentControl ./PlanetLab-User.config planetlab3.ucsd.edu ./PlanetLabScenario.config PE 6 kill</Command>
+         <Command>./RemoteComponentControl ./PlanetLab-User.config planetlab3.ucsd.edu ./PlanetLabScenario.config PE-STATIC 6 kill</Command>
       </ContextMenuEntry>
    </Node>
 
