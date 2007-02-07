@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # $Id$
 # ***************************************************************************
 # *   The RSerPool Demo System                                              *
@@ -21,52 +21,12 @@
 # *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 # ***************************************************************************
 
-if [ $# -lt 5 ] ; then
-   echo >&2 "Usage: RemoteComponentControl [User Configuration File] [Host] [Scenario Configuration File] [Identifier] [start|stop|kill|stopall|killall|restart|status|log|monitor] {Arguments ...}"
-   exit 1
-fi
-
-
-# ====== Get configuration ==================================================
-CC_REMOTECONFIG=$1
-CC_HOST=$2
-CC_CONFIGFILE=$3
-CC_IDENTIFIER=$4
-CC_COMMAND=$5
-shift ; shift ; shift ; shift ; shift
-CC_MISCARGS=$@
-
-if [ ! -e "$CC_REMOTECONFIG" ] ; then
-   echo >&2 "ERROR: Configuration file $CC_REMOTECONFIG does not exist!"
-   exit 1
-fi
-
-. ./$CC_REMOTECONFIG
-CC_LOCALUSER="`whoami`"
-if [ "x$CC_PATH" = "x" ] ; then
-   CC_PATH="`pwd | sed -e \"s/$CC_LOCALUSER/$CC_REMOTEUSER/g\"`"
-fi
-
-eval CC_HOST=$CC_HOST
-if [ "x$CC_HOST" = "x" ] ; then
-   echo >&2 "ERROR: No host name specified! Check evaluation string!"
-   exit 1
-fi
-
-
-command="$CC_REMOTEPRECOMMAND nohup ./ComponentControl $CC_CONFIGFILE $CC_IDENTIFIER $CC_COMMAND $CC_MISCARGS >/dev/null 2>/dev/null &"
-
-
-echo "Contacting $CC_REMOTEUSER@$CC_HOST using key $CC_REMOTEKEY ..."
-ssh -i $CC_REMOTEKEY $CC_SSHOPT $CC_REMOTEUSER@$CC_HOST "
-if [ ! -e $CC_PATH ] ; then
-   echo \"ERROR: Directory $CC_PATH does not exist on host $CC_HOST!\"
-   exit 1
-fi &&
-cd $CC_PATH && \
-if [ ! -e ComponentControl ] ; then
-   echo \"ERROR: ComponentControl not found in directory $CC_PATH of host $CC_HOST!\"
-   exit 1
-fi &&
-echo \"$command\" &&
-$command"
+./ComponentControl ./PlanetLabScenario.config PR 1 start -identifier=0x10000
+./ComponentControl ./PlanetLabScenario.config PR 2 start -identifier=0x10001
+sleep 5
+./ComponentControl ./PlanetLabScenario.config PE 1 start -identifier=0x100
+./ComponentControl ./PlanetLabScenario.config PE 2 start -identifier=0x101
+sleep 2
+./ComponentControl ./PlanetLabScenario.config PU 1 start -identifier=0x1 -caption=PoolUser-1
+sleep 1
+./ComponentControl ./PlanetLabScenario.config PU 2 start -identifier=0x2 -caption=PoolUser-2

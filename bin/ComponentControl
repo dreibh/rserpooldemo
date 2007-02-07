@@ -22,7 +22,7 @@
 # ***************************************************************************
 
 if [ $# -lt 3 ] ; then
-   echo >&2 "Usage: ComponentControl [Configuration File] {Configuration File Options} [Identifier] [start|stop|kill|stopall|killall|restart|status|log|monitor] {Arguments ...}"
+   echo >&2 "Usage: ComponentControl [Scenario Configuration File] {Configuration File Options} [Identifier] [start|stop|kill|stopall|killall|restart|status|log|monitor] {Arguments ...}"
    exit 1
 fi
 
