@@ -21,21 +21,25 @@
 # *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 # ***************************************************************************
 
-if [ $# -lt 3 ] ; then
-   echo >&2 "Usage: PlanetLabScenario-StartAll [Delay after PRs] [Delay after PEs] [Delay between PUs]"
+if [ $# -lt 1 ] ; then
+   echo >&2 "Usage: PlanetLabScenario-Demo1 [start|restart|stop|stopall] {Options}"
    exit 1
 fi
 
-PR_DELAY=$1
-PE_DELAY=$2
-PU_DELAY=$3
+MODE=$1
 
-./ComponentControl ./PlanetLabScenario.config PR 1 start -identifier=0x10000
-./ComponentControl ./PlanetLabScenario.config PR 2 start -identifier=0x10001
-sleep $PR_DELAY
-./ComponentControl ./PlanetLabScenario.config PE 1 start -identifier=0x100
-./ComponentControl ./PlanetLabScenario.config PE 2 start -identifier=0x101
-sleep $PE_DELAY
-./ComponentControl ./PlanetLabScenario.config PU 1 start -identifier=0x1 -caption=PoolUser-1
-sleep $PU_DELAY
-./ComponentControl ./PlanetLabScenario.config PU 2 start -identifier=0x2 -caption=PoolUser-2
+if [ "x$MODE" = "xstop" -o "x$MODE" = "xstopall" ] ; then
+   ./RemoteComponentControl ./PlanetLab-User.config "\$CC_HOST_STUTTGART" ./PlanetLabScenario.config PE-STATIC 5 stop $@ &
+   ./RemoteComponentControl ./PlanetLab-User.config "\$CC_HOST_MELBOURNE" ./PlanetLabScenario.config PE-STATIC 4 stop $@ &
+   ./RemoteComponentControl ./PlanetLab-User.config "\$CC_HOST_SANDIEGO"  ./PlanetLabScenario.config PE-STATIC 6 stop $@ &
+   wait
+   if [ "x$MODE" = "xstopall" ] ; then
+      ./PlanetLabScenario-StopAll
+   fi
+else
+   ./PlanetLabScenario-StartAll 0 0 0 &
+   ./RemoteComponentControl ./PlanetLab-User.config "\$CC_HOST_STUTTGART" ./PlanetLabScenario.config PE-STATIC 5 $MODE -identifier=0x104 $@ &
+   ./RemoteComponentControl ./PlanetLab-User.config "\$CC_HOST_MELBOURNE" ./PlanetLabScenario.config PE-STATIC 4 $MODE -identifier=0x103 $@ &
+   ./RemoteComponentControl ./PlanetLab-User.config "\$CC_HOST_SANDIEGO"  ./PlanetLabScenario.config PE-STATIC 6 $MODE -identifier=0x105 $@ &
+   wait
+fi

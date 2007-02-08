@@ -407,22 +407,47 @@ $Id$
       <PositionX>0</PositionX>
       <PositionY>0</PositionY>
       <ContextMenuEntry>
-         <Name>Start All Components</Name>
+         <Name>Demo: Start in Reliable Mode</Name>
+         <Command>./PlanetLabScenario-Demo1 start</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Demo: Start in Failure Mode</Name>
+         <Command>./PlanetLabScenario-Demo1 start -fgpfailureafter=20</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Demo: Restart in Reliable Mode</Name>
+         <Command>./PlanetLabScenario-Demo1 restart</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Demo: Restart in Failure Mode</Name>
+         <Command>./PlanetLabScenario-Demo1 restart -fgpfailureafter=20</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Demo: Stop Remote PEs</Name>
+         <Command>./PlanetLabScenario-Demo1 stop</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Demo: Stop All Components</Name>
+         <Command>./PlanetLabScenario-Demo1 stopall</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Start Local Components</Name>
          <Command>./PlanetLabScenario-StartAll</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
-         <Name>Stop All Components (SIGINT)</Name>
+         <Name>Stop Local Components (SIGINT)</Name>
          <Command>./PlanetLabScenario-StopAll stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
-         <Name>Kill All Components (SIGKILL)</Name>
+         <Name>Kill Local Components (SIGKILL)</Name>
          <Command>./PlanetLabScenario-StopAll kill</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Run Wireshark</Name>
-         <Command>./RunProgram kdesu wireshark</Command>
+         <Command>./RunProgram wireshark</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Run Shell</Name>
