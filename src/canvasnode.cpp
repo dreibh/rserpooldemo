@@ -250,7 +250,9 @@ void CCanvasNode::advance(int phase)
                QCanvasRectangle* pDurationRectangle = m_ConUIDsTextMap[it.key()]->m_pBackground;
 
                char timeBuffer[30];
-               sprintf(timeBuffer, "%2Lu:%02Lum", duration / 60000000, (duration / 1000000) % 60);
+               sprintf(timeBuffer, "%2llu:%02llum",
+                       (unsigned long long)duration / 60000000,
+                       (unsigned long long)(duration / 1000000) % 60);
                pDurationText->setText(QString(timeBuffer));
                QFontMetrics fm(pDurationText->font());
                const int offsetX = -fm.width(pDurationText->text()) / 2;

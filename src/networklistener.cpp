@@ -78,7 +78,8 @@ void CNetworkListener::update()
          }
 
          char nameBuffer[32];
-         snprintf(nameBuffer, sizeof(nameBuffer), "%Lx", cspReport->Header.SenderID);
+         snprintf(nameBuffer, sizeof(nameBuffer), "%llx",
+                  (unsigned long long)cspReport->Header.SenderID);
          QString name(nameBuffer);
          QMap<QString, CNode*>::iterator nodeIterator;
          if((nodeIterator = m_NodesMap.find(name)) != m_NodesMap.end()) {
@@ -102,7 +103,8 @@ void CNetworkListener::update()
                cspReport->AssociationArray[i].ProtocolID = ntohs(cspReport->AssociationArray[i].ProtocolID);
                cspReport->AssociationArray[i].PPID       = ntohl(cspReport->AssociationArray[i].PPID);
 
-               snprintf(nameBuffer, sizeof(nameBuffer), "%Lx", cspReport->AssociationArray[i].ReceiverID);
+               snprintf(nameBuffer, sizeof(nameBuffer), "%llx",
+                        (unsigned long long)cspReport->AssociationArray[i].ReceiverID);
                QString peerName(nameBuffer);
                QMap<QString, CNode*>::iterator nodeIterator;
                if((nodeIterator = m_NodesMap.find(peerName)) != m_NodesMap.end()) {
