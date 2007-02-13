@@ -30,7 +30,7 @@ $Id$
    <DiagramResolutionY>800</DiagramResolutionY>
    <Caption>Thomas Dreibholz's RSerPool Demonstration Tool</Caption>
    <BackgroundImage>pictures/Europe.jpeg</BackgroundImage>
-   <ProtocolColor ID="0">yellow</ProtocolColor>
+   <ProtocolColor ID="0">gold2</ProtocolColor>
    <ProtocolColor ID="11">blue</ProtocolColor>
    <ProtocolColor ID="12">red</ProtocolColor>
 
@@ -434,7 +434,7 @@ $Id$
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Start Local Components</Name>
-         <Command>./PlanetLabScenario-StartAll</Command>
+         <Command>./PlanetLabScenario-StartAll 3 2 1</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>

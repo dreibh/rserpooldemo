@@ -319,7 +319,7 @@ $Id$
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Run Wireshark</Name>
-         <Command>./RunProgram kdesu wireshark</Command>
+         <Command>./RunProgram wireshark</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Run Shell</Name>

@@ -34,7 +34,7 @@ if [ "x$MODE" = "xstop" -o "x$MODE" = "xstopall" ] ; then
    ./RemoteComponentControl ./PlanetLab-User.config "\$CC_HOST_SANDIEGO"  ./PlanetLabScenario.config PE-STATIC 6 stop $@ &
    wait
    if [ "x$MODE" = "xstopall" ] ; then
-      ./PlanetLabScenario-StopAll
+      ./PlanetLabScenario-StopAll stop
    fi
 else
    ./PlanetLabScenario-StartAll 0 0 0 &
