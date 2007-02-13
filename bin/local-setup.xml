@@ -30,6 +30,7 @@ $Id$
    <DiagramResolutionY>800</DiagramResolutionY>
    <Caption>Thomas Dreibholz's RSerPool Demonstration Tool</Caption>
    <BackgroundImage>pictures/Europe.jpeg</BackgroundImage>
+   <ProtocolColor ID="0">yellow</ProtocolColor>
    <ProtocolColor ID="11">blue</ProtocolColor>
    <ProtocolColor ID="12">red</ProtocolColor>
 

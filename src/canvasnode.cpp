@@ -230,13 +230,12 @@ void CCanvasNode::advance(int phase)
                line->setZ(0);
                line->setPen(linePen);
                line->show();
-
             }
 
             uint64_t duration = m_Node->getConnectedUIDsDurationMap()[it.key()];
             if(duration != ~0ULL) {
                const double z = (((m_Node->getPositionX(sizeX) % 1024) << 10) +
-                                   (m_Node->getPositionY(sizeY) % 1024)) << 4;
+                                  (m_Node->getPositionY(sizeY) % 1024)) << 4;
                if(m_ConUIDsTextMap.find(it.key()) == m_ConUIDsTextMap.end()) {
                   m_ConUIDsTextMap[it.key()] = new LinkText();
                   m_ConUIDsTextMap[it.key()]->m_pDurationText = new QCanvasText(m_Canvas);
