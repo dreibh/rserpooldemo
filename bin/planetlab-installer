@@ -80,7 +80,7 @@ for SERVER in $SERVER_LIST; do
       date >LastUpdate && \
       echo \"\`date\`: $SERVER is ready!\""
 
-   cat planetlab-setup.tar.bz2 | nice ssh -C -i $CC_REMOTEKEY -oPasswordAuthentication=no $CC_REMOTEUSER@$SERVER $cmd &
+   cat planetlab-setup.tar.bz2 | nice ssh -C -i $CC_REMOTEKEY -oPasswordAuthentication=no -oStrictHostKeyChecking=no $CC_REMOTEUSER@$SERVER $cmd &
 done
 
 wait
