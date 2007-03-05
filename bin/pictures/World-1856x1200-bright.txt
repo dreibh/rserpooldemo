@@ -1,0 +1,3 @@
+Werkzeuge -> Farben -> Farbton-Sättigung
+ Blau: Helligkeit 100
+ Grün: Helligkeit 60
