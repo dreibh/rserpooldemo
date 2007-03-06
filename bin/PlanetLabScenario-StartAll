@@ -22,19 +22,20 @@
 # ***************************************************************************
 
 if [ $# -lt 3 ] ; then
-   echo >&2 "Usage: PlanetLabScenario-StartAll [Delay after PRs] [Delay after PEs] [Delay between PUs]"
+   echo >&2 "Usage: PlanetLabScenario-StartAll [Delay after PRs] [Delay after PEs] [Delay between PUs] {PE parameters}"
    exit 1
 fi
 
 PR_DELAY=$1
 PE_DELAY=$2
 PU_DELAY=$3
+shift ; shift ; shift
 
 ./ComponentControl ./PlanetLabScenario.config PR 1 start -identifier=0x10000 -asap=[::]:3001 -enrp=[::]:4001
 ./ComponentControl ./PlanetLabScenario.config PR 2 start -identifier=0x10001 -asap=[::]:3002 -enrp=[::]:4002
 sleep $PR_DELAY
-./ComponentControl ./PlanetLabScenario.config PE 1 start -identifier=0x100
-./ComponentControl ./PlanetLabScenario.config PE 2 start -identifier=0x101
+./ComponentControl ./PlanetLabScenario.config PE 1 start -identifier=0x100 $@
+./ComponentControl ./PlanetLabScenario.config PE 2 start -identifier=0x101 $@
 sleep $PE_DELAY
 ./ComponentControl ./PlanetLabScenario.config PU 1 start -identifier=0x1 -caption=PoolUser-1
 sleep $PU_DELAY
