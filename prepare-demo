@@ -28,7 +28,7 @@ fi
 if [ ! -e trunk ] ; then
    rm -f sctplib1 socketapi rsplib2 rserpooldemo
 
-   svn co svn+ssh://$SVN_USER@svn.exp-math.uni-essen.de/home/svn/sctp/trunk && \
+   svn co https://$SVN_USER@svn.exp-math.uni-essen.de/svn/sctp/trunk && \
    \
    ln -s trunk/sctplib1 . && \
    ln -s trunk/socketapi . && \
@@ -41,7 +41,7 @@ fi
 
 cd sctplib1 && ./autogen.sh --enable-sctp-over-udp && make install && cd .. && \
 cd socketapi && ./autogen.sh --enable-sctp-over-udp && make install && cd .. && \
-cd rsplib2 && ./autogen.sh --enable-csp --enable-qt && make install && cd .. && \
+cd rsplib2 && ./autogen.sh --enable-csp --enable-qt && cd .. && \
 cd rserpooldemo && qmake && make && cd .. && \
 \
 chown -R demo:demo /home/demo/src

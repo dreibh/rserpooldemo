@@ -230,7 +230,7 @@ $Id$
    </Node>
 
 
-   <Node>
+<!--   <Node>
       <UID>200000000000103</UID>
       <DisplayName>Melbourne</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
@@ -264,10 +264,10 @@ $Id$
          <Name>Kill Pool Element (SIGKILL)</Name>
          <Command>./RemoteComponentControl ./PlanetLab-User.config $CC_HOST_MELBOURNE ./PlanetLabScenario.config PE-STATIC 4 kill</Command>
       </ContextMenuEntry>
-   </Node>
+   </Node>-->
 
 
-<!--
+
     <Node>
       <UID>200000000000102</UID>
       <DisplayName>Jerusalem (القدس)</DisplayName>
@@ -275,7 +275,7 @@ $Id$
       <ActiveImageURL>pictures/PoolElementActive2.png</ActiveImageURL>
       <InactiveImageURL>pictures/PoolElementInactive2.png</InactiveImageURL>
       <PositionX>80</PositionX>
-      <PositionY>65</PositionY>
+      <PositionY>40</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
          <Command>./RemoteComponentControl ./PlanetLab-User.config $CC_HOST_JERUSALEM ./PlanetLabScenario.config PE-STATIC 3 start -identifier=0x102</Command>
@@ -303,7 +303,7 @@ $Id$
          <Command>./RemoteComponentControl ./PlanetLab-User.config $CC_HOST_JERUSALEM ./PlanetLabScenario.config PE-STATIC 3 kill</Command>
       </ContextMenuEntry>
    </Node>
--->
+
 
 
    <Node>

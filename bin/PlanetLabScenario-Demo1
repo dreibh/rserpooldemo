@@ -31,7 +31,7 @@ shift
 
 if [ "x$MODE" = "xstop" -o "x$MODE" = "xstopall" ] ; then
    ./RemoteComponentControl ./PlanetLab-User.config "\$CC_HOST_STUTTGART" ./PlanetLabScenario.config PE-STATIC 5 stop $@ &
-   ./RemoteComponentControl ./PlanetLab-User.config "\$CC_HOST_MELBOURNE" ./PlanetLabScenario.config PE-STATIC 4 stop $@ &
+   ./RemoteComponentControl ./PlanetLab-User.config "\$CC_HOST_JERUSALEM" ./PlanetLabScenario.config PE-STATIC 3 stop $@ &
    ./RemoteComponentControl ./PlanetLab-User.config "\$CC_HOST_SANDIEGO"  ./PlanetLabScenario.config PE-STATIC 6 stop $@ &
    wait
    if [ "x$MODE" = "xstopall" ] ; then
@@ -40,7 +40,7 @@ if [ "x$MODE" = "xstop" -o "x$MODE" = "xstopall" ] ; then
 else
    ./PlanetLabScenario-StartAll 0 0 0 $@ &
    ./RemoteComponentControl ./PlanetLab-User.config "\$CC_HOST_STUTTGART" ./PlanetLabScenario.config PE-STATIC 5 $MODE -identifier=0x104 $@ &
-   ./RemoteComponentControl ./PlanetLab-User.config "\$CC_HOST_MELBOURNE" ./PlanetLabScenario.config PE-STATIC 4 $MODE -identifier=0x103 $@ &
+   ./RemoteComponentControl ./PlanetLab-User.config "\$CC_HOST_JERUSALEM" ./PlanetLabScenario.config PE-STATIC 3 $MODE -identifier=0x102 $@ &
    ./RemoteComponentControl ./PlanetLab-User.config "\$CC_HOST_SANDIEGO"  ./PlanetLabScenario.config PE-STATIC 6 $MODE -identifier=0x105 $@ &
    wait
 fi
