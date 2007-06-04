@@ -105,7 +105,7 @@ stop_program_using_pid_file() {
       pid=`cat $2`
       if ps -p $pid | grep $1 1>/dev/null 2>/dev/null ; then
          echo "Sending SIG$3 to PID $pid"
-         kill -$3 $pid
+         $CC_PRESTART /bin/kill -$3 $pid
       else
          echo "$pid is already gone, removing PID file only"
          rm -f $2
@@ -126,11 +126,12 @@ if [ "x$CC_COMMAND" = "xstart" ] ; then
       rm -f $PIDFILE
    fi
    echo "Starting:"
+   echo "   Prestart  = $CC_PRESTART"
    echo "   Program   = $PROGFILE"
    echo "   Arguments = $CC_ARGS"
    echo "   PID File  = $PIDFILE"
    echo "   Log File  = $LOGFILE"
-   $PROGFILE $CC_ARGS &
+   $CC_PRESTART $PROGFILE $CC_ARGS &
    PID=$!
    if [ $? = 0 ] ; then
       echo $PID > $PIDFILE
