@@ -37,9 +37,9 @@ else
 fi
 
 
-./ComponentControl ./RSerPoolDemo-PE.config 1 $command
-./ComponentControl ./RSerPoolDemo-PE.config 2 $command
-./RemoteComponentControl ./RSerPoolDemo-Remote.config beta ./RSerPoolDemo-PE.config 3 $command
+./ComponentControl ./LocalScenario.config PE 1 $command
+./ComponentControl ./LocalScenario.config PE 2 $command
+./RemoteComponentControl ./RemoteScenario-User.config beta ./LocalScenario.config 3 $command
 
-./ComponentControl ./RSerPoolDemo-PR.config 1 $command
-./ComponentControl ./RSerPoolDemo-PR.config 2 $command
+./ComponentControl ./LocalScenario.config PR 1 $command
+./ComponentControl ./LocalScenario.config PR 2 $command
