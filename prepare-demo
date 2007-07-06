@@ -39,9 +39,10 @@ else
 fi
 
 
-cd sctplib1 && ./autogen.sh --enable-sctp-over-udp && make install && cd .. && \
-cd socketapi && ./autogen.sh --enable-sctp-over-udp && make install && cd .. && \
-cd rsplib2 && ./autogen.sh --enable-csp --enable-qt && cd .. && \
+cd sctplib1 && ./autogen.sh --enable-maintainer-mode --enable-sctp-over-udp && make install && cd .. && \
+cd socketapi && ./autogen.sh --enable-maintainer-mode --enable-sctp-over-udp && make install && cd .. && \
+cd rsplib2 && ./autogen.sh --enable-maintainer-mode --enable-csp --enable-qt && cd .. && \
 cd rserpooldemo && qmake && make && cd .. && \
 \
-chown -R demo:demo /home/demo/src
+chown -R $LOCAL_USER:$LOCAL_USER /home/demo/src && \
+echo "" && echo "The Demo System is ready now!"
