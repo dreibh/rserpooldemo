@@ -1,16 +1,41 @@
 #!/bin/bash
+#
+# The RSerPool Demo System Install Script
+# Copyright (C) 2005-2007 by Thomas Dreibholz, dreibh@exp-math.uni-essen.de
+#
+# $Id$
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+#
+# Contact: dreibh@iem.uni-due.de
+#
 
-if [ $# -ne 2 ] ; then
-   echo "Usage: prepare-demo [Local User] [SVN User]"
+if [ $# -lt 2 ] ; then
+   echo "Usage: prepare-demo [Local User] [SVN User] {autogen.sh Options}"
    exit
 fi
 LOCAL_USER=$1
 SVN_USER=$2
+shift ; shift
+AUTOGEN_OPTS=$@
 
 echo "This script will do the following:"
 echo " - Check out or update directory \"trunk\" from the SCTP repository"
-echo "    + Local Account: $LOCAL_USER"
-echo "    + SVN Account:   $SVN_USER"
+echo "    + Local Account:      $LOCAL_USER"
+echo "    + SVN Account:        $SVN_USER"
+echo "    + autogen.sh Options: $AUTOGEN_OPTS"
 echo " - Compile and install the RSerPool demo system"
 echo ""
 echo "Are you really sure (yes/no)?"
@@ -39,9 +64,9 @@ else
 fi
 
 
-cd sctplib1 && ./autogen.sh --enable-maintainer-mode --enable-sctp-over-udp && make install && cd .. && \
-cd socketapi && ./autogen.sh --enable-maintainer-mode --enable-sctp-over-udp && make install && cd .. && \
-cd rsplib2 && ./autogen.sh --enable-maintainer-mode --enable-csp --enable-qt && cd .. && \
+cd sctplib1 && ./autogen.sh --enable-maintainer-mode --enable-sctp-over-udp $AUTOGEN_OPTS && make install && cd .. && \
+cd socketapi && ./autogen.sh --enable-maintainer-mode --enable-sctp-over-udp $AUTOGEN_OPTS && make install && cd .. && \
+cd rsplib2 && ./autogen.sh --enable-maintainer-mode --enable-csp --enable-qt $AUTOGEN_OPTS && cd .. && \
 cd rserpooldemo && qmake && make && cd .. && \
 \
 chown -R $LOCAL_USER:$LOCAL_USER /home/demo/src && \
