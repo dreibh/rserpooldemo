@@ -11,10 +11,10 @@
  *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
  *             ###################################################
  *
- * ############- An Efficient RSerPool Prototype Implementation #############
+ * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Authors: Thomas Dreibholz, dreibh@exp-math.uni-essen.de               *
- *            Sebastian Rohde, rohde@exp-math.uni-essen.de                 *
+ *   Authors: Thomas Dreibholz, dreibh@exp-math.uni-essen.de
+ *            Sebastian Rohde, rohde@exp-math.uni-essen.de
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
