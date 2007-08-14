@@ -1,0 +1,66 @@
+#!/bin/bash
+# $Id$
+# * ##########################################################################
+# *
+# *              //===//   //=====   //===//   //       //   //===//
+# *             //    //  //        //    //  //       //   //    //
+# *            //===//   //=====   //===//   //       //   //===<<
+# *           //   \\         //  //        //       //   //    //
+# *          //     \\  =====//  //        //=====  //   //===//    Version II
+# *
+# *             ###################################################
+# *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
+# *             ###################################################
+# *
+# * ############# An Efficient RSerPool Prototype Implementation #############
+# *
+# * Copyright (C) 2002-2007 by Thomas Dreibholz
+# *
+# * This program is free software: you can redistribute it and/or modify
+# * it under the terms of the GNU General Public License as published by
+# * the Free Software Foundation, either version 3 of the License, or
+# * (at your option) any later version.
+# *
+# * This program is distributed in the hope that it will be useful,
+# * but WITHOUT ANY WARRANTY; without even the implied warranty of
+# * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# * GNU General Public License for more details.
+# *
+# * You should have received a copy of the GNU General Public License
+# * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# *
+# * Contact: dreibh@iem.uni-due.de
+
+
+if [ $# -ne 1 ] ; then
+   echo "Usage: dummy-interface [up|down]" >&2
+   exit 1
+fi
+
+
+if [ "x$1" = "xdown" ] ; then
+   ip addr flush dev dummy0 2>/dev/null
+   ip link set dummy0 down
+
+elif [ "x$1" = "xup" ] ; then
+   # Shutdown interface and flush all of its routes
+   ip addr flush dev dummy0 2>/dev/null
+   ip link set dummy0 down
+
+   # Set the interface up with multicast.
+   # Multicast is important, otherwise sendMulticastOverAllInterfaces() would
+  #    ignore this interface!
+   ip link set dummy0 up multicast on
+
+
+   # IPv4 address
+   ip addr add 10.255.255.1/24 dev dummy0
+
+   # IPv6 address
+   # ip addr add 3ffe:ab:cd:ef:123:45:67:89a/64 dev dummy0
+
+else
+
+   echo "Bad parameter: $1" >&2
+
+fi
