@@ -49,7 +49,7 @@ elif [ "x$1" = "xup" ] ; then
 
    # Set the interface up with multicast.
    # Multicast is important, otherwise sendMulticastOverAllInterfaces() would
-  #    ignore this interface!
+   # ignore this interface!
    ip link set dummy0 up multicast on
 
 
@@ -57,7 +57,7 @@ elif [ "x$1" = "xup" ] ; then
    ip addr add 10.255.255.1/24 dev dummy0
 
    # IPv6 address
-   # ip addr add 3ffe:ab:cd:ef:123:45:67:89a/64 dev dummy0
+   ip addr add 3ffe:ab:cd:ef:123:45:67:89a/64 dev dummy0
 
 else
 
