@@ -67,7 +67,7 @@ void CNode::setUpdated()
 }
 
 
-const double CNode::getWorkload() const
+double CNode::getWorkload() const
 {
    if((m_State == ACTIVE) &&
       (m_Workload >= 0.0)) {

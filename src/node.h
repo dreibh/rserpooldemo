@@ -77,7 +77,7 @@ class CNode
    inline const QString& getDisplayName() const {
       return m_DisplayName;
    }
-   const double getWorkload() const;
+   double getWorkload() const;
    const QString getWorkloadString() const;
    inline const QString& getStatusText() const {
       return m_StatusText;
