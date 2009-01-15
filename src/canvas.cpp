@@ -13,8 +13,10 @@
  *
  * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Authors: Thomas Dreibholz, dreibh@exp-math.uni-essen.de
- *            Sebastian Rohde, rohde@exp-math.uni-essen.de
+ *   Copyright (C) 2002-2009 by Thomas Dreibholz
+ *
+ *   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
+ *            Sebastian Rohde, rohde@iem.uni-due.de
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,14 +34,14 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#include <qmessagebox.h>
+#include <QMessageBox>
 
 #include "canvas.h"
 #include "mainwidget.h"
 
 
  CCanvas::CCanvas(QObject *pParent)
-   : QCanvas(pParent)
+   : Q3Canvas(pParent)
  {
  }
 
@@ -47,5 +49,5 @@
  void CCanvas::advance()
  {
    static_cast<CMainWidget *>(parent())->m_Configuration.updateNodeData();
-   QCanvas::advance();
+   Q3Canvas::advance();
  }

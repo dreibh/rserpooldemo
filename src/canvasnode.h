@@ -13,8 +13,10 @@
  *
  * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Authors: Thomas Dreibholz, dreibh@exp-math.uni-essen.de
- *            Sebastian Rohde, rohde@exp-math.uni-essen.de
+ *   Copyright (C) 2002-2009 by Thomas Dreibholz
+ *
+ *   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
+ *            Sebastian Rohde, rohde@iem.uni-due.de
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,21 +37,24 @@
 #ifndef CANVASNODE_H
 #define CANVASNODE_H
 
-#include <qcanvas.h>
-#include <qpopupmenu.h>
-#include <qmap.h>
+#include <QMap>
+#include <Q3Canvas>
+#include <Q3PopupMenu>
+#include <Q3ValueList>
+#include <QPixmap>
+
 #include "canvas.h"
 
 
 class CNode;
 
 
-class CCanvasNode : public QCanvasSprite
+class CCanvasNode : public Q3CanvasSprite
 {
    public:
    CCanvasNode(CCanvas*             canvas,
                CNode*               node,
-               QValueList<QPixmap>& pixmapList);
+               Q3ValueList<QPixmap>& pixmapList);
    virtual ~CCanvasNode();
 
    virtual void advance(int phase);
@@ -57,27 +62,27 @@ class CCanvasNode : public QCanvasSprite
    void getAnchor(int& _rX, int& _rY);
    void updatePostion();
 
-   QPopupMenu*       m_ContextMenu;
+   Q3PopupMenu*       m_ContextMenu;
 
    private:
    double            m_ZPosition;
    CCanvas*          m_Canvas;
    CNode*            m_Node;
 
-   QCanvasRectangle* m_pBackground;
-   QCanvasText*      m_pTitle;
-   QCanvasText*      m_pStatusText;
-   QCanvasText*      m_pLocationText;
-   QCanvasText*      m_pWorkload;
-   QCanvasRectangle* m_pWorkloadBackground;
+   Q3CanvasRectangle* m_pBackground;
+   Q3CanvasText*      m_pTitle;
+   Q3CanvasText*      m_pStatusText;
+   Q3CanvasText*      m_pLocationText;
+   Q3CanvasText*      m_pWorkload;
+   Q3CanvasRectangle* m_pWorkloadBackground;
 
    struct LinkText
    {
-      QCanvasText*      m_pDurationText;
-      QCanvasRectangle* m_pBackground;
+      Q3CanvasText*      m_pDurationText;
+      Q3CanvasRectangle* m_pBackground;
    };
 
-   QMap<QString, QCanvasLine*> m_ConUIDsLinesMap;
+   QMap<QString, Q3CanvasLine*> m_ConUIDsLinesMap;
    QMap<QString, LinkText*>    m_ConUIDsTextMap;
 };
 

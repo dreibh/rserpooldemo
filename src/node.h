@@ -13,8 +13,10 @@
  *
  * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Authors: Thomas Dreibholz, dreibh@exp-math.uni-essen.de
- *            Sebastian Rohde, rohde@exp-math.uni-essen.de
+ *   Copyright (C) 2002-2009 by Thomas Dreibholz
+ *
+ *   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
+ *            Sebastian Rohde, rohde@iem.uni-due.de
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,9 +37,11 @@
 #ifndef NODE_H
 #define NODE_H
 
+#include <QString>
+#include <QMap>
+#include <Q3PtrList>
+
 #include <netinet/in.h>
-#include <qstring.h>
-#include <qptrlist.h>
 
 #include "contextmenuconfig.h"
 
@@ -86,7 +90,7 @@ class CNode
       return m_LocationText;
    }
 
-   inline QPtrList<CContextMenuConfig>& getContextMenuConfig() {
+   inline Q3PtrList<CContextMenuConfig>& getContextMenuConfig() {
       return m_ContextMenuEntries;
    }
    inline QMap<QString, int>& getConnectedUIDsMap() {
@@ -129,15 +133,15 @@ class CNode
    int     m_TimeoutMultiplier;
 
    // Values need in RunTime
-   QPtrList<CContextMenuConfig> m_ContextMenuEntries;
-   QMap<QString, int>           m_ConnectedUIDsMap;
-   QMap<QString, uint64_t>      m_ConnectionDurationMap;
-   QString                      m_StatusText;
-   QString                      m_LocationText;
-   NodeStatus                   m_State;
-   uint64_t                     m_ReportInterval;
-   uint64_t                     m_LastUpdated;
-   double                       m_Workload;
+   Q3PtrList<CContextMenuConfig> m_ContextMenuEntries;
+   QMap<QString, int>            m_ConnectedUIDsMap;
+   QMap<QString, uint64_t>       m_ConnectionDurationMap;
+   QString                       m_StatusText;
+   QString                       m_LocationText;
+   NodeStatus                    m_State;
+   uint64_t                      m_ReportInterval;
+   uint64_t                      m_LastUpdated;
+   double                        m_Workload;
 };
 
 

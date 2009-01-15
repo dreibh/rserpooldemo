@@ -13,8 +13,10 @@
  *
  * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Authors: Thomas Dreibholz, dreibh@exp-math.uni-essen.de
- *            Sebastian Rohde, rohde@exp-math.uni-essen.de
+ *   Copyright (C) 2002-2009 by Thomas Dreibholz
+ *
+ *   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
+ *            Sebastian Rohde, rohde@iem.uni-due.de
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,11 +34,14 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#include <qfont.h>
-#include <qcanvas.h>
-#include <qmessagebox.h>
-#include <mainwidget.h>
+#include <QFont>
+#include <QMessageBox>
+#include <QPixmap>
+#include <QResizeEvent>
+#include <Q3ValueList>
+#include <Q3PtrList>
 
+#include <mainwidget.h>
 #include "canvasnode.h"
 #include "canvasview.h"
 #include "canvas.h"
@@ -44,7 +49,7 @@
 
 
 CMainWidget::CMainWidget(const QString& configFile)
-   : QMainWindow(NULL, NULL, WDestructiveClose),
+   : Q3MainWindow(NULL, NULL, Qt::WDestructiveClose),
      m_Configuration(this, configFile)
 {
    setCaption(m_Configuration.getCaption() + " - " + configFile);
@@ -56,10 +61,10 @@ CMainWidget::CMainWidget(const QString& configFile)
    tempImage.smoothScale(m_Configuration.getDisplaySizeX(),
                          m_Configuration.getDisplaySizeY()); // in pixels
 
-   m_Canvas->setBackgroundPixmap(tempImage);
+   m_Canvas->setBackgroundPixmap(QPixmap(tempImage));
    m_CanvasView = new CSerPoolCanvasView(m_Canvas, this);
-   m_CanvasView->setVScrollBarMode(QScrollView::AlwaysOff);
-   m_CanvasView->setHScrollBarMode(QScrollView::AlwaysOff);
+   m_CanvasView->setVScrollBarMode(Q3ScrollView::AlwaysOff);
+   m_CanvasView->setHScrollBarMode(Q3ScrollView::AlwaysOff);
    setCentralWidget(m_CanvasView);
 
    createCanvasObjects();
@@ -75,9 +80,9 @@ CMainWidget::~CMainWidget()
 
 void CMainWidget::createCanvasObjects()
 {
-   QPtrList<CNode>& rNodeList = m_Configuration.getNodes();
+   Q3PtrList<CNode>& rNodeList = m_Configuration.getNodes();
    for (CNode* pNode = rNodeList.first();pNode;pNode = rNodeList.next()) {
-      QValueList<QPixmap> pixmapList;
+      Q3ValueList<QPixmap> pixmapList;
       pixmapList.push_back(pNode->getImageInactive());
       pixmapList.push_back(pNode->getImageActive());
       CCanvasNode* pSprite = new CCanvasNode(m_Canvas, pNode, pixmapList);
@@ -90,7 +95,7 @@ void CMainWidget::createCanvasObjects()
 void CMainWidget::resizeEvent(QResizeEvent* event)
 {
    m_Canvas->resize(event->size().width(), event->size().height());
-   m_Canvas->setBackgroundPixmap(m_BackgroundImage.smoothScale(event->size().width(), event->size().height()));
+   m_Canvas->setBackgroundPixmap(QPixmap(m_BackgroundImage.smoothScale(event->size().width(), event->size().height())));
    m_Configuration.updateDisplaySize(event->size().width(), event->size().height());
 
    QMap<QString, CCanvasNode*>& rNodeMap = m_Canvas->getCanvasNodesMap();

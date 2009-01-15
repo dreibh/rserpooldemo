@@ -1,0 +1,14 @@
+How to run the RSerPool demo:
+
+1. Run "qmake-qt4"
+This will create the Makefiles.
+
+2. Run "make"
+This will compile everything.
+
+3. Go to "bin/" directory and run "./rserpooldemo -config=local-setup.xml"
+ If you want to configure the dummy interface or run Wireshark from within
+ the GUI, run it as root!
+
+
+14.01.2009 Thomas Dreibholz

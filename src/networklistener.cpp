@@ -13,8 +13,10 @@
  *
  * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Authors: Thomas Dreibholz, dreibh@exp-math.uni-essen.de
- *            Sebastian Rohde, rohde@exp-math.uni-essen.de
+ *   Copyright (C) 2002-2009 by Thomas Dreibholz
+ *
+ *   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
+ *            Sebastian Rohde, rohde@iem.uni-due.de
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,9 +34,9 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
+#include <QMessageBox>
+#include <QString>
 #include <iostream>
-#include <qmessagebox.h>
-#include <qstring.h>
 
 #include "networklistener.h"
 
@@ -45,7 +47,7 @@ CNetworkListener::CNetworkListener(int                    listenPort,
      m_NodesMap(nodesMap),
      m_SocketDevice(0)
 {
-   m_SocketDevice = new QSocketDevice(QSocketDevice::Datagram);
+   m_SocketDevice = new Q3SocketDevice(Q3SocketDevice::Datagram);
    m_SocketDevice->setAddressReusable(TRUE);
    if(m_SocketDevice->bind(QHostAddress(), m_ListenPort) == false) {
       QMessageBox::critical(0, "Error!", "Error binding socket!");
@@ -123,12 +125,12 @@ void CNetworkListener::update()
                   pNode->getConnectedUIDsMap()[peerName]         = cspReport->AssociationArray[i].PPID;
                }
                else {
-                  std::cerr << "WARNING: Received status for unknwon connection from " << name << " to " << peerName << std::endl;
+                  std::cerr << "WARNING: Received status for unknwon connection from " << name.toLocal8Bit().constData() << " to " << peerName.toLocal8Bit().constData() << std::endl;
                }
             }
          }
          else {
-            std::cerr << "WARNING: Received status for unknwon ID " << name << std::endl;
+            std::cerr << "WARNING: Received status for unknwon ID " << name.toLocal8Bit().constData() << std::endl;
          }
       }
    }

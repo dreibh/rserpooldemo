@@ -13,8 +13,10 @@
  *
  * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Authors: Thomas Dreibholz, dreibh@exp-math.uni-essen.de
- *            Sebastian Rohde, rohde@exp-math.uni-essen.de
+ *   Copyright (C) 2002-2009 by Thomas Dreibholz
+ *
+ *   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
+ *            Sebastian Rohde, rohde@iem.uni-due.de
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,9 +34,10 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#include <qdom.h>
-#include <qfile.h>
-#include <qmessagebox.h>
+#include <QDomElement>
+#include <QFile>
+#include <QMessageBox>
+#include <Q3PtrList>
 
 #include "configuration.h"
 #include "networklistener.h"
@@ -73,7 +76,7 @@ CConfiguration::CConfiguration(QWidget*       canvasWidget,
 
    QDomDocument doc("ScenarioSetup");
    QFile file(configFile);
-   if(!file.open(IO_ReadOnly)) {
+   if(!file.open(QIODevice::ReadOnly)) {
       throw ELoadFileException();
    }
 
@@ -137,7 +140,7 @@ CConfiguration::~CConfiguration()
 
 CNode* CConfiguration::createNode(QDomElement element)
 {
-   QPtrList<CContextMenuConfig> contextNodes;
+   Q3PtrList<CContextMenuConfig> contextNodes;
    QString                      uniqueID;
    QString                      displayName;
    QString                      imageActive;

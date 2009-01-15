@@ -13,8 +13,10 @@
  *
  * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Authors: Thomas Dreibholz, dreibh@exp-math.uni-essen.de
- *            Sebastian Rohde, rohde@exp-math.uni-essen.de
+ *   Copyright (C) 2002-2009 by Thomas Dreibholz
+ *
+ *   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
+ *            Sebastian Rohde, rohde@iem.uni-due.de
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,16 +34,17 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#include <qmessagebox.h>
-#include <qimage.h>
+#include <QMessageBox>
+#include <QImage>
+#include <QContextMenuEvent>
 
 #include "canvasview.h"
 #include "canvasnode.h"
 #include "mainwidget.h"
 
 
-CSerPoolCanvasView::CSerPoolCanvasView(QCanvas *canvas, QWidget* parent = 0)
-   : QCanvasView(canvas, parent)
+CSerPoolCanvasView::CSerPoolCanvasView(Q3Canvas *canvas, QWidget* parent = 0)
+   : Q3CanvasView(canvas, parent)
 {
 }
 
@@ -53,9 +56,9 @@ CSerPoolCanvasView::~CSerPoolCanvasView()
 
 void CSerPoolCanvasView::contentsContextMenuEvent(QContextMenuEvent* event)
 {
-   QCanvasItemList list  = canvas()->collisions(event->pos());
+   Q3CanvasItemList list  = canvas()->collisions(event->pos());
    CCanvasNode*    node = 0;
-   for(QCanvasItemList::iterator it = list.begin();it != list.end();++it) {
+   for(Q3CanvasItemList::iterator it = list.begin();it != list.end();++it) {
       node = dynamic_cast<CCanvasNode *>(*it) ;
       if(node) {
          node->m_ContextMenu->exec(event->globalPos());

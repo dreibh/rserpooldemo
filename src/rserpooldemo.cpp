@@ -13,8 +13,10 @@
  *
  * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Authors: Thomas Dreibholz, dreibh@exp-math.uni-essen.de
- *            Sebastian Rohde, rohde@exp-math.uni-essen.de
+ *   Copyright (C) 2002-2009 by Thomas Dreibholz
+ *
+ *   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
+ *            Sebastian Rohde, rohde@iem.uni-due.de
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,8 +34,9 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#include <qapplication.h>
-#include <qstring.h>
+#include <QApplication>
+#include <QString>
+#include <QFile>
 #include <iostream>
 
 #include "mainwidget.h"
@@ -43,22 +46,20 @@ int main(int argc, char** argv)
 {
    try {
       const QString configFileTag = "-config=";
-      QString configFile;
+      QString configFile = "local-setup.xml";
       for(int i = 1;i < argc;i++) {
-         QString command = argv[i];
+         const QString command = argv[i];
          if(command.find(configFileTag) == 0) {
             configFile = command.mid(configFileTag.length());
          }
+         else if(QFile::exists(command)) {
+            configFile = command;
+         }
       }
 
+      std::cout << "Using configuration \"" << configFile.toLocal8Bit().constData() << "\" ..." << std::endl;
       QApplication application(argc, argv);
-      CMainWidget* mainWidget;
-      if(configFile.length() > 0) {
-         mainWidget = new CMainWidget(configFile);
-      }
-      else {
-         mainWidget = new CMainWidget();
-      }
+      CMainWidget* mainWidget = new CMainWidget(configFile);
       application.setMainWidget( mainWidget );
       mainWidget->show();
 

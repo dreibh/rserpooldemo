@@ -13,8 +13,10 @@
  *
  * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Authors: Thomas Dreibholz, dreibh@exp-math.uni-essen.de
- *            Sebastian Rohde, rohde@exp-math.uni-essen.de
+ *   Copyright (C) 2002-2009 by Thomas Dreibholz
+ *
+ *   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
+ *            Sebastian Rohde, rohde@iem.uni-due.de
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,9 +37,10 @@
 #ifndef MAINWIDGET_H
 #define MAINWIDGET_H
 
-#include <qmainwindow.h>
-#include <qmap.h>
-#include <qimage.h>
+#include <Q3MainWindow>
+#include <QMap>
+#include <QImage>
+#include <QResizeEvent>
 
 #include "configuration.h"
 #include "canvasnode.h"
@@ -45,15 +48,15 @@
 
 
 class CConfiguration;
-class QCanvas;
+class Q3Canvas;
 class CSerPoolCanvasView;
 
 
-class CMainWidget : public QMainWindow
+class CMainWidget : public Q3MainWindow
 {
    Q_OBJECT
    public:
-   CMainWidget(const QString& configFile = "local-setup.xml");
+   CMainWidget(const QString& configFile);
    virtual ~CMainWidget();
 
    CConfiguration m_Configuration;

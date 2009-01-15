@@ -13,8 +13,10 @@
  *
  * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Authors: Thomas Dreibholz, dreibh@exp-math.uni-essen.de
- *            Sebastian Rohde, rohde@exp-math.uni-essen.de
+ *   Copyright (C) 2002-2009 by Thomas Dreibholz
+ *
+ *   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
+ *            Sebastian Rohde, rohde@iem.uni-due.de
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,11 +37,11 @@
 #ifndef CONTEXTMENUCONFIG_H
 #define CONTEXTMENUCONFIG_H
 
-#include <qobject.h>
-#include <qstring.h>
+#include <QObject>
+#include <QString>
 
 
-class QProcess;
+class Q3Process;
 
 class CContextMenuConfig : public QObject
 {
@@ -68,7 +70,7 @@ class CContextMenuConfig : public QObject
    QString          m_NodeName;
    QString          m_ItemName;
    QString          m_CommandLine;
-   static QProcess* m_pProcess;
+   static Q3Process* m_pProcess;
 };
 
 #endif

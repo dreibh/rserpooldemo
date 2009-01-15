@@ -13,8 +13,10 @@
  *
  * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Authors: Thomas Dreibholz, dreibh@exp-math.uni-essen.de
- *            Sebastian Rohde, rohde@exp-math.uni-essen.de
+ *   Copyright (C) 2002-2009 by Thomas Dreibholz
+ *
+ *   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
+ *            Sebastian Rohde, rohde@iem.uni-due.de
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,8 +37,8 @@
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
 
-#include <qptrlist.h>
-#include <qdom.h>
+#include <Q3PtrList>
+#include <QDomElement>
 
 #include "node.h"
 
@@ -85,7 +87,7 @@ class CConfiguration
    inline const QString getBackgroundImageName() const {
       return m_BackgroundImageName;
    }
-   inline QPtrList<CNode>& getNodes() {
+   inline Q3PtrList<CNode>& getNodes() {
       return m_Nodes;
    }
    inline QMap<QString, CNode*>& getNodesMap() {
@@ -113,7 +115,7 @@ class CConfiguration
    int                   m_ListenPort;
    QString               m_Caption;
    QString               m_BackgroundImageName;
-   QPtrList<CNode>       m_Nodes;
+   Q3PtrList<CNode>       m_Nodes;
    QMap<QString, CNode*> m_NodesMap;
    QMap<int, QString>    m_ColorMap;
    CNetworkListener*     m_NetworkListener;

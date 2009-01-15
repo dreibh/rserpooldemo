@@ -13,8 +13,10 @@
  *
  * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Authors: Thomas Dreibholz, dreibh@exp-math.uni-essen.de
- *            Sebastian Rohde, rohde@exp-math.uni-essen.de
+ *   Copyright (C) 2002-2009 by Thomas Dreibholz
+ *
+ *   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
+ *            Sebastian Rohde, rohde@iem.uni-due.de
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,11 +34,15 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#include <qobject.h>
-#include <qaction.h>
-#include <qmessagebox.h>
-#include <qstringlist.h>
-#include <qdatetime.h>
+#include <QObject>
+#include <QAction>
+#include <QMessageBox>
+#include <QStringList>
+#include <QDateTime>
+#include <Q3ValueList>
+#include <QPixmap>
+#include <Q3PtrList>
+#include <Q3PopupMenu>
 
 #include "canvasnode.h"
 #include "node.h"
@@ -50,8 +56,8 @@
 
  CCanvasNode::CCanvasNode(CCanvas*             nodeCanvas,
                           CNode*               node,
-                          QValueList<QPixmap>& pixmapList)
-   : QCanvasSprite(new QCanvasPixmapArray(pixmapList), nodeCanvas),
+                          Q3ValueList<QPixmap>& pixmapList)
+   : Q3CanvasSprite(new Q3CanvasPixmapArray(pixmapList), nodeCanvas),
      m_Canvas(nodeCanvas),
      m_Node(node)
  {
@@ -63,42 +69,42 @@
    setZ(m_ZPosition + 10);
 
    const int spriteHeight = height();
-   m_pTitle = new QCanvasText(m_Node->getDisplayName(), canvas());
+   m_pTitle = new Q3CanvasText(m_Node->getDisplayName(), canvas());
    m_pTitle->setFont(QFont("Helvetica", 12, QFont::Bold ));
    m_pTitle->move((width() / 2) - ((m_pTitle->boundingRect().right() - m_pTitle->boundingRect().left())/ 2) + m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY) + spriteHeight);
    m_pTitle->setZ(m_ZPosition + 6);
    m_pTitle->show();
 
-   m_pWorkload = new QCanvasText("", canvas());
+   m_pWorkload = new Q3CanvasText("", canvas());
    m_pWorkload->setFont(QFont("Helvetica", 12, QFont::Bold));
    m_pWorkload->setColor(QColor("#222222"));
    m_pWorkload->setTextFlags(Qt::AlignCenter);
    m_pWorkload->setZ(2000000001);
 
    QFontMetrics workloadFM(m_pWorkload->font());
-   m_pWorkloadBackground = new QCanvasRectangle(m_Canvas);
+   m_pWorkloadBackground = new Q3CanvasRectangle(m_Canvas);
    m_pWorkloadBackground->setZ(2000000000);
    m_pWorkloadBackground->setSize(MARGIN_WORKLOAD + workloadFM.width("100%"),
                                   MARGIN_WORKLOAD + workloadFM.height());
 
-   m_pStatusText = new QCanvasText(m_Node->getStatusText(), canvas());
+   m_pStatusText = new Q3CanvasText(m_Node->getStatusText(), canvas());
    m_pStatusText->setFont(QFont("Helvetica", 10, QFont::Bold ));
    m_pStatusText->setZ(m_ZPosition + 6);
 
-   m_pLocationText = new QCanvasText(m_Node->getLocationText(), canvas());
+   m_pLocationText = new Q3CanvasText(m_Node->getLocationText(), canvas());
    m_pLocationText->setFont(QFont("Helvetica", 6));
    m_pLocationText->setZ(m_ZPosition + 6);
 
-   m_pBackground = new QCanvasRectangle(m_Canvas);
+   m_pBackground = new Q3CanvasRectangle(m_Canvas);
    m_pBackground->setZ(m_ZPosition + 5);
    m_pBackground->setBrush(QBrush(QColor("#FFD700")));
    m_pBackground->setPen(QPen(QColor("#7C7777")));
 
-   m_ContextMenu = new QPopupMenu(dynamic_cast<QCanvasView *>(canvas()->parent()));
-   QPtrList<CContextMenuConfig>& rNodeList = m_Node->getContextMenuConfig();
+   m_ContextMenu = new Q3PopupMenu(dynamic_cast<Q3CanvasView*>(canvas()->parent()));
+   Q3PtrList<CContextMenuConfig>& rNodeList = m_Node->getContextMenuConfig();
    for(CContextMenuConfig* pNode = rNodeList.first(); pNode; pNode = rNodeList.next()) {
       if(pNode->getName() != "") {
-         QAction* action = new QAction(pNode->getName(),QKeySequence(),canvas()->parent());
+         QAction* action = new QAction(pNode->getName(), QKeySequence(), canvas()->parent(), NULL);
          Q_CHECK_PTR(action);
          action->addTo(m_ContextMenu);
          QObject::connect(action, SIGNAL(activated()), pNode, SLOT(execute()));
@@ -197,7 +203,7 @@ void CCanvasNode::advance(int phase)
       getAnchor(thisX, thisY);
       QMap<QString, int> &rMap = m_Node->getConnectedUIDsMap();
       QStringList DeletionList;
-      for(QMap<QString, QCanvasLine*>::iterator it = m_ConUIDsLinesMap.begin();it != m_ConUIDsLinesMap.end();++it) {
+      for(QMap<QString, Q3CanvasLine*>::iterator it = m_ConUIDsLinesMap.begin();it != m_ConUIDsLinesMap.end();++it) {
          if(rMap.find(it.key()) == rMap.end()) {
             DeletionList.push_back(it.key());
             QMap<QString, LinkText*>::iterator FindText = m_ConUIDsTextMap.find(it.key());
@@ -225,7 +231,7 @@ void CCanvasNode::advance(int phase)
             int otherY = 0;
             pOtherNode->getAnchor(otherX, otherY);
             if(m_ConUIDsLinesMap.find(it.key()) == m_ConUIDsLinesMap.end()) {
-               QCanvasLine* line = new QCanvasLine(m_Canvas);
+               Q3CanvasLine* line = new Q3CanvasLine(m_Canvas);
                Q_CHECK_PTR(line);
                line->setPoints(thisX, thisY, otherX, otherY);
                m_ConUIDsLinesMap[it.key()] = line;
@@ -249,16 +255,16 @@ void CCanvasNode::advance(int phase)
                                   (m_Node->getPositionY(sizeY) % 1024)) << 4;
                if(m_ConUIDsTextMap.find(it.key()) == m_ConUIDsTextMap.end()) {
                   m_ConUIDsTextMap[it.key()] = new LinkText();
-                  m_ConUIDsTextMap[it.key()]->m_pDurationText = new QCanvasText(m_Canvas);
+                  m_ConUIDsTextMap[it.key()]->m_pDurationText = new Q3CanvasText(m_Canvas);
                   m_ConUIDsTextMap[it.key()]->m_pDurationText->setZ(z + 1);
                   m_ConUIDsTextMap[it.key()]->m_pDurationText->setFont(QFont("Helvetica", 11, QFont::Bold ));
-                  m_ConUIDsTextMap[it.key()]->m_pBackground = new QCanvasRectangle(m_Canvas);
+                  m_ConUIDsTextMap[it.key()]->m_pBackground = new Q3CanvasRectangle(m_Canvas);
                   m_ConUIDsTextMap[it.key()]->m_pBackground->setBrush(QBrush(QColor("#FFFF00")));
                   m_ConUIDsTextMap[it.key()]->m_pBackground->setPen(QPen(QColor("#7C7777")));
                   m_ConUIDsTextMap[it.key()]->m_pBackground->setZ(z);
                }
-               QCanvasText*      pDurationText      = m_ConUIDsTextMap[it.key()]->m_pDurationText;
-               QCanvasRectangle* pDurationRectangle = m_ConUIDsTextMap[it.key()]->m_pBackground;
+               Q3CanvasText*      pDurationText      = m_ConUIDsTextMap[it.key()]->m_pDurationText;
+               Q3CanvasRectangle* pDurationRectangle = m_ConUIDsTextMap[it.key()]->m_pBackground;
 
                char timeBuffer[30];
                sprintf(timeBuffer, "%2llu:%02llum",
@@ -341,13 +347,13 @@ void CCanvasNode::updatePostion()
                        m_Node->getPositionY(sizeY) + height() - (MARGIN_BACKGROUND / 2));
 
    getAnchor(thisX, thisY);
-   for(QMap<QString, QCanvasLine*>::iterator it = m_ConUIDsLinesMap.begin();it != m_ConUIDsLinesMap.end();++it) {
+   for(QMap<QString, Q3CanvasLine*>::iterator it = m_ConUIDsLinesMap.begin();it != m_ConUIDsLinesMap.end();++it) {
       if(m_Canvas->getCanvasNodesMap().find(it.key()) != m_Canvas->getCanvasNodesMap().end()) {
          CCanvasNode* pOtherNode = m_Canvas->getCanvasNodesMap().find(it.key()).data();
          int otherX = 0;
          int otherY = 0;
          pOtherNode->getAnchor(otherX, otherY);
-         QCanvasLine *line = m_ConUIDsLinesMap[it.key()];
+         Q3CanvasLine *line = m_ConUIDsLinesMap[it.key()];
          if(line) {
             line->setPoints(thisX, thisY, otherX, otherY);
 

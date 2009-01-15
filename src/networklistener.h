@@ -13,8 +13,10 @@
  *
  * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Authors: Thomas Dreibholz, dreibh@exp-math.uni-essen.de
- *            Sebastian Rohde, rohde@exp-math.uni-essen.de
+ *   Copyright (C) 2002-2009 by Thomas Dreibholz
+ *
+ *   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
+ *            Sebastian Rohde, rohde@iem.uni-due.de
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,12 +37,13 @@
 #ifndef NETWORKLISTENER_H
 #define NETWORKLISTENER_H
 
+#include <Q3PtrList>
+#include <Q3SocketDevice>
+
 #include <byteswap.h>
 #include <netinet/in.h>
 #include <sys/time.h>
 #include <time.h>
-#include <qptrlist.h>
-#include <qsocketdevice.h>
 
 #include "node.h"
 #include "componentstatuspackets.h"
@@ -97,7 +100,7 @@ class CNetworkListener
 
    int                    m_ListenPort;
    QMap<QString, CNode*>& m_NodesMap;
-   QSocketDevice*         m_SocketDevice;
+   Q3SocketDevice*         m_SocketDevice;
 };
 
 #endif

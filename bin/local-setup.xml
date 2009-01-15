@@ -15,7 +15,7 @@ $Id$
 *
 * ############# An Efficient RSerPool Prototype Implementation #############
 *
-* Copyright (C) 2002-2007 by Thomas Dreibholz
+* Copyright (C) 2002-2009 by Thomas Dreibholz
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ $Id$
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *
-* Contact: dreibh@iem.uni-due.de
+* Contact: dreibh.iem.uni-due.de
 -->
 
 <RSerPoolDemoConfigurationRoot>
@@ -40,7 +40,7 @@ $Id$
    <DiagramResolutionY>800</DiagramResolutionY>
    <Caption>Thomas Dreibholz's RSerPool Demonstration Tool</Caption>
    <BackgroundImage>pictures/Europe.jpeg</BackgroundImage>
-   <ProtocolColor ID="0">gold2</ProtocolColor>
+   <ProtocolColor ID="0">#eec900</ProtocolColor>
    <ProtocolColor ID="11">blue</ProtocolColor>
    <ProtocolColor ID="12">red</ProtocolColor>
 
@@ -346,7 +346,7 @@ $Id$
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>View RSerPool Page</Name>
-         <Command>./RunProgram konqueror http://tdrwww.exp-math.uni-essen.de/dreibholz/rserpool/</Command>
+         <Command>./RunProgram konqueror http://tdrwww.iem.uni-due.de/dreibholz/rserpool/</Command>
       </ContextMenuEntry>
    </Node>
 

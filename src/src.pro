@@ -19,3 +19,5 @@ contextmenuconfig.h \
 mainwidget.h \
 networklistener.h \
 node.h
+#The following line was inserted by qt3to4
+QT += network xml  qt3support 

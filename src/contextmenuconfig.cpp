@@ -13,8 +13,10 @@
  *
  * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Authors: Thomas Dreibholz, dreibh@exp-math.uni-essen.de
- *            Sebastian Rohde, rohde@exp-math.uni-essen.de
+ *   Copyright (C) 2002-2009 by Thomas Dreibholz
+ *
+ *   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
+ *            Sebastian Rohde, rohde@iem.uni-due.de
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,15 +34,15 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#include <qmessagebox.h>
-#include <qprocess.h>
-#include <qcursor.h>
+#include <QMessageBox>
+#include <Q3Process>
+#include <QCursor>
 #include <iostream>
 
 #include "contextmenuconfig.h"
 
 
-QProcess* CContextMenuConfig::m_pProcess = NULL;
+Q3Process* CContextMenuConfig::m_pProcess = NULL;
 
 
 CContextMenuConfig::CContextMenuConfig(QWidget*       parent,
@@ -73,7 +75,7 @@ void CContextMenuConfig::execute()
    m_Parent->setCursor(Qt::WaitCursor);
 
    QString commandLine = QString("nice " + m_CommandLine);
-   m_pProcess = new QProcess(this);
+   m_pProcess = new Q3Process(this);
 
    bool inBlock = FALSE;
    while(commandLine != "") {
@@ -118,7 +120,7 @@ void CContextMenuConfig::execute()
    QStringList::Iterator iterator = commandList.begin();
    std::cout << "Command> ";
    while(iterator != commandList.end()) {
-       std::cout << *iterator << " ";
+       std::cout << (*iterator).toLocal8Bit().constData() << " ";
        ++iterator;
    }
    std::cout << std::endl;
@@ -141,13 +143,13 @@ void CContextMenuConfig::execute()
 
 void CContextMenuConfig::readStdout()
 {
-   std::cout << "stdout " << m_NodeName << "> " << m_pProcess->readLineStdout() << std::endl;
+   std::cout << "stdout " << m_NodeName.toLocal8Bit().constData() << "> " << m_pProcess->readLineStdout().toLocal8Bit().constData() << std::endl;
 }
 
 
 void CContextMenuConfig::readStderr()
 {
-   std::cerr << "stderr " << m_NodeName << "> " << m_pProcess->readLineStderr() << std::endl;
+   std::cerr << "stderr " << m_NodeName.toLocal8Bit().constData() << "> " << m_pProcess->readLineStderr().toLocal8Bit().constData() << std::endl;
 }
 
 
