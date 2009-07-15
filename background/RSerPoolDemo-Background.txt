@@ -13,11 +13,11 @@ Filter -> Verzerren -> Relief
 
 B. Logo
 dia -> Hintergrund grün (#00ff00) -> Export
-convert -density 150x150 xxx.png - transparent "#00ff00" yyy.png
+convert -density 150x150 xxx.png -transparent "#00ff00" yyy.png
 
 
 C. URL-Test
-Text mit Font "GRW Gothic Semi-Bold"
+Text mit Font "URW Gothic Semi-Bold"
 Script-Fu -> Alpha als Logo -> Glatt
    Farbverlauf (Text): Yellow Orange
 
