@@ -43,6 +43,7 @@ if [ "x$1" = "xdown" ] ; then
    ip link set dummy0 down
 
 elif [ "x$1" = "xup" ] ; then
+   modprobe dummy
    # Shutdown interface and flush all of its routes
    ip addr flush dev dummy0 2>/dev/null
    ip link set dummy0 down
