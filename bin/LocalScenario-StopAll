@@ -14,7 +14,7 @@
 # *
 # * ############# An Efficient RSerPool Prototype Implementation #############
 # *
-# * Copyright (C) 2002-2009 by Thomas Dreibholz
+# * Copyright (C) 2002-2010 by Thomas Dreibholz
 # *
 # * This program is free software: you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
@@ -50,3 +50,13 @@ fi
 ./ComponentControl ./LocalScenario.config PU 0 killall
 ./ComponentControl ./LocalScenario.config PE 0 $command
 ./ComponentControl ./LocalScenario.config PR 0 $command
+
+if [ "$command" = "killall" ] ; then
+   rm -f output/*.pid output/*.log
+   killall -KILL server
+   killall -KILL lt-server
+   killall -KILL registrar
+   killall -KILL lt-registrar
+   killall -KILL fractalpooluser
+   killall -KILL lt-fractalpooluser
+fi
