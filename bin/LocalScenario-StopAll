@@ -52,11 +52,11 @@ fi
 ./ComponentControl ./LocalScenario.config PR 0 $command
 
 if [ "$command" = "killall" ] ; then
-   rm -f output/*.pid output/*.log
-   killall -KILL server
-   killall -KILL lt-server
-   killall -KILL registrar
-   killall -KILL lt-registrar
-   killall -KILL fractalpooluser
-   killall -KILL lt-fractalpooluser
+   rm -f output/*.pid output/*.log || true
+   killall -KILL server || true
+   killall -KILL lt-server || true
+   killall -KILL registrar || true
+   killall -KILL lt-registrar || true
+   killall -KILL fractalpooluser || true
+   killall -KILL lt-fractalpooluser || true
 fi
