@@ -213,20 +213,20 @@ $Id$
       <PositionY>75</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./RemoteComponentControl ./RemoteScenario-User.config $CC_HOST_BETA ./LocalScenario.config PE 3 start -cspserver=alpha:2960 -identifier=0x102</Command>
+         <Command>./RemoteComponentControl ./RemoteScenario-User.config $CC_HOST_BETA ./LocalScenario.config PE 3 start -cspserver=172.16.0.1:2960 -identifier=0x102</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./RemoteComponentControl ./RemoteScenario-User.config $CC_HOST_BETA ./LocalScenario.config PE 3 start -cspserver=alpha:2960 -identifier=0x102 -fgpfailureafter=20</Command>
+         <Command>./RemoteComponentControl ./RemoteScenario-User.config $CC_HOST_BETA ./LocalScenario.config PE 3 start -cspserver=172.16.0.1:2960 -identifier=0x102 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./RemoteComponentControl ./RemoteScenario-User.config $CC_HOST_BETA ./LocalScenario.config PE 3 restart -cspserver=alpha:2960 -identifier=0x102</Command>
+         <Command>./RemoteComponentControl ./RemoteScenario-User.config $CC_HOST_BETA ./LocalScenario.config PE 3 restart -cspserver=172.16.0.1:2960 -identifier=0x102</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./RemoteComponentControl ./RemoteScenario-User.config $CC_HOST_BETA ./LocalScenario.config PE 3 restart -cspserver=alpha:2960 -identifier=0x102 -fgpfailureafter=20</Command>
+         <Command>./RemoteComponentControl ./RemoteScenario-User.config $CC_HOST_BETA ./LocalScenario.config PE 3 restart -cspserver=172.16.0.1:2960 -identifier=0x102 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
