@@ -46,10 +46,22 @@ else
    exit 1
 fi
 
+. ./RemoteScenario-User.config
 
+./ComponentControl ./LocalScenario.config PU 0 killall
 ./ComponentControl ./LocalScenario.config PE 1 $command
 ./ComponentControl ./LocalScenario.config PE 2 $command
-./RemoteComponentControl ./RemoteScenario-User.config beta ./LocalScenario.config 3 $command
+./RemoteComponentControl ./RemoteScenario-User.config $CC_HOST_BETA ./LocalScenario.config 3 $command
 
 ./ComponentControl ./LocalScenario.config PR 1 $command
 ./ComponentControl ./LocalScenario.config PR 2 $command
+
+if [ "$command" = "killall" ] ; then
+   rm -f output/*.pid output/*.log || true
+   killall -KILL server || true
+   killall -KILL lt-server || true
+   killall -KILL registrar || true
+   killall -KILL lt-registrar || true
+   killall -KILL fractalpooluser || true
+   killall -KILL lt-fractalpooluser || true
+fi

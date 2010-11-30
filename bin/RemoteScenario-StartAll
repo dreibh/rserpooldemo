@@ -31,9 +31,11 @@
 # *
 # * Contact: dreibh.iem.uni-due.de
 
+. ./RemoteScenario-User.config
+
 ./ComponentControl ./LocalScenario.config PR 1 start -identifier=0x10000
 ./ComponentControl ./LocalScenario.config PR 2 start -identifier=0x10001
 sleep 5
 ./ComponentControl ./LocalScenario.config PE 1 start -identifier=0x100
 ./ComponentControl ./LocalScenario.config PE 2 start -identifier=0x101
-./RemoteComponentControl ./RemoteScenario-User.config beta ./LocalScenario.config PE 3 start -cspserver=alpha:2960 -identifier=0x102
+./RemoteComponentControl ./RemoteScenario-User.config $CC_HOST_BETA ./LocalScenario.config PE 3 start -cspserver=alpha:2960 -identifier=0x102

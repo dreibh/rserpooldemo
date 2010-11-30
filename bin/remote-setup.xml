@@ -205,7 +205,7 @@ $Id$
 
    <Node>
       <UID>200000000000102</UID>
-      <DisplayName>Remote Pool Element</DisplayName>
+      <DisplayName>Pool Element 3 (Remote)</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
       <ActiveImageURL>pictures/PoolElementActive2.png</ActiveImageURL>
       <InactiveImageURL>pictures/PoolElementInactive2.png</InactiveImageURL>
@@ -240,6 +240,7 @@ $Id$
    </Node>
 
 
+<!--
    <Node>
       <UID>300000000000001</UID>
       <DisplayName>Pool User 1</DisplayName>
@@ -259,6 +260,61 @@ $Id$
       <InactiveImageURL>pictures/PoolUserInactive2.png</InactiveImageURL>
       <PositionX>70</PositionX>
       <PositionY>5</PositionY>
+   </Node>
+-->
+   <Node>
+      <UID>300000000000001</UID>
+      <DisplayName>Pool User 1</DisplayName>
+      <RefreshTimeout>5</RefreshTimeout>
+      <ActiveImageURL>pictures/PoolUserActive2.png</ActiveImageURL>
+      <InactiveImageURL>pictures/PoolUserInactive2.png</InactiveImageURL>
+      <PositionX>40</PositionX>
+      <PositionY>5</PositionY>
+      <ContextMenuEntry>
+         <Name>Start Pool User</Name>
+         <Command>./ComponentControl ./LocalScenario.config PU 1 start -identifier=0x1 -caption=PoolUser-1</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Stop Pool User</Name>
+         <Command>./ComponentControl ./LocalScenario.config PU 1 kill</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>View Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PU 1 log -T "Logfile of Pool User 1"</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Monitor Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PU 1 monitor -T "Logfile of Pool User 1"</Command>
+      </ContextMenuEntry>
+   </Node>
+
+
+   <Node>
+      <UID>300000000000002</UID>
+      <DisplayName>Pool User 2</DisplayName>
+      <RefreshTimeout>5</RefreshTimeout>
+      <ActiveImageURL>pictures/PoolUserActive2.png</ActiveImageURL>
+      <InactiveImageURL>pictures/PoolUserInactive2.png</InactiveImageURL>
+      <PositionX>70</PositionX>
+      <PositionY>5</PositionY>
+      <ContextMenuEntry>
+         <Name>Start Pool User</Name>
+         <Command>./ComponentControl ./LocalScenario.config PU 2 start -identifier=0x2 -caption=PoolUser-2</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Stop Pool User</Name>
+         <Command>./ComponentControl ./LocalScenario.config PU 2 kill</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>View Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PU 2 log -T "Logfile of Pool User 2</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Monitor Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PU 2 monitor -T "Logfile of Pool User 2"</Command>
+      </ContextMenuEntry>
    </Node>
 
 
