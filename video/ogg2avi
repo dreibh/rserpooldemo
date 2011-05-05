@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ $# -lt 5 ] ; then
+   echo "Usage: ogg2avi [Ogg file] [Audio file] [AVI file] [Format, e.g. 1024x768] [Frame rate, e.g. 20]"
+   exit 1
+fi
+
+transcode -i $1 -f $5 -p $2 -g $4 -o $3 -x mplayer -y xvid4
