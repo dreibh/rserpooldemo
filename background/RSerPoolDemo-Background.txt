@@ -2,12 +2,12 @@ Erstellen des Demo-Hintergrundes mit Gimp:
 
 A. Hintergrund
 1. Farben anpassen
-Werkzeuge -> Farben -> Farbton-Sättigung
+Werkzeuge -> Farben -> Farbton-Sättigung (Tools -> Color Tools -> Hue-Saturation)
    Primärfarbe: alle
    Farbton: 120
 
 2. Relief
-Filter -> Verzerren -> Relief
+Filter -> Verzerren -> Relief (Filters -> Map -> Bump Map)
    Funktion: Bumpmap
    Längengrad/Breitengrad/Tiefe: 30.0/45.0/20
 
