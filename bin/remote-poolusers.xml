@@ -15,7 +15,7 @@ $Id$
 *
 * ############# An Efficient RSerPool Prototype Implementation #############
 *
-* Copyright (C) 2002-2010 by Thomas Dreibholz
+* Copyright (C) 2002-2013 by Thomas Dreibholz
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -118,7 +118,7 @@ $Id$
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>View RSerPool Page</Name>
-         <Command>./RunProgram konqueror http://tdrwww.iem.uni-due.de/dreibholz/rserpool/</Command>
+         <Command>./RunProgram konqueror http://www.iem.uni-due.de/~dreibh/rserpool/</Command>
       </ContextMenuEntry>
    </Node>
 
