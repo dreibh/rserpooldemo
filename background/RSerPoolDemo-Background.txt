@@ -10,6 +10,7 @@ Werkzeuge -> Farben -> Farbton-Sättigung (Tools -> Color Tools -> Hue-Saturatio
 Filter -> Verzerren -> Relief (Filters -> Map -> Bump Map)
    Funktion: Bumpmap
    Längengrad/Breitengrad/Tiefe: 30.0/45.0/20
+   Map Type: spherical
 
 B. Logo
 dia -> Hintergrund grün (#00ff00) -> Export
