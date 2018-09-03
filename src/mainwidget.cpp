@@ -47,27 +47,29 @@
 
 
 CMainWidget::CMainWidget(const QString& configFile)
-   : QMainWindow(NULL, NULL, Qt::WDestructiveClose),
+   : QMainWindow(NULL, NULL),
      m_Configuration(this, configFile)
 {
-   setCaption(m_Configuration.getCaption() + " - " + configFile);
+   setWindowTitle(m_Configuration.getCaption() + " - " + configFile);
+
    m_Canvas = new CCanvas(this);
-   m_Canvas->resize(m_Configuration.getDisplaySizeX(),
-                    m_Configuration.getDisplaySizeY());
+   m_Canvas->setSceneRect(0, 0,
+                          m_Configuration.getDisplaySizeX(),
+                          m_Configuration.getDisplaySizeY());
 
-   m_BackgroundImage = QPixmap(m_Configuration.getBackgroundImageName());
-   QImage tempImage = m_BackgroundImage;
-   tempImage.smoothScale(m_Configuration.getDisplaySizeX(),
-                         m_Configuration.getDisplaySizeY()); // in pixels
+   m_BackgroundImage = QImage(m_Configuration.getBackgroundImageName());
+   QImage tempImage = m_BackgroundImage.scaled(m_Configuration.getDisplaySizeX(),
+                                               m_Configuration.getDisplaySizeY()); // in pixels
 
-   m_Canvas->setBackgroundPixmap(QPixmap(tempImage));
+   m_Canvas->setBackgroundBrush(tempImage);
    m_CanvasView = new CSerPoolCanvasView(m_Canvas, this);
    m_CanvasView->setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
    m_CanvasView->setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
    setCentralWidget(m_CanvasView);
 
    createCanvasObjects();
-   m_Canvas->setAdvancePeriod(m_Configuration.getRefreshTime());
+//    m_Canvas->setAdvancePeriod(m_Configuration.getRefreshTime());
+   puts("FIXME: setAdvancePeriod()!!!");
    m_CanvasView->show();
 }
 
@@ -80,12 +82,16 @@ CMainWidget::~CMainWidget()
 void CMainWidget::createCanvasObjects()
 {
    QLinkedList<CNode*>& rNodeList = m_Configuration.getNodes();
-   for (CNode* pNode = rNodeList.first();pNode;pNode = rNodeList.next()) {
+//    for (CNode* pNode = rNodeList.first();pNode;pNode = rNodeList.next()) {
+puts("createCanvasObjects() !!!");
+   for(QLinkedList<CNode*>::iterator it = rNodeList.begin();it != rNodeList.end();++it) {
+      CNode* pNode = *it;
       QList<QPixmap> pixmapList;
       pixmapList.push_back(pNode->getImageInactive());
       pixmapList.push_back(pNode->getImageActive());
       CCanvasNode* pSprite = new CCanvasNode(m_Canvas, pNode, pixmapList);
-      pSprite->setAnimated(true);
+//       pSprite->setAnimated(true);
+      puts("FIXME: setAnimated(true);");
       pSprite->show();
    }
 }
@@ -93,12 +99,12 @@ void CMainWidget::createCanvasObjects()
 
 void CMainWidget::resizeEvent(QResizeEvent* event)
 {
-   m_Canvas->resize(event->size().width(), event->size().height());
-   m_Canvas->setBackgroundPixmap(QPixmap(m_BackgroundImage.smoothScale(event->size().width(), event->size().height())));
+   m_Canvas->setSceneRect(0, 0, event->size().width(), event->size().height());
+   m_Canvas->setBackgroundBrush(m_BackgroundImage.scaled(event->size().width(), event->size().height()));
    m_Configuration.updateDisplaySize(event->size().width(), event->size().height());
 
    QMap<QString, CCanvasNode*>& rNodeMap = m_Canvas->getCanvasNodesMap();
    for(QMap<QString, CCanvasNode*>::iterator it = rNodeMap.begin();it != rNodeMap.end();++it) {
-      it.data()->updatePostion();
+      (*it)->updatePostion();
    }
 }

@@ -67,7 +67,7 @@ void CNetworkListener::update()
 {
    char buffer[65536];
    while(m_SocketDevice->bytesAvailable()) {
-      uint received = m_SocketDevice->readBlock(buffer, sizeof(buffer));
+      uint received = m_SocketDevice->readDatagram(buffer, sizeof(buffer));
       if(received >= sizeof(ComponentStatusReport)) {
          ComponentStatusReport* cspReport = (ComponentStatusReport*)&buffer;
          cspReport->Header.Length          = ntohs(cspReport->Header.Length);
@@ -93,10 +93,10 @@ void CNetworkListener::update()
          char nameBuffer[32];
          snprintf(nameBuffer, sizeof(nameBuffer), "%llx",
                   (unsigned long long)cspReport->Header.SenderID);
-         QString name(nameBuffer);
-         QMap<QString, CNode*>::iterator nodeIterator;
-         if((nodeIterator = m_NodesMap.find(name)) != m_NodesMap.end()) {
-            CNode* pNode = nodeIterator.data();
+         const QString name(nameBuffer);
+         QMap<QString, CNode*>::iterator nodeIterator = m_NodesMap.find(name);
+         if(nodeIterator != m_NodesMap.end()) {
+            CNode* pNode = *nodeIterator;
             pNode->setUpdated();
             pNode->setReportInterval(cspReport->ReportInterval);
 

@@ -59,7 +59,7 @@ class CMainWidget : public QMainWindow
    virtual ~CMainWidget();
 
    CConfiguration m_Configuration;
-   QImage m_BackgroundImage;
+   QImage         m_BackgroundImage;
 
    protected:
    void resizeEvent(QResizeEvent* event);

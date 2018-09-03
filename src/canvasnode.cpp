@@ -192,8 +192,8 @@ void CCanvasNode::advance(int phase)
 
       boundingHeight += MARGIN_BACKGROUND;
 
-      m_pBackground->setSize(boundingWidth, boundingHeight);
-      m_pBackground->setPos((width() / 2) - (boundingWidth/ 2) + m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY) + height() - (MARGIN_BACKGROUND / 2));
+      m_pBackground->setRect((width() / 2) - (boundingWidth/ 2) + m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY) + height() - (MARGIN_BACKGROUND / 2),
+                             boundingWidth, boundingHeight);
       m_pBackground->show();
 
       int thisX = 0;
@@ -231,7 +231,7 @@ void CCanvasNode::advance(int phase)
             if(m_ConUIDsLinesMap.find(it.key()) == m_ConUIDsLinesMap.end()) {
                QGraphicsLineItem* line = new QGraphicsLineItem(m_Canvas);
                Q_CHECK_PTR(line);
-               line->setPoints(thisX, thisY, otherX, otherY);
+               line->setLine(thisX, thisY, otherX, otherY);
                m_ConUIDsLinesMap[it.key()] = line;
                QColor newColor;
                QMap<int, QString>::iterator colorName = static_cast<CMainWidget *>(scene()->parent())->m_Configuration.getColorMap().find(it.data());
@@ -353,7 +353,7 @@ void CCanvasNode::updatePostion()
          pOtherNode->getAnchor(otherX, otherY);
          QGraphicsLineItem *line = m_ConUIDsLinesMap[it.key()];
          if(line) {
-            line->setPoints(thisX, thisY, otherX, otherY);
+            line->setLine(thisX, thisY, otherX, otherY);
 
             uint64_t duration = m_Node->getConnectedUIDsDurationMap()[it.key()];
             LinkText* pLinkText = m_ConUIDsTextMap[it.key()];
