@@ -61,7 +61,7 @@
  {
    int sizeX = static_cast<CMainWidget *>(scene()->parent())->m_Configuration.getDisplaySizeX();
    int sizeY = static_cast<CMainWidget *>(scene()->parent())->m_Configuration.getDisplaySizeY();
-   move(m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY));
+   setPos(m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY));
    m_ZPosition = 1000000000 + ((((m_Node->getPositionX(sizeX) % 1024) << 10) +
                                  (m_Node->getPositionY(sizeY) % 1024)) << 4);
    setZValue(m_ZPosition + 10);
@@ -80,10 +80,14 @@
    m_pWorkload->setZValue(2000000001);
 
    QFontMetrics workloadFM(m_pWorkload->font());
-   m_pWorkloadBackground = new QGraphicsRectItem(m_Canvas);
+   m_pWorkloadBackground = new QGraphicsRectItem(0, 0,
+                                                 MARGIN_WORKLOAD + workloadFM.width("100%"),
+                                                 MARGIN_WORKLOAD + workloadFM.height(),
+                                                 m_Canvas);
    m_pWorkloadBackground->setZValue(2000000000);
-   m_pWorkloadBackground->setSize(MARGIN_WORKLOAD + workloadFM.width("100%"),
-                                  MARGIN_WORKLOAD + workloadFM.height());
+// ???????
+//    m_pWorkloadBackground->setSize(MARGIN_WORKLOAD + workloadFM.width("100%"),
+//                                   MARGIN_WORKLOAD + workloadFM.height());
 
    m_pStatusText = new QGraphicsSimpleTextItem(m_Node->getStatusText(), scene());
    m_pStatusText->setFont(QFont("Helvetica", 10, QFont::Bold ));
@@ -100,7 +104,9 @@
 
    m_ContextMenu = new QMenu(dynamic_cast<QGraphicsView*>(scene()->parent()));
    QLinkedList<CContextMenuConfig*>& rNodeList = m_Node->getContextMenuConfig();
-   for(CContextMenuConfig* pNode = rNodeList.first(); pNode; pNode = rNodeList.next()) {
+//    for(CContextMenuConfig* pNode = rNodeList.first(); pNode; pNode = rNodeList.next()) {
+   for(QLinkedList<CContextMenuConfig*>::iterator it = rNodeList.begin();it != rNodeList.end();++it) {
+      CContextMenuConfig* pNode = *it;
       if(pNode->getName() != "") {
          QAction* action = new QAction(pNode->getName(), QKeySequence(), scene()->parent(), NULL);
          Q_CHECK_PTR(action);
@@ -233,13 +239,14 @@ void CCanvasNode::advance(int phase)
                Q_CHECK_PTR(line);
                line->setLine(thisX, thisY, otherX, otherY);
                m_ConUIDsLinesMap[it.key()] = line;
+
                QColor newColor;
-               QMap<int, QString>::iterator colorName = static_cast<CMainWidget *>(scene()->parent())->m_Configuration.getColorMap().find(it.data());
-               if(colorName != static_cast<CMainWidget *>(scene()->parent())->m_Configuration.getColorMap().end()) {
-                  newColor.setNamedColor(colorName.data());
+               QMap<int, QString>::iterator colorNameIterator = static_cast<CMainWidget *>(scene()->parent())->m_Configuration.getColorMap().find(it.data());
+               if(colorNameIterator != static_cast<CMainWidget *>(scene()->parent())->m_Configuration.getColorMap().end()) {
+                  newColor = QColor(*colorNameIterator);
                }
                else {
-                  newColor.setNamedColor("black");
+                  newColor = QColor("black");
                }
                QPen linePen(newColor, 5);
                line->setZValue(0);
@@ -273,16 +280,18 @@ void CCanvasNode::advance(int phase)
                const int offsetX = -fm.width(pDurationText->text()) / 2;
                const int offsetY = -fm.height() / 2;
                pDurationText->setPos(((thisX + otherX) / 2) + offsetX, ((thisY + otherY)/2) + offsetY);
-               pDurationRectangle->setPos(((thisX + otherX) / 2) + offsetX - (MARGIN_DURATION / 2), ((thisY + otherY)/2) + offsetY - (MARGIN_DURATION / 2));
-               pDurationRectangle->setSize(pDurationText->boundingRect().width() + MARGIN_DURATION, pDurationText->boundingRect().height() + MARGIN_DURATION);
+//                pDurationRectangle->setPos(((thisX + otherX) / 2) + offsetX - (MARGIN_DURATION / 2), ((thisY + otherY)/2) + offsetY - (MARGIN_DURATION / 2));
+//                ?????
+               pDurationRectangle->setRect(((thisX + otherX) / 2) + offsetX - (MARGIN_DURATION / 2), ((thisY + otherY)/2) + offsetY - (MARGIN_DURATION / 2),
+                                           pDurationText->boundingRect().width() + MARGIN_DURATION, pDurationText->boundingRect().height() + MARGIN_DURATION);
 
                QColor newColor;
-               QMap<int, QString>::iterator colorName = static_cast<CMainWidget *>(scene()->parent())->m_Configuration.getColorMap().find(it.data());
-               if(colorName != static_cast<CMainWidget *>(scene()->parent())->m_Configuration.getColorMap().end()) {
-                  newColor.setNamedColor(colorName.data());
+               QMap<int, QString>::iterator colorNameIterator = static_cast<CMainWidget *>(scene()->parent())->m_Configuration.getColorMap().find(it.data());
+               if(colorNameIterator != static_cast<CMainWidget *>(scene()->parent())->m_Configuration.getColorMap().end()) {
+                  newColor = QColor(*colorNameIterator);
                }
                else {
-                  newColor.setNamedColor("black");
+                  newColor = QColor("black");
                }
                pDurationText->setPen(newColor.dark());
                pDurationText->show();
@@ -340,14 +349,16 @@ void CCanvasNode::updatePostion()
    }
    boundingHeight += MARGIN_BACKGROUND;
 
-   m_pBackground->setSize(boundingWidth, boundingHeight);
-   m_pBackground->setPos((width() / 2) - (boundingWidth/ 2) + m_Node->getPositionX(sizeX),
-                       m_Node->getPositionY(sizeY) + height() - (MARGIN_BACKGROUND / 2));
+//    m_pBackground->setSize(boundingWidth, boundingHeight);
+//    ????
+   m_pBackground->setRect((width() / 2) - (boundingWidth/ 2) + m_Node->getPositionX(sizeX),
+                          m_Node->getPositionY(sizeY) + height() - (MARGIN_BACKGROUND / 2),
+                          boundingWidth, boundingHeight);
 
    getAnchor(thisX, thisY);
    for(QMap<QString, QGraphicsLineItem*>::iterator it = m_ConUIDsLinesMap.begin();it != m_ConUIDsLinesMap.end();++it) {
       if(m_Canvas->getCanvasNodesMap().find(it.key()) != m_Canvas->getCanvasNodesMap().end()) {
-         CCanvasNode* pOtherNode = m_Canvas->getCanvasNodesMap().find(it.key()).data();
+         CCanvasNode* pOtherNode = *(m_Canvas->getCanvasNodesMap().find(it.key()));
          int otherX = 0;
          int otherY = 0;
          pOtherNode->getAnchor(otherX, otherY);
