@@ -41,6 +41,7 @@
 #include <QPixmap>
 #include <QLinkedList>
 #include <QMenu>
+#include <QGraphicsView>
 
 #include "canvasnode.h"
 #include "node.h"
@@ -66,17 +67,18 @@
                                  (m_Node->getPositionY(sizeY) % 1024)) << 4);
    setZValue(m_ZPosition + 10);
 
-   const int spriteHeight = height();
+   const int spriteHeight = scene()->height();
    m_pTitle = new QGraphicsSimpleTextItem(m_Node->getDisplayName(), scene());
    m_pTitle->setFont(QFont("Helvetica", 12, QFont::Bold ));
-   m_pTitle->setPos((width() / 2) - ((m_pTitle->boundingRect().right() - m_pTitle->boundingRect().left())/ 2) + m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY) + spriteHeight);
+   m_pTitle->setPos((scene()->width() / 2) - ((m_pTitle->boundingRect().right() - m_pTitle->boundingRect().left())/ 2) + m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY) + spriteHeight);
    m_pTitle->setZValue(m_ZPosition + 6);
    m_pTitle->show();
 
    m_pWorkload = new QGraphicsSimpleTextItem("", scene());
    m_pWorkload->setFont(QFont("Helvetica", 12, QFont::Bold));
    m_pWorkload->setPen(QColor("#222222"));
-   m_pWorkload->setTextFlags(Qt::AlignCenter);
+puts("setTextFlags(Qt::AlignCenter) !!!");
+//    m_pWorkload->setTextFlags(Qt::AlignCenter);
    m_pWorkload->setZValue(2000000001);
 
    QFontMetrics workloadFM(m_pWorkload->font());
@@ -108,13 +110,14 @@
    for(QLinkedList<CContextMenuConfig*>::iterator it = rNodeList.begin();it != rNodeList.end();++it) {
       CContextMenuConfig* pNode = *it;
       if(pNode->getName() != "") {
-         QAction* action = new QAction(pNode->getName(), QKeySequence(), scene()->parent(), NULL);
+         QAction* action = new QAction(pNode->getName(), scene()->parent());
          Q_CHECK_PTR(action);
-         action->addTo(m_ContextMenu);
+         m_ContextMenu->addAction(action);
+//          action->addTo(m_ContextMenu);  ???
          QObject::connect(action, SIGNAL(activated()), pNode, SLOT(execute()));
       }
       else {
-         m_ContextMenu->insertSeparator();
+         m_ContextMenu->addSeparator();
       }
    }
 
@@ -136,7 +139,7 @@ void CCanvasNode::advance(int phase)
 
       m_Node->updateStatus();
 
-      m_pWorkloadBackground->setPos(m_Node->getPositionX(sizeX) + (width() / 2),
+      m_pWorkloadBackground->setPos(m_Node->getPositionX(sizeX) + (scene()->width() / 2),
                                   m_Node->getPositionY(sizeY));
       const double workload = m_Node->getWorkload();
       if(workload >= 0.00) {
@@ -168,13 +171,13 @@ void CCanvasNode::advance(int phase)
       m_pWorkload->show();
 
       m_pStatusText->setText(m_Node->getStatusText());
-      m_pStatusText->setPos((width() / 2) - ((m_pStatusText->boundingRect().right() - m_pStatusText->boundingRect().left())/ 2)
-         + m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY) +  m_pTitle->boundingRect().bottom() - m_pTitle->boundingRect().top() + height());
+      m_pStatusText->setPos((scene()->width() / 2) - ((m_pStatusText->boundingRect().right() - m_pStatusText->boundingRect().left())/ 2)
+         + m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY) +  m_pTitle->boundingRect().bottom() - m_pTitle->boundingRect().top() + scene()->height());
       m_pStatusText->show();
 
       m_pLocationText->setText(m_Node->getLocationText());
-      m_pLocationText->setPos((width() / 2) - ((m_pLocationText->boundingRect().width())/ 2)
-         + m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY) +  m_pTitle->boundingRect().height() + m_pStatusText->boundingRect().height() + height());
+      m_pLocationText->setPos((scene()->width() / 2) - ((m_pLocationText->boundingRect().width())/ 2)
+         + m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY) +  m_pTitle->boundingRect().height() + m_pStatusText->boundingRect().height() + scene()->height());
       m_pLocationText->show();
 
       const int textWidth       = m_pTitle->boundingRect().width();
@@ -198,7 +201,7 @@ void CCanvasNode::advance(int phase)
 
       boundingHeight += MARGIN_BACKGROUND;
 
-      m_pBackground->setRect((width() / 2) - (boundingWidth/ 2) + m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY) + height() - (MARGIN_BACKGROUND / 2),
+      m_pBackground->setRect((scene()->width() / 2) - (boundingWidth/ 2) + m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY) + scene()->height() - (MARGIN_BACKGROUND / 2),
                              boundingWidth, boundingHeight);
       m_pBackground->show();
 
@@ -222,7 +225,7 @@ void CCanvasNode::advance(int phase)
                   m_ConUIDsTextMap.erase(FindText);
                }
             }
-            delete(it.data());
+            delete *it;
          }
       }
       for (QStringList::Iterator it = DeletionList.begin();it != DeletionList.end();++it) {
@@ -241,7 +244,7 @@ void CCanvasNode::advance(int phase)
                m_ConUIDsLinesMap[it.key()] = line;
 
                QColor newColor;
-               QMap<int, QString>::iterator colorNameIterator = static_cast<CMainWidget *>(scene()->parent())->m_Configuration.getColorMap().find(it.data());
+               QMap<int, QString>::iterator colorNameIterator = static_cast<CMainWidget *>(scene()->parent())->m_Configuration.getColorMap().find(*it);
                if(colorNameIterator != static_cast<CMainWidget *>(scene()->parent())->m_Configuration.getColorMap().end()) {
                   newColor = QColor(*colorNameIterator);
                }
@@ -268,8 +271,8 @@ void CCanvasNode::advance(int phase)
                   m_ConUIDsTextMap[it.key()]->m_pBackground->setPen(QPen(QColor("#7C7777")));
                   m_ConUIDsTextMap[it.key()]->m_pBackground->setZValue(z);
                }
-               QGraphicsSimpleTextItem*      pDurationText      = m_ConUIDsTextMap[it.key()]->m_pDurationText;
-               QGraphicsRectItem* pDurationRectangle = m_ConUIDsTextMap[it.key()]->m_pBackground;
+               QGraphicsSimpleTextItem* pDurationText      = m_ConUIDsTextMap[it.key()]->m_pDurationText;
+               QGraphicsRectItem*       pDurationRectangle = m_ConUIDsTextMap[it.key()]->m_pBackground;
 
                char timeBuffer[30];
                sprintf(timeBuffer, "%2llu:%02llum",
@@ -286,7 +289,7 @@ void CCanvasNode::advance(int phase)
                                            pDurationText->boundingRect().width() + MARGIN_DURATION, pDurationText->boundingRect().height() + MARGIN_DURATION);
 
                QColor newColor;
-               QMap<int, QString>::iterator colorNameIterator = static_cast<CMainWidget *>(scene()->parent())->m_Configuration.getColorMap().find(it.data());
+               QMap<int, QString>::iterator colorNameIterator = static_cast<CMainWidget *>(scene()->parent())->m_Configuration.getColorMap().find(*it);
                if(colorNameIterator != static_cast<CMainWidget *>(scene()->parent())->m_Configuration.getColorMap().end()) {
                   newColor = QColor(*colorNameIterator);
                }
@@ -299,7 +302,8 @@ void CCanvasNode::advance(int phase)
             }
          }
       }
-      setFrame(static_cast<int>(m_Node->getStatus()));
+      printf("FIXME: setFrame()!!!   status=%d\n", static_cast<int>(m_Node->getStatus()));
+//       setFrame(static_cast<int>(m_Node->getStatus()));
    }
 }
 
@@ -309,8 +313,8 @@ void CCanvasNode::getAnchor(int &_rX, int &_rY)
    int sizeX = static_cast<CMainWidget *>(scene()->parent())->m_Configuration.getDisplaySizeX();
    int sizeY = static_cast<CMainWidget *>(scene()->parent())->m_Configuration.getDisplaySizeY();
 
-   _rX = m_Node->getPositionX(sizeX) + (width()/2);
-   _rY = m_Node->getPositionY(sizeY) + (height()/2);
+   _rX = m_Node->getPositionX(sizeX) + (scene()->width()/2);
+   _rY = m_Node->getPositionY(sizeY) + (scene()->height()/2);
 }
 
 
@@ -319,14 +323,14 @@ void CCanvasNode::updatePostion()
    int sizeX = static_cast<CMainWidget *>(scene()->parent())->m_Configuration.getDisplaySizeX();
    int sizeY = static_cast<CMainWidget *>(scene()->parent())->m_Configuration.getDisplaySizeY();
    setPos(m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY));
-   int spriteHeight = height();
-   m_pTitle->setPos((width() / 2) - ((m_pTitle->boundingRect().right() - m_pTitle->boundingRect().left())/ 2) + m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY) + spriteHeight);
-   m_pWorkload->setPos(m_Node->getPositionX(sizeX) + (width() - m_pTitle->boundingRect().width()),
+   int spriteHeight = scene()->height();
+   m_pTitle->setPos((scene()->width() / 2) - ((m_pTitle->boundingRect().right() - m_pTitle->boundingRect().left())/ 2) + m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY) + spriteHeight);
+   m_pWorkload->setPos(m_Node->getPositionX(sizeX) + (scene()->width() - m_pTitle->boundingRect().width()),
                      m_Node->getPositionY(sizeY));
-   m_pStatusText->setPos((width() / 2) - ((m_pStatusText->boundingRect().right() - m_pStatusText->boundingRect().left())/ 2)
-      + m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY) +  m_pTitle->boundingRect().bottom() - m_pTitle->boundingRect().top() + height());
-   m_pLocationText->setPos((width() / 2) - (m_pLocationText->boundingRect().width()/ 2)
-      + m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY) +  m_pTitle->boundingRect().height() + m_pStatusText->boundingRect().height() + height());
+   m_pStatusText->setPos((scene()->width() / 2) - ((m_pStatusText->boundingRect().right() - m_pStatusText->boundingRect().left())/ 2)
+      + m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY) +  m_pTitle->boundingRect().bottom() - m_pTitle->boundingRect().top() + scene()->height());
+   m_pLocationText->setPos((scene()->width() / 2) - (m_pLocationText->boundingRect().width()/ 2)
+      + m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY) +  m_pTitle->boundingRect().height() + m_pStatusText->boundingRect().height() + scene()->height());
 
    int thisX = 0;
    int thisY = 0;
@@ -351,8 +355,8 @@ void CCanvasNode::updatePostion()
 
 //    m_pBackground->setSize(boundingWidth, boundingHeight);
 //    ????
-   m_pBackground->setRect((width() / 2) - (boundingWidth/ 2) + m_Node->getPositionX(sizeX),
-                          m_Node->getPositionY(sizeY) + height() - (MARGIN_BACKGROUND / 2),
+   m_pBackground->setRect((scene()->width() / 2) - (boundingWidth/ 2) + m_Node->getPositionX(sizeX),
+                          m_Node->getPositionY(sizeY) + scene()->height() - (MARGIN_BACKGROUND / 2),
                           boundingWidth, boundingHeight);
 
    getAnchor(thisX, thisY);

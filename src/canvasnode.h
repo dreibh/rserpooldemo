@@ -44,9 +44,7 @@
 #include <QMenu>
 
 #include "canvas.h"
-
-
-class CNode;
+#include "node.h"
 
 
 class CCanvasNode : public QGraphicsPixmapItem
