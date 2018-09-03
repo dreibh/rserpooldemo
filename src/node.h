@@ -39,7 +39,7 @@
 
 #include <QString>
 #include <QMap>
-#include <Q3PtrList>
+#include <QLinkedList>
 
 #include <netinet/in.h>
 
@@ -90,7 +90,7 @@ class CNode
       return m_LocationText;
    }
 
-   inline Q3PtrList<CContextMenuConfig>& getContextMenuConfig() {
+   inline QLinkedList<CContextMenuConfig*>& getContextMenuConfig() {
       return m_ContextMenuEntries;
    }
    inline QMap<QString, int>& getConnectedUIDsMap() {
@@ -133,15 +133,15 @@ class CNode
    int     m_TimeoutMultiplier;
 
    // Values need in RunTime
-   Q3PtrList<CContextMenuConfig> m_ContextMenuEntries;
-   QMap<QString, int>            m_ConnectedUIDsMap;
-   QMap<QString, uint64_t>       m_ConnectionDurationMap;
-   QString                       m_StatusText;
-   QString                       m_LocationText;
-   NodeStatus                    m_State;
-   uint64_t                      m_ReportInterval;
-   uint64_t                      m_LastUpdated;
-   double                        m_Workload;
+   QLinkedList<CContextMenuConfig*> m_ContextMenuEntries;
+   QMap<QString, int>               m_ConnectedUIDsMap;
+   QMap<QString, uint64_t>          m_ConnectionDurationMap;
+   QString                          m_StatusText;
+   QString                          m_LocationText;
+   NodeStatus                       m_State;
+   uint64_t                         m_ReportInterval;
+   uint64_t                         m_LastUpdated;
+   double                           m_Workload;
 };
 
 

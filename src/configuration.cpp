@@ -37,7 +37,7 @@
 #include <QDomElement>
 #include <QFile>
 #include <QMessageBox>
-#include <Q3PtrList>
+#include <QLinkedList>
 
 #include "configuration.h"
 #include "networklistener.h"
@@ -72,8 +72,6 @@ CConfiguration::CConfiguration(QWidget*       canvasWidget,
      m_DisplaySizeX(0),
      m_DisplaySizeY(0)
 {
-   m_Nodes.setAutoDelete(true);
-
    QDomDocument doc("ScenarioSetup");
    QFile file(configFile);
    if(!file.open(QIODevice::ReadOnly)) {
@@ -135,19 +133,22 @@ CConfiguration::CConfiguration(QWidget*       canvasWidget,
 
 CConfiguration::~CConfiguration()
 {
+   while (!m_Nodes.isEmpty()) {
+      delete m_Nodes.takeFirst();
+   }
 }
 
 
 CNode* CConfiguration::createNode(QDomElement element)
 {
-   Q3PtrList<CContextMenuConfig> contextNodes;
-   QString                      uniqueID;
-   QString                      displayName;
-   QString                      imageActive;
-   QString                      imageInactive;
-   int                          refreshTimeout = 0;
-   int                          positionX      = 0;
-   int                          positionY      = 0;
+   QLinkedList<CContextMenuConfig*> contextNodes;
+   QString                          uniqueID;
+   QString                          displayName;
+   QString                          imageActive;
+   QString                          imageInactive;
+   int                              refreshTimeout = 0;
+   int                              positionX      = 0;
+   int                              positionY      = 0;
 
    QDomNode currentNode = element.firstChild();
    while(!currentNode.isNull()) {

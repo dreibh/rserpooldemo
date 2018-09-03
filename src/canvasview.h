@@ -37,15 +37,15 @@
 #ifndef CANVASVIEW_H
 #define CANVASVIEW_H
 
-#include <Q3Canvas>
+#include <QGraphicsView>
 #include <QContextMenuEvent>
 
 
-class CSerPoolCanvasView : public Q3CanvasView
+class CSerPoolCanvasView : public QGraphicsView
 {
    Q_OBJECT
    public:
-   CSerPoolCanvasView(Q3Canvas* canvas, QWidget* parent);
+   CSerPoolCanvasView(QGraphicsScene* canvas, QWidget* parent);
    virtual ~CSerPoolCanvasView();
 
    protected:

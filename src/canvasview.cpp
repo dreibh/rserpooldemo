@@ -34,17 +34,16 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#include <QMessageBox>
-#include <QImage>
 #include <QContextMenuEvent>
+#include <QGraphicsItem>
 
 #include "canvasview.h"
 #include "canvasnode.h"
 #include "mainwidget.h"
 
 
-CSerPoolCanvasView::CSerPoolCanvasView(Q3Canvas *canvas, QWidget* parent = 0)
-   : Q3CanvasView(canvas, parent)
+CSerPoolCanvasView::CSerPoolCanvasView(QGraphicsScene* canvas, QWidget* parent = 0)
+   : QGraphicsView(canvas, parent)
 {
 }
 
@@ -56,13 +55,16 @@ CSerPoolCanvasView::~CSerPoolCanvasView()
 
 void CSerPoolCanvasView::contentsContextMenuEvent(QContextMenuEvent* event)
 {
-   Q3CanvasItemList list  = canvas()->collisions(event->pos());
-   CCanvasNode*    node = 0;
-   for(Q3CanvasItemList::iterator it = list.begin();it != list.end();++it) {
+#if 0
+   QList<QGraphicsItem*> list = scene()->collidingItems(event->pos());
+   CCanvasNode*          node = 0;
+   for(QList<QGraphicsItem*>::iterator it = list.begin();it != list.end();++it) {
       node = dynamic_cast<CCanvasNode *>(*it) ;
       if(node) {
          node->m_ContextMenu->exec(event->globalPos());
          return;
       }
    }
+#endif
+   puts("FIXME: contentsContextMenuEvent()");
 }

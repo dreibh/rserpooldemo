@@ -39,9 +39,8 @@
 
 #include <QObject>
 #include <QString>
+#include <QProcess>
 
-
-class Q3Process;
 
 class CContextMenuConfig : public QObject
 {
@@ -70,7 +69,7 @@ class CContextMenuConfig : public QObject
    QString          m_NodeName;
    QString          m_ItemName;
    QString          m_CommandLine;
-   static Q3Process* m_pProcess;
+   static QProcess* m_pProcess;
 };
 
 #endif

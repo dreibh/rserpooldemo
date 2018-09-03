@@ -37,8 +37,7 @@
 #ifndef NETWORKLISTENER_H
 #define NETWORKLISTENER_H
 
-#include <Q3PtrList>
-#include <Q3SocketDevice>
+#include <QUdpSocket>
 
 #include <byteswap.h>
 #include <netinet/in.h>
@@ -100,7 +99,7 @@ class CNetworkListener
 
    int                    m_ListenPort;
    QMap<QString, CNode*>& m_NodesMap;
-   Q3SocketDevice*         m_SocketDevice;
+   QUdpSocket*            m_SocketDevice;
 };
 
 #endif

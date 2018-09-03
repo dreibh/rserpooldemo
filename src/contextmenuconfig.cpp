@@ -35,14 +35,13 @@
  */
 
 #include <QMessageBox>
-#include <Q3Process>
 #include <QCursor>
 #include <iostream>
 
 #include "contextmenuconfig.h"
 
 
-Q3Process* CContextMenuConfig::m_pProcess = NULL;
+QProcess* CContextMenuConfig::m_pProcess = NULL;
 
 
 CContextMenuConfig::CContextMenuConfig(QWidget*       parent,
@@ -75,9 +74,9 @@ void CContextMenuConfig::execute()
    m_Parent->setCursor(Qt::WaitCursor);
 
    QString commandLine = QString("nice " + m_CommandLine);
-   m_pProcess = new Q3Process(this);
+   m_pProcess = new QProcess(this);
 
-   bool inBlock = FALSE;
+   bool inBlock = false;
    while(commandLine != "") {
 
       int pos;
@@ -85,7 +84,7 @@ void CContextMenuConfig::execute()
       if(!inBlock) {
          QString part;
          if(pos >= 0) {
-            inBlock = TRUE;
+            inBlock = true;
             part = commandLine.left(pos).stripWhiteSpace();
             commandLine = commandLine.mid(pos + 1);
          }
@@ -106,7 +105,7 @@ void CContextMenuConfig::execute()
          }
       }
       else {
-         inBlock = FALSE;
+         inBlock = false;
          const QString section = commandLine.left(pos);
          m_pProcess->addArgument("\"" + section.stripWhiteSpace() + "\"");
          commandLine = commandLine.mid(pos + 1);

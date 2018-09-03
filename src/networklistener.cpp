@@ -47,13 +47,13 @@ CNetworkListener::CNetworkListener(int                    listenPort,
      m_NodesMap(nodesMap),
      m_SocketDevice(0)
 {
-   m_SocketDevice = new Q3SocketDevice(Q3SocketDevice::Datagram);
-   m_SocketDevice->setAddressReusable(TRUE);
-   if(m_SocketDevice->bind(QHostAddress(), m_ListenPort) == false) {
+   m_SocketDevice = new QUdpSocket;
+   if(m_SocketDevice->bind(QHostAddress(), m_ListenPort, QUdpSocket::ReuseAddressHint) == false) {
       QMessageBox::critical(0, "Error!", "Error binding socket!");
    }
-   m_SocketDevice->setBlocking(false);
-   m_SocketDevice->setReceiveBufferSize (49152);
+   puts("FIXME: setBlocking(false) !!!");
+//    m_SocketDevice->setBlocking(false);
+//    m_SocketDevice->setReceiveBufferSize (49152);
 }
 
 

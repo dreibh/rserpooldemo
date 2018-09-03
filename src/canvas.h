@@ -39,13 +39,13 @@
 
 #include <QMap>
 #include <QString>
-#include <Q3Canvas>
+#include <QGraphicsScene>
 
 
 class CCanvasNode;
 
 
-class CCanvas : public Q3Canvas
+class CCanvas : public QGraphicsScene
 {
    public:
    CCanvas(QObject *_pParent);

@@ -34,8 +34,6 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#include <QMessageBox>
-
 #include "node.h"
 #include "networklistener.h"
 

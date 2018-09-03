@@ -34,14 +34,12 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#include <QMessageBox>
-
 #include "canvas.h"
 #include "mainwidget.h"
 
 
  CCanvas::CCanvas(QObject *pParent)
-   : Q3Canvas(pParent)
+   : QGraphicsScene(pParent)
  {
  }
 
@@ -49,5 +47,5 @@
  void CCanvas::advance()
  {
    static_cast<CMainWidget *>(parent())->m_Configuration.updateNodeData();
-   Q3Canvas::advance();
+   QGraphicsScene::advance();
  }

@@ -37,7 +37,7 @@
 #ifndef MAINWIDGET_H
 #define MAINWIDGET_H
 
-#include <Q3MainWindow>
+#include <QMainWindow>
 #include <QMap>
 #include <QImage>
 #include <QResizeEvent>
@@ -48,11 +48,10 @@
 
 
 class CConfiguration;
-class Q3Canvas;
 class CSerPoolCanvasView;
 
 
-class CMainWidget : public Q3MainWindow
+class CMainWidget : public QMainWindow
 {
    Q_OBJECT
    public:

@@ -34,12 +34,10 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#include <QFont>
-#include <QMessageBox>
 #include <QPixmap>
 #include <QResizeEvent>
-#include <Q3ValueList>
-#include <Q3PtrList>
+#include <QList>
+#include <QLinkedList>
 
 #include <mainwidget.h>
 #include "canvasnode.h"
@@ -49,13 +47,14 @@
 
 
 CMainWidget::CMainWidget(const QString& configFile)
-   : Q3MainWindow(NULL, NULL, Qt::WDestructiveClose),
+   : QMainWindow(NULL, NULL, Qt::WDestructiveClose),
      m_Configuration(this, configFile)
 {
    setCaption(m_Configuration.getCaption() + " - " + configFile);
    m_Canvas = new CCanvas(this);
    m_Canvas->resize(m_Configuration.getDisplaySizeX(),
                     m_Configuration.getDisplaySizeY());
+
    m_BackgroundImage = QPixmap(m_Configuration.getBackgroundImageName());
    QImage tempImage = m_BackgroundImage;
    tempImage.smoothScale(m_Configuration.getDisplaySizeX(),
@@ -63,8 +62,8 @@ CMainWidget::CMainWidget(const QString& configFile)
 
    m_Canvas->setBackgroundPixmap(QPixmap(tempImage));
    m_CanvasView = new CSerPoolCanvasView(m_Canvas, this);
-   m_CanvasView->setVScrollBarMode(Q3ScrollView::AlwaysOff);
-   m_CanvasView->setHScrollBarMode(Q3ScrollView::AlwaysOff);
+   m_CanvasView->setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
+   m_CanvasView->setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
    setCentralWidget(m_CanvasView);
 
    createCanvasObjects();
@@ -80,9 +79,9 @@ CMainWidget::~CMainWidget()
 
 void CMainWidget::createCanvasObjects()
 {
-   Q3PtrList<CNode>& rNodeList = m_Configuration.getNodes();
+   QLinkedList<CNode*>& rNodeList = m_Configuration.getNodes();
    for (CNode* pNode = rNodeList.first();pNode;pNode = rNodeList.next()) {
-      Q3ValueList<QPixmap> pixmapList;
+      QList<QPixmap> pixmapList;
       pixmapList.push_back(pNode->getImageInactive());
       pixmapList.push_back(pNode->getImageActive());
       CCanvasNode* pSprite = new CCanvasNode(m_Canvas, pNode, pixmapList);

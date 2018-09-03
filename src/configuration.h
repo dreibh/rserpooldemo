@@ -37,7 +37,7 @@
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
 
-#include <Q3PtrList>
+#include <QLinkedList>
 #include <QDomElement>
 
 #include "node.h"
@@ -87,7 +87,7 @@ class CConfiguration
    inline const QString getBackgroundImageName() const {
       return m_BackgroundImageName;
    }
-   inline Q3PtrList<CNode>& getNodes() {
+   inline QLinkedList<CNode*>& getNodes() {
       return m_Nodes;
    }
    inline QMap<QString, CNode*>& getNodesMap() {
@@ -115,7 +115,7 @@ class CConfiguration
    int                   m_ListenPort;
    QString               m_Caption;
    QString               m_BackgroundImageName;
-   Q3PtrList<CNode>       m_Nodes;
+   QLinkedList<CNode*>   m_Nodes;
    QMap<QString, CNode*> m_NodesMap;
    QMap<int, QString>    m_ColorMap;
    CNetworkListener*     m_NetworkListener;

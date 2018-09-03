@@ -38,10 +38,10 @@
 #define CANVASNODE_H
 
 #include <QMap>
-#include <Q3Canvas>
-#include <Q3PopupMenu>
-#include <Q3ValueList>
+#include <QLinkedList>
 #include <QPixmap>
+#include <QGraphicsPixmapItem>
+#include <QMenu>
 
 #include "canvas.h"
 
@@ -49,12 +49,12 @@
 class CNode;
 
 
-class CCanvasNode : public Q3CanvasSprite
+class CCanvasNode : public QGraphicsPixmapItem
 {
    public:
-   CCanvasNode(CCanvas*             canvas,
-               CNode*               node,
-               Q3ValueList<QPixmap>& pixmapList);
+   CCanvasNode(CCanvas*        canvas,
+               CNode*          node,
+               QList<QPixmap>& pixmapList);
    virtual ~CCanvasNode();
 
    virtual void advance(int phase);
@@ -62,28 +62,28 @@ class CCanvasNode : public Q3CanvasSprite
    void getAnchor(int& _rX, int& _rY);
    void updatePostion();
 
-   Q3PopupMenu*       m_ContextMenu;
+   QMenu*                   m_ContextMenu;
 
    private:
-   double            m_ZPosition;
-   CCanvas*          m_Canvas;
-   CNode*            m_Node;
+   double                   m_ZPosition;
+   CCanvas*                 m_Canvas;
+   CNode*                   m_Node;
 
-   Q3CanvasRectangle* m_pBackground;
-   Q3CanvasText*      m_pTitle;
-   Q3CanvasText*      m_pStatusText;
-   Q3CanvasText*      m_pLocationText;
-   Q3CanvasText*      m_pWorkload;
-   Q3CanvasRectangle* m_pWorkloadBackground;
+   QGraphicsRectItem*       m_pBackground;
+   QGraphicsSimpleTextItem* m_pTitle;
+   QGraphicsSimpleTextItem* m_pStatusText;
+   QGraphicsSimpleTextItem* m_pLocationText;
+   QGraphicsSimpleTextItem* m_pWorkload;
+   QGraphicsRectItem*       m_pWorkloadBackground;
 
    struct LinkText
    {
-      Q3CanvasText*      m_pDurationText;
-      Q3CanvasRectangle* m_pBackground;
+      QGraphicsSimpleTextItem* m_pDurationText;
+      QGraphicsRectItem*       m_pBackground;
    };
 
-   QMap<QString, Q3CanvasLine*> m_ConUIDsLinesMap;
-   QMap<QString, LinkText*>    m_ConUIDsTextMap;
+   QMap<QString, QGraphicsLineItem*> m_ConUIDsLinesMap;
+   QMap<QString, LinkText*>          m_ConUIDsTextMap;
 };
 
 
