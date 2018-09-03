@@ -49,7 +49,7 @@ int main(int argc, char** argv)
       QString configFile = "local-setup.xml";
       for(int i = 1;i < argc;i++) {
          const QString command = argv[i];
-         if(command.find(configFileTag) == 0) {
+         if(command.indexOf(configFileTag) == 0) {
             configFile = command.mid(configFileTag.length());
          }
          else if(QFile::exists(command)) {
@@ -60,22 +60,24 @@ int main(int argc, char** argv)
       std::cout << "Using configuration \"" << configFile.toLocal8Bit().constData() << "\" ..." << std::endl;
       QApplication application(argc, argv);
       CMainWidget* mainWidget = new CMainWidget(configFile);
-      application.setMainWidget( mainWidget );
+puts("FIXME: setMainWidget !!!");
+//       application.setMainWidget( mainWidget );
       mainWidget->show();
 
       return application.exec();
    }
    catch(ELoadFileException& e) {
-      printf("Unable to load config file!\n");
+      std::cerr << "Unable to load config file!"  << std::endl;
       return 1;
    }
    catch(EXMLSyntaxException& e) {
-      printf("Unable to load config file!\nError: %s\nIn line: %u\n",
-             e.m_Message.ascii(), e.m_Line);
+      std::cerr << "Unable to load config file!"          << std::endl
+                << "Error: " << e.m_Message.toStdString() << std::endl
+                << "Line:  " << e.m_Line                  << std::endl;
       return 1;
    }
    catch(...) {
-      printf("Error!\n");
+      std::cerr << "Error!" << std::endl;
       return 1;
    }
 }

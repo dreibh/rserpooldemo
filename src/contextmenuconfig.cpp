@@ -76,20 +76,20 @@ void CContextMenuConfig::execute()
    QString commandLine = QString("nice " + m_CommandLine);
    m_pProcess = new QProcess(this);
 
+   QStringList arguments;
    bool inBlock = false;
    while(commandLine != "") {
 
-      int pos;
-      pos=commandLine.find("\"");
+      const int pos = commandLine.indexOf("\"");
       if(!inBlock) {
          QString part;
          if(pos >= 0) {
             inBlock = true;
-            part = commandLine.left(pos).stripWhiteSpace();
+            part = commandLine.left(pos).trimmed();
             commandLine = commandLine.mid(pos + 1);
          }
          else {
-            part = commandLine.stripWhiteSpace();
+            part = commandLine.trimmed();
             commandLine = "";
          }
 
@@ -97,7 +97,7 @@ void CContextMenuConfig::execute()
          QString section = part.section(' ', sectionNumber, sectionNumber,
                                         QString::SectionSkipEmpty);
          while(!section.isNull()) {
-            m_pProcess->addArgument(section.stripWhiteSpace());
+            arguments.append(section.trimmed());
 
             sectionNumber++;
             section = part.section(' ', sectionNumber, sectionNumber,
@@ -107,7 +107,7 @@ void CContextMenuConfig::execute()
       else {
          inBlock = false;
          const QString section = commandLine.left(pos);
-         m_pProcess->addArgument("\"" + section.stripWhiteSpace() + "\"");
+         arguments.append("\"" + section.trimmed() + "\"");
          commandLine = commandLine.mid(pos + 1);
          if(pos < 0) {
             commandLine = "";   // Missing last "
@@ -124,11 +124,13 @@ void CContextMenuConfig::execute()
    }
    std::cout << std::endl;
 
+   m_pProcess->setArguments(arguments);
    connect(m_pProcess, SIGNAL(processExited()), this, SLOT(processFinished()));
-   connect(m_pProcess, SIGNAL(readyReadStdout()), this, SLOT(readStdout()));
-   connect(m_pProcess, SIGNAL(readyReadStderr()), this, SLOT(readStderr()));
+   connect(m_pProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(readStdout()));
+   connect(m_pProcess, SIGNAL(readyReadStandardError()),  this, SLOT(readStderr()));
 
-   if(!m_pProcess->start()) {
+   m_pProcess->start();
+   if(!m_pProcess->waitForStarted(10000)) {
       QMessageBox::critical(0, "Error!",
          "Failed to run command:\n" +
          m_CommandLine +
@@ -142,13 +144,13 @@ void CContextMenuConfig::execute()
 
 void CContextMenuConfig::readStdout()
 {
-   std::cout << "stdout " << m_NodeName.toLocal8Bit().constData() << "> " << m_pProcess->readLineStdout().toLocal8Bit().constData() << std::endl;
+   std::cout << "stdout " << m_NodeName.toLocal8Bit().constData() << "> " << m_pProcess->readAllStandardOutput().toStdString() << std::endl;
 }
 
 
 void CContextMenuConfig::readStderr()
 {
-   std::cerr << "stderr " << m_NodeName.toLocal8Bit().constData() << "> " << m_pProcess->readLineStderr().toLocal8Bit().constData() << std::endl;
+   std::cerr << "stderr " << m_NodeName.toLocal8Bit().constData() << "> " << m_pProcess->readAllStandardError().toStdString() << std::endl;
 }
 
 

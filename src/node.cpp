@@ -57,7 +57,14 @@ CNode::CNode(QString uniqueID,
      m_LastUpdated(0),
      m_Workload(-1.0)
 {
-   m_ContextMenuEntries.setAutoDelete(true);
+}
+
+
+CNode::~CNode()
+{
+   while (!m_ContextMenuEntries.isEmpty()) {
+      delete m_ContextMenuEntries.takeFirst();
+   }
 }
 
 

@@ -56,6 +56,7 @@ class CNode
          int     positionX,
          int     positionY,
          int     timeoutMultiplier);
+   ~CNode();
 
    enum NodeStatus
    {
