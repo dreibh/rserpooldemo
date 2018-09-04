@@ -99,6 +99,9 @@ CCanvasNode::CCanvasNode(CCanvas*        canvas,
                                                  MARGIN_WORKLOAD + workloadFM.height(),
                                                  this);
    m_pWorkloadBackground->setZValue(2000000000);
+   m_pWorkloadBackground->setBrush(QBrush(QColor("#D7D7FF")));
+   m_pWorkloadBackground->setPen(QPen(QColor("#202020")));
+   m_pWorkloadBackground->hide();   // It is hidden until there is workload to report!
    m_Canvas->addItem(m_pWorkloadBackground); 
 
 
@@ -138,6 +141,7 @@ CCanvasNode::CCanvasNode(CCanvas*        canvas,
    (m_Canvas->getCanvasNodesMap())[uid] = this;
     
    m_Canvas->addItem(this);   
+   advance(1);
    updatePostion();
 }
 
@@ -165,12 +169,23 @@ void CCanvasNode::updatePostion()
    setPos(m_Node->getPositionX(displaySizeX),
           m_Node->getPositionY(displaySizeY));
 
+
    // ====== Update node title ==============================================
    const int tx = m_Node->getPositionX(displaySizeX) +
                      ((boundingRect().width() / 2) -
                       ((m_pTitle->boundingRect().right() - m_pTitle->boundingRect().left()) / 2));
    const int ty = m_Node->getPositionY(displaySizeY) + boundingRect().height();
    m_pTitle->setPos(tx, ty);
+
+
+   // ====== Update workload label ==========================================
+   const int wx = m_Node->getPositionX(displaySizeX) + (boundingRect().width() / 2);
+   const int wy = m_Node->getPositionY(displaySizeY);
+   m_pWorkloadBackground->setPos(wx, wy);
+
+   m_pWorkload->setPos(m_pWorkloadBackground->x() + (MARGIN_WORKLOAD / 2) + ((m_pWorkloadBackground->boundingRect().right() - m_pWorkloadBackground->boundingRect().left()) / 2),
+                       m_pWorkloadBackground->y() - (MARGIN_WORKLOAD / 2) - ((m_pWorkloadBackground->boundingRect().top() - m_pWorkloadBackground->boundingRect().bottom()) / 2));
+
 
    // ====== Update status label ============================================
    const int sx = m_Node->getPositionX(displaySizeX) +
@@ -179,12 +194,14 @@ void CCanvasNode::updatePostion()
    const int sy = m_Node->getPositionY(displaySizeY) +  m_pTitle->boundingRect().bottom() - m_pTitle->boundingRect().top() + boundingRect().height();
    m_pStatusText->setPos(sx, sy);
 
+
    // ====== Update location label ==========================================
    const int lx = m_Node->getPositionX(displaySizeX) +
                        ((boundingRect().width() / 2) -
                         ((m_pLocationText->boundingRect().right() - m_pLocationText->boundingRect().left()) / 2));
    const int ly = m_Node->getPositionY(displaySizeY) +  m_pTitle->boundingRect().height() + m_pLocationText->boundingRect().height() + boundingRect().height();
    m_pLocationText->setPos(lx, ly);
+
 
    // ====== Update background ==============================================
    const int titleWidth        = m_pTitle->boundingRect().width();
@@ -207,6 +224,7 @@ void CCanvasNode::updatePostion()
    const int bx = m_Node->getPositionX(displaySizeX) + (boundingRect().width() / 2) - (boundingWidth/ 2);
    const int by = m_Node->getPositionY(displaySizeY) + boundingRect().height() - (MARGIN_BACKGROUND / 2);
    m_pBackground->setRect(bx, by, boundingWidth, boundingHeight);
+
 
    // ====== Update links ===================================================
    int thisX;
@@ -232,7 +250,7 @@ void CCanvasNode::updatePostion()
                pLinkText->m_pDurationText->setPos(((thisX + otherX) / 2) + offsetX,
                                                   ((thisY + otherY) / 2) + offsetY);
                pLinkText->m_pBackground->setPos(((thisX + otherX) / 2) + offsetX - (MARGIN_BACKGROUND / 2),
-                                                ((thisY + otherY)/2) + offsetY - (MARGIN_BACKGROUND / 2));
+                                                ((thisY + otherY) / 2) + offsetY - (MARGIN_BACKGROUND / 2));
             }
          }
       }
@@ -242,16 +260,11 @@ void CCanvasNode::updatePostion()
 
 void CCanvasNode::advance(int phase)
 {
-    puts("CCanvasNode::advance()");
-#if 0
+   puts("CCanvasNode::advance()");
    if(phase == 1) {
-      const int sizeX = static_cast<CMainWidget *>(m_Canvas->parent())->m_Configuration.getDisplaySizeX();
-      const int sizeY = static_cast<CMainWidget *>(m_Canvas->parent())->m_Configuration.getDisplaySizeY();
-
       m_Node->updateStatus();
 
-      m_pWorkloadBackground->setPos(m_Node->getPositionX(sizeX) + (m_Canvas->width() / 2),
-                                    m_Node->getPositionY(sizeY));
+      // ====== Update workload label =======================================
       const double workload = m_Node->getWorkload();
       if(workload >= 0.00) {
          QColor workloadColor;
@@ -268,63 +281,32 @@ void CCanvasNode::advance(int phase)
             workloadColor = QColor("#202020");
          }
          m_pWorkload->setPen(workloadColor);
-
-         m_pWorkloadBackground->setBrush(QBrush(QColor("#D7D7ff")));
-         m_pWorkloadBackground->setPen(QPen(QColor("#202020")));
          m_pWorkloadBackground->show();
       }
       else {
          m_pWorkloadBackground->hide();
       }
       m_pWorkload->setText(m_Node->getWorkloadString());
-      m_pWorkload->setPos(m_pWorkloadBackground->x() + (MARGIN_WORKLOAD / 2) + ((m_pWorkloadBackground->boundingRect().right() - m_pWorkloadBackground->boundingRect().left()) / 2),
-                        m_pWorkloadBackground->y() - (MARGIN_WORKLOAD / 2) - ((m_pWorkloadBackground->boundingRect().top() - m_pWorkloadBackground->boundingRect().bottom()) / 2));
-      m_pWorkload->show();
 
+
+      // ====== Update status label =========================================
       m_pStatusText->setText(m_Node->getStatusText());
-      m_pStatusText->setPos((m_Canvas->width() / 2) - ((m_pStatusText->boundingRect().right() - m_pStatusText->boundingRect().left())/ 2)
-         + m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY) +  m_pTitle->boundingRect().bottom() - m_pTitle->boundingRect().top() + m_Canvas->height());
-      m_pStatusText->show();
 
+
+      // ====== Update location label =======================================
       m_pLocationText->setText(m_Node->getLocationText());
-      m_pLocationText->setPos((m_Canvas->width() / 2) - ((m_pLocationText->boundingRect().width())/ 2)
-         + m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY) +  m_pTitle->boundingRect().height() + m_pStatusText->boundingRect().height() + m_Canvas->height());
-      m_pLocationText->show();
-
-      const int titleWidth       = m_pTitle->boundingRect().width();
-      const int statusTextWidth = m_pStatusText->boundingRect().width();
-      const int locationTextWidth     = m_pLocationText->boundingRect().width();
-      int boundingWidth         = titleWidth > statusTextWidth ? titleWidth : statusTextWidth;
-      boundingWidth             = boundingWidth > locationTextWidth ? boundingWidth : locationTextWidth;
-      boundingWidth += MARGIN_BACKGROUND;
-
-      int boundingHeight;
-      if(m_pStatusText->text() == "" && m_pLocationText->text() == "") {
-         boundingHeight = m_pTitle->boundingRect().height();
-      }
-      else if (m_pLocationText->text() == "") {
-         boundingHeight = m_pTitle->boundingRect().height() + m_pStatusText->boundingRect().height();
-      }
-      else {
-         boundingHeight = m_pTitle->boundingRect().height() + m_pStatusText->boundingRect().height() + m_pLocationText->boundingRect().height();
-      }
 
 
-      boundingHeight += MARGIN_BACKGROUND;
-
-      m_pBackground->setRect((m_Canvas->width() / 2) - (boundingWidth/ 2) + m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY) + m_Canvas->height() - (MARGIN_BACKGROUND / 2),
-                             boundingWidth, boundingHeight);
-      m_pBackground->show();
-
-      int thisX = 0;
-      int thisY = 0;
-      getAnchor(thisX, thisY);
+      // ====== Update links ================================================
+      
+      // ------ Remove links ------------------------------------------------
       QMap<QString, int> &rMap = m_Node->getConnectedUIDsMap();
-      QStringList DeletionList;
-      for(QMap<QString, QGraphicsLineItem*>::iterator it = m_ConUIDsLinesMap.begin();it != m_ConUIDsLinesMap.end();++it) {
-         if(rMap.find(it.key()) == rMap.end()) {
-            DeletionList.push_back(it.key());
-            QMap<QString, LinkText*>::iterator found = m_ConUIDsTextMap.find(it.key());
+      QStringList deletionList;
+      for(QMap<QString, QGraphicsLineItem*>::iterator iterator = m_ConUIDsLinesMap.begin();
+          iterator != m_ConUIDsLinesMap.end(); ++iterator) {
+         if(rMap.find(iterator.key()) == rMap.end()) {
+            deletionList.push_back(iterator.key());
+            QMap<QString, LinkText*>::iterator found = m_ConUIDsTextMap.find(iterator.key());
             if(found != m_ConUIDsTextMap.end()) {
                LinkText* lt = *found;
                if(lt != NULL) {
@@ -336,12 +318,19 @@ void CCanvasNode::advance(int phase)
                   m_ConUIDsTextMap.erase(found);
                }
             }
-            delete *it;
+            delete *iterator;
          }
       }
-      for (QStringList::Iterator it = DeletionList.begin();it != DeletionList.end();++it) {
-         m_ConUIDsLinesMap.remove(*it);
+      for (QStringList::Iterator iterator = deletionList.begin(); iterator != deletionList.end(); ++iterator) {
+         m_ConUIDsLinesMap.remove(*iterator);
       }
+
+      // ------ Add links ---------------------------------------------------
+      const int displaySizeX = m_Configuration->getDisplaySizeX();
+      const int displaySizeY = m_Configuration->getDisplaySizeY();
+      int thisX = 0;
+      int thisY = 0;
+      getAnchor(thisX, thisY);
       for(QMap<QString, int>::iterator it = rMap.begin(); it != rMap.end(); ++it) {
          if(m_Canvas->getCanvasNodesMap().find(it.key()) != m_Canvas->getCanvasNodesMap().end()) {
             CCanvasNode* pOtherNode = *(m_Canvas->getCanvasNodesMap().find(it.key()));
@@ -350,13 +339,12 @@ void CCanvasNode::advance(int phase)
             pOtherNode->getAnchor(otherX, otherY);
             if(m_ConUIDsLinesMap.find(it.key()) == m_ConUIDsLinesMap.end()) {
                QGraphicsLineItem* line = new QGraphicsLineItem(this);
-               Q_CHECK_PTR(line);
                line->setLine(thisX, thisY, otherX, otherY);
                m_ConUIDsLinesMap[it.key()] = line;
 
                QColor newColor;
-               QMap<int, QString>::iterator colorNameIterator = static_cast<CMainWidget *>(m_Canvas->parent())->m_Configuration.getColorMap().find(*it);
-               if(colorNameIterator != static_cast<CMainWidget *>(m_Canvas->parent())->m_Configuration.getColorMap().end()) {
+               QMap<int, QString>::iterator colorNameIterator = m_Configuration->getColorMap().find(*it);
+               if(colorNameIterator != m_Configuration->getColorMap().end()) {
                   newColor = QColor(*colorNameIterator);
                }
                else {
@@ -370,8 +358,8 @@ void CCanvasNode::advance(int phase)
 
             uint64_t duration = m_Node->getConnectedUIDsDurationMap()[it.key()];
             if(duration != ~0ULL) {
-               const double z = (((m_Node->getPositionX(sizeX) % 1024) << 10) +
-                                  (m_Node->getPositionY(sizeY) % 1024)) << 4;
+               const double z = (((m_Node->getPositionX(displaySizeX) % 1024) << 10) +
+                                  (m_Node->getPositionY(displaySizeY) % 1024)) << 4;
                if(m_ConUIDsTextMap.find(it.key()) == m_ConUIDsTextMap.end()) {
                   m_ConUIDsTextMap[it.key()] = new LinkText();
                   m_ConUIDsTextMap[it.key()]->m_pDurationText = new QGraphicsSimpleTextItem(this);
@@ -385,11 +373,12 @@ void CCanvasNode::advance(int phase)
                QGraphicsSimpleTextItem* pDurationText      = m_ConUIDsTextMap[it.key()]->m_pDurationText;
                QGraphicsRectItem*       pDurationRectangle = m_ConUIDsTextMap[it.key()]->m_pBackground;
 
-               char timeBuffer[30];
-               sprintf(timeBuffer, "%2llu:%02llum",
+               char timeBuffer[64];
+               snprintf(timeBuffer, sizeof(timeBuffer), "%2llu:%02llum",
                        (unsigned long long)duration / 60000000,
                        (unsigned long long)(duration / 1000000) % 60);
                pDurationText->setText(QString(timeBuffer));
+
                QFontMetrics fm(pDurationText->font());
                const int offsetX = -fm.width(pDurationText->text()) / 2;
                const int offsetY = -fm.height() / 2;
@@ -400,8 +389,8 @@ void CCanvasNode::advance(int phase)
                                            pDurationText->boundingRect().width() + MARGIN_DURATION, pDurationText->boundingRect().height() + MARGIN_DURATION);
 
                QColor newColor;
-               QMap<int, QString>::iterator colorNameIterator = static_cast<CMainWidget *>(m_Canvas->parent())->m_Configuration.getColorMap().find(*it);
-               if(colorNameIterator != static_cast<CMainWidget *>(m_Canvas->parent())->m_Configuration.getColorMap().end()) {
+               QMap<int, QString>::iterator colorNameIterator = m_Configuration->getColorMap().find(*it);
+               if(colorNameIterator != m_Configuration->getColorMap().end()) {
                   newColor = QColor(*colorNameIterator);
                }
                else {
@@ -413,8 +402,8 @@ void CCanvasNode::advance(int phase)
             }
          }
       }
+
       printf("FIXME: setFrame()!!!   status=%d\n", static_cast<int>(m_Node->getStatus()));
 //       setFrame(static_cast<int>(m_Node->getStatus()));
    }
-#endif
 }
