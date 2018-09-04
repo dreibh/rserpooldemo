@@ -43,6 +43,7 @@
 #include <QMenu>
 #include <QGraphicsPixmapItem>
 
+#include "configuration.h"
 #include "canvas.h"
 #include "node.h"
 
@@ -50,10 +51,11 @@
 class CCanvasNode : public QGraphicsPixmapItem
 {
    public:
-   CCanvasNode(CCanvas*       canvas,
-               CNode*         node,
-               const QPixmap& inactivePixmap,
-               const QPixmap& activePixmap);
+   CCanvasNode(CCanvas*        canvas,
+               CNode*          node,
+               CConfiguration* configuration,
+               const QPixmap&  inactivePixmap,
+               const QPixmap&  activePixmap);
    virtual ~CCanvasNode();
 
    virtual void advance(int phase);
@@ -66,6 +68,7 @@ class CCanvasNode : public QGraphicsPixmapItem
    private:
    CCanvas*                 m_Canvas;
    CNode*                   m_Node;
+   CConfiguration*          m_Configuration;
    QPixmap                  m_InactivePixmap;
    QPixmap                  m_ActivePixmap;
    double                   m_ZPosition;

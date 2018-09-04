@@ -92,7 +92,7 @@ int n=0;
 
    for(QLinkedList<CNode*>::iterator it = rNodeList.begin();it != rNodeList.end();++it) {
       CNode* pNode = *it;
-      CCanvasNode* pSprite = new CCanvasNode(m_Canvas, pNode,
+      CCanvasNode* pSprite = new CCanvasNode(m_Canvas, pNode, &m_Configuration,
                                              QPixmap(pNode->getImageInactive()),
                                              QPixmap(pNode->getImageActive()));
 //       pSprite->setAnimated(true);

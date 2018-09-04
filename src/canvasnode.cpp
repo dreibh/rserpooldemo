@@ -53,45 +53,36 @@
 #define MARGIN_BACKGROUND 8
 
 
-CCanvasNode::CCanvasNode(CCanvas*       canvas,
-                         CNode*         node,
-                         const QPixmap& inactivePixmap,
-                         const QPixmap& activePixmap)
+CCanvasNode::CCanvasNode(CCanvas*        canvas,
+                         CNode*          node,
+                         CConfiguration* configuration,
+                         const QPixmap&  inactivePixmap,
+                         const QPixmap&  activePixmap)
  : QGraphicsPixmapItem(inactivePixmap),
    m_Canvas(canvas),
    m_Node(node),
+   m_Configuration(configuration),
    m_InactivePixmap(inactivePixmap),
    m_ActivePixmap(activePixmap)
  {
-   
-   printf("x scene=%p    canvas=%p\n", (void*)m_Canvas, (void*)canvas);
-   printf("x QMainWindow=%p\n", (void*)dynamic_cast<QMainWindow*>(m_Canvas->parent()));
-   printf("x CMainWidget=%p\n", (void*)dynamic_cast<CMainWidget*>(m_Canvas->parent()));
-   
-   const int displaySizeX = static_cast<CMainWidget *>(m_Canvas->parent())->m_Configuration.getDisplaySizeX();
-   const int displaySizeY = static_cast<CMainWidget *>(m_Canvas->parent())->m_Configuration.getDisplaySizeY();
-printf("SX=%d SY=%d\n", displaySizeX, displaySizeY);
-printf("CW=%f CH=%f\n", m_Canvas->width(), m_Canvas->height());
+   // ====== Create node icon ===============================================
+   const int displaySizeX = m_Configuration->getDisplaySizeX();
+   const int displaySizeY = m_Configuration->getDisplaySizeY();
    setPos(m_Node->getPositionX(displaySizeX), m_Node->getPositionY(displaySizeY));
    m_ZPosition = 1000000000 + ((((m_Node->getPositionX(displaySizeX) % 1024) << 10) +
                                  (m_Node->getPositionY(displaySizeY) % 1024)) << 4);
    setZValue(m_ZPosition + 10);
 
 
-
+   // ====== Create node title ==============================================
    m_pTitle = new QGraphicsSimpleTextItem(m_Node->getDisplayName(), this);
    m_pTitle->setFont(QFont("Helvetica", 12, QFont::Bold));
    const int x = m_Node->getPositionX(displaySizeX) +
                     ((boundingRect().width() / 2) -
                      ((m_pTitle->boundingRect().right() - m_pTitle->boundingRect().left()) / 2));
    const int y = m_Node->getPositionY(displaySizeY) + boundingRect().height();
-   printf("T1=<%s>  x=%d y=%d\n", m_Node->getDisplayName().toStdString().c_str(), x,y);
-   
-   
-//    m_pTitle->setPos((boundingRect()->width() / 2) - ((m_pTitle->boundingRect().right() - m_pTitle->boundingRect().left())/ 2) + m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY) + spriteHeight);   
    m_pTitle->setPos(x, y);
    m_pTitle->setZValue(m_ZPosition + 6);
-//    m_pTitle->show();
    m_Canvas->addItem(m_pTitle); 
 
 
