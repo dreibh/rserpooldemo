@@ -52,6 +52,9 @@ CMainWidget::CMainWidget(const QString& configFile)
 {
    setWindowTitle(m_Configuration.getCaption() + " - " + configFile);
 
+   printf("QMainWindow=%p\n", (void*)dynamic_cast<QMainWindow*>(this));
+   printf("CMainWidget=%p\n", (void*)dynamic_cast<CMainWidget*>(this));
+
    m_Canvas = new CCanvas(this);
    m_Canvas->setSceneRect(0, 0,
                           m_Configuration.getDisplaySizeX(),
@@ -62,6 +65,7 @@ CMainWidget::CMainWidget(const QString& configFile)
                                                m_Configuration.getDisplaySizeY()); // in pixels
 
    m_Canvas->setBackgroundBrush(tempImage);
+
    m_CanvasView = new CSerPoolCanvasView(m_Canvas, this);
    m_CanvasView->setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
    m_CanvasView->setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
@@ -84,13 +88,15 @@ void CMainWidget::createCanvasObjects()
    QLinkedList<CNode*>& rNodeList = m_Configuration.getNodes();
 //    for (CNode* pNode = rNodeList.first();pNode;pNode = rNodeList.next()) {
 puts("createCanvasObjects() !!!");
+int n=0;
+
    for(QLinkedList<CNode*>::iterator it = rNodeList.begin();it != rNodeList.end();++it) {
       CNode* pNode = *it;
       CCanvasNode* pSprite = new CCanvasNode(m_Canvas, pNode,
                                              QPixmap(pNode->getImageInactive()),
                                              QPixmap(pNode->getImageActive()));
 //       pSprite->setAnimated(true);
-      puts("FIXME: setAnimated(true);");
+      printf("%d: FIXME: setAnimated(true);\n", ++n);
       pSprite->show();
    }
 }
