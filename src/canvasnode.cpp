@@ -68,7 +68,6 @@ CCanvasNode::CCanvasNode(CCanvas*        canvas,
    // ====== Create node icon ===============================================
    const int displaySizeX = m_Configuration->getDisplaySizeX();
    const int displaySizeY = m_Configuration->getDisplaySizeY();
-//    setPos(m_Node->getPositionX(displaySizeX), m_Node->getPositionY(displaySizeY));
    m_ZPosition = 1000000000 + ((((m_Node->getPositionX(displaySizeX) % 1024) << 10) +
                                  (m_Node->getPositionY(displaySizeY) % 1024)) << 4);
    setZValue(m_ZPosition + 10);
@@ -77,11 +76,6 @@ CCanvasNode::CCanvasNode(CCanvas*        canvas,
    // ====== Create node title ==============================================
    m_pTitle = new QGraphicsSimpleTextItem(m_Node->getDisplayName(), this);
    m_pTitle->setFont(QFont("Helvetica", 12, QFont::Bold));
-//    const int x = m_Node->getPositionX(displaySizeX) +
-//                     ((boundingRect().width() / 2) -
-//                      ((m_pTitle->boundingRect().right() - m_pTitle->boundingRect().left()) / 2));
-//    const int y = m_Node->getPositionY(displaySizeY) + boundingRect().height();
-//    m_pTitle->setPos(x, y);
    m_pTitle->setZValue(m_ZPosition + 6);
    m_Canvas->addItem(m_pTitle); 
 
@@ -96,8 +90,6 @@ CCanvasNode::CCanvasNode(CCanvas*        canvas,
    m_pWorkload = new QGraphicsSimpleTextItem("", this);
    m_pWorkload->setFont(QFont("Helvetica", 12, QFont::Bold));
    m_pWorkload->setPen(QColor("#222222"));
-puts("setTextFlags(Qt::AlignCenter) !!!");
-//    m_pWorkload->setTextFlags(Qt::AlignCenter);
    m_pWorkload->setZValue(2000000001);
    m_Canvas->addItem(m_pWorkload); 
 
@@ -107,9 +99,6 @@ puts("setTextFlags(Qt::AlignCenter) !!!");
                                                  MARGIN_WORKLOAD + workloadFM.height(),
                                                  this);
    m_pWorkloadBackground->setZValue(2000000000);
-// ???????
-//    m_pWorkloadBackground->setSize(MARGIN_WORKLOAD + workloadFM.width("100%"),
-//                                   MARGIN_WORKLOAD + workloadFM.height());
    m_Canvas->addItem(m_pWorkloadBackground); 
 
 
@@ -130,14 +119,13 @@ puts("setTextFlags(Qt::AlignCenter) !!!");
    // ====== Create context menus ===========================================
    m_ContextMenu = new QMenu(dynamic_cast<QGraphicsView*>(m_Canvas->parent()));
    QLinkedList<CContextMenuConfig*>& rNodeList = m_Node->getContextMenuConfig();
-//    for(CContextMenuConfig* pNode = rNodeList.first(); pNode; pNode = rNodeList.next()) {
-   for(QLinkedList<CContextMenuConfig*>::iterator it = rNodeList.begin();it != rNodeList.end();++it) {
-      CContextMenuConfig* pNode = *it;
+   for(QLinkedList<CContextMenuConfig*>::iterator iterator = rNodeList.begin();
+       iterator != rNodeList.end(); ++iterator) {
+      CContextMenuConfig* pNode = *iterator;
       if(pNode->getName() != "") {
          QAction* action = new QAction(pNode->getName(), m_Canvas->parent());
          Q_CHECK_PTR(action);
          m_ContextMenu->addAction(action);
-//          action->addTo(m_ContextMenu);  ???
          QObject::connect(action, SIGNAL(activated()), pNode, SLOT(execute()));
       }
       else {
@@ -156,6 +144,99 @@ puts("setTextFlags(Qt::AlignCenter) !!!");
 
 CCanvasNode::~CCanvasNode()
 {
+}
+
+
+void CCanvasNode::getAnchor(int& rX, int& rY)
+{
+   const int displaySizeX = m_Configuration->getDisplaySizeX();
+   const int displaySizeY = m_Configuration->getDisplaySizeY();
+
+   rX = m_Node->getPositionX(displaySizeX) + (m_Canvas->width() / 2);
+   rY = m_Node->getPositionY(displaySizeY) + (m_Canvas->height() / 2);
+}
+
+
+void CCanvasNode::updatePostion()
+{
+   // ====== Update node icon ===============================================
+   const int displaySizeX = m_Configuration->getDisplaySizeX();
+   const int displaySizeY = m_Configuration->getDisplaySizeY();
+   setPos(m_Node->getPositionX(displaySizeX),
+          m_Node->getPositionY(displaySizeY));
+
+   // ====== Update node title ==============================================
+   const int tx = m_Node->getPositionX(displaySizeX) +
+                     ((boundingRect().width() / 2) -
+                      ((m_pTitle->boundingRect().right() - m_pTitle->boundingRect().left()) / 2));
+   const int ty = m_Node->getPositionY(displaySizeY) + boundingRect().height();
+   m_pTitle->setPos(tx, ty);
+
+   // ====== Update status label ============================================
+   const int sx = m_Node->getPositionX(displaySizeX) +
+                       ((boundingRect().width() / 2) -
+                        ((m_pStatusText->boundingRect().right() - m_pStatusText->boundingRect().left()) / 2));
+   const int sy = m_Node->getPositionY(displaySizeY) +  m_pTitle->boundingRect().bottom() - m_pTitle->boundingRect().top() + boundingRect().height();
+   m_pStatusText->setPos(sx, sy);
+
+   // ====== Update location label ==========================================
+   const int lx = m_Node->getPositionX(displaySizeX) +
+                       ((boundingRect().width() / 2) -
+                        ((m_pLocationText->boundingRect().right() - m_pLocationText->boundingRect().left()) / 2));
+   const int ly = m_Node->getPositionY(displaySizeY) +  m_pTitle->boundingRect().height() + m_pLocationText->boundingRect().height() + boundingRect().height();
+   m_pLocationText->setPos(lx, ly);
+
+   // ====== Update background ==============================================
+   const int titleWidth        = m_pTitle->boundingRect().width();
+   const int statusTextWidth   = m_pStatusText->boundingRect().width();
+   const int locationTextWidth = m_pLocationText->boundingRect().width();
+
+   const int boundingWidth = MARGIN_BACKGROUND + std::max(std::max(titleWidth, statusTextWidth), locationTextWidth);
+   int boundingHeight;
+   if( (m_pStatusText->text() == "") && (m_pLocationText->text() == "") ) {
+      boundingHeight = m_pTitle->boundingRect().height();
+   }
+   else if(m_pLocationText->text() == "") {
+      boundingHeight = m_pTitle->boundingRect().height() + m_pStatusText->boundingRect().height();
+   }
+   else {
+      boundingHeight = m_pTitle->boundingRect().height() + m_pStatusText->boundingRect().height() + m_pLocationText->boundingRect().height();
+   }
+   boundingHeight += MARGIN_BACKGROUND;
+
+   const int bx = m_Node->getPositionX(displaySizeX) + (boundingRect().width() / 2) - (boundingWidth/ 2);
+   const int by = m_Node->getPositionY(displaySizeY) + boundingRect().height() - (MARGIN_BACKGROUND / 2);
+   m_pBackground->setRect(bx, by, boundingWidth, boundingHeight);
+
+   // ====== Update links ===================================================
+   int thisX;
+   int thisY;
+   getAnchor(thisX, thisY);
+   for(QMap<QString, QGraphicsLineItem*>::iterator iterator = m_ConUIDsLinesMap.begin();
+       iterator != m_ConUIDsLinesMap.end(); ++iterator) {
+      if(m_Canvas->getCanvasNodesMap().find(iterator.key()) != m_Canvas->getCanvasNodesMap().end()) {
+         CCanvasNode* pOtherNode = *(m_Canvas->getCanvasNodesMap().find(iterator.key()));
+         int otherX = 0;
+         int otherY = 0;
+         pOtherNode->getAnchor(otherX, otherY);
+         QGraphicsLineItem *line = m_ConUIDsLinesMap[iterator.key()];
+         if(line) {
+            line->setLine(thisX, thisY, otherX, otherY);
+
+            const uint64_t duration = m_Node->getConnectedUIDsDurationMap()[iterator.key()];
+            LinkText* pLinkText = m_ConUIDsTextMap[iterator.key()];
+            if( (duration != ~0ULL) && (pLinkText != NULL) &&
+                (pLinkText->m_pDurationText) && (pLinkText->m_pBackground) ) {
+               const int offsetX = 0;
+               const int offsetY = 0;
+               pLinkText->m_pDurationText->setPos(((thisX + otherX) / 2) + offsetX,
+                                                  ((thisY + otherY) / 2) + offsetY);
+               pLinkText->m_pBackground->setPos(((thisX + otherX) / 2) + offsetX - (MARGIN_BACKGROUND / 2),
+                                                ((thisY + otherY)/2) + offsetY - (MARGIN_BACKGROUND / 2));
+            }
+         }
+      }
+   }
 }
 
 
@@ -336,97 +417,4 @@ void CCanvasNode::advance(int phase)
 //       setFrame(static_cast<int>(m_Node->getStatus()));
    }
 #endif
-}
-
-
-void CCanvasNode::getAnchor(int& rX, int& rY)
-{
-   const int displaySizeX = m_Configuration->getDisplaySizeX();
-   const int displaySizeY = m_Configuration->getDisplaySizeY();
-
-   rX = m_Node->getPositionX(displaySizeX) + (m_Canvas->width() / 2);
-   rY = m_Node->getPositionY(displaySizeY) + (m_Canvas->height() / 2);
-}
-
-
-void CCanvasNode::updatePostion()
-{
-   // ====== Update node icon ===============================================
-   const int displaySizeX = m_Configuration->getDisplaySizeX();
-   const int displaySizeY = m_Configuration->getDisplaySizeY();
-   setPos(m_Node->getPositionX(displaySizeX),
-          m_Node->getPositionY(displaySizeY));
-
-   // ====== Update node title ==============================================
-   const int tx = m_Node->getPositionX(displaySizeX) +
-                     ((boundingRect().width() / 2) -
-                      ((m_pTitle->boundingRect().right() - m_pTitle->boundingRect().left()) / 2));
-   const int ty = m_Node->getPositionY(displaySizeY) + boundingRect().height();
-   m_pTitle->setPos(tx, ty);
-
-   // ====== Update status label ============================================
-   const int sx = m_Node->getPositionX(displaySizeX) +
-                       ((boundingRect().width() / 2) -
-                        ((m_pStatusText->boundingRect().right() - m_pStatusText->boundingRect().left()) / 2));
-   const int sy = m_Node->getPositionY(displaySizeY) +  m_pTitle->boundingRect().bottom() - m_pTitle->boundingRect().top() + boundingRect().height();
-   m_pStatusText->setPos(sx, sy);
-
-   // ====== Update location label ==========================================
-   const int lx = m_Node->getPositionX(displaySizeX) +
-                       ((boundingRect().width() / 2) -
-                        ((m_pLocationText->boundingRect().right() - m_pLocationText->boundingRect().left()) / 2));
-   const int ly = m_Node->getPositionY(displaySizeY) +  m_pTitle->boundingRect().height() + m_pLocationText->boundingRect().height() + boundingRect().height();
-   m_pLocationText->setPos(lx, ly);
-
-   // ====== Update background ==============================================
-   const int titleWidth        = m_pTitle->boundingRect().width();
-   const int statusTextWidth   = m_pStatusText->boundingRect().width();
-   const int locationTextWidth = m_pLocationText->boundingRect().width();
-
-   const int boundingWidth = MARGIN_BACKGROUND + std::max(std::max(titleWidth, statusTextWidth), locationTextWidth);
-   int boundingHeight;
-   if( (m_pStatusText->text() == "") && (m_pLocationText->text() == "") ) {
-      boundingHeight = m_pTitle->boundingRect().height();
-   }
-   else if(m_pLocationText->text() == "") {
-      boundingHeight = m_pTitle->boundingRect().height() + m_pStatusText->boundingRect().height();
-   }
-   else {
-      boundingHeight = m_pTitle->boundingRect().height() + m_pStatusText->boundingRect().height() + m_pLocationText->boundingRect().height();
-   }
-   boundingHeight += MARGIN_BACKGROUND;
-
-   const int bx = m_Node->getPositionX(displaySizeX) + (boundingRect().width() / 2) - (boundingWidth/ 2);
-   const int by = m_Node->getPositionY(displaySizeY) + boundingRect().height() - (MARGIN_BACKGROUND / 2);
-   m_pBackground->setRect(bx, by, boundingWidth, boundingHeight);
-
-   // ====== Update links ===================================================
-   int thisX;
-   int thisY;
-   getAnchor(thisX, thisY);
-   for(QMap<QString, QGraphicsLineItem*>::iterator iterator = m_ConUIDsLinesMap.begin();
-       iterator != m_ConUIDsLinesMap.end(); ++iterator) {
-      if(m_Canvas->getCanvasNodesMap().find(iterator.key()) != m_Canvas->getCanvasNodesMap().end()) {
-         CCanvasNode* pOtherNode = *(m_Canvas->getCanvasNodesMap().find(iterator.key()));
-         int otherX = 0;
-         int otherY = 0;
-         pOtherNode->getAnchor(otherX, otherY);
-         QGraphicsLineItem *line = m_ConUIDsLinesMap[iterator.key()];
-         if(line) {
-            line->setLine(thisX, thisY, otherX, otherY);
-
-            const uint64_t duration = m_Node->getConnectedUIDsDurationMap()[iterator.key()];
-            LinkText* pLinkText = m_ConUIDsTextMap[iterator.key()];
-            if( (duration != ~0ULL) && (pLinkText != NULL) &&
-                (pLinkText->m_pDurationText) && (pLinkText->m_pBackground) ) {
-               const int offsetX = 0;
-               const int offsetY = 0;
-               pLinkText->m_pDurationText->setPos(((thisX + otherX) / 2) + offsetX,
-                                                  ((thisY + otherY) / 2) + offsetY);
-               pLinkText->m_pBackground->setPos(((thisX + otherX) / 2) + offsetX - (MARGIN_BACKGROUND / 2),
-                                                ((thisY + otherY)/2) + offsetY - (MARGIN_BACKGROUND / 2));
-            }
-         }
-      }
-   }
 }
