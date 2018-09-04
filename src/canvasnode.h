@@ -60,7 +60,7 @@ class CCanvasNode : public QGraphicsPixmapItem
 
    virtual void advance(int phase);
 
-   void getAnchor(int& _rX, int& _rY);
+   void getAnchor(int& rX, int& rY);
    void updatePostion();
 
    QMenu*                   m_ContextMenu;
