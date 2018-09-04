@@ -352,7 +352,6 @@ void CCanvasNode::getAnchor(int& rX, int& rY)
 void CCanvasNode::updatePostion()
 {
    // ====== Update node icon ===============================================
-   puts("CCanvasNode::updatePostion()");
    const int displaySizeX = m_Configuration->getDisplaySizeX();
    const int displaySizeY = m_Configuration->getDisplaySizeY();
    setPos(m_Node->getPositionX(displaySizeX),
@@ -405,7 +404,8 @@ void CCanvasNode::updatePostion()
    int thisX;
    int thisY;
    getAnchor(thisX, thisY);
-   for(QMap<QString, QGraphicsLineItem*>::iterator iterator = m_ConUIDsLinesMap.begin();iterator != m_ConUIDsLinesMap.end();++iterator) {
+   for(QMap<QString, QGraphicsLineItem*>::iterator iterator = m_ConUIDsLinesMap.begin();
+       iterator != m_ConUIDsLinesMap.end(); ++iterator) {
       if(m_Canvas->getCanvasNodesMap().find(iterator.key()) != m_Canvas->getCanvasNodesMap().end()) {
          CCanvasNode* pOtherNode = *(m_Canvas->getCanvasNodesMap().find(iterator.key()));
          int otherX = 0;
