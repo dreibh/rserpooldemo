@@ -53,12 +53,15 @@
 #define MARGIN_BACKGROUND 8
 
 
- CCanvasNode::CCanvasNode(CCanvas*        nodeCanvas,
-                          CNode*          node,
-                          QList<QPixmap>& pixmapList)
-   : QGraphicsPixmapItem(new QList<QPixmap>(pixmapList), nodeCanvas),
-     m_Canvas(nodeCanvas),
-     m_Node(node)
+CCanvasNode::CCanvasNode(CCanvas*       canvas,
+                         CNode*         node,
+                         const QPixmap& inactivePixmap,
+                         const QPixmap& activePixmap)
+ : QGraphicsPixmapItem(inactivePixmap),
+   m_Canvas(canvas),
+   m_Node(node),
+   m_InactivePixmap(inactivePixmap),
+   m_ActivePixmap(activePixmap)
  {
    int sizeX = static_cast<CMainWidget *>(scene()->parent())->m_Configuration.getDisplaySizeX();
    int sizeY = static_cast<CMainWidget *>(scene()->parent())->m_Configuration.getDisplaySizeY();
@@ -68,13 +71,13 @@
    setZValue(m_ZPosition + 10);
 
    const int spriteHeight = scene()->height();
-   m_pTitle = new QGraphicsSimpleTextItem(m_Node->getDisplayName(), scene());
+   m_pTitle = new QGraphicsSimpleTextItem(m_Node->getDisplayName(), this);
    m_pTitle->setFont(QFont("Helvetica", 12, QFont::Bold ));
    m_pTitle->setPos((scene()->width() / 2) - ((m_pTitle->boundingRect().right() - m_pTitle->boundingRect().left())/ 2) + m_Node->getPositionX(sizeX), m_Node->getPositionY(sizeY) + spriteHeight);
    m_pTitle->setZValue(m_ZPosition + 6);
    m_pTitle->show();
 
-   m_pWorkload = new QGraphicsSimpleTextItem("", scene());
+   m_pWorkload = new QGraphicsSimpleTextItem("", this);
    m_pWorkload->setFont(QFont("Helvetica", 12, QFont::Bold));
    m_pWorkload->setPen(QColor("#222222"));
 puts("setTextFlags(Qt::AlignCenter) !!!");
@@ -85,21 +88,21 @@ puts("setTextFlags(Qt::AlignCenter) !!!");
    m_pWorkloadBackground = new QGraphicsRectItem(0, 0,
                                                  MARGIN_WORKLOAD + workloadFM.width("100%"),
                                                  MARGIN_WORKLOAD + workloadFM.height(),
-                                                 m_Canvas);
+                                                 this);
    m_pWorkloadBackground->setZValue(2000000000);
 // ???????
 //    m_pWorkloadBackground->setSize(MARGIN_WORKLOAD + workloadFM.width("100%"),
 //                                   MARGIN_WORKLOAD + workloadFM.height());
 
-   m_pStatusText = new QGraphicsSimpleTextItem(m_Node->getStatusText(), scene());
+   m_pStatusText = new QGraphicsSimpleTextItem(m_Node->getStatusText(), this);
    m_pStatusText->setFont(QFont("Helvetica", 10, QFont::Bold ));
    m_pStatusText->setZValue(m_ZPosition + 6);
 
-   m_pLocationText = new QGraphicsSimpleTextItem(m_Node->getLocationText(), scene());
+   m_pLocationText = new QGraphicsSimpleTextItem(m_Node->getLocationText(), this);
    m_pLocationText->setFont(QFont("Helvetica", 6));
    m_pLocationText->setZValue(m_ZPosition + 6);
 
-   m_pBackground = new QGraphicsRectItem(m_Canvas);
+   m_pBackground = new QGraphicsRectItem(this);
    m_pBackground->setZValue(m_ZPosition + 5);
    m_pBackground->setBrush(QBrush(QColor("#FFD700")));
    m_pBackground->setPen(QPen(QColor("#7C7777")));
@@ -140,7 +143,7 @@ void CCanvasNode::advance(int phase)
       m_Node->updateStatus();
 
       m_pWorkloadBackground->setPos(m_Node->getPositionX(sizeX) + (scene()->width() / 2),
-                                  m_Node->getPositionY(sizeY));
+                                    m_Node->getPositionY(sizeY));
       const double workload = m_Node->getWorkload();
       if(workload >= 0.00) {
          QColor workloadColor;
@@ -213,16 +216,16 @@ void CCanvasNode::advance(int phase)
       for(QMap<QString, QGraphicsLineItem*>::iterator it = m_ConUIDsLinesMap.begin();it != m_ConUIDsLinesMap.end();++it) {
          if(rMap.find(it.key()) == rMap.end()) {
             DeletionList.push_back(it.key());
-            QMap<QString, LinkText*>::iterator FindText = m_ConUIDsTextMap.find(it.key());
-            if(FindText != m_ConUIDsTextMap.end()) {
-               LinkText* lt = FindText.data();
+            QMap<QString, LinkText*>::iterator found = m_ConUIDsTextMap.find(it.key());
+            if(found != m_ConUIDsTextMap.end()) {
+               LinkText* lt = *found;
                if(lt != NULL) {
                   delete lt->m_pDurationText;
                   lt->m_pDurationText = NULL;
                   delete lt->m_pBackground;
                   lt->m_pBackground = NULL;
                   delete lt;
-                  m_ConUIDsTextMap.erase(FindText);
+                  m_ConUIDsTextMap.erase(found);
                }
             }
             delete *it;
@@ -233,12 +236,12 @@ void CCanvasNode::advance(int phase)
       }
       for(QMap<QString, int>::iterator it = rMap.begin(); it != rMap.end(); ++it) {
          if(m_Canvas->getCanvasNodesMap().find(it.key()) != m_Canvas->getCanvasNodesMap().end()) {
-            CCanvasNode* pOtherNode = m_Canvas->getCanvasNodesMap().find(it.key()).data();
+            CCanvasNode* pOtherNode = *(m_Canvas->getCanvasNodesMap().find(it.key()));
             int otherX = 0;
             int otherY = 0;
             pOtherNode->getAnchor(otherX, otherY);
             if(m_ConUIDsLinesMap.find(it.key()) == m_ConUIDsLinesMap.end()) {
-               QGraphicsLineItem* line = new QGraphicsLineItem(m_Canvas);
+               QGraphicsLineItem* line = new QGraphicsLineItem(this);
                Q_CHECK_PTR(line);
                line->setLine(thisX, thisY, otherX, otherY);
                m_ConUIDsLinesMap[it.key()] = line;
@@ -263,10 +266,10 @@ void CCanvasNode::advance(int phase)
                                   (m_Node->getPositionY(sizeY) % 1024)) << 4;
                if(m_ConUIDsTextMap.find(it.key()) == m_ConUIDsTextMap.end()) {
                   m_ConUIDsTextMap[it.key()] = new LinkText();
-                  m_ConUIDsTextMap[it.key()]->m_pDurationText = new QGraphicsSimpleTextItem(m_Canvas);
+                  m_ConUIDsTextMap[it.key()]->m_pDurationText = new QGraphicsSimpleTextItem(this);
                   m_ConUIDsTextMap[it.key()]->m_pDurationText->setZValue(z + 1);
                   m_ConUIDsTextMap[it.key()]->m_pDurationText->setFont(QFont("Helvetica", 11, QFont::Bold ));
-                  m_ConUIDsTextMap[it.key()]->m_pBackground = new QGraphicsRectItem(m_Canvas);
+                  m_ConUIDsTextMap[it.key()]->m_pBackground = new QGraphicsRectItem(this);
                   m_ConUIDsTextMap[it.key()]->m_pBackground->setBrush(QBrush(QColor("#FFFF00")));
                   m_ConUIDsTextMap[it.key()]->m_pBackground->setPen(QPen(QColor("#7C7777")));
                   m_ConUIDsTextMap[it.key()]->m_pBackground->setZValue(z);

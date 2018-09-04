@@ -2,6 +2,8 @@ TEMPLATE = app
 TARGET = ../bin/rserpooldemo
 INCLUDEPATH += .
 
+CONFIG += debug
+
 SOURCES += canvas.cpp \
 canvasnode.cpp \
 canvasview.cpp \

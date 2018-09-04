@@ -86,10 +86,9 @@ void CMainWidget::createCanvasObjects()
 puts("createCanvasObjects() !!!");
    for(QLinkedList<CNode*>::iterator it = rNodeList.begin();it != rNodeList.end();++it) {
       CNode* pNode = *it;
-      QList<QPixmap> pixmapList;
-      pixmapList.push_back(pNode->getImageInactive());
-      pixmapList.push_back(pNode->getImageActive());
-      CCanvasNode* pSprite = new CCanvasNode(m_Canvas, pNode, pixmapList);
+      CCanvasNode* pSprite = new CCanvasNode(m_Canvas, pNode,
+                                             QPixmap(pNode->getImageInactive()),
+                                             QPixmap(pNode->getImageActive()));
 //       pSprite->setAnimated(true);
       puts("FIXME: setAnimated(true);");
       pSprite->show();
