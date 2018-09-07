@@ -59,10 +59,9 @@ int main(int argc, char** argv)
 
       std::cout << "Using configuration \"" << configFile.toLocal8Bit().constData() << "\" ..." << std::endl;
       QApplication application(argc, argv);
-      CMainWidget* mainWidget = new CMainWidget(configFile);
-puts("FIXME: setMainWidget !!!");
-//       application.setMainWidget( mainWidget );
-      mainWidget->show();
+      CMainWidget* mainWindow = new CMainWidget(configFile);
+      Q_CHECK_PTR(mainWindow);
+      mainWindow->show();
 
       return application.exec();
    }
