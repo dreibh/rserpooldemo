@@ -42,6 +42,7 @@
 #include <QPixmap>
 #include <QMenu>
 #include <QGraphicsPixmapItem>
+#include <QGraphicsSceneContextMenuEvent>
 
 #include "configuration.h"
 #include "canvas.h"
@@ -58,12 +59,11 @@ class CCanvasNode : public QGraphicsPixmapItem
                const QPixmap&  activePixmap);
    virtual ~CCanvasNode();
 
+   virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
    virtual void advance(int phase);
 
    void getAnchor(int& rX, int& rY);
    void updatePostion();
-
-   QMenu*                   m_ContextMenu;
 
    private:
    CCanvas*                 m_Canvas;

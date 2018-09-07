@@ -53,6 +53,7 @@
 #define MARGIN_BACKGROUND 8
 
 
+// ###### Constructor #######################################################
 CCanvasNode::CCanvasNode(CCanvas*        canvas,
                          CNode*          node,
                          CConfiguration* configuration,
@@ -118,24 +119,6 @@ CCanvasNode::CCanvasNode(CCanvas*        canvas,
    m_pLocationText->setZValue(m_ZPosition + 6);
    m_Canvas->addItem(m_pLocationText); 
 
-
-   // ====== Create context menus ===========================================
-   m_ContextMenu = new QMenu(dynamic_cast<QGraphicsView*>(m_Canvas->parent()));
-   QLinkedList<CContextMenuConfig*>& rNodeList = m_Node->getContextMenuConfig();
-   for(QLinkedList<CContextMenuConfig*>::iterator iterator = rNodeList.begin();
-       iterator != rNodeList.end(); ++iterator) {
-      CContextMenuConfig* pNode = *iterator;
-      if(pNode->getName() != "") {
-         QAction* action = new QAction(pNode->getName(), m_Canvas->parent());
-         Q_CHECK_PTR(action);
-         m_ContextMenu->addAction(action);
-         QObject::connect(action, SIGNAL(activated()), pNode, SLOT(execute()));
-      }
-      else {
-         m_ContextMenu->addSeparator();
-      }
-   }
-
    // ====== Create ID to nodes map =========================================
    const QString uid = m_Node->getUniqueID();
    (m_Canvas->getCanvasNodesMap())[uid] = this;
@@ -146,8 +129,30 @@ CCanvasNode::CCanvasNode(CCanvas*        canvas,
 }
 
 
+// ###### Destructor ########################################################
 CCanvasNode::~CCanvasNode()
 {
+}
+
+
+// ###### Create context menus ##############################################
+void CCanvasNode::contextMenuEvent(QGraphicsSceneContextMenuEvent* event)
+{
+   QMenu contextMenu;
+   QLinkedList<CContextMenuConfig*>& rNodeList = m_Node->getContextMenuConfig();
+   for(QLinkedList<CContextMenuConfig*>::iterator iterator = rNodeList.begin();
+       iterator != rNodeList.end(); ++iterator) {
+      CContextMenuConfig* pNode = *iterator;
+      if(pNode->getName() != "") {
+         QAction* action = contextMenu.addAction(pNode->getName());
+         Q_CHECK_PTR(action);
+         QObject::connect(action, SIGNAL(triggered()), pNode, SLOT(execute()));
+      }
+      else {
+         contextMenu.addSeparator();
+      }
+   }
+   contextMenu.exec(event->screenPos());
 }
 
 
