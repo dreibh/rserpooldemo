@@ -38,14 +38,17 @@
 #include "mainwidget.h"
 
 
- CCanvas::CCanvas(QObject *pParent)
-   : QGraphicsScene(pParent)
- {
- }
+// ###### Constructor #######################################################
+CCanvas::CCanvas(QObject* parent, CConfiguration* configuration)
+   : QGraphicsScene(parent),
+     m_Configuration(configuration)
+{
+}
 
 
  void CCanvas::advance()
  {
-   static_cast<CMainWidget *>(parent())->m_Configuration.updateNodeData();
+   puts("ADV ???");
+   m_Configuration->updateNodeData();
    QGraphicsScene::advance();
  }

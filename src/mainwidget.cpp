@@ -55,7 +55,7 @@ CMainWidget::CMainWidget(const QString& configFile)
    printf("QMainWindow=%p\n", (void*)dynamic_cast<QMainWindow*>(this));
    printf("CMainWidget=%p\n", (void*)dynamic_cast<CMainWidget*>(this));
 
-   m_Canvas = new CCanvas(this);
+   m_Canvas = new CCanvas(this, &m_Configuration);
    m_Canvas->setSceneRect(0, 0,
                           m_Configuration.getDisplaySizeX(),
                           m_Configuration.getDisplaySizeY());

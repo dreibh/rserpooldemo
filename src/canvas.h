@@ -41,6 +41,8 @@
 #include <QString>
 #include <QGraphicsScene>
 
+#include "configuration.h"
+
 
 class CCanvasNode;
 
@@ -48,7 +50,7 @@ class CCanvasNode;
 class CCanvas : public QGraphicsScene
 {
    public:
-   CCanvas(QObject *_pParent);
+   CCanvas(QObject* parent, CConfiguration* configuration);
 
    inline QMap<QString, CCanvasNode*>& getCanvasNodesMap() {
       return m_CanvasNodesMap;
@@ -58,6 +60,7 @@ class CCanvas : public QGraphicsScene
    virtual void advance();
 
    private:
+   CConfiguration*             m_Configuration;
    QMap<QString, CCanvasNode*> m_CanvasNodesMap;
 };
 
