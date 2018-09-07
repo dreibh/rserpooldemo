@@ -60,7 +60,7 @@ class CContextMenuConfig : public QObject
    virtual void execute();
 
    private slots:
-   virtual void processFinished();
+   virtual void processFinished(int, QProcess::ExitStatus);
    virtual void readStdout();
    virtual void readStderr();
 

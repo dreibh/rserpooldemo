@@ -44,6 +44,7 @@
 QProcess* CContextMenuConfig::m_pProcess = NULL;
 
 
+// ###### Constructor #######################################################
 CContextMenuConfig::CContextMenuConfig(QWidget*       parent,
                                        const QString& nodeName,
                                        const QString& itemName,
@@ -56,13 +57,67 @@ CContextMenuConfig::CContextMenuConfig(QWidget*       parent,
 }
 
 
+// ###### Destructor ########################################################
 CContextMenuConfig::~CContextMenuConfig()
 {
 }
 
 
+// ###### Split command line into arguments list ############################
+static QStringList splitCommandLine(const QString& commandLine)
+{
+   QStringList                   list;
+   QString                       argment;
+   enum { Idle, Arg, QuotedArg } state  = Idle;
+   bool                          escape = false;
+
+   foreach (QChar const c, commandLine) {
+      if(!escape && c == '\\') {
+         escape = true; continue;          
+      }
+      switch (state) {
+         case Idle:
+            if(!escape && c == '"') {
+                state = QuotedArg;
+            }
+            else if(escape || !c.isSpace()) {
+                argment += c;
+                state = Arg;                
+            }
+          break;
+         case Arg:
+            if(!escape && c == '"') {
+               state = QuotedArg;
+            }
+            else if(escape || !c.isSpace()) {
+               argment += c;
+            }
+            else {
+               list << argment; argment.clear();
+               state = Idle;                
+            }
+          break;
+         case QuotedArg:
+            if(!escape && c == '"') {
+               state = argment.isEmpty() ? Idle : Arg;
+            }
+            else {
+               argment += c;
+            }
+            break;
+       }
+       escape = false;
+    }
+    if(!argment.isEmpty()) {
+       list << argment;
+    }
+    return list;
+}
+
+
 void CContextMenuConfig::execute()
 {
+   // ====== Ensure that no other process is running ========================
    if(m_pProcess) {
       QMessageBox::critical(0, "Error!",
          "Another command is still running:\n" +
@@ -71,98 +126,63 @@ void CContextMenuConfig::execute()
       return;
    }
 
-   m_Parent->setCursor(Qt::WaitCursor);
+   // ====== Get command call ===============================================
+   QStringList arguments = splitCommandLine(m_CommandLine);
+   QString     command  = arguments.takeFirst();
 
-   QString commandLine = QString("nice " + m_CommandLine);
-   m_pProcess = new QProcess(this);
-
-   QStringList arguments;
-   bool inBlock = false;
-   while(commandLine != "") {
-
-      const int pos = commandLine.indexOf("\"");
-      if(!inBlock) {
-         QString part;
-         if(pos >= 0) {
-            inBlock = true;
-            part = commandLine.left(pos).trimmed();
-            commandLine = commandLine.mid(pos + 1);
-         }
-         else {
-            part = commandLine.trimmed();
-            commandLine = "";
-         }
-
-         int sectionNumber = 0;
-         QString section = part.section(' ', sectionNumber, sectionNumber,
-                                        QString::SectionSkipEmpty);
-         while(!section.isNull()) {
-            arguments.append(section.trimmed());
-
-            sectionNumber++;
-            section = part.section(' ', sectionNumber, sectionNumber,
-                                   QString::SectionSkipEmpty);
-         }
-      }
-      else {
-         inBlock = false;
-         const QString section = commandLine.left(pos);
-         arguments.append("\"" + section.trimmed() + "\"");
-         commandLine = commandLine.mid(pos + 1);
-         if(pos < 0) {
-            commandLine = "";   // Missing last "
-         }
-      }
-   }
-
-   QStringList commandList = m_pProcess->arguments();
-   QStringList::Iterator iterator = commandList.begin();
-   std::cout << "Command> ";
-   while(iterator != commandList.end()) {
-       std::cout << (*iterator).toLocal8Bit().constData() << " ";
-       ++iterator;
+   QStringList::Iterator iterator = arguments.begin();
+   std::cout << "Command> " << command.toStdString() << "\n";
+   unsigned int n = 1;
+   while(iterator != arguments.end()) {
+       std::cout <<  " - A" << n << "=" << iterator->toStdString() << "\n";
+       iterator++; n++;
    }
    std::cout << std::endl;
 
-   m_pProcess->setArguments(arguments);
-   connect(m_pProcess, SIGNAL(processExited()), this, SLOT(processFinished()));
+   // ====== Start process ==================================================
+   m_Parent->setCursor(Qt::WaitCursor);
+   m_pProcess = new QProcess(this);
+   connect(m_pProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processFinished(int, QProcess::ExitStatus)));
    connect(m_pProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(readStdout()));
    connect(m_pProcess, SIGNAL(readyReadStandardError()),  this, SLOT(readStderr()));
+   m_pProcess->start(command, arguments);
 
-   m_pProcess->start();
-   if(!m_pProcess->waitForStarted(10000)) {
+   // ====== Wait for finish ================================================
+   if(!m_pProcess->waitForFinished(10000)) {
       QMessageBox::critical(0, "Error!",
-         "Failed to run command:\n" +
+         "Process has not finished, yet:\n" +
          m_CommandLine +
          "\nSee console output for error messages!");
-      delete m_pProcess;
-      m_pProcess = NULL;
-      m_Parent->setCursor(Qt::ArrowCursor);
    }
+    delete m_pProcess;
+    m_pProcess = NULL;
+    m_Parent->setCursor(Qt::ArrowCursor);
 }
 
 
+// ###### Print stdout ######################################################
 void CContextMenuConfig::readStdout()
 {
-   std::cout << "stdout " << m_NodeName.toLocal8Bit().constData() << "> " << m_pProcess->readAllStandardOutput().toStdString() << std::endl;
+   std::cout << "stdout " << m_NodeName.toStdString() << "> "
+             << m_pProcess->readAllStandardOutput().toStdString() << std::endl;
 }
 
 
+// ###### Print stderr ######################################################
 void CContextMenuConfig::readStderr()
 {
-   std::cerr << "stderr " << m_NodeName.toLocal8Bit().constData() << "> " << m_pProcess->readAllStandardError().toStdString() << std::endl;
+   std::cerr << "stderr " << m_NodeName.toStdString()<< "> "
+             << m_pProcess->readAllStandardError().toStdString() << std::endl;
 }
 
 
-void CContextMenuConfig::processFinished()
+// ###### Handle exit code ##################################################
+void CContextMenuConfig::processFinished(int exitCode, QProcess::ExitStatus)
 {
    if(m_pProcess->exitStatus() != 0) {
       QMessageBox::critical(0, "Error!",
-         "Command execution failed:\n" +
+         "Command failed with exit code " + QString::number(exitCode) + ":\n" +
          m_CommandLine +
          "\nSee console output for error messages!");
    }
-   delete m_pProcess;
-   m_pProcess = NULL;
-   m_Parent->setCursor(Qt::ArrowCursor);
 }
