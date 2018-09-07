@@ -76,11 +76,13 @@ CCanvasNode::CCanvasNode(CCanvas*        canvas,
 
    // ====== Create node title ==============================================
    m_pTitle = new QGraphicsSimpleTextItem(m_Node->getDisplayName(), this);
+   Q_CHECK_PTR(m_pTitle);
    m_pTitle->setFont(QFont("Helvetica", 12, QFont::Bold));
    m_pTitle->setZValue(m_ZPosition + 6);
    m_Canvas->addItem(m_pTitle); 
 
    m_pBackground = new QGraphicsRectItem(this);
+   Q_CHECK_PTR(m_pBackground);
    m_pBackground->setZValue(m_ZPosition + 5);
    m_pBackground->setBrush(QBrush(QColor("#FFD700")));
    m_pBackground->setPen(QPen(QColor("#7C7777")));
@@ -89,6 +91,7 @@ CCanvasNode::CCanvasNode(CCanvas*        canvas,
 
    // ====== Create workload label ==========================================
    m_pWorkload = new QGraphicsSimpleTextItem("", this);
+   Q_CHECK_PTR(m_pWorkload);
    m_pWorkload->setFont(QFont("Helvetica", 12, QFont::Bold));
    m_pWorkload->setPen(QColor("#222222"));
    m_pWorkload->setZValue(2000000001);
@@ -99,6 +102,7 @@ CCanvasNode::CCanvasNode(CCanvas*        canvas,
                                                  MARGIN_WORKLOAD + workloadFM.width("100%"),
                                                  MARGIN_WORKLOAD + workloadFM.height(),
                                                  this);
+   Q_CHECK_PTR(m_pWorkloadBackground);
    m_pWorkloadBackground->setZValue(2000000000);
    m_pWorkloadBackground->setBrush(QBrush(QColor("#D7D7FF")));
    m_pWorkloadBackground->setPen(QPen(QColor("#202020")));
@@ -108,6 +112,7 @@ CCanvasNode::CCanvasNode(CCanvas*        canvas,
 
    // ====== Create status label ============================================
    m_pStatusText = new QGraphicsSimpleTextItem(m_Node->getStatusText(), this);
+   Q_CHECK_PTR(m_pStatusText);
    m_pStatusText->setFont(QFont("Helvetica", 10, QFont::Bold ));
    m_pStatusText->setZValue(m_ZPosition + 6);
    m_Canvas->addItem(m_pStatusText); 
@@ -115,6 +120,7 @@ CCanvasNode::CCanvasNode(CCanvas*        canvas,
 
    // ====== Create location label ==========================================
    m_pLocationText = new QGraphicsSimpleTextItem(m_Node->getLocationText(), this);
+   Q_CHECK_PTR(m_pLocationText);
    m_pLocationText->setFont(QFont("Helvetica", 6));
    m_pLocationText->setZValue(m_ZPosition + 6);
    m_Canvas->addItem(m_pLocationText); 
@@ -265,7 +271,6 @@ void CCanvasNode::updatePostion()
 
 void CCanvasNode::advance(int phase)
 {
-   puts("CCanvasNode::advance()");
    if(phase == 1) {
       m_Node->updateStatus();
 
@@ -344,6 +349,7 @@ void CCanvasNode::advance(int phase)
             pOtherNode->getAnchor(otherX, otherY);
             if(m_ConUIDsLinesMap.find(it.key()) == m_ConUIDsLinesMap.end()) {
                QGraphicsLineItem* line = new QGraphicsLineItem(this);
+               Q_CHECK_PTR(line);
                line->setLine(thisX, thisY, otherX, otherY);
                m_ConUIDsLinesMap[it.key()] = line;
 
@@ -367,10 +373,13 @@ void CCanvasNode::advance(int phase)
                                   (m_Node->getPositionY(displaySizeY) % 1024)) << 4;
                if(m_ConUIDsTextMap.find(it.key()) == m_ConUIDsTextMap.end()) {
                   m_ConUIDsTextMap[it.key()] = new LinkText();
+                  Q_CHECK_PTR(m_ConUIDsTextMap[it.key()]);
                   m_ConUIDsTextMap[it.key()]->m_pDurationText = new QGraphicsSimpleTextItem(this);
+                  Q_CHECK_PTR(m_ConUIDsTextMap[it.key()]->m_pDurationText);
                   m_ConUIDsTextMap[it.key()]->m_pDurationText->setZValue(z + 1);
                   m_ConUIDsTextMap[it.key()]->m_pDurationText->setFont(QFont("Helvetica", 11, QFont::Bold ));
                   m_ConUIDsTextMap[it.key()]->m_pBackground = new QGraphicsRectItem(this);
+                  Q_CHECK_PTR(m_ConUIDsTextMap[it.key()]->m_pBackground);
                   m_ConUIDsTextMap[it.key()]->m_pBackground->setBrush(QBrush(QColor("#FFFF00")));
                   m_ConUIDsTextMap[it.key()]->m_pBackground->setPen(QPen(QColor("#7C7777")));
                   m_ConUIDsTextMap[it.key()]->m_pBackground->setZValue(z);
@@ -408,7 +417,6 @@ void CCanvasNode::advance(int phase)
          }
       }
 
-      printf("FIXME: setFrame()!!!   status=%d\n", static_cast<int>(m_Node->getStatus()));
-//       setFrame(static_cast<int>(m_Node->getStatus()));
+      setPixmap((m_Node->getStatus() == 0) ? m_InactivePixmap : m_ActivePixmap);
    }
 }
