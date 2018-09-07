@@ -43,12 +43,29 @@ CCanvas::CCanvas(QObject* parent, CConfiguration* configuration)
    : QGraphicsScene(parent),
      m_Configuration(configuration)
 {
+    m_AdvanceTimer = new QTimer(this);
+    Q_CHECK_PTR(m_AdvanceTimer);
+    QObject::connect(m_AdvanceTimer, SIGNAL(timeout()), this, SLOT(advance()));
 }
 
 
- void CCanvas::advance()
- {
-   puts("ADV ???");
+// ###### Destructor ########################################################
+CCanvas::~CCanvas()
+{
+}
+
+
+// ###### Set advance period ################################################
+void CCanvas::setAdvancePeriod(int ms)
+{
+    m_AdvanceTimer->setInterval(ms);
+    m_AdvanceTimer->start();
+}
+
+
+// ###### Update scenario ###################################################
+void CCanvas::advance()
+{
    m_Configuration->updateNodeData();
    QGraphicsScene::advance();
- }
+}

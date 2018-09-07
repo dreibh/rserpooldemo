@@ -39,6 +39,7 @@
 
 #include <QMap>
 #include <QString>
+#include <QTimer>
 #include <QGraphicsScene>
 
 #include "configuration.h"
@@ -49,18 +50,22 @@ class CCanvasNode;
 
 class CCanvas : public QGraphicsScene
 {
+   Q_OBJECT
    public:
    CCanvas(QObject* parent, CConfiguration* configuration);
+   ~CCanvas();
 
+   void setAdvancePeriod(int ms);
    inline QMap<QString, CCanvasNode*>& getCanvasNodesMap() {
       return m_CanvasNodesMap;
    }
 
    public slots:
-   virtual void advance();
+   void advance();
 
    private:
    CConfiguration*             m_Configuration;
+   QTimer*                     m_AdvanceTimer;
    QMap<QString, CCanvasNode*> m_CanvasNodesMap;
 };
 
