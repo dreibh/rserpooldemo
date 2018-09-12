@@ -131,7 +131,7 @@ CCanvasNode::CCanvasNode(CCanvas*        canvas,
     
    m_Canvas->addItem(this);   
    advance(1);
-   updatePostion();
+   updatePosition();
 }
 
 
@@ -167,12 +167,26 @@ void CCanvasNode::getAnchor(int& rX, int& rY)
    const int displaySizeX = m_Configuration->getDisplaySizeX();
    const int displaySizeY = m_Configuration->getDisplaySizeY();
 
-   rX = m_Node->getPositionX(displaySizeX) + (m_Canvas->width() / 2);
-   rY = m_Node->getPositionY(displaySizeY) + (m_Canvas->height() / 2);
+   rX = m_Node->getPositionX(displaySizeX) + (boundingRect().width() / 2);
+   rY = m_Node->getPositionY(displaySizeY) + (boundingRect().height() / 2);
 }
 
 
-void CCanvasNode::updatePostion()
+QColor CCanvasNode::getColor(const int colorNumber) const
+{
+    QMap<int, QString>::iterator colorNameIterator = m_Configuration->getColorMap().find(colorNumber);
+    QColor                       color;
+    if(colorNameIterator != m_Configuration->getColorMap().end()) {
+        color = QColor(*colorNameIterator);
+    }
+    else {
+        color = QColor("black");
+    }
+    return color;
+}
+
+
+void CCanvasNode::updatePosition()
 {
    // ====== Update node icon ===============================================
    const int displaySizeX = m_Configuration->getDisplaySizeX();
@@ -245,13 +259,14 @@ void CCanvasNode::updatePostion()
        iterator != m_ConUIDsLinesMap.end(); ++iterator) {
       if(m_Canvas->getCanvasNodesMap().find(iterator.key()) != m_Canvas->getCanvasNodesMap().end()) {
          CCanvasNode* pOtherNode = *(m_Canvas->getCanvasNodesMap().find(iterator.key()));
+         // printf("%s -> %s\n", m_Node->getDisplayName().toStdString().c_str(), 
+         //                      pOtherNode->m_Node->getDisplayName().toStdString().c_str());
          int otherX = 0;
          int otherY = 0;
          pOtherNode->getAnchor(otherX, otherY);
-         QGraphicsLineItem *line = m_ConUIDsLinesMap[iterator.key()];
+         QGraphicsLineItem* line = m_ConUIDsLinesMap[iterator.key()];
          if(line) {
             line->setLine(thisX, thisY, otherX, otherY);
-
             const uint64_t duration = m_Node->getConnectedUIDsDurationMap()[iterator.key()];
             LinkText* pLinkText = m_ConUIDsTextMap[iterator.key()];
             if( (duration != ~0ULL) && (pLinkText != NULL) &&
@@ -262,6 +277,21 @@ void CCanvasNode::updatePostion()
                                                   ((thisY + otherY) / 2) + offsetY);
                pLinkText->m_pBackground->setPos(((thisX + otherX) / 2) + offsetX - (MARGIN_BACKGROUND / 2),
                                                 ((thisY + otherY) / 2) + offsetY - (MARGIN_BACKGROUND / 2));
+
+
+               {
+                QGraphicsTextItem* pDurationText      = m_ConUIDsTextMap[iterator.key()]->m_pDurationText;
+                QGraphicsRectItem* pDurationRectangle = m_ConUIDsTextMap[iterator.key()]->m_pBackground;
+                Q_CHECK_PTR(pDurationText);
+                QFontMetrics fm(pDurationText->font());
+                const int offsetX = -fm.width(pDurationText->toPlainText()) / 2;
+                const int offsetY = -fm.height() / 2;
+                pDurationText->setPos(((thisX + otherX) / 2) + offsetX, ((thisY + otherY)/2) + offsetY);
+    //                pDurationRectangle->setPos(((thisX + otherX) / 2) + offsetX - (MARGIN_DURATION / 2), ((thisY + otherY)/2) + offsetY - (MARGIN_DURATION / 2));
+    //                ?????
+                pDurationRectangle->setRect(((thisX + otherX) / 2) + offsetX - (MARGIN_DURATION / 2), ((thisY + otherY)/2) + offsetY - (MARGIN_DURATION / 2),
+                                            pDurationText->boundingRect().width() + MARGIN_DURATION, pDurationText->boundingRect().height() + MARGIN_DURATION);
+               } // ?????
             }
          }
       }
@@ -335,88 +365,64 @@ void CCanvasNode::advance(int phase)
          m_ConUIDsLinesMap.remove(*iterator);
       }
 
-      // ------ Add links ---------------------------------------------------
+      // ====== Add links ===================================================
       const int displaySizeX = m_Configuration->getDisplaySizeX();
       const int displaySizeY = m_Configuration->getDisplaySizeY();
-      int thisX = 0;
-      int thisY = 0;
-      getAnchor(thisX, thisY);
-      for(QMap<QString, int>::iterator it = rMap.begin(); it != rMap.end(); ++it) {
-         if(m_Canvas->getCanvasNodesMap().find(it.key()) != m_Canvas->getCanvasNodesMap().end()) {
-            CCanvasNode* pOtherNode = *(m_Canvas->getCanvasNodesMap().find(it.key()));
-            int otherX = 0;
-            int otherY = 0;
-            pOtherNode->getAnchor(otherX, otherY);
-            if(m_ConUIDsLinesMap.find(it.key()) == m_ConUIDsLinesMap.end()) {
-               QGraphicsLineItem* line = new QGraphicsLineItem(this);
+      for(QMap<QString, int>::iterator iterator = rMap.begin(); iterator != rMap.end(); ++iterator) {
+         if(m_Canvas->getCanvasNodesMap().find(iterator.key()) != m_Canvas->getCanvasNodesMap().end()) {
+            // const CCanvasNode* pOtherNode = *(m_Canvas->getCanvasNodesMap().find(iterator.key()));
+            // printf("%s -> %s\n", m_Node->getDisplayName().toStdString().c_str(), 
+            //                      pOtherNode->m_Node->getDisplayName().toStdString().c_str());
+            if(m_ConUIDsLinesMap.find(iterator.key()) == m_ConUIDsLinesMap.end()) {
+               QGraphicsLineItem* line = m_Canvas->addLine(QLineF(), QPen(getColor(*iterator), 5));
                Q_CHECK_PTR(line);
-               line->setLine(thisX, thisY, otherX, otherY);
-               m_ConUIDsLinesMap[it.key()] = line;
-
-               QColor newColor;
-               QMap<int, QString>::iterator colorNameIterator = m_Configuration->getColorMap().find(*it);
-               if(colorNameIterator != m_Configuration->getColorMap().end()) {
-                  newColor = QColor(*colorNameIterator);
-               }
-               else {
-                  newColor = QColor("black");
-               }
-               QPen linePen(newColor, 5);
+               m_ConUIDsLinesMap[iterator.key()] = line;
                line->setZValue(0);
-               line->setPen(linePen);
                line->show();
             }
 
-            uint64_t duration = m_Node->getConnectedUIDsDurationMap()[it.key()];
+            uint64_t duration = m_Node->getConnectedUIDsDurationMap()[iterator.key()];
             if(duration != ~0ULL) {
-               const double z = (((m_Node->getPositionX(displaySizeX) % 1024) << 10) +
-                                  (m_Node->getPositionY(displaySizeY) % 1024)) << 4;
-               if(m_ConUIDsTextMap.find(it.key()) == m_ConUIDsTextMap.end()) {
-                  m_ConUIDsTextMap[it.key()] = new LinkText();
-                  Q_CHECK_PTR(m_ConUIDsTextMap[it.key()]);
-                  m_ConUIDsTextMap[it.key()]->m_pDurationText = new QGraphicsSimpleTextItem(this);
-                  Q_CHECK_PTR(m_ConUIDsTextMap[it.key()]->m_pDurationText);
-                  m_ConUIDsTextMap[it.key()]->m_pDurationText->setZValue(z + 1);
-                  m_ConUIDsTextMap[it.key()]->m_pDurationText->setFont(QFont("Helvetica", 11, QFont::Bold ));
-                  m_ConUIDsTextMap[it.key()]->m_pBackground = new QGraphicsRectItem(this);
-                  Q_CHECK_PTR(m_ConUIDsTextMap[it.key()]->m_pBackground);
-                  m_ConUIDsTextMap[it.key()]->m_pBackground->setBrush(QBrush(QColor("#FFFF00")));
-                  m_ConUIDsTextMap[it.key()]->m_pBackground->setPen(QPen(QColor("#7C7777")));
-                  m_ConUIDsTextMap[it.key()]->m_pBackground->setZValue(z);
-               }
-               QGraphicsSimpleTextItem* pDurationText      = m_ConUIDsTextMap[it.key()]->m_pDurationText;
-               QGraphicsRectItem*       pDurationRectangle = m_ConUIDsTextMap[it.key()]->m_pBackground;
+               // ====== Create link text, if not already existing ==========
+               QGraphicsTextItem* pDurationText;
+               if(m_ConUIDsTextMap.find(iterator.key()) == m_ConUIDsTextMap.end()) {
+                  const double z = (((m_Node->getPositionX(displaySizeX) % 1024) << 10) +
+                                     (m_Node->getPositionY(displaySizeY) % 1024)) << 4;
 
+                  LinkText* linkText = new LinkText;
+                  Q_CHECK_PTR(linkText);
+                  m_ConUIDsTextMap[iterator.key()] = linkText;
+                  
+                  pDurationText = m_Canvas->addText("", QFont("Helvetica", 11, QFont::Bold));
+                  Q_CHECK_PTR(pDurationText);
+                  pDurationText->setZValue(z + 1);
+                  pDurationText->setDefaultTextColor(getColor(*iterator));
+                  pDurationText->show();
+                  linkText->m_pDurationText = pDurationText;
+
+                  QGraphicsRectItem* pDurationRectangle = m_Canvas->addRect(0,0,100,100); // new QGraphicsRectItem(this);
+                  Q_CHECK_PTR(pDurationRectangle);
+                  pDurationRectangle->setBrush(QBrush(QColor("#FFFF00")));
+                  pDurationRectangle->setPen(QPen(QColor("#7C7777"), 5));
+                  pDurationRectangle->setZValue(z);
+                  pDurationRectangle->show();
+                  linkText->m_pBackground = pDurationRectangle;
+               }
+               else {
+                  pDurationText = m_ConUIDsTextMap[iterator.key()]->m_pDurationText;
+               }
+
+               // ====== Update duration label ==============================
                char timeBuffer[64];
                snprintf(timeBuffer, sizeof(timeBuffer), "%2llu:%02llum",
                        (unsigned long long)duration / 60000000,
                        (unsigned long long)(duration / 1000000) % 60);
-               pDurationText->setText(QString(timeBuffer));
-
-               QFontMetrics fm(pDurationText->font());
-               const int offsetX = -fm.width(pDurationText->text()) / 2;
-               const int offsetY = -fm.height() / 2;
-               pDurationText->setPos(((thisX + otherX) / 2) + offsetX, ((thisY + otherY)/2) + offsetY);
-//                pDurationRectangle->setPos(((thisX + otherX) / 2) + offsetX - (MARGIN_DURATION / 2), ((thisY + otherY)/2) + offsetY - (MARGIN_DURATION / 2));
-//                ?????
-               pDurationRectangle->setRect(((thisX + otherX) / 2) + offsetX - (MARGIN_DURATION / 2), ((thisY + otherY)/2) + offsetY - (MARGIN_DURATION / 2),
-                                           pDurationText->boundingRect().width() + MARGIN_DURATION, pDurationText->boundingRect().height() + MARGIN_DURATION);
-
-               QColor newColor;
-               QMap<int, QString>::iterator colorNameIterator = m_Configuration->getColorMap().find(*it);
-               if(colorNameIterator != m_Configuration->getColorMap().end()) {
-                  newColor = QColor(*colorNameIterator);
-               }
-               else {
-                  newColor = QColor("black");
-               }
-               pDurationText->setPen(newColor.dark());
-               pDurationText->show();
-               pDurationRectangle->show();
+               pDurationText->setPlainText(QString(timeBuffer));
             }
          }
       }
 
       setPixmap((m_Node->getStatus() == 0) ? m_InactivePixmap : m_ActivePixmap);
+      updatePosition();
    }
 }

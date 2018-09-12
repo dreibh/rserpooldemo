@@ -104,6 +104,6 @@ void CMainWidget::resizeEvent(QResizeEvent* event)
 
    QMap<QString, CCanvasNode*>& rNodeMap = m_Canvas->getCanvasNodesMap();
    for(QMap<QString, CCanvasNode*>::iterator it = rNodeMap.begin();it != rNodeMap.end();++it) {
-      (*it)->updatePostion();
+      (*it)->updatePosition();
    }
 }

@@ -62,8 +62,9 @@ class CCanvasNode : public QGraphicsPixmapItem
    virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
    virtual void advance(int phase);
 
+   QColor getColor(const int colorNumber) const;
    void getAnchor(int& rX, int& rY);
-   void updatePostion();
+   void updatePosition();
 
    private:
    CCanvas*                 m_Canvas;
@@ -81,8 +82,8 @@ class CCanvasNode : public QGraphicsPixmapItem
 
    struct LinkText
    {
-      QGraphicsSimpleTextItem* m_pDurationText;
-      QGraphicsRectItem*       m_pBackground;
+      QGraphicsTextItem* m_pDurationText;
+      QGraphicsRectItem* m_pBackground;
    };
 
    QMap<QString, QGraphicsLineItem*> m_ConUIDsLinesMap;
