@@ -154,9 +154,11 @@ void CContextMenuConfig::execute()
          m_CommandLine +
          "\nSee console output for error messages!");
    }
-    delete m_pProcess;
-    m_pProcess = NULL;
-    m_Parent->setCursor(Qt::ArrowCursor);
+   if(m_pProcess)  {
+      delete m_pProcess;
+      m_pProcess = NULL;
+      m_Parent->setCursor(Qt::ArrowCursor);
+   }
 }
 
 
@@ -185,4 +187,7 @@ void CContextMenuConfig::processFinished(int exitCode, QProcess::ExitStatus)
          m_CommandLine +
          "\nSee console output for error messages!");
    }
+    delete m_pProcess;
+    m_pProcess = NULL;
+    m_Parent->setCursor(Qt::ArrowCursor);
 }
