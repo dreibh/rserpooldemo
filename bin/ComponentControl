@@ -150,6 +150,8 @@ if [ "x$CC_COMMAND" = "xstart" ] ; then
       echo "ERROR: Running $PROGFILE failed!"
       exit 1
    fi
+   
+   sleep 1
 
 elif [ "x$CC_COMMAND" = "xstop" ] ; then
    echo "Stopping $CC_PROGRAM, identifier $CC_IDENTIFIER ..."

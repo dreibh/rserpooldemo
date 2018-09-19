@@ -259,42 +259,37 @@ void CCanvasNode::updatePosition()
        iterator != m_ConUIDsLinesMap.end(); ++iterator) {
       if(m_Canvas->getCanvasNodesMap().find(iterator.key()) != m_Canvas->getCanvasNodesMap().end()) {
          CCanvasNode* pOtherNode = *(m_Canvas->getCanvasNodesMap().find(iterator.key()));
-         // printf("%s -> %s\n", m_Node->getDisplayName().toStdString().c_str(), 
-         //                      pOtherNode->m_Node->getDisplayName().toStdString().c_str());
+
+         // ====== Update link ==============================================
+         // printf("%s: %s -> %s\n", iterator.key().toStdString().c_str(),
+         //                          m_Node->getDisplayName().toStdString().c_str(), 
+         //                          pOtherNode->m_Node->getDisplayName().toStdString().c_str());
          int otherX = 0;
          int otherY = 0;
          pOtherNode->getAnchor(otherX, otherY);
          QGraphicsLineItem* line = m_ConUIDsLinesMap[iterator.key()];
          if(line) {
             line->setLine(thisX, thisY, otherX, otherY);
+
+            // ====== Update link duration ==================================
             const uint64_t duration = m_Node->getConnectedUIDsDurationMap()[iterator.key()];
-            LinkText* pLinkText = m_ConUIDsTextMap[iterator.key()];
-            if( (duration != ~0ULL) && (pLinkText != NULL) &&
-                (pLinkText->m_pDurationText) && (pLinkText->m_pBackground) ) {
-               const int offsetX = 0;
-               const int offsetY = 0;
-               pLinkText->m_pDurationText->setPos(((thisX + otherX) / 2) + offsetX,
-                                                  ((thisY + otherY) / 2) + offsetY);
-               pLinkText->m_pBackground->setPos(((thisX + otherX) / 2) + offsetX - (MARGIN_BACKGROUND / 2),
-                                                ((thisY + otherY) / 2) + offsetY - (MARGIN_BACKGROUND / 2));
+            if(duration != ~0ULL) {
+               LinkText* pLinkText = m_ConUIDsTextMap[iterator.key()];
+               if( (pLinkText != NULL) && (pLinkText->m_pDurationText) && (pLinkText->m_pBackground) ) {
+                  const QFontMetrics fontMetrics(pLinkText->m_pDurationText->font());
+                  const int offsetX = -fontMetrics.width(pLinkText->m_pDurationText->toPlainText()) / 2;
+                  const int offsetY = -fontMetrics.height() / 2;
+                
+                  const int tx = ((thisX + otherX) / 2) + offsetX;
+                  const int ty = ((thisY + otherY) / 2) + offsetY;
+                  pLinkText->m_pDurationText->setPos(tx, ty);
 
-
-               {
-                QGraphicsTextItem* pDurationText      = m_ConUIDsTextMap[iterator.key()]->m_pDurationText;
-                QGraphicsRectItem* pDurationRectangle = m_ConUIDsTextMap[iterator.key()]->m_pBackground;
-                Q_CHECK_PTR(pDurationText);
-                QFontMetrics fm(pDurationText->font());
-                const int offsetX = -fm.width(pDurationText->toPlainText()) / 2;
-                const int offsetY = -fm.height() / 2;
-                pDurationText->setPos(((thisX + otherX) / 2) + offsetX, ((thisY + otherY)/2) + offsetY);
-    //                pDurationRectangle->setPos(((thisX + otherX) / 2) + offsetX - (MARGIN_DURATION / 2), ((thisY + otherY)/2) + offsetY - (MARGIN_DURATION / 2));
-    //                ?????
-                const int rx = ((thisX + otherX) / 2) + offsetX - (MARGIN_DURATION / 2);
-                const int ry = ((thisY + otherY)/2) + offsetY - (MARGIN_DURATION / 2);
-                pDurationRectangle->setRect(rx, ry,
-                                            rx + pDurationText->boundingRect().width() + MARGIN_DURATION,
-                                            ry + pDurationText->boundingRect().height() + MARGIN_DURATION);
-               } // ?????
+                  const int rx = ((thisX + otherX) / 2) + offsetX - (MARGIN_DURATION / 2);
+                  const int ry = ((thisY + otherY) / 2) + offsetY - (MARGIN_DURATION / 2);
+                  const int rw = pLinkText->m_pDurationText->boundingRect().width() + MARGIN_DURATION;
+                  const int rh = pLinkText->m_pDurationText->boundingRect().height() + MARGIN_DURATION;
+                  pLinkText->m_pBackground->setRect(rx, ry, rw, rh);
+               }
             }
          }
       }
@@ -352,8 +347,11 @@ void CCanvasNode::advance(int phase)
             if(found != m_ConUIDsTextMap.end()) {
                LinkText* pLinkText = *found;
                if(pLinkText != NULL) {
+                  printf("DEL: %s\n", found.key().toStdString().c_str());
+                  m_Canvas->removeItem(pLinkText->m_pDurationText);
                   delete pLinkText->m_pDurationText;
                   pLinkText->m_pDurationText = NULL;
+                  m_Canvas->removeItem(pLinkText->m_pBackground);
                   delete pLinkText->m_pBackground;
                   pLinkText->m_pBackground = NULL;
                   delete pLinkText;
@@ -383,7 +381,7 @@ void CCanvasNode::advance(int phase)
                line->show();
             }
 
-            uint64_t duration = m_Node->getConnectedUIDsDurationMap()[iterator.key()];
+            const uint64_t duration = m_Node->getConnectedUIDsDurationMap()[iterator.key()];
             if(duration != ~0ULL) {
                // ====== Create link text, if not already existing ==========
                QGraphicsTextItem* pDurationText;
@@ -402,10 +400,9 @@ void CCanvasNode::advance(int phase)
                   pDurationText->show();
                   pLinkText->m_pDurationText = pDurationText;
 
-                  QGraphicsRectItem* pDurationRectangle = m_Canvas->addRect(0,0,100,100); // new QGraphicsRectItem(this);
+                  QGraphicsRectItem* pDurationRectangle = m_Canvas->addRect(
+                     QRectF(), QPen(QColor("#7C7777"), 5), QBrush(QColor("#FFFF00")));
                   Q_CHECK_PTR(pDurationRectangle);
-                  pDurationRectangle->setBrush(QBrush(QColor("#FFFF00")));
-                  pDurationRectangle->setPen(QPen(QColor("#7C7777"), 5));
                   pDurationRectangle->setZValue(z);
                   pDurationRectangle->show();
                   pLinkText->m_pBackground = pDurationRectangle;
