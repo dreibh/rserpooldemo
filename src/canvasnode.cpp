@@ -326,10 +326,8 @@ void CCanvasNode::advance(int phase)
       }
       m_pWorkload->setText(m_Node->getWorkloadString());
 
-
       // ====== Update status label =========================================
       m_pStatusText->setText(m_Node->getStatusText());
-
 
       // ====== Update location label =======================================
       m_pLocationText->setText(m_Node->getLocationText());
