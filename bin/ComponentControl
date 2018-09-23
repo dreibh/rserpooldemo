@@ -95,6 +95,7 @@ fi
 
 # ====== Check directories and program ======================================
 PROGFILE="$CC_PROGRAM_DIRECTORY/$CC_PROGRAM"
+OUTFILE="$CC_PID_DIRECTORY/$CC_PROGRAM-$CC_IDENTIFIER.out"
 PIDFILE="$CC_PID_DIRECTORY/$CC_PROGRAM-$CC_IDENTIFIER.pid"
 LOGFILE="$CC_PID_DIRECTORY/$CC_PROGRAM-$CC_IDENTIFIER.log"
 
@@ -136,12 +137,13 @@ if [ "x$CC_COMMAND" = "xstart" ] ; then
       rm -f $PIDFILE
    fi
    echo "Starting:"
-   echo "   Prestart  = $CC_PRESTART"
-   echo "   Program   = $PROGFILE"
-   echo "   Arguments = $CC_ARGS"
-   echo "   PID File  = $PIDFILE"
-   echo "   Log File  = $LOGFILE"
-   $CC_PRESTART $PROGFILE $CC_ARGS &
+   echo "   Prestart    = $CC_PRESTART"
+   echo "   Program     = $PROGFILE"
+   echo "   Arguments   = $CC_ARGS"
+   echo "   Output File = $OUTFILE"
+   echo "   PID File    = $PIDFILE"
+   echo "   Log File    = $LOGFILE"
+   $CC_PRESTART $PROGFILE $CC_ARGS >$OUTFILE 2>&1 &
    PID=$!
    if [ $? = 0 ] ; then
       echo $PID > $PIDFILE
