@@ -274,21 +274,21 @@ void CCanvasNode::updatePosition()
             // ====== Update link duration ==================================
             const uint64_t duration = m_Node->getConnectedUIDsDurationMap()[iterator.key()];
             if(duration != ~0ULL) {
-               LinkText* pLinkText = m_ConUIDsTextMap[iterator.key()];
-               if( (pLinkText != NULL) && (pLinkText->m_pDurationText) && (pLinkText->m_pBackground) ) {
-                  const QFontMetrics fontMetrics(pLinkText->m_pDurationText->font());
-                  const int offsetX = -fontMetrics.width(pLinkText->m_pDurationText->toPlainText()) / 2;
+               LinkText* linkText = m_ConUIDsTextMap[iterator.key()];
+               if( (linkText != NULL) && (linkText->m_pDurationText) && (linkText->m_pBackground) ) {
+                  const QFontMetrics fontMetrics(linkText->m_pDurationText->font());
+                  const int offsetX = -fontMetrics.width(linkText->m_pDurationText->toPlainText()) / 2;
                   const int offsetY = -fontMetrics.height() / 2;
                 
                   const int tx = ((thisX + otherX) / 2) + offsetX;
                   const int ty = ((thisY + otherY) / 2) + offsetY;
-                  pLinkText->m_pDurationText->setPos(tx, ty);
+                  linkText->m_pDurationText->setPos(tx, ty);
 
                   const int rx = ((thisX + otherX) / 2) + offsetX - (MARGIN_DURATION / 2);
                   const int ry = ((thisY + otherY) / 2) + offsetY - (MARGIN_DURATION / 2);
-                  const int rw = pLinkText->m_pDurationText->boundingRect().width() + MARGIN_DURATION;
-                  const int rh = pLinkText->m_pDurationText->boundingRect().height() + MARGIN_DURATION;
-                  pLinkText->m_pBackground->setRect(rx, ry, rw, rh);
+                  const int rw = linkText->m_pDurationText->boundingRect().width() + MARGIN_DURATION;
+                  const int rh = linkText->m_pDurationText->boundingRect().height() + MARGIN_DURATION;
+                  linkText->m_pBackground->setRect(rx, ry, rw, rh);
                }
             }
          }
@@ -335,35 +335,38 @@ void CCanvasNode::advance(int phase)
       // ====== Update links ================================================
       
       // ------ Remove links ------------------------------------------------
-      QMap<QString, int> &rMap = m_Node->getConnectedUIDsMap();
-      QStringList deletionList;
-      for(QMap<QString, QGraphicsLineItem*>::iterator iterator = m_ConUIDsLinesMap.begin();
-          iterator != m_ConUIDsLinesMap.end(); ++iterator) {
+      QMap<QString, int>& rMap = m_Node->getConnectedUIDsMap();
+      QMap<QString, QGraphicsLineItem*>::iterator iterator = m_ConUIDsLinesMap.begin();
+      while(iterator != m_ConUIDsLinesMap.end()) {
+         QGraphicsLineItem* lineItem = *iterator; 
          if(rMap.find(iterator.key()) == rMap.end()) {
-            deletionList.push_back(iterator.key());
+
             QMap<QString, LinkText*>::iterator found = m_ConUIDsTextMap.find(iterator.key());
             if(found != m_ConUIDsTextMap.end()) {
-               LinkText* pLinkText = *found;
-               if(pLinkText != NULL) {
+               LinkText* linkText = *found;
+               if(linkText != NULL) {
                   printf("DEL: %s\n", found.key().toStdString().c_str());
-                  m_Canvas->removeItem(pLinkText->m_pDurationText);
-                  delete pLinkText->m_pDurationText;
-                  pLinkText->m_pDurationText = NULL;
-                  m_Canvas->removeItem(pLinkText->m_pBackground);
-                  delete pLinkText->m_pBackground;
-                  pLinkText->m_pBackground = NULL;
-                  delete pLinkText;
+                  m_Canvas->removeItem(linkText->m_pDurationText);
+//                   delete linkText->m_pDurationText;
+                  linkText->m_pDurationText = NULL;
+                  m_Canvas->removeItem(linkText->m_pBackground);
+//                   delete linkText->m_pBackground;
+                  linkText->m_pBackground = NULL;
+                  delete linkText;
                   m_ConUIDsTextMap.erase(found);
                }
             }
-            delete *iterator;
+            m_Canvas->removeItem(lineItem);
+//             delete lineItem;
+
+            iterator = m_ConUIDsLinesMap.erase(iterator);
+         }
+         else {
+            iterator++;
          }
       }
-      for (QStringList::Iterator iterator = deletionList.begin(); iterator != deletionList.end(); ++iterator) {
-         m_ConUIDsLinesMap.remove(*iterator);
-      }
 
-      // ------ Add links ---------------------------------------------------
+      // ------ Add new links -----------------------------------------------
       const int displaySizeX = m_Configuration->getDisplaySizeX();
       const int displaySizeY = m_Configuration->getDisplaySizeY();
       for(QMap<QString, int>::iterator iterator = rMap.begin(); iterator != rMap.end(); ++iterator) {
@@ -387,23 +390,23 @@ void CCanvasNode::advance(int phase)
                   const double z = (((m_Node->getPositionX(displaySizeX) % 1024) << 10) +
                                      (m_Node->getPositionY(displaySizeY) % 1024)) << 4;
 
-                  LinkText* pLinkText = new LinkText;
-                  Q_CHECK_PTR(pLinkText);
-                  m_ConUIDsTextMap[iterator.key()] = pLinkText;
+                  LinkText* linkText = new LinkText;
+                  Q_CHECK_PTR(linkText);
+                  m_ConUIDsTextMap[iterator.key()] = linkText;
                   
                   pDurationText = m_Canvas->addText("", QFont("Helvetica", 11, QFont::Bold));
                   Q_CHECK_PTR(pDurationText);
                   pDurationText->setZValue(z + 1);
                   pDurationText->setDefaultTextColor(getColor(*iterator));
                   pDurationText->show();
-                  pLinkText->m_pDurationText = pDurationText;
+                  linkText->m_pDurationText = pDurationText;
 
                   QGraphicsRectItem* pDurationRectangle = m_Canvas->addRect(
                      QRectF(), QPen(QColor("#7C7777"), 5), QBrush(QColor("#FFFF00")));
                   Q_CHECK_PTR(pDurationRectangle);
                   pDurationRectangle->setZValue(z);
                   pDurationRectangle->show();
-                  pLinkText->m_pBackground = pDurationRectangle;
+                  linkText->m_pBackground = pDurationRectangle;
                }
                else {
                   pDurationText = m_ConUIDsTextMap[iterator.key()]->m_pDurationText;
