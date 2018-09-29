@@ -148,7 +148,7 @@ void CContextMenuConfig::execute()
    m_pProcess->start(command, arguments);
 
    // ====== Wait for finish ================================================
-   if(!m_pProcess->waitForFinished(10000)) {
+   if(!m_pProcess->waitForFinished(15000)) {
       QMessageBox::critical(0, "Error!",
          "Process has not finished, yet:\n" +
          m_CommandLine +
@@ -187,7 +187,4 @@ void CContextMenuConfig::processFinished(int exitCode, QProcess::ExitStatus)
          m_CommandLine +
          "\nSee console output for error messages!");
    }
-    delete m_pProcess;
-    m_pProcess = NULL;
-    m_Parent->setCursor(Qt::ArrowCursor);
 }
