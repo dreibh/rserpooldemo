@@ -1,6 +1,7 @@
-#!/bin/bash -e
+#!/bin/bash
 
-qtchooser -run-tool=qmake -qt=5
+rm -f CMakeCache.txt
+cmake -DCMAKE_INSTALL_PREFIX=/usr $@ .
 
 # ------ Obtain number of cores ---------------------------------------------
 # Try Linux
@@ -13,5 +14,4 @@ if [ "$cores" == "" ] ; then
    cores="1"
 fi
 
-# ------ Configure and build ------------------------------------------------
-make -j$cores
+gmake -j$cores || make -j$cores
