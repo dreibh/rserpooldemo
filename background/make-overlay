@@ -1,0 +1,65 @@
+#!/bin/bash -e
+# --------------------------------------------------------------------------
+#
+#              //===//   //=====   //===//   //       //   //===//
+#             //    //  //        //    //  //       //   //    //
+#            //===//   //=====   //===//   //       //   //===<<
+#           //   \\         //  //        //       //   //    //
+#          //     \\  =====//  //        //=====  //   //===//    Version II
+#
+# ------------- An Efficient RSerPool Prototype Implementation -------------
+#
+# Copyright (C) 2002-2019 by Thomas Dreibholz
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Contact: dreibh@iem.uni-due.de
+#
+
+
+if [ $# -lt 4 ] ; then
+   echo >&2 "Usage: $0 output_file width height input_directory"
+   exit 1
+fi
+OUTPUT="$1"
+WIDTH="$2"
+HEIGHT="$3"
+DIRECTORY="$4"
+
+# ------ Proportions --------------------------------------------------------
+logoWidth=0.25        # of Width
+logoIndent=0.025      # of Height
+websiteWidth=0.925    # of Width
+websiteIndent=0.050   # of Height
+
+
+# ------ Create logo --------------------------------------------------------
+logoWidthValue=`echo "${WIDTH}*${logoWidth}" | bc -l`
+logoIndentValue=`echo "${HEIGHT}*${logoIndent}" | bc -l`
+websiteWidthValue=`echo "${WIDTH}*${websiteWidth}" | bc -l`
+websiteIndentValue=`echo "${HEIGHT}*${websiteIndent}" | bc -l`
+
+convert -size ${WIDTH}x${HEIGHT} xc:none \
+   \( $DIRECTORY/Logo-RSPLIB.pdf -trim +repage -resize ${logoWidthValue}x \) -gravity northeast -geometry +${logoIndentValue}+${logoIndentValue} -composite \
+   \( -background none \
+      \( $DIRECTORY/Website.png     -trim +repage -resize ${websiteWidthValue}x \) -gravity center -append \) \
+         -gravity south -geometry +0+${websiteIndentValue} -composite \
+"$OUTPUT"
+
+#    \( -background none \
+#       \( $DIRECTORY/Title.png       -trim +repage -resize ${logoWidthValue}x \) -gravity center -append \
+#       \( $DIRECTORY/Subtitle.png    -trim +repage -resize ${sublogoWidthValue}x -bordercolor none -border 0x${titleBorderValue} \) -gravity south  -append \) -gravity center -composite \
+
+#    \( $DIRECTORY/hostname.png       -trim +repage -resize x${hostHeight} \) \
+#       -gravity north -geometry +0+${logoIndent} -composite \
