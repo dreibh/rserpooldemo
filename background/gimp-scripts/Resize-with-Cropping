@@ -1,0 +1,93 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+#
+# Image Best-Fit (resize with cropping, keeping aspect ratio)
+# Copyright (C) 2012-2019 by Thomas Dreibholz
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Contact: dreibh@simula.no
+#
+
+from wand.image import Image
+import math
+import re
+import sys
+
+
+# ###### Handle arguments ###################################################
+if len(sys.argv) < 4:
+   sys.stderr.write('Usage: ' + sys.argv[0] + ' input output aspect|H:V|HxV|An [new_width]\n')
+   sys.exit(1)
+
+inputFileName  = sys.argv[1]
+outputFileName = sys.argv[2]
+
+m = re.match(r'^(\d+\.{0,1}\d*)([:x])(\d+\.{0,1}\d*)$', sys.argv[3])
+if m != None:
+   outputAspect = float(m.group(1)) / float(m.group(3))
+else:
+   m = re.match(r'^(\d+\.{0,1}\d*)$', sys.argv[3])
+   if m != None:
+      outputAspect = float(m.group(1))
+   else:
+      m = re.match(r'^[Aa][\d]$', sys.argv[3])
+      if m != None:
+         outputAspect = math.sqrt(2)   # DIN A<n> is sqrt(2):1 in landscape format
+      else:
+         sys.stderr.write('ERROR: Bad aspect specification: ' + sys.argv[3] + '!\n')
+         sys.exit(1)
+
+newWidth = None
+if len(sys.argv) > 4:
+   newWidth  = int(sys.argv[4])
+   newHeight = int(round(newWidth / outputAspect))
+
+
+# ###### Load image #########################################################
+image       = Image(filename=inputFileName)
+inputWidth  = float(image.width)         # Use float!
+inputHeight = float(image.height)        # Use float!
+inputAspect = inputWidth / inputHeight   # => result is also float!
+if inputAspect < 1.0:
+   outputAspect = 1 / outputAspect       # Input image is in portrait format => convert aspect
+
+
+# ###### Crop image #########################################################
+#print('Input:  ' + str(inputWidth) + '*' + str(inputHeight) + ' (' + str(inputAspect) + ':1)')
+if inputAspect < outputAspect:
+   croppedInputWidth  = int(inputWidth)
+   croppedInputHeight = int(round(croppedInputWidth / outputAspect))
+else:
+   croppedInputHeight = int(inputHeight)
+   croppedInputWidth  = int(round(inputHeight * outputAspect))
+
+cropWidth  = int(inputWidth - croppedInputWidth)
+cropHeight = int(inputHeight - croppedInputHeight)
+#print(' -> crop: w=' + str(cropWidth) + ' h=' + str(cropHeight))
+
+#print('Cropped: ' + str(croppedInputWidth) + '*' + str(croppedInputHeight) + ' (' + str(outputAspect) + ':1)')
+image.crop(int(cropWidth / 2), int(cropHeight / 2),
+           width=croppedInputWidth, height=croppedInputHeight)
+
+
+# ###### Resize image #######################################################
+if newWidth != None:
+   #print('Resized: ' + str(newWidth) + '*' + str(newHeight) + ' (' + str(outputAspect) + ':1)')
+   image.resize(newWidth, newHeight)
+
+
+
+# ###### Save image #########################################################
+image.save(filename=outputFileName)
