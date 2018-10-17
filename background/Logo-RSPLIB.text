@@ -1,2 +1,2 @@
 ./dia2pdf Logo-RSPLIB.dia Logo-RSPLIB.pdf
-convert -density 150x150 Logo-RSPLIB.pdf ${OUTPUT}
+convert -density 300x300 Logo-RSPLIB.pdf ${OUTPUT}
