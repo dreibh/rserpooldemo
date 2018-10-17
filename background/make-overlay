@@ -51,7 +51,7 @@ websiteWidthValue=`echo "${WIDTH}*${websiteWidth}" | bc -l`
 websiteIndentValue=`echo "${HEIGHT}*${websiteIndent}" | bc -l`
 
 convert -size ${WIDTH}x${HEIGHT} xc:none \
-   \( $DIRECTORY/Logo-RSPLIB.pdf -trim +repage -resize ${logoWidthValue}x \) -gravity northeast -geometry +${logoIndentValue}+${logoIndentValue} -composite \
+   \( $DIRECTORY/Logo-RSPLIB.png -trim +repage -resize ${logoWidthValue}x \) -gravity northeast -geometry +${logoIndentValue}+${logoIndentValue} -composite \
    \( -background none \
       \( $DIRECTORY/Website.png     -trim +repage -resize ${websiteWidthValue}x \) -gravity center -append \) \
          -gravity south -geometry +0+${websiteIndentValue} -composite \
