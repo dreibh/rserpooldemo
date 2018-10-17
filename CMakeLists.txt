@@ -138,3 +138,4 @@ ENDIF()
 #############################################################################
 
 ADD_SUBDIRECTORY(src)
+ADD_SUBDIRECTORY(background)
