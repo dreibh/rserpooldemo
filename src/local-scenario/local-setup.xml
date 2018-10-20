@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <!--
-$Id$
 * ##########################################################################
 *
 *              //===//   //=====   //===//   //       //   //===//
@@ -39,7 +38,7 @@ $Id$
    <DiagramResolutionX>1200</DiagramResolutionX>
    <DiagramResolutionY>800</DiagramResolutionY>
    <Caption>Thomas Dreibholz's RSerPool Demonstration Tool</Caption>
-   <BackgroundImage>pictures/Europe.jpeg</BackgroundImage>
+   <BackgroundImage>../graphics/Europe.jpeg</BackgroundImage>
    <ProtocolColor ID="0">#eec900</ProtocolColor>
    <ProtocolColor ID="11">blue</ProtocolColor>
    <ProtocolColor ID="12">red</ProtocolColor>
@@ -49,8 +48,8 @@ $Id$
       <UID>100000000010000</UID>
       <DisplayName>Registrar 1</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/RegistrarActive2.png</ActiveImageURL>
-      <InactiveImageURL>pictures/RegistrarInactive2.png</InactiveImageURL>
+      <ActiveImageURL>../graphics/RegistrarActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/RegistrarInactive2.png</InactiveImageURL>
       <PositionX>10</PositionX>
       <PositionY>20</PositionY>
       <ContextMenuEntry>
@@ -82,8 +81,8 @@ $Id$
       <UID>100000000010001</UID>
       <DisplayName>Registrar 2</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/RegistrarActive2.png</ActiveImageURL>
-      <InactiveImageURL>pictures/RegistrarInactive2.png</InactiveImageURL>
+      <ActiveImageURL>../graphics/RegistrarActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/RegistrarInactive2.png</InactiveImageURL>
       <PositionX>10</PositionX>
       <PositionY>60</PositionY>
       <ContextMenuEntry>
@@ -115,8 +114,8 @@ $Id$
       <UID>200000000000100</UID>
       <DisplayName>Pool Element 1</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/PoolElementActive2.png</ActiveImageURL>
-      <InactiveImageURL>pictures/PoolElementInactive2.png</InactiveImageURL>
+      <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
       <PositionX>30</PositionX>
       <PositionY>75</PositionY>
       <ContextMenuEntry>
@@ -161,8 +160,8 @@ $Id$
       <UID>200000000000101</UID>
       <DisplayName>Pool Element 2</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/PoolElementActive2.png</ActiveImageURL>
-      <InactiveImageURL>pictures/PoolElementInactive2.png</InactiveImageURL>
+      <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
       <PositionX>55</PositionX>
       <PositionY>75</PositionY>
       <ContextMenuEntry>
@@ -207,8 +206,8 @@ $Id$
       <UID>200000000000102</UID>
       <DisplayName>Pool Element 3</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/PoolElementActive2.png</ActiveImageURL>
-      <InactiveImageURL>pictures/PoolElementInactive2.png</InactiveImageURL>
+      <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
       <PositionX>80</PositionX>
       <PositionY>75</PositionY>
       <ContextMenuEntry>
@@ -253,8 +252,8 @@ $Id$
       <UID>300000000000001</UID>
       <DisplayName>Pool User 1</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/PoolUserActive2.png</ActiveImageURL>
-      <InactiveImageURL>pictures/PoolUserInactive2.png</InactiveImageURL>
+      <ActiveImageURL>../graphics/PoolUserActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/PoolUserInactive2.png</InactiveImageURL>
       <PositionX>40</PositionX>
       <PositionY>5</PositionY>
       <ContextMenuEntry>
@@ -281,8 +280,8 @@ $Id$
       <UID>300000000000002</UID>
       <DisplayName>Pool User 2</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/PoolUserActive2.png</ActiveImageURL>
-      <InactiveImageURL>pictures/PoolUserInactive2.png</InactiveImageURL>
+      <ActiveImageURL>../graphics/PoolUserActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/PoolUserInactive2.png</InactiveImageURL>
       <PositionX>70</PositionX>
       <PositionY>5</PositionY>
       <ContextMenuEntry>
@@ -309,8 +308,8 @@ $Id$
       <UID>NOUID</UID>
       <DisplayName>Control</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/Controller.png</ActiveImageURL>
-      <InactiveImageURL>pictures/Controller.png</InactiveImageURL>
+      <ActiveImageURL>../graphics/Controller.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/Controller.png</InactiveImageURL>
       <PositionX>0</PositionX>
       <PositionY>0</PositionY>
       <ContextMenuEntry>

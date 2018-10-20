@@ -32,34 +32,17 @@
 #
 # Contact: dreibh@iem.uni-due.de
 
-SET(CMAKE_INCLUDE_CURRENT_DIR ON)
-
 #############################################################################
-# PROGRAMS
+# SCENARIO FILES
 #############################################################################
 
-ADD_EXECUTABLE(rserpooldemo
-   csplistener.cc
-   rdconfignode.cc
-   rdconfiguration.cc
-   rdcontextmenuconfig.cc
-   rdgraphicsnode.cc
-   rdgraphicsscene.cc
-   rdgraphicsview.cc
-   rdmainwindow.cc
-   rserpooldemo.cc
+LIST(APPEND scenario_files
+   local-setup.xml
+   LocalScenario.config
+   LocalScenario-StartAll
+   LocalScenario-StopAll
+   ComponentControl
+   RunProgram
 )
 
-TARGET_LINK_LIBRARIES(rserpooldemo Qt5::Widgets Qt5::Xml Qt5::Core Qt5::Network)
-INSTALL(TARGETS             rserpooldemo
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-        BUNDLE DESTINATION  ${CMAKE_INSTALL_BINDIR})
-INSTALL(FILES rserpooldemo.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
-
-
-#############################################################################
-# SOURCE DIRECTORIES
-#############################################################################
-
-ADD_SUBDIRECTORY(graphics)
-ADD_SUBDIRECTORY(local-scenario)
+INSTALL(FILES ${scenario_files} DESTINATION ${CMAKE_INSTALL_DATADIR}/rserpooldemo/local-scenario)

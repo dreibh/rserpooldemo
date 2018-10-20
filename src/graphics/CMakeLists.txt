@@ -32,34 +32,10 @@
 #
 # Contact: dreibh@iem.uni-due.de
 
-SET(CMAKE_INCLUDE_CURRENT_DIR ON)
-
 #############################################################################
-# PROGRAMS
+# GRAPHICS FILES
 #############################################################################
 
-ADD_EXECUTABLE(rserpooldemo
-   csplistener.cc
-   rdconfignode.cc
-   rdconfiguration.cc
-   rdcontextmenuconfig.cc
-   rdgraphicsnode.cc
-   rdgraphicsscene.cc
-   rdgraphicsview.cc
-   rdmainwindow.cc
-   rserpooldemo.cc
-)
+FILE(GLOB graphics_files "*.[Jj][Pp][Ee][Gg]" "*.[Jj][Pp][Gg]" "*.[Pp][Nn][Gg]")
 
-TARGET_LINK_LIBRARIES(rserpooldemo Qt5::Widgets Qt5::Xml Qt5::Core Qt5::Network)
-INSTALL(TARGETS             rserpooldemo
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-        BUNDLE DESTINATION  ${CMAKE_INSTALL_BINDIR})
-INSTALL(FILES rserpooldemo.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
-
-
-#############################################################################
-# SOURCE DIRECTORIES
-#############################################################################
-
-ADD_SUBDIRECTORY(graphics)
-ADD_SUBDIRECTORY(local-scenario)
+INSTALL(FILES ${graphics_files} DESTINATION ${CMAKE_INSTALL_DATADIR}/rserpooldemo/graphics)

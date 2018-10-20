@@ -1,5 +1,4 @@
-#!/bin/bash
-# $Id$
+#!/bin/sh
 # * ##########################################################################
 # *
 # *              //===//   //=====   //===//   //       //   //===//
@@ -31,13 +30,16 @@
 # *
 # * Contact: dreibh.iem.uni-due.de
 
-./ComponentControl ./LocalScenario.config PR 1 start -identifier=0x10000
-./ComponentControl ./LocalScenario.config PR 2 start -identifier=0x10001
-sleep 5
-./ComponentControl ./LocalScenario.config PE 1 start -identifier=0x100
-./ComponentControl ./LocalScenario.config PE 2 start -identifier=0x101
-./ComponentControl ./LocalScenario.config PE 3 start -identifier=0x102
-sleep 2
-./ComponentControl ./LocalScenario.config PU 1 start -identifier=0x1 -caption=PoolUser-1
-sleep 1
-./ComponentControl ./LocalScenario.config PU 2 start -identifier=0x2 -caption=PoolUser-2
+if [ $# -lt 1 ] ; then
+   echo >&2 "Usage: RunProgram [Program] {Arguments ...}"
+   exit 1
+fi
+
+RP_PROGRAM=$1
+shift
+RP_MISCARGS=$@
+
+
+echo "Launching $RP_PROGRAM $RP_MISCARGS ..."
+sh -c "$RP_PROGRAM $RP_MISCARGS &"
+echo "Done"
