@@ -1,0 +1,177 @@
+Source: rserpooldemo
+Section: net
+Priority: optional
+Maintainer: Thomas Dreibholz <dreibh@simula.no>
+Homepage: https://www.uni-due.de/~be0001/
+Build-Depends: bc,
+               cmake,
+               debhelper (>= 9),
+               dh-python,
+               dia,
+               exiftool,
+               ghostscript,
+               gimp,
+               gsfonts,
+               imagemagick,
+               libfile-fcntllock-perl,
+               python3-all,
+               python3-wand,
+               qtbase5-dev,
+               texlive-extra-utils,
+               texlive-font-utils
+Standards-Version: 4.1.4
+X-Python3-Version: >= 3.2
+Vcs-Git: https://bitbucket.org/dreibh/rserpooldemo.git
+Vcs-Browser: https://bitbucket.org/dreibh/rserpooldemo/tags
+
+Package: rserpooldemo-management
+Architecture: any
+Depends: apt-file,
+         apt-show-versions,
+         autofs,
+         bash-completion,
+         bridge-utils,
+         btrfs-tools,
+         bwm-ng,
+         colordiff,
+         cron,
+         cron-apt,
+         debconf-utils,
+         dpkg-sig,
+         ethtool,
+         gddrescue,
+         git,
+         gpm,
+         hping3,
+         htop,
+         idn,
+         ifupdown,
+         ipsec-tools,
+         joe,
+         kdump-tools,
+         libc6-i386 [amd64],
+         libfile-fcntllock-perl,
+         lksctp-tools,
+         lsb-base (>= 3.2-14),
+         mlocate,
+         net-tools,
+         netperfmeter,
+         nmap,
+         ntpdate,
+         nttcp,
+         pxz,
+         reiserfsprogs,
+         reprepro,
+         rsplib-docs,
+         rsplib-services,
+         rsplib-tools,
+         secure-delete,
+         smartmontools,
+         snmp,
+         software-properties-common,
+         sslscan,
+         subnetcalc,
+         tcpdump,
+         tftp,
+         traceroute,
+         tree,
+         virt-what,
+         vlan,
+         whois,
+         xml-twig-tools,
+         xmlstarlet,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Recommends: apport-retrace,
+            language-pack-de-base,
+            language-pack-en-base,
+            language-pack-nb-base,
+            linux-crashdump,
+            tshark,
+            update-motd
+Description: RSerPoolDemo Management Tools
+ This metapackage contains basic software for RSerPoolDemo system management.
+ The software installed provides a common working environment.
+ .
+ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
+
+Package: rserpooldemo-development
+Architecture: any
+Depends: autoconf,
+         automake,
+         autopoint,
+         bison,
+         cmake,
+         createrepo,
+         debhelper,
+         devscripts,
+         dia,
+         exiftool,
+         flex,
+         gdb,
+         ghostscript,
+         gnupg,
+         gnuplot,
+         imagemagick,
+         kbuild,
+         kernel-package,
+         kernel-wedge,
+         libbz2-dev,
+         libcpprspserver-dev,
+         libdw-dev,
+         libelf-dev,
+         libglib2.0-dev,
+         liblua5.2-dev,
+         libnewt-dev,
+         libpcap-dev,
+         librsplib-dev,
+         libsasl2-dev,
+         libsctp-dev,
+         libssl-dev,
+         libtool,
+         lua5.2,
+         pbuilder,
+         pkg-config,
+         python3-psycopg2,
+         python3-pymongo,
+         qtbase5-dev,
+         quilt,
+         r-base,
+         r-cran-ggplot2,
+         r-cran-hmisc,
+         rpm,
+         subversion,
+         texlive-extra-utils,
+         texlive-font-utils,
+         valgrind,
+         yum-utils,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Recommends: python3-wand,
+            ubuntu-dev-tools
+Description: RSerPoolDemo Development Tools
+ This meta-package contains basic software for RSerPoolDemo development.
+ The software installed provides a common working environment.
+ .
+ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
+
+Package: rserpooldemo-desktop
+Architecture: any
+Depends: rserpooldemo-management,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Recommends: kubuntu-desktop | lubuntu-desktop | ubuntu-desktop
+Description: RSerPoolDemo Desktop
+ This meta-package contains the scripts to configure a RSerPoolDemo desktop.
+ .
+ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
+
+Package: rserpooldemo-tool
+Architecture: any
+Depends: rserpooldemo-management,
+         rsplib-fgp-cfgfiles,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Recommends: kubuntu-desktop | lubuntu-desktop | ubuntu-desktop,
+            rsplib-registrar
+Description: RSerPoolDemo Tool

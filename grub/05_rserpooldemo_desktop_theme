@@ -1,0 +1,17 @@
+#!/bin/sh -e
+
+# Include the GRUB helper library for grub-mkconfig.
+. "/usr/share/grub/grub-mkconfig_lib"
+
+# ====== NorNet theme =======================================================
+echo >&2 "Using RSerPoolDemo Desktop theme!"
+
+# Copy to /boot, to ensure the image is reachable during boot phase:
+cp /usr/share/sunilab/Splash/Background-1024x768.jpeg /boot/Splash-Background-1024x768.jpeg
+
+echo "insmod jpeg"   # Load JPEG reader!
+echo "if background_image `make_system_path_relative_to_its_root "/boot/Splash-Background-1024x768.jpeg"`; then"
+echo "   set menu_color_normal=yellow/black"
+echo "   set menu_color_highlight=red/light-gray"
+echo "   set color_normal=yellow/black"
+echo "fi"
