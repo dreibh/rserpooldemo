@@ -130,10 +130,10 @@ FOREACH(textFile IN LISTS TDD_TEXT_FILES)
                       COMMAND env GIMP2_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}/.gimp MAKE_LOGO="${MAKE_LOGO}" OUTPUT="${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Text/${textImage}" ${BASH} ${textFile}
                       DEPENDS ${textFile})
    LIST(APPEND all_texts ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Text/${textImage})
-
-   ADD_CUSTOM_TARGET(generate_${textImage} DEPENDS ${textFile})
-   LIST(APPEND generate_all_texts generate_${textImage})
 ENDFOREACH()
+ADD_CUSTOM_TARGET(generate_all_texts DEPENDS ${all_texts})
+# NOTE: all_texts is a LIST, while generate_all_texts is a TARGET!
+# In the following, "DEPENDS generate_all_texts ${all_texts}" can be used.
 
 
 # ###### Prepare input images ###############################################
@@ -194,7 +194,7 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
    # NOTE: Dependency on generate targets and files!
    ADD_CUSTOM_COMMAND(OUTPUT ${overlayImage}
                       COMMAND env GIMP2_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}/.gimp ${TDD_MAKE_OVERLAY} ${overlayImage} ${width} ${height} ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Text
-                      DEPENDS ${generate_all_texts}
+                      DEPENDS generate_all_texts
                               ${all_texts})
    ADD_CUSTOM_TARGET(${generate_overlayImage} DEPENDS ${overlayImage})
 
