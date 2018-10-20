@@ -40,7 +40,7 @@
 #include <QLinkedList>
 
 #include "rdconfiguration.h"
-#include "networklistener.h"
+#include "csplistener.h"
 
 
 const char g_ResolutionXTag[]          = "DiagramResolutionX";
@@ -127,7 +127,7 @@ RDConfiguration::RDConfiguration(QWidget*       canvasWidget,
       currentNode = currentNode.nextSibling();
    }
 
-   m_NetworkListener = new CNetworkListener(m_ListenPort, m_NodesMap);
+   m_NetworkListener = new CSPListener(m_ListenPort, m_NodesMap);
 }
 
 
@@ -202,8 +202,8 @@ RDConfigNode* RDConfiguration::createNode(QDomElement element)
 }
 
 
-RDContextMenuConfig* RDConfiguration::createContextMenuEntry(const QString&     nodeName,
-                                                           const QDomElement& element)
+RDContextMenuConfig* RDConfiguration::createContextMenuEntry(const QString&    nodeName,
+                                                            const QDomElement& element)
 {
    QString  itemName;
    QString  commandLine;

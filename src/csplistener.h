@@ -50,12 +50,12 @@
 
 class RDConfigNode;
 
-class CNetworkListener
+class CSPListener
 {
    public:
-   CNetworkListener(int                    listenPort,
+   CSPListener(int                    listenPort,
                     QMap<QString, RDConfigNode*>& nodesMap);
-   ~CNetworkListener();
+   ~CSPListener();
 
 
    static unsigned long long getMicroTime();

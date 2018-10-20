@@ -35,7 +35,7 @@
  */
 
 #include "rdconfignode.h"
-#include "networklistener.h"
+#include "csplistener.h"
 
 
 RDConfigNode::RDConfigNode(const QString& uniqueID,
@@ -70,7 +70,7 @@ RDConfigNode::~RDConfigNode()
 
 void RDConfigNode::setUpdated()
 {
-   m_LastUpdated = CNetworkListener::getMicroTime();
+   m_LastUpdated = CSPListener::getMicroTime();
 }
 
 
@@ -96,7 +96,7 @@ const QString RDConfigNode::getWorkloadString() const
 
 void RDConfigNode::updateStatus()
 {
-   if((m_LastUpdated + (m_ReportInterval*m_TimeoutMultiplier)) < CNetworkListener::getMicroTime()) {
+   if((m_LastUpdated + (m_ReportInterval*m_TimeoutMultiplier)) < CSPListener::getMicroTime()) {
       m_Status = INACTIVE;
       m_ConnectedUIDsMap.clear();
       m_StatusText = "";

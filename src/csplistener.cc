@@ -38,10 +38,10 @@
 #include <QString>
 #include <iostream>
 
-#include "networklistener.h"
+#include "csplistener.h"
 
 
-CNetworkListener::CNetworkListener(int                    listenPort,
+CSPListener::CSPListener(int                    listenPort,
                                    QMap<QString, RDConfigNode*>& nodesMap)
    : m_ListenPort(listenPort),
      m_NodesMap(nodesMap),
@@ -58,13 +58,13 @@ CNetworkListener::CNetworkListener(int                    listenPort,
 }
 
 
-CNetworkListener::~CNetworkListener()
+CSPListener::~CSPListener()
 {
    delete m_SocketDevice;
 }
 
 
-void CNetworkListener::update()
+void CSPListener::update()
 {
    char buffer[65536];
    while(m_SocketDevice->bytesAvailable()) {
@@ -138,7 +138,7 @@ void CNetworkListener::update()
 }
 
 
-unsigned long long CNetworkListener::getMicroTime()
+unsigned long long CSPListener::getMicroTime()
 {
    struct timeval tv;
    gettimeofday(&tv,NULL);

@@ -60,13 +60,13 @@ class EXMLSyntaxException
 };
 
 
-class CNetworkListener;
+class CSPListener;
 
 class RDConfiguration
 {
    public:
    RDConfiguration(QWidget*       canvasWidet,
-                  const QString& configFile);
+                   const QString& configFile);
    ~RDConfiguration();
 
    inline int getDisplaySizeX() const {
@@ -106,19 +106,19 @@ class RDConfiguration
    private:
    RDConfigNode* createNode(QDomElement element);
    RDContextMenuConfig* createContextMenuEntry(const QString&     displayName,
-                                              const QDomElement& element);
+                                               const QDomElement& element);
 
-   QWidget*              m_GraphicsSceneWidget;
-   int                   m_DisplaySizeX;
-   int                   m_DisplaySizeY;
-   int                   m_RefreshTime;
-   int                   m_ListenPort;
-   QString               m_Caption;
-   QString               m_BackgroundImageName;
+   QWidget*                     m_GraphicsSceneWidget;
+   QString                      m_Caption;
+   QString                      m_BackgroundImageName;
    QLinkedList<RDConfigNode*>   m_Nodes;
    QMap<QString, RDConfigNode*> m_NodesMap;
-   QMap<int, QString>    m_ColorMap;
-   CNetworkListener*     m_NetworkListener;
+   QMap<int, QString>           m_ColorMap;
+   CSPListener*                 m_NetworkListener;
+   int                          m_DisplaySizeX;
+   int                          m_DisplaySizeY;
+   int                          m_RefreshTime;
+   int                          m_ListenPort;
 };
 
 #endif
