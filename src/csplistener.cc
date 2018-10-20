@@ -5,7 +5,7 @@
  *             //    //  //        //    //  //       //   //    //
  *            //===//   //=====   //===//   //       //   //===<<
  *           //   \\         //  //        //       //   //    //
- *          //     \\  =====//  //        //=====  //   //===//    Version II
+ *          //     \\  =====//  //        //=====  //   //===//   Version III
  *
  *             ###################################################
  *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
@@ -38,11 +38,11 @@
 #include <QString>
 #include <iostream>
 
-#include "networklistener.h"
+#include "csplistener.h"
 
 
-CNetworkListener::CNetworkListener(int                    listenPort,
-                                   QMap<QString, CNode*>& nodesMap)
+CSPListener::CSPListener(int                    listenPort,
+                                   QMap<QString, RDConfigNode*>& nodesMap)
    : m_ListenPort(listenPort),
      m_NodesMap(nodesMap),
      m_SocketDevice(0)
@@ -58,13 +58,13 @@ CNetworkListener::CNetworkListener(int                    listenPort,
 }
 
 
-CNetworkListener::~CNetworkListener()
+CSPListener::~CSPListener()
 {
    delete m_SocketDevice;
 }
 
 
-void CNetworkListener::update()
+void CSPListener::update()
 {
    char buffer[65536];
    while(m_SocketDevice->bytesAvailable()) {
@@ -95,9 +95,9 @@ void CNetworkListener::update()
          snprintf(nameBuffer, sizeof(nameBuffer), "%llx",
                   (unsigned long long)cspReport->Header.SenderID);
          const QString name(nameBuffer);
-         QMap<QString, CNode*>::iterator nodeIterator = m_NodesMap.find(name);
+         QMap<QString, RDConfigNode*>::iterator nodeIterator = m_NodesMap.find(name);
          if(nodeIterator != m_NodesMap.end()) {
-            CNode* pNode = *nodeIterator;
+            RDConfigNode* pNode = *nodeIterator;
             pNode->setUpdated();
             pNode->setReportInterval(cspReport->ReportInterval);
 
@@ -120,7 +120,7 @@ void CNetworkListener::update()
                snprintf(nameBuffer, sizeof(nameBuffer), "%llx",
                         (unsigned long long)cspReport->AssociationArray[i].ReceiverID);
                QString peerName(nameBuffer);
-               QMap<QString, CNode*>::iterator nodeIterator;
+               QMap<QString, RDConfigNode*>::iterator nodeIterator;
                if((nodeIterator = m_NodesMap.find(peerName)) != m_NodesMap.end()) {
                   pNode->getConnectedUIDsDurationMap()[peerName] = cspReport->AssociationArray[i].Duration;
                   pNode->getConnectedUIDsMap()[peerName]         = cspReport->AssociationArray[i].PPID;
@@ -138,7 +138,7 @@ void CNetworkListener::update()
 }
 
 
-unsigned long long CNetworkListener::getMicroTime()
+unsigned long long CSPListener::getMicroTime()
 {
    struct timeval tv;
    gettimeofday(&tv,NULL);

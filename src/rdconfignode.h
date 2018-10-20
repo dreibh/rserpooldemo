@@ -5,7 +5,7 @@
  *             //    //  //        //    //  //       //   //    //
  *            //===//   //=====   //===//   //       //   //===<<
  *           //   \\         //  //        //       //   //    //
- *          //     \\  =====//  //        //=====  //   //===//    Version II
+ *          //     \\  =====//  //        //=====  //   //===//   Version III
  *
  *             ###################################################
  *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
@@ -43,20 +43,20 @@
 
 #include <netinet/in.h>
 
-#include "contextmenuconfig.h"
+#include "rdcontextmenuconfig.h"
 
 
-class CNode
+class RDConfigNode
 {
    public:
-   CNode(QString uniqueID,
-         QString displayName,
-         QString imageActive,
-         QString imageInactive,
-         int     positionX,
-         int     positionY,
-         int     timeoutMultiplier);
-   ~CNode();
+   RDConfigNode(const QString& uniqueID,
+                const QString& displayName,
+                const QString& imageActive,
+                const QString& imageInactive,
+                int            positionX,
+                int            positionY,
+                int            timeoutMultiplier);
+   ~RDConfigNode();
 
    enum NodeStatus
    {
@@ -64,34 +64,47 @@ class CNode
       ACTIVE   = 1
    };
 
+   inline const QString& getUniqueID() const {
+      return m_UniqueID;
+   }
+   inline const QString& getDisplayName() const {
+      return m_DisplayName;
+   }
    inline const QString& getImageInactive() const {
       return m_ImageInactive;
    }
    inline const QString& getImageActive() const {
       return m_ImageActive;
    }
-   inline const QString& getUniqueID() const {
-      return m_UniqueID;
+
+   inline int getPositionX(const int totalSizeX) const {
+      return (m_PositionX * totalSizeX / 100);
    }
-   inline int getPositionX(int _TotalSizeX) const {
-      return (m_PositionX * _TotalSizeX / 100);
+   inline int getPositionY(const int totalSizeY) const {
+      return (m_PositionY * totalSizeY / 100);
    }
-   inline int getPositionY(int _TotalSizeY) const {
-      return (m_PositionY * _TotalSizeY / 100);
-   }
-   inline const QString& getDisplayName() const {
-      return m_DisplayName;
-   }
+
    double getWorkload() const;
    const QString getWorkloadString() const;
+   inline void setWorkload(const double workload) {
+      m_Workload = workload;
+   }
+
    inline const QString& getStatusText() const {
       return m_StatusText;
    }
+   inline void setStatusText(const QString& statusText) {
+      m_StatusText = statusText;
+   }
+
    inline const QString& getLocationText() const {
       return m_LocationText;
    }
+   inline void setLocationText(const QString& locationText) {
+      m_LocationText = locationText;
+   }
 
-   inline QLinkedList<CContextMenuConfig*>& getContextMenuConfig() {
+   inline QLinkedList<RDContextMenuConfig*>& getContextMenuConfig() {
       return m_ContextMenuEntries;
    }
    inline QMap<QString, int>& getConnectedUIDsMap() {
@@ -101,48 +114,37 @@ class CNode
       return m_ConnectionDurationMap;
    }
 
+   inline void setReportInterval(const uint64_t reportInterval) {
+      m_ReportInterval = reportInterval;
+   }
+
    inline NodeStatus getStatus() const {
-      return m_State;
+      return m_Status;
    }
-
-
-   inline void setWorkload(const double _rWorkload) {
-      m_Workload = _rWorkload;
-   }
-   inline void setStatusText(const QString &_rStatusText) {
-      m_StatusText = _rStatusText;
-   }
-   inline void setLocationText(const QString &_rLocationText) {
-      m_LocationText = _rLocationText;
-   }
-   inline void setReportInterval(uint64_t _ReportInterval) {
-      m_ReportInterval = _ReportInterval;
-   }
-
-   void setUpdated();
    void updateStatus();
+   void setUpdated();
 
 
    private:
    // Values loaded from config files
-   QString m_UniqueID;
-   QString m_DisplayName;
-   QString m_ImageActive;
-   QString m_ImageInactive;
-   int     m_PositionX;
-   int     m_PositionY;
-   int     m_TimeoutMultiplier;
+   const QString                     m_UniqueID;
+   const QString                     m_DisplayName;
+   const QString                     m_ImageActive;
+   const QString                     m_ImageInactive;
+   int                               m_PositionX;
+   int                               m_PositionY;
+   int                               m_TimeoutMultiplier;
 
-   // Values need in RunTime
-   QLinkedList<CContextMenuConfig*> m_ContextMenuEntries;
-   QMap<QString, int>               m_ConnectedUIDsMap;
-   QMap<QString, uint64_t>          m_ConnectionDurationMap;
-   QString                          m_StatusText;
-   QString                          m_LocationText;
-   NodeStatus                       m_State;
-   uint64_t                         m_ReportInterval;
-   uint64_t                         m_LastUpdated;
-   double                           m_Workload;
+   // Values need during runtime
+   QLinkedList<RDContextMenuConfig*> m_ContextMenuEntries;
+   QMap<QString, int>                m_ConnectedUIDsMap;
+   QMap<QString, uint64_t>           m_ConnectionDurationMap;
+   QString                           m_StatusText;
+   QString                           m_LocationText;
+   NodeStatus                        m_Status;
+   uint64_t                          m_ReportInterval;
+   uint64_t                          m_LastUpdated;
+   double                            m_Workload;
 };
 
 

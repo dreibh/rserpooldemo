@@ -5,7 +5,7 @@
  *             //    //  //        //    //  //       //   //    //
  *            //===//   //=====   //===//   //       //   //===<<
  *           //   \\         //  //        //       //   //    //
- *          //     \\  =====//  //        //=====  //   //===//    Version II
+ *          //     \\  =====//  //        //=====  //   //===//   Version III
  *
  *             ###################################################
  *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
@@ -34,42 +34,44 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#ifndef MAINWIDGET_H
-#define MAINWIDGET_H
+#ifndef CONTEXTMENUCONFIG_H
+#define CONTEXTMENUCONFIG_H
 
-#include <QMainWindow>
-#include <QMap>
-#include <QImage>
-#include <QResizeEvent>
-
-#include "configuration.h"
-#include "rdgraphicsnode.h"
-#include "rdgraphicsscene.h"
+#include <QObject>
+#include <QString>
+#include <QProcess>
 
 
-class RDConfiguration;
-class RDGraphicsView;
-
-
-class CMainWidget : public QMainWindow
+class RDContextMenuConfig : public QObject
 {
    Q_OBJECT
    public:
-   CMainWidget(const QString& configFile);
-   virtual ~CMainWidget();
+   RDContextMenuConfig(QWidget*       parent,
+                       const QString& nodeName,
+                       const QString& itemName,
+                       const QString& commandLine);
+   virtual ~RDContextMenuConfig();
 
-   RDConfiguration m_Configuration;
-   QImage         m_BackgroundImage;
+   inline const QString& getName() const {
+      return m_ItemName;
+   }
 
-   protected:
-   void resizeEvent(QResizeEvent* event);
+   public slots:
+   virtual void execute();
+
+   private slots:
+   virtual void processFinished(int, QProcess::ExitStatus);
+   virtual void readStdout();
+   virtual void readStderr();
 
    private:
-   void createCanvasObjects();
+   static QStringList splitCommandLine(const QString& commandLine);
 
-   RDGraphicsScene*            m_Canvas;
-   RDGraphicsView* m_CanvasView;
+   QWidget*         m_Parent;
+   QString          m_NodeName;
+   QString          m_ItemName;
+   QString          m_CommandLine;
+   static QProcess* m_pProcess;
 };
-
 
 #endif

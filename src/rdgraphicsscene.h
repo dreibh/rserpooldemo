@@ -5,7 +5,7 @@
  *             //    //  //        //    //  //       //   //    //
  *            //===//   //=====   //===//   //       //   //===<<
  *           //   \\         //  //        //       //   //    //
- *          //     \\  =====//  //        //=====  //   //===//    Version II
+ *          //     \\  =====//  //        //=====  //   //===//   Version III
  *
  *             ###################################################
  *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
@@ -42,7 +42,7 @@
 #include <QTimer>
 #include <QGraphicsScene>
 
-#include "configuration.h"
+#include "rdconfiguration.h"
 
 
 class RDGraphicsNode;
@@ -57,16 +57,16 @@ class RDGraphicsScene : public QGraphicsScene
 
    void setAdvancePeriod(int ms);
    inline QMap<QString, RDGraphicsNode*>& getCanvasNodesMap() {
-      return m_CanvasNodesMap;
+      return m_GraphicsNodeMap;
    }
 
    public slots:
    void advance();
 
    private:
-   RDConfiguration*             m_Configuration;
-   QTimer*                     m_AdvanceTimer;
-   QMap<QString, RDGraphicsNode*> m_CanvasNodesMap;
+   RDConfiguration*               m_Configuration;
+   QTimer*                        m_AdvanceTimer;
+   QMap<QString, RDGraphicsNode*> m_GraphicsNodeMap;
 };
 
 

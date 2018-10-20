@@ -5,7 +5,7 @@
  *             //    //  //        //    //  //       //   //    //
  *            //===//   //=====   //===//   //       //   //===<<
  *           //   \\         //  //        //       //   //    //
- *          //     \\  =====//  //        //=====  //   //===//    Version II
+ *          //     \\  =====//  //        //=====  //   //===//   Version III
  *
  *             ###################################################
  *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
@@ -39,7 +39,7 @@
 
 #include "rdgraphicsview.h"
 #include "rdgraphicsnode.h"
-#include "mainwidget.h"
+#include "rdmainwindow.h"
 
 
 RDGraphicsView::RDGraphicsView(QGraphicsScene* canvas, QWidget* parent = 0)

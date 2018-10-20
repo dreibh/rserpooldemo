@@ -5,7 +5,7 @@
  *             //    //  //        //    //  //       //   //    //
  *            //===//   //=====   //===//   //       //   //===<<
  *           //   \\         //  //        //       //   //    //
- *          //     \\  =====//  //        //=====  //   //===//    Version II
+ *          //     \\  =====//  //        //=====  //   //===//   Version III
  *
  *             ###################################################
  *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
@@ -39,9 +39,10 @@
 #include <QFile>
 #include <iostream>
 
-#include "mainwidget.h"
+#include "rdmainwindow.h"
 
 
+// ###### Main program ######################################################
 int main(int argc, char** argv)
 {
    try {
@@ -59,7 +60,7 @@ int main(int argc, char** argv)
 
       std::cout << "Using configuration \"" << configFile.toLocal8Bit().constData() << "\" ..." << std::endl;
       QApplication application(argc, argv);
-      CMainWidget* mainWindow = new CMainWidget(configFile);
+      RDMainWindow* mainWindow = new RDMainWindow(configFile);
       Q_CHECK_PTR(mainWindow);
       mainWindow->show();
 

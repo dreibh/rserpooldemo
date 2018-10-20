@@ -5,7 +5,7 @@
  *             //    //  //        //    //  //       //   //    //
  *            //===//   //=====   //===//   //       //   //===<<
  *           //   \\         //  //        //       //   //    //
- *          //     \\  =====//  //        //=====  //   //===//    Version II
+ *          //     \\  =====//  //        //=====  //   //===//   Version III
  *
  *             ###################################################
  *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
@@ -34,72 +34,41 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#ifndef NETWORKLISTENER_H
-#define NETWORKLISTENER_H
+#ifndef MAINWIDGET_H
+#define MAINWIDGET_H
 
-#include <QUdpSocket>
+#include <QMainWindow>
+#include <QMap>
+#include <QImage>
+#include <QResizeEvent>
 
-#include <byteswap.h>
-#include <netinet/in.h>
-#include <sys/time.h>
-#include <time.h>
-
-#include "node.h"
-#include "componentstatuspackets.h"
+#include "rdconfiguration.h"
+#include "rdgraphicsnode.h"
+#include "rdgraphicsscene.h"
 
 
-class CNode;
+class RDConfiguration;
+class RDGraphicsView;
 
-class CNetworkListener
+
+class RDMainWindow : public QMainWindow
 {
+   Q_OBJECT
    public:
-   CNetworkListener(int                    listenPort,
-                    QMap<QString, CNode*>& nodesMap);
-   ~CNetworkListener();
+   RDMainWindow(const QString& configFile);
+   virtual ~RDMainWindow();
 
-
-   static unsigned long long getMicroTime();
-   void update();
-
+   protected:
+   void resizeEvent(QResizeEvent* event);
 
    private:
-   /**
-   * Convert 64-bit value to network byte order.
-   *
-   * @param value Value in host byte order.
-   * @return Value in network byte order.
-   */
-   static inline uint64_t hton64(const uint64_t value)
-   {
-#if BYTE_ORDER == LITTLE_ENDIAN
-      return(bswap_64(value));
-#elif BYTE_ORDER == BIG_ENDIAN
-      return(value);
-#else
-#error Byte order is not defined!
-#endif
-   }
+   void createCanvasObjects();
 
-   /**
-   * Convert 64-bit value to host byte order.
-   *
-   * @param value Value in network byte order.
-   * @return Value in host byte order.
-   */
-   static inline uint64_t ntoh64(const uint64_t value)
-   {
-#if BYTE_ORDER == LITTLE_ENDIAN
-      return(bswap_64(value));
-#elif BYTE_ORDER == BIG_ENDIAN
-      return(value);
-#else
-#error Byte order is not defined!
-#endif
-   }
-
-   int                    m_ListenPort;
-   QMap<QString, CNode*>& m_NodesMap;
-   QUdpSocket*            m_SocketDevice;
+   RDConfiguration  m_Configuration;
+   QImage           m_BackgroundImage;
+   RDGraphicsScene* m_GraphicsScene;
+   RDGraphicsView*  m_GraphicsView;
 };
+
 
 #endif

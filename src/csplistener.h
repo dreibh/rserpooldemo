@@ -5,7 +5,7 @@
  *             //    //  //        //    //  //       //   //    //
  *            //===//   //=====   //===//   //       //   //===<<
  *           //   \\         //  //        //       //   //    //
- *          //     \\  =====//  //        //=====  //   //===//    Version II
+ *          //     \\  =====//  //        //=====  //   //===//   Version III
  *
  *             ###################################################
  *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
@@ -34,42 +34,72 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#ifndef CONTEXTMENUCONFIG_H
-#define CONTEXTMENUCONFIG_H
+#ifndef NETWORKLISTENER_H
+#define NETWORKLISTENER_H
 
-#include <QObject>
-#include <QString>
-#include <QProcess>
+#include <QUdpSocket>
+
+#include <byteswap.h>
+#include <netinet/in.h>
+#include <sys/time.h>
+#include <time.h>
+
+#include "rdconfignode.h"
+#include "componentstatuspackets.h"
 
 
-class CContextMenuConfig : public QObject
+class RDConfigNode;
+
+class CSPListener
 {
-   Q_OBJECT
    public:
-   CContextMenuConfig(QWidget*       parent,
-                      const QString& nodeName,
-                      const QString& itemName,
-                      const QString& commandLine);
-   virtual ~CContextMenuConfig();
+   CSPListener(int                    listenPort,
+                    QMap<QString, RDConfigNode*>& nodesMap);
+   ~CSPListener();
 
-   inline const QString& getName() const {
-      return m_ItemName;
-   }
 
-   public slots:
-   virtual void execute();
+   static unsigned long long getMicroTime();
+   void update();
 
-   private slots:
-   virtual void processFinished(int, QProcess::ExitStatus);
-   virtual void readStdout();
-   virtual void readStderr();
 
    private:
-   QWidget*         m_Parent;
-   QString          m_NodeName;
-   QString          m_ItemName;
-   QString          m_CommandLine;
-   static QProcess* m_pProcess;
+   /**
+   * Convert 64-bit value to network byte order.
+   *
+   * @param value Value in host byte order.
+   * @return Value in network byte order.
+   */
+   static inline uint64_t hton64(const uint64_t value)
+   {
+#if BYTE_ORDER == LITTLE_ENDIAN
+      return(bswap_64(value));
+#elif BYTE_ORDER == BIG_ENDIAN
+      return(value);
+#else
+#error Byte order is not defined!
+#endif
+   }
+
+   /**
+   * Convert 64-bit value to host byte order.
+   *
+   * @param value Value in network byte order.
+   * @return Value in host byte order.
+   */
+   static inline uint64_t ntoh64(const uint64_t value)
+   {
+#if BYTE_ORDER == LITTLE_ENDIAN
+      return(bswap_64(value));
+#elif BYTE_ORDER == BIG_ENDIAN
+      return(value);
+#else
+#error Byte order is not defined!
+#endif
+   }
+
+   int                    m_ListenPort;
+   QMap<QString, RDConfigNode*>& m_NodesMap;
+   QUdpSocket*            m_SocketDevice;
 };
 
 #endif

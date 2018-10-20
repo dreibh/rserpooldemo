@@ -5,7 +5,7 @@
  *             //    //  //        //    //  //       //   //    //
  *            //===//   //=====   //===//   //       //   //===<<
  *           //   \\         //  //        //       //   //    //
- *          //     \\  =====//  //        //=====  //   //===//    Version II
+ *          //     \\  =====//  //        //=====  //   //===//   Version III
  *
  *             ###################################################
  *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
@@ -40,7 +40,7 @@
 #include <QLinkedList>
 #include <QDomElement>
 
-#include "node.h"
+#include "rdconfignode.h"
 
 
 class ECriticalException
@@ -60,13 +60,13 @@ class EXMLSyntaxException
 };
 
 
-class CNetworkListener;
+class CSPListener;
 
 class RDConfiguration
 {
    public:
    RDConfiguration(QWidget*       canvasWidet,
-                  const QString& configFile);
+                   const QString& configFile);
    ~RDConfiguration();
 
    inline int getDisplaySizeX() const {
@@ -87,11 +87,11 @@ class RDConfiguration
    inline const QString getBackgroundImageName() const {
       return m_BackgroundImageName;
    }
-   inline QLinkedList<CNode*>& getNodes() {
-      return m_Nodes;
+   inline QLinkedList<RDConfigNode*>& getNodes() {
+      return m_ConfigNodes;
    }
-   inline QMap<QString, CNode*>& getNodesMap() {
-      return m_NodesMap;
+   inline QMap<QString, RDConfigNode*>& getNodesMap() {
+      return m_ConfigNodesMap;
    }
    inline QMap<int, QString>& getColorMap() {
       return m_ColorMap;
@@ -104,21 +104,21 @@ class RDConfiguration
    void updateNodeData();
 
    private:
-   CNode* createNode(QDomElement element);
-   CContextMenuConfig* createContextMenuEntry(const QString&     displayName,
-                                              const QDomElement& element);
+   RDConfigNode* createNode(QDomElement element);
+   RDContextMenuConfig* createContextMenuEntry(const QString&     displayName,
+                                               const QDomElement& element);
 
-   QWidget*              m_CanvasWidget;
-   int                   m_DisplaySizeX;
-   int                   m_DisplaySizeY;
-   int                   m_RefreshTime;
-   int                   m_ListenPort;
-   QString               m_Caption;
-   QString               m_BackgroundImageName;
-   QLinkedList<CNode*>   m_Nodes;
-   QMap<QString, CNode*> m_NodesMap;
-   QMap<int, QString>    m_ColorMap;
-   CNetworkListener*     m_NetworkListener;
+   QWidget*                     m_GraphicsSceneWidget;
+   QString                      m_Caption;
+   QString                      m_BackgroundImageName;
+   QLinkedList<RDConfigNode*>   m_ConfigNodes;
+   QMap<QString, RDConfigNode*> m_ConfigNodesMap;
+   QMap<int, QString>           m_ColorMap;
+   CSPListener*                 m_NetworkListener;
+   int                          m_DisplaySizeX;
+   int                          m_DisplaySizeY;
+   int                          m_RefreshTime;
+   int                          m_ListenPort;
 };
 
 #endif
