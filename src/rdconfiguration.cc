@@ -50,7 +50,6 @@ const char g_ProtocolColorTag[]        = "ProtocolColor";
 const char g_ProtocolColorIDTag[]      = "ID";
 const char g_ListenPortTag[]           = "ListenPort";
 const char g_NodeTag[]                 = "Node";
-const char g_RSPNodeTag[]              = "RSPNode";   // deprecated, use Node instead!
 const char g_UIDTag[]                  = "UID";
 const char g_displayNameTag[]          = "DisplayName";
 const char g_refreshTimeoutTag[]       = "RefreshTimeout";
@@ -113,8 +112,7 @@ RDConfiguration::RDConfiguration(QWidget*       canvasWidget,
          else if(currentNode.toElement().tagName() == QString(g_CaptionTag)) {
             m_Caption = currentNode.toElement().text();
          }
-         else if((currentNode.toElement().tagName() == QString(g_NodeTag)) ||
-                 (currentNode.toElement().tagName() == QString(g_RSPNodeTag))) {
+         else if(currentNode.toElement().tagName() == QString(g_NodeTag)) {
             RDConfigNode* node = createNode(currentNode.toElement());
             m_Nodes.append(node);
             m_NodesMap[node->getUniqueID()] = node;
