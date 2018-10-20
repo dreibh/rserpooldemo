@@ -34,14 +34,13 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-build
 %setup -q
 
 %build
-%cmake -DCMAKE_INSTALL_PREFIX=/us -DFLAT_DIRECTORY_STRUCTURE=1 -DBUILD_BOOTSPLASH=1 .
+%cmake -DCMAKE_INSTALL_PREFIX=/usr -DFLAT_DIRECTORY_STRUCTURE=1 -DBUILD_BOOTSPLASH=1 .
 make %{?_smp_mflags}
 
 %install
 make DESTDIR=%{buildroot} install
 
 %files
-/usr/share/rserpooldemo/*.pdf
 /usr/share/rserpooldemo/Desktop-with-Logo/*
 /usr/share/rserpooldemo/Desktop-without-Logo/*
 /usr/share/rserpooldemo/Splash/*
