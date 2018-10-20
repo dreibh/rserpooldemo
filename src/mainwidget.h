@@ -48,7 +48,7 @@
 
 
 class RDConfiguration;
-class CSerPoolCanvasView;
+class RDGraphicsView;
 
 
 class CMainWidget : public QMainWindow
@@ -68,7 +68,7 @@ class CMainWidget : public QMainWindow
    void createCanvasObjects();
 
    RDGraphicsScene*            m_Canvas;
-   CSerPoolCanvasView* m_CanvasView;
+   RDGraphicsView* m_CanvasView;
 };
 
 

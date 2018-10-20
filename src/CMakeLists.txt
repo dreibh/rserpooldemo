@@ -4,7 +4,7 @@ SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 ADD_EXECUTABLE(rserpooldemo
    rdgraphicsscene.cc
    rdgraphicsnode.cc
-   canvasview.cc
+   rdgraphicsview.cc
    configuration.cc
    contextmenuconfig.cc
    mainwidget.cc

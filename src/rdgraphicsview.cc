@@ -34,22 +34,37 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#ifndef CANVASVIEW_H
-#define CANVASVIEW_H
-
-#include <QGraphicsView>
 #include <QContextMenuEvent>
+#include <QGraphicsItem>
+
+#include "rdgraphicsview.h"
+#include "rdgraphicsnode.h"
+#include "mainwidget.h"
 
 
-class CSerPoolCanvasView : public QGraphicsView
+RDGraphicsView::RDGraphicsView(QGraphicsScene* canvas, QWidget* parent = 0)
+   : QGraphicsView(canvas, parent)
 {
-   Q_OBJECT
-   public:
-   CSerPoolCanvasView(QGraphicsScene* canvas, QWidget* parent);
-   virtual ~CSerPoolCanvasView();
+}
 
-   protected:
-   void contentsContextMenuEvent(QContextMenuEvent* event);
-};
 
+RDGraphicsView::~RDGraphicsView()
+{
+}
+
+
+void RDGraphicsView::contentsContextMenuEvent(QContextMenuEvent* event)
+{
+#if 0
+   QList<QGraphicsItem*> list = scene()->collidingItems(event->pos());
+   RDGraphicsNode*          node = 0;
+   for(QList<QGraphicsItem*>::iterator it = list.begin();it != list.end();++it) {
+      node = dynamic_cast<RDGraphicsNode *>(*it) ;
+      if(node) {
+         node->m_ContextMenu->exec(event->globalPos());
+         return;
+      }
+   }
 #endif
+   puts("FIXME: contentsContextMenuEvent()");
+}

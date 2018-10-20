@@ -41,7 +41,7 @@
 
 #include <mainwidget.h>
 #include "rdgraphicsnode.h"
-#include "canvasview.h"
+#include "rdgraphicsview.h"
 #include "rdgraphicsscene.h"
 
 
@@ -64,7 +64,7 @@ CMainWidget::CMainWidget(const QString& configFile)
 
    m_Canvas->setBackgroundBrush(tempImage);
 
-   m_CanvasView = new CSerPoolCanvasView(m_Canvas, this);
+   m_CanvasView = new RDGraphicsView(m_Canvas, this);
    Q_CHECK_PTR(m_CanvasView);
    m_CanvasView->setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
    m_CanvasView->setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
