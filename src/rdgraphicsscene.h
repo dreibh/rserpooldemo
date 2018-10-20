@@ -1,4 +1,4 @@
-/* $Id$
+/*
  * ##########################################################################
  *
  *              //===//   //=====   //===//   //       //   //===//
@@ -13,7 +13,7 @@
  *
  * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Copyright (C) 2002-2017 by Thomas Dreibholz
+ *   Copyright (C) 2002-2019 by Thomas Dreibholz
  *
  *   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
  *            Sebastian Rohde, rohde@iem.uni-due.de
@@ -34,60 +34,39 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#ifndef CANVASNODE_H
-#define CANVASNODE_H
+#ifndef CANVAS_H
+#define CANVAS_H
 
 #include <QMap>
-#include <QLinkedList>
-#include <QPixmap>
-#include <QMenu>
-#include <QGraphicsPixmapItem>
-#include <QGraphicsSceneContextMenuEvent>
+#include <QString>
+#include <QTimer>
+#include <QGraphicsScene>
 
 #include "configuration.h"
-#include "canvas.h"
-#include "node.h"
 
 
-class CCanvasNode : public QGraphicsPixmapItem
+class RDGraphicsNode;
+
+
+class RDGraphicsScene : public QGraphicsScene
 {
+   Q_OBJECT
    public:
-   CCanvasNode(CCanvas*        canvas,
-               CNode*          node,
-               CConfiguration* configuration,
-               const QPixmap&  inactivePixmap,
-               const QPixmap&  activePixmap);
-   virtual ~CCanvasNode();
+   RDGraphicsScene(QObject* parent, RDConfiguration* configuration);
+   ~RDGraphicsScene();
 
-   virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
-   virtual void advance(int phase);
+   void setAdvancePeriod(int ms);
+   inline QMap<QString, RDGraphicsNode*>& getCanvasNodesMap() {
+      return m_CanvasNodesMap;
+   }
 
-   QColor getColor(const int colorNumber) const;
-   void getAnchor(int& rX, int& rY);
-   void updatePosition();
+   public slots:
+   void advance();
 
    private:
-   CCanvas*                 m_Canvas;
-   CNode*                   m_Node;
-   CConfiguration*          m_Configuration;
-   QPixmap                  m_InactivePixmap;
-   QPixmap                  m_ActivePixmap;
-   double                   m_ZPosition;
-   QGraphicsRectItem*       m_pBackground;
-   QGraphicsSimpleTextItem* m_pTitle;
-   QGraphicsSimpleTextItem* m_pStatusText;
-   QGraphicsSimpleTextItem* m_pLocationText;
-   QGraphicsSimpleTextItem* m_pWorkload;
-   QGraphicsRectItem*       m_pWorkloadBackground;
-
-   struct LinkText
-   {
-      QGraphicsTextItem* m_pDurationText;
-      QGraphicsRectItem* m_pBackground;
-   };
-
-   QMap<QString, QGraphicsLineItem*> m_ConUIDsLinesMap;
-   QMap<QString, LinkText*>          m_ConUIDsTextMap;
+   RDConfiguration*             m_Configuration;
+   QTimer*                     m_AdvanceTimer;
+   QMap<QString, RDGraphicsNode*> m_CanvasNodesMap;
 };
 
 

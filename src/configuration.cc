@@ -1,4 +1,4 @@
-/* $Id$
+/*
  * ##########################################################################
  *
  *              //===//   //=====   //===//   //       //   //===//
@@ -13,7 +13,7 @@
  *
  * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Copyright (C) 2002-2017 by Thomas Dreibholz
+ *   Copyright (C) 2002-2019 by Thomas Dreibholz
  *
  *   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
  *            Sebastian Rohde, rohde@iem.uni-due.de
@@ -66,7 +66,7 @@ const char g_BackgroundImageTag[]      = "BackgroundImage";
 const char g_CaptionTag[]              = "Caption";
 
 
-CConfiguration::CConfiguration(QWidget*       canvasWidget,
+RDConfiguration::RDConfiguration(QWidget*       canvasWidget,
                                const QString& configFile)
    : m_CanvasWidget(canvasWidget),
      m_DisplaySizeX(0),
@@ -131,7 +131,7 @@ CConfiguration::CConfiguration(QWidget*       canvasWidget,
 }
 
 
-CConfiguration::~CConfiguration()
+RDConfiguration::~RDConfiguration()
 {
    while (!m_Nodes.isEmpty()) {
       delete m_Nodes.takeFirst();
@@ -139,7 +139,7 @@ CConfiguration::~CConfiguration()
 }
 
 
-CNode* CConfiguration::createNode(QDomElement element)
+CNode* RDConfiguration::createNode(QDomElement element)
 {
    QLinkedList<CContextMenuConfig*> contextNodes;
    QString                          uniqueID;
@@ -202,7 +202,7 @@ CNode* CConfiguration::createNode(QDomElement element)
 }
 
 
-CContextMenuConfig* CConfiguration::createContextMenuEntry(const QString&     nodeName,
+CContextMenuConfig* RDConfiguration::createContextMenuEntry(const QString&     nodeName,
                                                            const QDomElement& element)
 {
    QString  itemName;
@@ -230,7 +230,7 @@ CContextMenuConfig* CConfiguration::createContextMenuEntry(const QString&     no
 }
 
 
-void CConfiguration::updateNodeData()
+void RDConfiguration::updateNodeData()
 {
    m_NetworkListener->update();
 }

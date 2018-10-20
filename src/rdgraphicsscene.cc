@@ -1,4 +1,4 @@
-/* $Id$
+/*
  * ##########################################################################
  *
  *              //===//   //=====   //===//   //       //   //===//
@@ -13,7 +13,7 @@
  *
  * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Copyright (C) 2002-2017 by Thomas Dreibholz
+ *   Copyright (C) 2002-2019 by Thomas Dreibholz
  *
  *   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
  *            Sebastian Rohde, rohde@iem.uni-due.de
@@ -34,37 +34,38 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#include <QContextMenuEvent>
-#include <QGraphicsItem>
-
-#include "canvasview.h"
-#include "canvasnode.h"
+#include "rdgraphicsscene.h"
 #include "mainwidget.h"
 
 
-CSerPoolCanvasView::CSerPoolCanvasView(QGraphicsScene* canvas, QWidget* parent = 0)
-   : QGraphicsView(canvas, parent)
+// ###### Constructor #######################################################
+RDGraphicsScene::RDGraphicsScene(QObject* parent, RDConfiguration* configuration)
+   : QGraphicsScene(parent),
+     m_Configuration(configuration)
+{
+    m_AdvanceTimer = new QTimer(this);
+    Q_CHECK_PTR(m_AdvanceTimer);
+    QObject::connect(m_AdvanceTimer, SIGNAL(timeout()), this, SLOT(advance()));
+}
+
+
+// ###### Destructor ########################################################
+RDGraphicsScene::~RDGraphicsScene()
 {
 }
 
 
-CSerPoolCanvasView::~CSerPoolCanvasView()
+// ###### Set advance period ################################################
+void RDGraphicsScene::setAdvancePeriod(int ms)
 {
+    m_AdvanceTimer->setInterval(ms);
+    m_AdvanceTimer->start();
 }
 
 
-void CSerPoolCanvasView::contentsContextMenuEvent(QContextMenuEvent* event)
+// ###### Update scenario ###################################################
+void RDGraphicsScene::advance()
 {
-#if 0
-   QList<QGraphicsItem*> list = scene()->collidingItems(event->pos());
-   CCanvasNode*          node = 0;
-   for(QList<QGraphicsItem*>::iterator it = list.begin();it != list.end();++it) {
-      node = dynamic_cast<CCanvasNode *>(*it) ;
-      if(node) {
-         node->m_ContextMenu->exec(event->globalPos());
-         return;
-      }
-   }
-#endif
-   puts("FIXME: contentsContextMenuEvent()");
+   m_Configuration->updateNodeData();
+   QGraphicsScene::advance();
 }

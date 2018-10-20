@@ -34,65 +34,61 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#ifndef COMPONENTSTATUSPACKETS_H
-#define COMPONENTSTATUSPACKETS_H
+#ifndef RDGRAPHICSNODE_H
+#define RDGRAPHICSNODE_H
 
-#include <stdint.h>
+#include <QMap>
+#include <QLinkedList>
+#include <QPixmap>
+#include <QMenu>
+#include <QGraphicsPixmapItem>
+#include <QGraphicsSceneContextMenuEvent>
 
-
-#define CSP_VERSION        0x0200
-
-
-#define CID_GROUP(id)  (((uint64_t)id >> 56) & (0xffffULL))
-#define CID_OBJECT(id) ((uint64_t)id & 0xffffffffffffffULL)
-
-#define CID_GROUP_REGISTRAR   0x0001
-#define CID_GROUP_POOLELEMENT 0x0002
-#define CID_GROUP_POOLUSER    0x0003
-
-#define CID_COMPOUND(group, object)  ((((uint64_t)(group & 0xffff)) << 56) | CID_OBJECT((uint64_t)object))
+#include "configuration.h"
+#include "rdgraphicsscene.h"
+#include "node.h"
 
 
-#define CSPT_REPORT           0x01
-
-struct ComponentStatusCommonHeader
+class RDGraphicsNode : public QGraphicsPixmapItem
 {
-   uint8_t  Type;
-   uint8_t  Flags;
-   uint16_t Length;
-   uint32_t Version;
-   uint64_t SenderID;
-   uint64_t SenderTimeStamp;
+   public:
+   RDGraphicsNode(RDGraphicsScene*        canvas,
+               CNode*          node,
+               RDConfiguration* configuration,
+               const QPixmap&  inactivePixmap,
+               const QPixmap&  activePixmap);
+   virtual ~RDGraphicsNode();
+
+   virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+   virtual void advance(int phase);
+
+   QColor getColor(const int colorNumber) const;
+   void getAnchor(int& rX, int& rY);
+   void updatePosition();
+
+   private:
+   RDGraphicsScene*                 m_Canvas;
+   CNode*                   m_Node;
+   RDConfiguration*          m_Configuration;
+   QPixmap                  m_InactivePixmap;
+   QPixmap                  m_ActivePixmap;
+   double                   m_ZPosition;
+   QGraphicsRectItem*       m_pBackground;
+   QGraphicsSimpleTextItem* m_pTitle;
+   QGraphicsSimpleTextItem* m_pStatusText;
+   QGraphicsSimpleTextItem* m_pLocationText;
+   QGraphicsSimpleTextItem* m_pWorkload;
+   QGraphicsRectItem*       m_pWorkloadBackground;
+
+   struct LinkText
+   {
+      QGraphicsTextItem* m_pDurationText;
+      QGraphicsRectItem* m_pBackground;
+   };
+
+   QMap<QString, QGraphicsLineItem*> m_ConUIDsLinesMap;
+   QMap<QString, LinkText*>          m_ConUIDsTextMap;
 };
-
-
-#define CSPR_LOCATION_SIZE 128
-#define CSPR_STATUS_SIZE   128
-
-struct ComponentAssociation
-{
-   uint64_t ReceiverID;
-   uint64_t Duration;
-   uint16_t Flags;
-   uint16_t ProtocolID;
-   uint32_t PPID;
-};
-
-struct ComponentStatusReport
-{
-   struct ComponentStatusCommonHeader Header;
-
-   uint32_t                           ReportInterval;
-   char                               Location[CSPR_LOCATION_SIZE];
-   char                               Status[CSPR_STATUS_SIZE];
-
-   uint16_t                           Workload;
-   uint16_t                           Associations;
-   struct ComponentAssociation        AssociationArray[0];
-};
-
-#define CSR_SET_WORKLOAD(w) ((w < 0.0) ? 0xffff : (uint16_t)rint(w * 0xfffe))
-#define CSR_GET_WORKLOAD(w) ((w == 0xffff) ? -1.0 : (double)(w / (double)0xfffe))
 
 
 #endif

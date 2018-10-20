@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/src/bash
 # $Id$
 # * ##########################################################################
 # *
@@ -69,22 +69,22 @@ for SERVER in $SERVER_LIST; do
          mkdir src/rsplib2 ; \
       fi && \
       rm -f ~/src/rsplib2/rsplib && \
-      ln -s ~/bin ~/src/rsplib2/rsplib && \
+      ln -s ~/src ~/src/rsplib2/rsplib && \
       if [ ! -e src/rserpooldemo ] ; then \
          echo \"\`date\`: Creating new src/rserpooldemo directory on $SERVER ...\" &&
          mkdir src/rserpooldemo ; \
       fi && \
-      if [ ! -e src/rserpooldemo/bin ] ; then \
-         echo \"\`date\`: Creating new src/rserpooldemo/bin directory on $SERVER ...\" &&
-         mkdir src/rserpooldemo/bin ; \
+      if [ ! -e src/rserpooldemo/src ] ; then \
+         echo \"\`date\`: Creating new src/rserpooldemo/src directory on $SERVER ...\" &&
+         mkdir src/rserpooldemo/src ; \
       fi && \
-      rm -rf src/rserpooldemo/bin && \
-      mkdir src/rserpooldemo/bin && \
-      if [ ! -e src/rserpooldemo/bin/output ] ; then \
-         echo \"\`date\`: Creating new src/rserpooldemo/bin/output directory on $SERVER ...\" &&
-         mkdir src/rserpooldemo/bin/output ; \
+      rm -rf src/rserpooldemo/src && \
+      mkdir src/rserpooldemo/src && \
+      if [ ! -e src/rserpooldemo/src/output ] ; then \
+         echo \"\`date\`: Creating new src/rserpooldemo/src/output directory on $SERVER ...\" &&
+         mkdir src/rserpooldemo/src/output ; \
       fi && \
-      cd src/rserpooldemo/bin && \
+      cd src/rserpooldemo/src && \
       tar xjf /tmp/planetlab-setup.tar.bz2 && \
       rm -f /tmp/$DISTNAME-bin.tar.bz2 && \
       date >LastUpdate && \

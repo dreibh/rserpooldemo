@@ -1,4 +1,4 @@
-/* $Id$
+/*
  * ##########################################################################
  *
  *              //===//   //=====   //===//   //       //   //===//
@@ -13,7 +13,7 @@
  *
  * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Copyright (C) 2002-2017 by Thomas Dreibholz
+ *   Copyright (C) 2002-2019 by Thomas Dreibholz
  *
  *   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
  *            Sebastian Rohde, rohde@iem.uni-due.de
@@ -34,40 +34,22 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#ifndef CANVAS_H
-#define CANVAS_H
+#ifndef RDGRAPHICSVIEW_H
+#define RDGRAPHICSVIEW_H
 
-#include <QMap>
-#include <QString>
-#include <QTimer>
-#include <QGraphicsScene>
-
-#include "configuration.h"
+#include <QGraphicsView>
+#include <QContextMenuEvent>
 
 
-class CCanvasNode;
-
-
-class CCanvas : public QGraphicsScene
+class RDGraphicsView : public QGraphicsView
 {
    Q_OBJECT
    public:
-   CCanvas(QObject* parent, CConfiguration* configuration);
-   ~CCanvas();
+   RDGraphicsView(QGraphicsScene* canvas, QWidget* parent);
+   virtual ~RDGraphicsView();
 
-   void setAdvancePeriod(int ms);
-   inline QMap<QString, CCanvasNode*>& getCanvasNodesMap() {
-      return m_CanvasNodesMap;
-   }
-
-   public slots:
-   void advance();
-
-   private:
-   CConfiguration*             m_Configuration;
-   QTimer*                     m_AdvanceTimer;
-   QMap<QString, CCanvasNode*> m_CanvasNodesMap;
+   protected:
+   void contentsContextMenuEvent(QContextMenuEvent* event);
 };
-
 
 #endif

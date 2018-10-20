@@ -1,4 +1,4 @@
-/* $Id$
+/*
  * ##########################################################################
  *
  *              //===//   //=====   //===//   //       //   //===//
@@ -13,7 +13,7 @@
  *
  * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Copyright (C) 2002-2017 by Thomas Dreibholz
+ *   Copyright (C) 2002-2019 by Thomas Dreibholz
  *
  *   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
  *            Sebastian Rohde, rohde@iem.uni-due.de
@@ -34,38 +34,49 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#include "canvas.h"
+#include <QApplication>
+#include <QString>
+#include <QFile>
+#include <iostream>
+
 #include "mainwidget.h"
 
 
-// ###### Constructor #######################################################
-CCanvas::CCanvas(QObject* parent, CConfiguration* configuration)
-   : QGraphicsScene(parent),
-     m_Configuration(configuration)
+int main(int argc, char** argv)
 {
-    m_AdvanceTimer = new QTimer(this);
-    Q_CHECK_PTR(m_AdvanceTimer);
-    QObject::connect(m_AdvanceTimer, SIGNAL(timeout()), this, SLOT(advance()));
-}
+   try {
+      const QString configFileTag = "-config=";
+      QString configFile = "local-setup.xml";
+      for(int i = 1;i < argc;i++) {
+         const QString command = argv[i];
+         if(command.indexOf(configFileTag) == 0) {
+            configFile = command.mid(configFileTag.length());
+         }
+         else if(QFile::exists(command)) {
+            configFile = command;
+         }
+      }
 
+      std::cout << "Using configuration \"" << configFile.toLocal8Bit().constData() << "\" ..." << std::endl;
+      QApplication application(argc, argv);
+      CMainWidget* mainWindow = new CMainWidget(configFile);
+      Q_CHECK_PTR(mainWindow);
+      mainWindow->show();
 
-// ###### Destructor ########################################################
-CCanvas::~CCanvas()
-{
-}
-
-
-// ###### Set advance period ################################################
-void CCanvas::setAdvancePeriod(int ms)
-{
-    m_AdvanceTimer->setInterval(ms);
-    m_AdvanceTimer->start();
-}
-
-
-// ###### Update scenario ###################################################
-void CCanvas::advance()
-{
-   m_Configuration->updateNodeData();
-   QGraphicsScene::advance();
+      return application.exec();
+   }
+   catch(ELoadFileException& e) {
+      std::cerr << "Unable to load config file!"  << std::endl;
+      return 1;
+   }
+   catch(EXMLSyntaxException& e) {
+      std::cerr << "Unable to load config file!"          << std::endl
+                << "Error: " << e.m_Message.toStdString() << std::endl
+                << "Line:  " << e.m_Line                  << std::endl;
+      return 1;
+   }
+   catch(...) {
+      std::cerr << "Error!" << std::endl;
+      return 1;
+   }
 }

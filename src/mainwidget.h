@@ -1,4 +1,4 @@
-/* $Id$
+/*
  * ##########################################################################
  *
  *              //===//   //=====   //===//   //       //   //===//
@@ -13,7 +13,7 @@
  *
  * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Copyright (C) 2002-2017 by Thomas Dreibholz
+ *   Copyright (C) 2002-2019 by Thomas Dreibholz
  *
  *   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
  *            Sebastian Rohde, rohde@iem.uni-due.de
@@ -43,12 +43,12 @@
 #include <QResizeEvent>
 
 #include "configuration.h"
-#include "canvasnode.h"
-#include "canvas.h"
+#include "rdgraphicsnode.h"
+#include "rdgraphicsscene.h"
 
 
-class CConfiguration;
-class CSerPoolCanvasView;
+class RDConfiguration;
+class RDGraphicsView;
 
 
 class CMainWidget : public QMainWindow
@@ -58,7 +58,7 @@ class CMainWidget : public QMainWindow
    CMainWidget(const QString& configFile);
    virtual ~CMainWidget();
 
-   CConfiguration m_Configuration;
+   RDConfiguration m_Configuration;
    QImage         m_BackgroundImage;
 
    protected:
@@ -67,8 +67,8 @@ class CMainWidget : public QMainWindow
    private:
    void createCanvasObjects();
 
-   CCanvas*            m_Canvas;
-   CSerPoolCanvasView* m_CanvasView;
+   RDGraphicsScene*            m_Canvas;
+   RDGraphicsView* m_CanvasView;
 };
 
 

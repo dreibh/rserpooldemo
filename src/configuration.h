@@ -1,4 +1,4 @@
-/* $Id$
+/*
  * ##########################################################################
  *
  *              //===//   //=====   //===//   //       //   //===//
@@ -13,7 +13,7 @@
  *
  * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Copyright (C) 2002-2017 by Thomas Dreibholz
+ *   Copyright (C) 2002-2019 by Thomas Dreibholz
  *
  *   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
  *            Sebastian Rohde, rohde@iem.uni-due.de
@@ -62,12 +62,12 @@ class EXMLSyntaxException
 
 class CNetworkListener;
 
-class CConfiguration
+class RDConfiguration
 {
    public:
-   CConfiguration(QWidget*       canvasWidet,
+   RDConfiguration(QWidget*       canvasWidet,
                   const QString& configFile);
-   ~CConfiguration();
+   ~RDConfiguration();
 
    inline int getDisplaySizeX() const {
       return m_DisplaySizeX;
