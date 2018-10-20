@@ -42,6 +42,7 @@
 #include "rdmainwindow.h"
 
 
+// ###### Main program ######################################################
 int main(int argc, char** argv)
 {
    try {
