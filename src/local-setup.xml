@@ -7,7 +7,7 @@ $Id$
 *             //    //  //        //    //  //       //   //    //
 *            //===//   //=====   //===//   //       //   //===<<
 *           //   \\         //  //        //       //   //    //
-*          //     \\  =====//  //        //=====  //   //===//    Version II
+*          //     \\  =====//  //        //=====  //   //===//   Version III
 *
 *             ###################################################
 *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
@@ -15,7 +15,7 @@ $Id$
 *
 * ############# An Efficient RSerPool Prototype Implementation #############
 *
-* Copyright (C) 2002-2017 by Thomas Dreibholz
+* Copyright (C) 2002-2019 by Thomas Dreibholz
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
