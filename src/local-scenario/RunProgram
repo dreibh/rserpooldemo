@@ -1,5 +1,4 @@
-#!/bin/bash
-# $Id$
+#!/bin/sh
 # * ##########################################################################
 # *
 # *              //===//   //=====   //===//   //       //   //===//
@@ -32,31 +31,15 @@
 # * Contact: dreibh.iem.uni-due.de
 
 if [ $# -lt 1 ] ; then
-   echo >&2 "Usage: LocalScenario-StopAll [stop|kill]"
+   echo >&2 "Usage: RunProgram [Program] {Arguments ...}"
    exit 1
 fi
 
-
-if [ "x$1" = "xstop" ] ; then
-   command=stopall
-elif [ "x$1" = "xkill" ] ; then
-   command=killall
-else
-   echo >&2 "ERROR: Bad command $1!"
-   exit 1
-fi
+RP_PROGRAM=$1
+shift
+RP_MISCARGS=$@
 
 
-./ComponentControl ./LocalScenario.config PU 0 killall
-./ComponentControl ./LocalScenario.config PE 0 $command
-./ComponentControl ./LocalScenario.config PR 0 $command
-
-if [ "$command" = "killall" ] ; then
-   rm -f output/*.pid output/*.log || true
-   killall -KILL server || true
-   killall -KILL lt-server || true
-   killall -KILL registrar || true
-   killall -KILL lt-registrar || true
-   killall -KILL fractalpooluser || true
-   killall -KILL lt-fractalpooluser || true
-fi
+echo "Launching $RP_PROGRAM $RP_MISCARGS ..."
+sh -c "$RP_PROGRAM $RP_MISCARGS &"
+echo "Done"
