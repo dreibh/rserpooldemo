@@ -5,11 +5,11 @@ ADD_EXECUTABLE(rserpooldemo
    rdgraphicsscene.cc
    rdgraphicsnode.cc
    rdgraphicsview.cc
-   configuration.cc
-   contextmenuconfig.cc
+   rdconfiguration.cc
+   rdconfignode.cc
+   rdcontextmenuconfig.cc
    mainwidget.cc
    networklistener.cc
-   node.cc
    rserpooldemo.cc
 )
 

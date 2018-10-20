@@ -34,42 +34,77 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#ifndef CONTEXTMENUCONFIG_H
-#define CONTEXTMENUCONFIG_H
-
-#include <QObject>
-#include <QString>
-#include <QProcess>
+#include "rdconfignode.h"
+#include "networklistener.h"
 
 
-class CContextMenuConfig : public QObject
+RDConfigNode::RDConfigNode(QString uniqueID,
+             QString displayName,
+             QString imageActive,
+             QString imageInactive,
+             int     positionX,
+             int     positionY,
+             int     timeoutMultiplier)
+   : m_UniqueID(uniqueID),
+     m_DisplayName(displayName),
+     m_ImageActive(imageActive),
+     m_ImageInactive(imageInactive),
+     m_PositionX(positionX),
+     m_PositionY(positionY),
+     m_TimeoutMultiplier(timeoutMultiplier),
+     m_State(INACTIVE),
+     m_ReportInterval(6000000),
+     m_LastUpdated(0),
+     m_Workload(-1.0)
 {
-   Q_OBJECT
-   public:
-   CContextMenuConfig(QWidget*       parent,
-                      const QString& nodeName,
-                      const QString& itemName,
-                      const QString& commandLine);
-   virtual ~CContextMenuConfig();
+}
 
-   inline const QString& getName() const {
-      return m_ItemName;
+
+RDConfigNode::~RDConfigNode()
+{
+   while (!m_ContextMenuEntries.isEmpty()) {
+      delete m_ContextMenuEntries.takeFirst();
    }
+}
 
-   public slots:
-   virtual void execute();
 
-   private slots:
-   virtual void processFinished(int, QProcess::ExitStatus);
-   virtual void readStdout();
-   virtual void readStderr();
+void RDConfigNode::setUpdated()
+{
+   m_LastUpdated = CNetworkListener::getMicroTime();
+}
 
-   private:
-   QWidget*         m_Parent;
-   QString          m_NodeName;
-   QString          m_ItemName;
-   QString          m_CommandLine;
-   static QProcess* m_pProcess;
-};
 
-#endif
+double RDConfigNode::getWorkload() const
+{
+   if((m_State == ACTIVE) &&
+      (m_Workload >= 0.0)) {
+      return(m_Workload);
+   }
+   return(-1.0);
+}
+
+
+const QString RDConfigNode::getWorkloadString() const
+{
+   if((m_State == ACTIVE) &&
+      (m_Workload >= 0.0)) {
+      char str[16];
+      snprintf((char*)&str, sizeof(str), "%1.0f%%", 100.0 * m_Workload);
+      return(QString(str));
+   }
+   return(QString(""));
+}
+
+
+void RDConfigNode::updateStatus()
+{
+   if((m_LastUpdated + (m_ReportInterval*m_TimeoutMultiplier)) < CNetworkListener::getMicroTime()) {
+      m_State = INACTIVE;
+      m_ConnectedUIDsMap.clear();
+      m_StatusText = "";
+      m_LocationText = "";
+   }
+   else {
+      m_State = ACTIVE;
+   }
+}

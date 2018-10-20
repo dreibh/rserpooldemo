@@ -44,16 +44,16 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsSceneContextMenuEvent>
 
-#include "configuration.h"
+#include "rdconfiguration.h"
 #include "rdgraphicsscene.h"
-#include "node.h"
+#include "rdconfignode.h"
 
 
 class RDGraphicsNode : public QGraphicsPixmapItem
 {
    public:
    RDGraphicsNode(RDGraphicsScene*        canvas,
-               CNode*          node,
+               RDConfigNode*          node,
                RDConfiguration* configuration,
                const QPixmap&  inactivePixmap,
                const QPixmap&  activePixmap);
@@ -68,7 +68,7 @@ class RDGraphicsNode : public QGraphicsPixmapItem
 
    private:
    RDGraphicsScene*                 m_Canvas;
-   CNode*                   m_Node;
+   RDConfigNode*                   m_Node;
    RDConfiguration*          m_Configuration;
    QPixmap                  m_InactivePixmap;
    QPixmap                  m_ActivePixmap;

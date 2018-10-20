@@ -44,17 +44,17 @@
 #include <sys/time.h>
 #include <time.h>
 
-#include "node.h"
+#include "rdconfignode.h"
 #include "componentstatuspackets.h"
 
 
-class CNode;
+class RDConfigNode;
 
 class CNetworkListener
 {
    public:
    CNetworkListener(int                    listenPort,
-                    QMap<QString, CNode*>& nodesMap);
+                    QMap<QString, RDConfigNode*>& nodesMap);
    ~CNetworkListener();
 
 
@@ -98,7 +98,7 @@ class CNetworkListener
    }
 
    int                    m_ListenPort;
-   QMap<QString, CNode*>& m_NodesMap;
+   QMap<QString, RDConfigNode*>& m_NodesMap;
    QUdpSocket*            m_SocketDevice;
 };
 

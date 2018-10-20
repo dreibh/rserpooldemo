@@ -43,20 +43,20 @@
 
 #include <netinet/in.h>
 
-#include "contextmenuconfig.h"
+#include "rdcontextmenuconfig.h"
 
 
-class CNode
+class RDConfigNode
 {
    public:
-   CNode(QString uniqueID,
+   RDConfigNode(QString uniqueID,
          QString displayName,
          QString imageActive,
          QString imageInactive,
          int     positionX,
          int     positionY,
          int     timeoutMultiplier);
-   ~CNode();
+   ~RDConfigNode();
 
    enum NodeStatus
    {
@@ -91,7 +91,7 @@ class CNode
       return m_LocationText;
    }
 
-   inline QLinkedList<CContextMenuConfig*>& getContextMenuConfig() {
+   inline QLinkedList<RDContextMenuConfig*>& getContextMenuConfig() {
       return m_ContextMenuEntries;
    }
    inline QMap<QString, int>& getConnectedUIDsMap() {
@@ -134,7 +134,7 @@ class CNode
    int     m_TimeoutMultiplier;
 
    // Values need in RunTime
-   QLinkedList<CContextMenuConfig*> m_ContextMenuEntries;
+   QLinkedList<RDContextMenuConfig*> m_ContextMenuEntries;
    QMap<QString, int>               m_ConnectedUIDsMap;
    QMap<QString, uint64_t>          m_ConnectionDurationMap;
    QString                          m_StatusText;

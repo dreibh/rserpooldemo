@@ -84,9 +84,9 @@ CMainWidget::~CMainWidget()
 
 void CMainWidget::createCanvasObjects()
 {
-   QLinkedList<CNode*>& rNodeList = m_Configuration.getNodes();
-   for(QLinkedList<CNode*>::iterator it = rNodeList.begin();it != rNodeList.end();++it) {
-      CNode* pNode = *it;
+   QLinkedList<RDConfigNode*>& rNodeList = m_Configuration.getNodes();
+   for(QLinkedList<RDConfigNode*>::iterator it = rNodeList.begin();it != rNodeList.end();++it) {
+      RDConfigNode* pNode = *it;
       RDGraphicsNode* node = new RDGraphicsNode(m_Canvas, pNode, &m_Configuration,
                                             QPixmap(pNode->getImageInactive()),
                                             QPixmap(pNode->getImageActive()));

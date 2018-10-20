@@ -42,7 +42,7 @@
 #include <QTimer>
 #include <QGraphicsScene>
 
-#include "configuration.h"
+#include "rdconfiguration.h"
 
 
 class RDGraphicsNode;

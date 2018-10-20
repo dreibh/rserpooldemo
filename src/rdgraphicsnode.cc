@@ -44,7 +44,7 @@
 #include <QGraphicsView>
 
 #include "rdgraphicsnode.h"
-#include "node.h"
+#include "rdconfignode.h"
 #include "mainwidget.h"
 
 
@@ -55,7 +55,7 @@
 
 // ###### Constructor #######################################################
 RDGraphicsNode::RDGraphicsNode(RDGraphicsScene*        canvas,
-                         CNode*          node,
+                         RDConfigNode*          node,
                          RDConfiguration* configuration,
                          const QPixmap&  inactivePixmap,
                          const QPixmap&  activePixmap)
@@ -145,10 +145,10 @@ RDGraphicsNode::~RDGraphicsNode()
 void RDGraphicsNode::contextMenuEvent(QGraphicsSceneContextMenuEvent* event)
 {
    QMenu contextMenu;
-   QLinkedList<CContextMenuConfig*>& rNodeList = m_Node->getContextMenuConfig();
-   for(QLinkedList<CContextMenuConfig*>::iterator iterator = rNodeList.begin();
+   QLinkedList<RDContextMenuConfig*>& rNodeList = m_Node->getContextMenuConfig();
+   for(QLinkedList<RDContextMenuConfig*>::iterator iterator = rNodeList.begin();
        iterator != rNodeList.end(); ++iterator) {
-      CContextMenuConfig* pNode = *iterator;
+      RDContextMenuConfig* pNode = *iterator;
       if(pNode->getName() != "") {
          QAction* action = contextMenu.addAction(pNode->getName());
          Q_CHECK_PTR(action);

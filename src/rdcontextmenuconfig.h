@@ -34,77 +34,42 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#include "node.h"
-#include "networklistener.h"
+#ifndef CONTEXTMENUCONFIG_H
+#define CONTEXTMENUCONFIG_H
+
+#include <QObject>
+#include <QString>
+#include <QProcess>
 
 
-CNode::CNode(QString uniqueID,
-             QString displayName,
-             QString imageActive,
-             QString imageInactive,
-             int     positionX,
-             int     positionY,
-             int     timeoutMultiplier)
-   : m_UniqueID(uniqueID),
-     m_DisplayName(displayName),
-     m_ImageActive(imageActive),
-     m_ImageInactive(imageInactive),
-     m_PositionX(positionX),
-     m_PositionY(positionY),
-     m_TimeoutMultiplier(timeoutMultiplier),
-     m_State(INACTIVE),
-     m_ReportInterval(6000000),
-     m_LastUpdated(0),
-     m_Workload(-1.0)
+class RDContextMenuConfig : public QObject
 {
-}
+   Q_OBJECT
+   public:
+   RDContextMenuConfig(QWidget*       parent,
+                      const QString& nodeName,
+                      const QString& itemName,
+                      const QString& commandLine);
+   virtual ~RDContextMenuConfig();
 
-
-CNode::~CNode()
-{
-   while (!m_ContextMenuEntries.isEmpty()) {
-      delete m_ContextMenuEntries.takeFirst();
+   inline const QString& getName() const {
+      return m_ItemName;
    }
-}
 
+   public slots:
+   virtual void execute();
 
-void CNode::setUpdated()
-{
-   m_LastUpdated = CNetworkListener::getMicroTime();
-}
+   private slots:
+   virtual void processFinished(int, QProcess::ExitStatus);
+   virtual void readStdout();
+   virtual void readStderr();
 
+   private:
+   QWidget*         m_Parent;
+   QString          m_NodeName;
+   QString          m_ItemName;
+   QString          m_CommandLine;
+   static QProcess* m_pProcess;
+};
 
-double CNode::getWorkload() const
-{
-   if((m_State == ACTIVE) &&
-      (m_Workload >= 0.0)) {
-      return(m_Workload);
-   }
-   return(-1.0);
-}
-
-
-const QString CNode::getWorkloadString() const
-{
-   if((m_State == ACTIVE) &&
-      (m_Workload >= 0.0)) {
-      char str[16];
-      snprintf((char*)&str, sizeof(str), "%1.0f%%", 100.0 * m_Workload);
-      return(QString(str));
-   }
-   return(QString(""));
-}
-
-
-void CNode::updateStatus()
-{
-   if((m_LastUpdated + (m_ReportInterval*m_TimeoutMultiplier)) < CNetworkListener::getMicroTime()) {
-      m_State = INACTIVE;
-      m_ConnectedUIDsMap.clear();
-      m_StatusText = "";
-      m_LocationText = "";
-   }
-   else {
-      m_State = ACTIVE;
-   }
-}
+#endif

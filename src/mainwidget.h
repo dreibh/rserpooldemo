@@ -42,7 +42,7 @@
 #include <QImage>
 #include <QResizeEvent>
 
-#include "configuration.h"
+#include "rdconfiguration.h"
 #include "rdgraphicsnode.h"
 #include "rdgraphicsscene.h"
 

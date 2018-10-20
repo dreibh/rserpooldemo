@@ -39,7 +39,7 @@
 #include <QMessageBox>
 #include <QLinkedList>
 
-#include "configuration.h"
+#include "rdconfiguration.h"
 #include "networklistener.h"
 
 
@@ -115,7 +115,7 @@ RDConfiguration::RDConfiguration(QWidget*       canvasWidget,
          }
          else if((currentNode.toElement().tagName() == QString(g_NodeTag)) ||
                  (currentNode.toElement().tagName() == QString(g_RSPNodeTag))) {
-            CNode* node = createNode(currentNode.toElement());
+            RDConfigNode* node = createNode(currentNode.toElement());
             m_Nodes.append(node);
             m_NodesMap[node->getUniqueID()] = node;
          }
@@ -139,9 +139,9 @@ RDConfiguration::~RDConfiguration()
 }
 
 
-CNode* RDConfiguration::createNode(QDomElement element)
+RDConfigNode* RDConfiguration::createNode(QDomElement element)
 {
-   QLinkedList<CContextMenuConfig*> contextNodes;
+   QLinkedList<RDContextMenuConfig*> contextNodes;
    QString                          uniqueID;
    QString                          displayName;
    QString                          imageActive;
@@ -184,7 +184,7 @@ CNode* RDConfiguration::createNode(QDomElement element)
             contextNodes.append(createContextMenuEntry(displayName, currentNode.toElement()));
          }
          else if(currentNode.toElement().tagName() == QString(g_ContextMenuSeparatorTag)) {
-            contextNodes.append(new CContextMenuConfig(m_CanvasWidget, "", "", ""));
+            contextNodes.append(new RDContextMenuConfig(m_CanvasWidget, "", "", ""));
          }
          else {
             QMessageBox::critical(0, "Error!", "Found unknown tag in config file: " +
@@ -194,7 +194,7 @@ CNode* RDConfiguration::createNode(QDomElement element)
 
       currentNode = currentNode.nextSibling();
    }
-   CNode* node = new CNode(uniqueID, displayName,
+   RDConfigNode* node = new RDConfigNode(uniqueID, displayName,
                            imageActive, imageInactive,
                            positionX, positionY, refreshTimeout);
    node->getContextMenuConfig() = contextNodes;
@@ -202,7 +202,7 @@ CNode* RDConfiguration::createNode(QDomElement element)
 }
 
 
-CContextMenuConfig* RDConfiguration::createContextMenuEntry(const QString&     nodeName,
+RDContextMenuConfig* RDConfiguration::createContextMenuEntry(const QString&     nodeName,
                                                            const QDomElement& element)
 {
    QString  itemName;
@@ -225,7 +225,7 @@ CContextMenuConfig* RDConfiguration::createContextMenuEntry(const QString&     n
       currentNode = currentNode.nextSibling();
    }
 
-   CContextMenuConfig* node = new CContextMenuConfig(m_CanvasWidget, nodeName, itemName, commandLine);
+   RDContextMenuConfig* node = new RDContextMenuConfig(m_CanvasWidget, nodeName, itemName, commandLine);
    return node;
 }
 

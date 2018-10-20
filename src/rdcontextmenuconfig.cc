@@ -38,14 +38,14 @@
 #include <QCursor>
 #include <iostream>
 
-#include "contextmenuconfig.h"
+#include "rdcontextmenuconfig.h"
 
 
-QProcess* CContextMenuConfig::m_pProcess = NULL;
+QProcess* RDContextMenuConfig::m_pProcess = NULL;
 
 
 // ###### Constructor #######################################################
-CContextMenuConfig::CContextMenuConfig(QWidget*       parent,
+RDContextMenuConfig::RDContextMenuConfig(QWidget*       parent,
                                        const QString& nodeName,
                                        const QString& itemName,
                                        const QString& commandLine)
@@ -58,7 +58,7 @@ CContextMenuConfig::CContextMenuConfig(QWidget*       parent,
 
 
 // ###### Destructor ########################################################
-CContextMenuConfig::~CContextMenuConfig()
+RDContextMenuConfig::~RDContextMenuConfig()
 {
 }
 
@@ -115,7 +115,7 @@ static QStringList splitCommandLine(const QString& commandLine)
 }
 
 
-void CContextMenuConfig::execute()
+void RDContextMenuConfig::execute()
 {
    // ====== Ensure that no other process is running ========================
    if(m_pProcess) {
@@ -163,7 +163,7 @@ void CContextMenuConfig::execute()
 
 
 // ###### Print stdout ######################################################
-void CContextMenuConfig::readStdout()
+void RDContextMenuConfig::readStdout()
 {
    std::cout << "stdout " << m_NodeName.toStdString() << "> "
              << m_pProcess->readAllStandardOutput().toStdString() << std::endl;
@@ -171,7 +171,7 @@ void CContextMenuConfig::readStdout()
 
 
 // ###### Print stderr ######################################################
-void CContextMenuConfig::readStderr()
+void RDContextMenuConfig::readStderr()
 {
    std::cerr << "stderr " << m_NodeName.toStdString()<< "> "
              << m_pProcess->readAllStandardError().toStdString() << std::endl;
@@ -179,7 +179,7 @@ void CContextMenuConfig::readStderr()
 
 
 // ###### Handle exit code ##################################################
-void CContextMenuConfig::processFinished(int exitCode, QProcess::ExitStatus)
+void RDContextMenuConfig::processFinished(int exitCode, QProcess::ExitStatus)
 {
    if(m_pProcess->exitStatus() != 0) {
       QMessageBox::critical(0, "Error!",
