@@ -88,10 +88,10 @@ class RDConfiguration
       return m_BackgroundImageName;
    }
    inline QLinkedList<RDConfigNode*>& getNodes() {
-      return m_Nodes;
+      return m_ConfigNodes;
    }
    inline QMap<QString, RDConfigNode*>& getNodesMap() {
-      return m_NodesMap;
+      return m_ConfigNodesMap;
    }
    inline QMap<int, QString>& getColorMap() {
       return m_ColorMap;
@@ -111,8 +111,8 @@ class RDConfiguration
    QWidget*                     m_GraphicsSceneWidget;
    QString                      m_Caption;
    QString                      m_BackgroundImageName;
-   QLinkedList<RDConfigNode*>   m_Nodes;
-   QMap<QString, RDConfigNode*> m_NodesMap;
+   QLinkedList<RDConfigNode*>   m_ConfigNodes;
+   QMap<QString, RDConfigNode*> m_ConfigNodesMap;
    QMap<int, QString>           m_ColorMap;
    CSPListener*                 m_NetworkListener;
    int                          m_DisplaySizeX;

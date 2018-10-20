@@ -114,8 +114,8 @@ RDConfiguration::RDConfiguration(QWidget*       canvasWidget,
          }
          else if(currentNode.toElement().tagName() == QString(g_NodeTag)) {
             RDConfigNode* node = createNode(currentNode.toElement());
-            m_Nodes.append(node);
-            m_NodesMap[node->getUniqueID()] = node;
+            m_ConfigNodes.append(node);
+            m_ConfigNodesMap[node->getUniqueID()] = node;
          }
          else {
             QMessageBox::critical(0, "Error!", "Found unknown tag in config file: " +
@@ -125,14 +125,14 @@ RDConfiguration::RDConfiguration(QWidget*       canvasWidget,
       currentNode = currentNode.nextSibling();
    }
 
-   m_NetworkListener = new CSPListener(m_ListenPort, m_NodesMap);
+   m_NetworkListener = new CSPListener(m_ListenPort, m_ConfigNodesMap);
 }
 
 
 RDConfiguration::~RDConfiguration()
 {
-   while (!m_Nodes.isEmpty()) {
-      delete m_Nodes.takeFirst();
+   while (!m_ConfigNodes.isEmpty()) {
+      delete m_ConfigNodes.takeFirst();
    }
 }
 
