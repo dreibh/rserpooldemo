@@ -3,7 +3,7 @@ TEMP_EPS=`mktemp /tmp/tmpEPS.XXXXXXXXXX`
 TEMP_PDF1=`mktemp /tmp/tmpPDF1.XXXXXXXXXX`
 TEMP_PDF2=`mktemp /tmp/tmpPDF2.XXXXXXXXXX`
 
-dia-normal -n -t eps-pango -e $TEMP_EPS Logo-RSPLIB.dia >/dev/null && \
+dia-normal -n -t eps-pango -e $TEMP_EPS Logo-RSPLIB.dia >/dev/null || dia -n -t eps-pango -e $TEMP_EPS Logo-RSPLIB.dia >/dev/null && \
 epstopdf --outfile=$TEMP_PDF1 $TEMP_EPS && \
 pdfcrop $TEMP_PDF1 $TEMP_PDF2 && \
 convert -density 300x300 $TEMP_PDF2 ${OUTPUT}
