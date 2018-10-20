@@ -9,6 +9,9 @@ Source: https://www.uni-due.de/~be0001/rserpool/download/%{name}-%{version}.tar.
 
 AutoReqProv: on
 BuildRequires: cmake
+BuildRequires: gcc
+BuildRequires: gcc-c++
+BuildRequires: qt5-qtbase-devel
 BuildRequires: bc
 BuildRequires: perl-Image-ExifTool
 BuildRequires: gimp
@@ -17,7 +20,7 @@ BuildRequires: python3
 BuildRequires: python3-wand
 BuildRequires: ghostscript
 BuildRequires: texlive-epstopdf-bin
-BuildRequires: texlive-pdfcrop-bin
+BuildRequires: texlive-pdfcrop-bin texlive-pdftex-bin
 BuildRequires: dia
 BuildRoot: %{_tmppath}/%{name}-%{version}-build
 
@@ -31,7 +34,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-build
 %setup -q
 
 %build
-%cmake -DCMAKE_INSTALL_PREFIX=/us -DFLAT_DIRECTORY_STRUCTURE=1 -DBUILD_A4=1 .
+%cmake -DCMAKE_INSTALL_PREFIX=/us -DFLAT_DIRECTORY_STRUCTURE=1 -DBUILD_BOOTSPLASH=1 .
 make %{?_smp_mflags}
 
 %install
