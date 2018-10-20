@@ -1,11 +1,11 @@
-/* $Id$
+/*
  * ##########################################################################
  *
  *              //===//   //=====   //===//   //       //   //===//
  *             //    //  //        //    //  //       //   //    //
  *            //===//   //=====   //===//   //       //   //===<<
  *           //   \\         //  //        //       //   //    //
- *          //     \\  =====//  //        //=====  //   //===//    Version II
+ *          //     \\  =====//  //        //=====  //   //===//   Version III
  *
  *             ###################################################
  *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
@@ -34,42 +34,22 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#ifndef MAINWIDGET_H
-#define MAINWIDGET_H
+#ifndef RDGRAPHICSVIEW_H
+#define RDGRAPHICSVIEW_H
 
-#include <QMainWindow>
-#include <QMap>
-#include <QImage>
-#include <QResizeEvent>
-
-#include "configuration.h"
-#include "canvasnode.h"
-#include "canvas.h"
+#include <QGraphicsView>
+#include <QContextMenuEvent>
 
 
-class CConfiguration;
-class CSerPoolCanvasView;
-
-
-class CMainWidget : public QMainWindow
+class RDGraphicsView : public QGraphicsView
 {
    Q_OBJECT
    public:
-   CMainWidget(const QString& configFile);
-   virtual ~CMainWidget();
-
-   CConfiguration m_Configuration;
-   QImage         m_BackgroundImage;
+   RDGraphicsView(QGraphicsScene* canvas, QWidget* parent);
+   virtual ~RDGraphicsView();
 
    protected:
-   void resizeEvent(QResizeEvent* event);
-
-   private:
-   void createCanvasObjects();
-
-   CCanvas*            m_Canvas;
-   CSerPoolCanvasView* m_CanvasView;
+   void contentsContextMenuEvent(QContextMenuEvent* event);
 };
-
 
 #endif

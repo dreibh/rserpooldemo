@@ -1,11 +1,11 @@
-/* $Id$
+/*
  * ##########################################################################
  *
  *              //===//   //=====   //===//   //       //   //===//
  *             //    //  //        //    //  //       //   //    //
  *            //===//   //=====   //===//   //       //   //===<<
  *           //   \\         //  //        //       //   //    //
- *          //     \\  =====//  //        //=====  //   //===//    Version II
+ *          //     \\  =====//  //        //=====  //   //===//   Version III
  *
  *             ###################################################
  *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
@@ -34,42 +34,38 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#ifndef CONTEXTMENUCONFIG_H
-#define CONTEXTMENUCONFIG_H
-
-#include <QObject>
-#include <QString>
-#include <QProcess>
+#include "rdgraphicsscene.h"
+#include "rdmainwindow.h"
 
 
-class CContextMenuConfig : public QObject
+// ###### Constructor #######################################################
+RDGraphicsScene::RDGraphicsScene(QObject* parent, RDConfiguration* configuration)
+   : QGraphicsScene(parent),
+     m_Configuration(configuration)
 {
-   Q_OBJECT
-   public:
-   CContextMenuConfig(QWidget*       parent,
-                      const QString& nodeName,
-                      const QString& itemName,
-                      const QString& commandLine);
-   virtual ~CContextMenuConfig();
+    m_AdvanceTimer = new QTimer(this);
+    Q_CHECK_PTR(m_AdvanceTimer);
+    QObject::connect(m_AdvanceTimer, SIGNAL(timeout()), this, SLOT(advance()));
+}
 
-   inline const QString& getName() const {
-      return m_ItemName;
-   }
 
-   public slots:
-   virtual void execute();
+// ###### Destructor ########################################################
+RDGraphicsScene::~RDGraphicsScene()
+{
+}
 
-   private slots:
-   virtual void processFinished(int, QProcess::ExitStatus);
-   virtual void readStdout();
-   virtual void readStderr();
 
-   private:
-   QWidget*         m_Parent;
-   QString          m_NodeName;
-   QString          m_ItemName;
-   QString          m_CommandLine;
-   static QProcess* m_pProcess;
-};
+// ###### Set advance period ################################################
+void RDGraphicsScene::setAdvancePeriod(int ms)
+{
+    m_AdvanceTimer->setInterval(ms);
+    m_AdvanceTimer->start();
+}
 
-#endif
+
+// ###### Update scenario ###################################################
+void RDGraphicsScene::advance()
+{
+   m_Configuration->updateNodeData();
+   QGraphicsScene::advance();
+}

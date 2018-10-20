@@ -1,11 +1,11 @@
-/* $Id$
+/*
  * ##########################################################################
  *
  *              //===//   //=====   //===//   //       //   //===//
  *             //    //  //        //    //  //       //   //    //
  *            //===//   //=====   //===//   //       //   //===<<
  *           //   \\         //  //        //       //   //    //
- *          //     \\  =====//  //        //=====  //   //===//    Version II
+ *          //     \\  =====//  //        //=====  //   //===//   Version III
  *
  *             ###################################################
  *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
@@ -34,17 +34,17 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#include "node.h"
-#include "networklistener.h"
+#include "rdconfignode.h"
+#include "csplistener.h"
 
 
-CNode::CNode(QString uniqueID,
-             QString displayName,
-             QString imageActive,
-             QString imageInactive,
-             int     positionX,
-             int     positionY,
-             int     timeoutMultiplier)
+RDConfigNode::RDConfigNode(const QString& uniqueID,
+                           const QString& displayName,
+                           const QString& imageActive,
+                           const QString& imageInactive,
+                           int            positionX,
+                           int            positionY,
+                           int            timeoutMultiplier)
    : m_UniqueID(uniqueID),
      m_DisplayName(displayName),
      m_ImageActive(imageActive),
@@ -52,7 +52,7 @@ CNode::CNode(QString uniqueID,
      m_PositionX(positionX),
      m_PositionY(positionY),
      m_TimeoutMultiplier(timeoutMultiplier),
-     m_State(INACTIVE),
+     m_Status(INACTIVE),
      m_ReportInterval(6000000),
      m_LastUpdated(0),
      m_Workload(-1.0)
@@ -60,7 +60,7 @@ CNode::CNode(QString uniqueID,
 }
 
 
-CNode::~CNode()
+RDConfigNode::~RDConfigNode()
 {
    while (!m_ContextMenuEntries.isEmpty()) {
       delete m_ContextMenuEntries.takeFirst();
@@ -68,26 +68,24 @@ CNode::~CNode()
 }
 
 
-void CNode::setUpdated()
+void RDConfigNode::setUpdated()
 {
-   m_LastUpdated = CNetworkListener::getMicroTime();
+   m_LastUpdated = CSPListener::getMicroTime();
 }
 
 
-double CNode::getWorkload() const
+double RDConfigNode::getWorkload() const
 {
-   if((m_State == ACTIVE) &&
-      (m_Workload >= 0.0)) {
+   if((m_Status == ACTIVE) && (m_Workload >= 0.0)) {
       return(m_Workload);
    }
    return(-1.0);
 }
 
 
-const QString CNode::getWorkloadString() const
+const QString RDConfigNode::getWorkloadString() const
 {
-   if((m_State == ACTIVE) &&
-      (m_Workload >= 0.0)) {
+   if((m_Status == ACTIVE) && (m_Workload >= 0.0)) {
       char str[16];
       snprintf((char*)&str, sizeof(str), "%1.0f%%", 100.0 * m_Workload);
       return(QString(str));
@@ -96,15 +94,15 @@ const QString CNode::getWorkloadString() const
 }
 
 
-void CNode::updateStatus()
+void RDConfigNode::updateStatus()
 {
-   if((m_LastUpdated + (m_ReportInterval*m_TimeoutMultiplier)) < CNetworkListener::getMicroTime()) {
-      m_State = INACTIVE;
+   if((m_LastUpdated + (m_ReportInterval*m_TimeoutMultiplier)) < CSPListener::getMicroTime()) {
+      m_Status = INACTIVE;
       m_ConnectedUIDsMap.clear();
       m_StatusText = "";
       m_LocationText = "";
    }
    else {
-      m_State = ACTIVE;
+      m_Status = ACTIVE;
    }
 }

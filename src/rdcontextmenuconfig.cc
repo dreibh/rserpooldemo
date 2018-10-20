@@ -1,11 +1,11 @@
-/* $Id$
+/*
  * ##########################################################################
  *
  *              //===//   //=====   //===//   //       //   //===//
  *             //    //  //        //    //  //       //   //    //
  *            //===//   //=====   //===//   //       //   //===<<
  *           //   \\         //  //        //       //   //    //
- *          //     \\  =====//  //        //=====  //   //===//    Version II
+ *          //     \\  =====//  //        //=====  //   //===//   Version III
  *
  *             ###################################################
  *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
@@ -38,17 +38,17 @@
 #include <QCursor>
 #include <iostream>
 
-#include "contextmenuconfig.h"
+#include "rdcontextmenuconfig.h"
 
 
-QProcess* CContextMenuConfig::m_pProcess = NULL;
+QProcess* RDContextMenuConfig::m_pProcess = NULL;
 
 
 // ###### Constructor #######################################################
-CContextMenuConfig::CContextMenuConfig(QWidget*       parent,
-                                       const QString& nodeName,
-                                       const QString& itemName,
-                                       const QString& commandLine)
+RDContextMenuConfig::RDContextMenuConfig(QWidget*       parent,
+                                         const QString& nodeName,
+                                         const QString& itemName,
+                                         const QString& commandLine)
    : m_Parent(parent),
      m_NodeName(nodeName),
      m_ItemName(itemName),
@@ -58,13 +58,13 @@ CContextMenuConfig::CContextMenuConfig(QWidget*       parent,
 
 
 // ###### Destructor ########################################################
-CContextMenuConfig::~CContextMenuConfig()
+RDContextMenuConfig::~RDContextMenuConfig()
 {
 }
 
 
 // ###### Split command line into arguments list ############################
-static QStringList splitCommandLine(const QString& commandLine)
+QStringList RDContextMenuConfig::splitCommandLine(const QString& commandLine)
 {
    QStringList                   list;
    QString                       argment;
@@ -73,7 +73,7 @@ static QStringList splitCommandLine(const QString& commandLine)
 
    foreach (QChar const c, commandLine) {
       if(!escape && c == '\\') {
-         escape = true; continue;          
+         escape = true; continue;
       }
       switch (state) {
          case Idle:
@@ -82,7 +82,7 @@ static QStringList splitCommandLine(const QString& commandLine)
             }
             else if(escape || !c.isSpace()) {
                 argment += c;
-                state = Arg;                
+                state = Arg;
             }
           break;
          case Arg:
@@ -94,7 +94,7 @@ static QStringList splitCommandLine(const QString& commandLine)
             }
             else {
                list << argment; argment.clear();
-               state = Idle;                
+               state = Idle;
             }
           break;
          case QuotedArg:
@@ -115,7 +115,7 @@ static QStringList splitCommandLine(const QString& commandLine)
 }
 
 
-void CContextMenuConfig::execute()
+void RDContextMenuConfig::execute()
 {
    // ====== Ensure that no other process is running ========================
    if(m_pProcess) {
@@ -163,7 +163,7 @@ void CContextMenuConfig::execute()
 
 
 // ###### Print stdout ######################################################
-void CContextMenuConfig::readStdout()
+void RDContextMenuConfig::readStdout()
 {
    std::cout << "stdout " << m_NodeName.toStdString() << "> "
              << m_pProcess->readAllStandardOutput().toStdString() << std::endl;
@@ -171,7 +171,7 @@ void CContextMenuConfig::readStdout()
 
 
 // ###### Print stderr ######################################################
-void CContextMenuConfig::readStderr()
+void RDContextMenuConfig::readStderr()
 {
    std::cerr << "stderr " << m_NodeName.toStdString()<< "> "
              << m_pProcess->readAllStandardError().toStdString() << std::endl;
@@ -179,7 +179,7 @@ void CContextMenuConfig::readStderr()
 
 
 // ###### Handle exit code ##################################################
-void CContextMenuConfig::processFinished(int exitCode, QProcess::ExitStatus)
+void RDContextMenuConfig::processFinished(int exitCode, QProcess::ExitStatus)
 {
    if(m_pProcess->exitStatus() != 0) {
       QMessageBox::critical(0, "Error!",

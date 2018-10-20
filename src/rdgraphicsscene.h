@@ -1,11 +1,11 @@
-/* $Id$
+/*
  * ##########################################################################
  *
  *              //===//   //=====   //===//   //       //   //===//
  *             //    //  //        //    //  //       //   //    //
  *            //===//   //=====   //===//   //       //   //===<<
  *           //   \\         //  //        //       //   //    //
- *          //     \\  =====//  //        //=====  //   //===//    Version II
+ *          //     \\  =====//  //        //=====  //   //===//   Version III
  *
  *             ###################################################
  *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
@@ -34,49 +34,40 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#include <QApplication>
+#ifndef CANVAS_H
+#define CANVAS_H
+
+#include <QMap>
 #include <QString>
-#include <QFile>
-#include <iostream>
+#include <QTimer>
+#include <QGraphicsScene>
 
-#include "mainwidget.h"
+#include "rdconfiguration.h"
 
 
-int main(int argc, char** argv)
+class RDGraphicsNode;
+
+
+class RDGraphicsScene : public QGraphicsScene
 {
-   try {
-      const QString configFileTag = "-config=";
-      QString configFile = "local-setup.xml";
-      for(int i = 1;i < argc;i++) {
-         const QString command = argv[i];
-         if(command.indexOf(configFileTag) == 0) {
-            configFile = command.mid(configFileTag.length());
-         }
-         else if(QFile::exists(command)) {
-            configFile = command;
-         }
-      }
+   Q_OBJECT
+   public:
+   RDGraphicsScene(QObject* parent, RDConfiguration* configuration);
+   ~RDGraphicsScene();
 
-      std::cout << "Using configuration \"" << configFile.toLocal8Bit().constData() << "\" ..." << std::endl;
-      QApplication application(argc, argv);
-      CMainWidget* mainWindow = new CMainWidget(configFile);
-      Q_CHECK_PTR(mainWindow);
-      mainWindow->show();
+   void setAdvancePeriod(int ms);
+   inline QMap<QString, RDGraphicsNode*>& getCanvasNodesMap() {
+      return m_GraphicsNodeMap;
+   }
 
-      return application.exec();
-   }
-   catch(ELoadFileException& e) {
-      std::cerr << "Unable to load config file!"  << std::endl;
-      return 1;
-   }
-   catch(EXMLSyntaxException& e) {
-      std::cerr << "Unable to load config file!"          << std::endl
-                << "Error: " << e.m_Message.toStdString() << std::endl
-                << "Line:  " << e.m_Line                  << std::endl;
-      return 1;
-   }
-   catch(...) {
-      std::cerr << "Error!" << std::endl;
-      return 1;
-   }
-}
+   public slots:
+   void advance();
+
+   private:
+   RDConfiguration*               m_Configuration;
+   QTimer*                        m_AdvanceTimer;
+   QMap<QString, RDGraphicsNode*> m_GraphicsNodeMap;
+};
+
+
+#endif

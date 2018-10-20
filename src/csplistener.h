@@ -1,11 +1,11 @@
-/* $Id$
+/*
  * ##########################################################################
  *
  *              //===//   //=====   //===//   //       //   //===//
  *             //    //  //        //    //  //       //   //    //
  *            //===//   //=====   //===//   //       //   //===<<
  *           //   \\         //  //        //       //   //    //
- *          //     \\  =====//  //        //=====  //   //===//    Version II
+ *          //     \\  =====//  //        //=====  //   //===//   Version III
  *
  *             ###################################################
  *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
@@ -34,37 +34,72 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#include <QContextMenuEvent>
-#include <QGraphicsItem>
+#ifndef NETWORKLISTENER_H
+#define NETWORKLISTENER_H
 
-#include "canvasview.h"
-#include "canvasnode.h"
-#include "mainwidget.h"
+#include <QUdpSocket>
+
+#include <byteswap.h>
+#include <netinet/in.h>
+#include <sys/time.h>
+#include <time.h>
+
+#include "rdconfignode.h"
+#include "componentstatuspackets.h"
 
 
-CSerPoolCanvasView::CSerPoolCanvasView(QGraphicsScene* canvas, QWidget* parent = 0)
-   : QGraphicsView(canvas, parent)
+class RDConfigNode;
+
+class CSPListener
 {
-}
+   public:
+   CSPListener(int                    listenPort,
+                    QMap<QString, RDConfigNode*>& nodesMap);
+   ~CSPListener();
 
 
-CSerPoolCanvasView::~CSerPoolCanvasView()
-{
-}
+   static unsigned long long getMicroTime();
+   void update();
 
 
-void CSerPoolCanvasView::contentsContextMenuEvent(QContextMenuEvent* event)
-{
-#if 0
-   QList<QGraphicsItem*> list = scene()->collidingItems(event->pos());
-   CCanvasNode*          node = 0;
-   for(QList<QGraphicsItem*>::iterator it = list.begin();it != list.end();++it) {
-      node = dynamic_cast<CCanvasNode *>(*it) ;
-      if(node) {
-         node->m_ContextMenu->exec(event->globalPos());
-         return;
-      }
-   }
+   private:
+   /**
+   * Convert 64-bit value to network byte order.
+   *
+   * @param value Value in host byte order.
+   * @return Value in network byte order.
+   */
+   static inline uint64_t hton64(const uint64_t value)
+   {
+#if BYTE_ORDER == LITTLE_ENDIAN
+      return(bswap_64(value));
+#elif BYTE_ORDER == BIG_ENDIAN
+      return(value);
+#else
+#error Byte order is not defined!
 #endif
-   puts("FIXME: contentsContextMenuEvent()");
-}
+   }
+
+   /**
+   * Convert 64-bit value to host byte order.
+   *
+   * @param value Value in network byte order.
+   * @return Value in host byte order.
+   */
+   static inline uint64_t ntoh64(const uint64_t value)
+   {
+#if BYTE_ORDER == LITTLE_ENDIAN
+      return(bswap_64(value));
+#elif BYTE_ORDER == BIG_ENDIAN
+      return(value);
+#else
+#error Byte order is not defined!
+#endif
+   }
+
+   int                    m_ListenPort;
+   QMap<QString, RDConfigNode*>& m_NodesMap;
+   QUdpSocket*            m_SocketDevice;
+};
+
+#endif

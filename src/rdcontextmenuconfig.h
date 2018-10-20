@@ -1,11 +1,11 @@
-/* $Id$
+/*
  * ##########################################################################
  *
  *              //===//   //=====   //===//   //       //   //===//
  *             //    //  //        //    //  //       //   //    //
  *            //===//   //=====   //===//   //       //   //===<<
  *           //   \\         //  //        //       //   //    //
- *          //     \\  =====//  //        //=====  //   //===//    Version II
+ *          //     \\  =====//  //        //=====  //   //===//   Version III
  *
  *             ###################################################
  *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
@@ -34,40 +34,44 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#ifndef CANVAS_H
-#define CANVAS_H
+#ifndef CONTEXTMENUCONFIG_H
+#define CONTEXTMENUCONFIG_H
 
-#include <QMap>
+#include <QObject>
 #include <QString>
-#include <QTimer>
-#include <QGraphicsScene>
-
-#include "configuration.h"
+#include <QProcess>
 
 
-class CCanvasNode;
-
-
-class CCanvas : public QGraphicsScene
+class RDContextMenuConfig : public QObject
 {
    Q_OBJECT
    public:
-   CCanvas(QObject* parent, CConfiguration* configuration);
-   ~CCanvas();
+   RDContextMenuConfig(QWidget*       parent,
+                       const QString& nodeName,
+                       const QString& itemName,
+                       const QString& commandLine);
+   virtual ~RDContextMenuConfig();
 
-   void setAdvancePeriod(int ms);
-   inline QMap<QString, CCanvasNode*>& getCanvasNodesMap() {
-      return m_CanvasNodesMap;
+   inline const QString& getName() const {
+      return m_ItemName;
    }
 
    public slots:
-   void advance();
+   virtual void execute();
+
+   private slots:
+   virtual void processFinished(int, QProcess::ExitStatus);
+   virtual void readStdout();
+   virtual void readStderr();
 
    private:
-   CConfiguration*             m_Configuration;
-   QTimer*                     m_AdvanceTimer;
-   QMap<QString, CCanvasNode*> m_CanvasNodesMap;
-};
+   static QStringList splitCommandLine(const QString& commandLine);
 
+   QWidget*         m_Parent;
+   QString          m_NodeName;
+   QString          m_ItemName;
+   QString          m_CommandLine;
+   static QProcess* m_pProcess;
+};
 
 #endif

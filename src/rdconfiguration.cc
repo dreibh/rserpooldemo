@@ -1,11 +1,11 @@
-/* $Id$
+/*
  * ##########################################################################
  *
  *              //===//   //=====   //===//   //       //   //===//
  *             //    //  //        //    //  //       //   //    //
  *            //===//   //=====   //===//   //       //   //===<<
  *           //   \\         //  //        //       //   //    //
- *          //     \\  =====//  //        //=====  //   //===//    Version II
+ *          //     \\  =====//  //        //=====  //   //===//   Version III
  *
  *             ###################################################
  *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
@@ -39,8 +39,8 @@
 #include <QMessageBox>
 #include <QLinkedList>
 
-#include "configuration.h"
-#include "networklistener.h"
+#include "rdconfiguration.h"
+#include "csplistener.h"
 
 
 const char g_ResolutionXTag[]          = "DiagramResolutionX";
@@ -50,7 +50,6 @@ const char g_ProtocolColorTag[]        = "ProtocolColor";
 const char g_ProtocolColorIDTag[]      = "ID";
 const char g_ListenPortTag[]           = "ListenPort";
 const char g_NodeTag[]                 = "Node";
-const char g_RSPNodeTag[]              = "RSPNode";   // deprecated, use Node instead!
 const char g_UIDTag[]                  = "UID";
 const char g_displayNameTag[]          = "DisplayName";
 const char g_refreshTimeoutTag[]       = "RefreshTimeout";
@@ -66,9 +65,9 @@ const char g_BackgroundImageTag[]      = "BackgroundImage";
 const char g_CaptionTag[]              = "Caption";
 
 
-CConfiguration::CConfiguration(QWidget*       canvasWidget,
+RDConfiguration::RDConfiguration(QWidget*       canvasWidget,
                                const QString& configFile)
-   : m_CanvasWidget(canvasWidget),
+   : m_GraphicsSceneWidget(canvasWidget),
      m_DisplaySizeX(0),
      m_DisplaySizeY(0)
 {
@@ -113,11 +112,10 @@ CConfiguration::CConfiguration(QWidget*       canvasWidget,
          else if(currentNode.toElement().tagName() == QString(g_CaptionTag)) {
             m_Caption = currentNode.toElement().text();
          }
-         else if((currentNode.toElement().tagName() == QString(g_NodeTag)) ||
-                 (currentNode.toElement().tagName() == QString(g_RSPNodeTag))) {
-            CNode* node = createNode(currentNode.toElement());
-            m_Nodes.append(node);
-            m_NodesMap[node->getUniqueID()] = node;
+         else if(currentNode.toElement().tagName() == QString(g_NodeTag)) {
+            RDConfigNode* node = createNode(currentNode.toElement());
+            m_ConfigNodes.append(node);
+            m_ConfigNodesMap[node->getUniqueID()] = node;
          }
          else {
             QMessageBox::critical(0, "Error!", "Found unknown tag in config file: " +
@@ -127,21 +125,21 @@ CConfiguration::CConfiguration(QWidget*       canvasWidget,
       currentNode = currentNode.nextSibling();
    }
 
-   m_NetworkListener = new CNetworkListener(m_ListenPort, m_NodesMap);
+   m_NetworkListener = new CSPListener(m_ListenPort, m_ConfigNodesMap);
 }
 
 
-CConfiguration::~CConfiguration()
+RDConfiguration::~RDConfiguration()
 {
-   while (!m_Nodes.isEmpty()) {
-      delete m_Nodes.takeFirst();
+   while (!m_ConfigNodes.isEmpty()) {
+      delete m_ConfigNodes.takeFirst();
    }
 }
 
 
-CNode* CConfiguration::createNode(QDomElement element)
+RDConfigNode* RDConfiguration::createNode(QDomElement element)
 {
-   QLinkedList<CContextMenuConfig*> contextNodes;
+   QLinkedList<RDContextMenuConfig*> contextNodes;
    QString                          uniqueID;
    QString                          displayName;
    QString                          imageActive;
@@ -184,7 +182,7 @@ CNode* CConfiguration::createNode(QDomElement element)
             contextNodes.append(createContextMenuEntry(displayName, currentNode.toElement()));
          }
          else if(currentNode.toElement().tagName() == QString(g_ContextMenuSeparatorTag)) {
-            contextNodes.append(new CContextMenuConfig(m_CanvasWidget, "", "", ""));
+            contextNodes.append(new RDContextMenuConfig(m_GraphicsSceneWidget, "", "", ""));
          }
          else {
             QMessageBox::critical(0, "Error!", "Found unknown tag in config file: " +
@@ -194,7 +192,7 @@ CNode* CConfiguration::createNode(QDomElement element)
 
       currentNode = currentNode.nextSibling();
    }
-   CNode* node = new CNode(uniqueID, displayName,
+   RDConfigNode* node = new RDConfigNode(uniqueID, displayName,
                            imageActive, imageInactive,
                            positionX, positionY, refreshTimeout);
    node->getContextMenuConfig() = contextNodes;
@@ -202,8 +200,8 @@ CNode* CConfiguration::createNode(QDomElement element)
 }
 
 
-CContextMenuConfig* CConfiguration::createContextMenuEntry(const QString&     nodeName,
-                                                           const QDomElement& element)
+RDContextMenuConfig* RDConfiguration::createContextMenuEntry(const QString&    nodeName,
+                                                            const QDomElement& element)
 {
    QString  itemName;
    QString  commandLine;
@@ -225,12 +223,12 @@ CContextMenuConfig* CConfiguration::createContextMenuEntry(const QString&     no
       currentNode = currentNode.nextSibling();
    }
 
-   CContextMenuConfig* node = new CContextMenuConfig(m_CanvasWidget, nodeName, itemName, commandLine);
+   RDContextMenuConfig* node = new RDContextMenuConfig(m_GraphicsSceneWidget, nodeName, itemName, commandLine);
    return node;
 }
 
 
-void CConfiguration::updateNodeData()
+void RDConfiguration::updateNodeData()
 {
    m_NetworkListener->update();
 }

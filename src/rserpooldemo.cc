@@ -1,11 +1,11 @@
-/* $Id$
+/*
  * ##########################################################################
  *
  *              //===//   //=====   //===//   //       //   //===//
  *             //    //  //        //    //  //       //   //    //
  *            //===//   //=====   //===//   //       //   //===<<
  *           //   \\         //  //        //       //   //    //
- *          //     \\  =====//  //        //=====  //   //===//    Version II
+ *          //     \\  =====//  //        //=====  //   //===//   Version III
  *
  *             ###################################################
  *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
@@ -34,22 +34,50 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#ifndef CANVASVIEW_H
-#define CANVASVIEW_H
+#include <QApplication>
+#include <QString>
+#include <QFile>
+#include <iostream>
 
-#include <QGraphicsView>
-#include <QContextMenuEvent>
+#include "rdmainwindow.h"
 
 
-class CSerPoolCanvasView : public QGraphicsView
+// ###### Main program ######################################################
+int main(int argc, char** argv)
 {
-   Q_OBJECT
-   public:
-   CSerPoolCanvasView(QGraphicsScene* canvas, QWidget* parent);
-   virtual ~CSerPoolCanvasView();
+   try {
+      const QString configFileTag = "-config=";
+      QString configFile = "local-setup.xml";
+      for(int i = 1;i < argc;i++) {
+         const QString command = argv[i];
+         if(command.indexOf(configFileTag) == 0) {
+            configFile = command.mid(configFileTag.length());
+         }
+         else if(QFile::exists(command)) {
+            configFile = command;
+         }
+      }
 
-   protected:
-   void contentsContextMenuEvent(QContextMenuEvent* event);
-};
+      std::cout << "Using configuration \"" << configFile.toLocal8Bit().constData() << "\" ..." << std::endl;
+      QApplication application(argc, argv);
+      RDMainWindow* mainWindow = new RDMainWindow(configFile);
+      Q_CHECK_PTR(mainWindow);
+      mainWindow->show();
 
-#endif
+      return application.exec();
+   }
+   catch(ELoadFileException& e) {
+      std::cerr << "Unable to load config file!"  << std::endl;
+      return 1;
+   }
+   catch(EXMLSyntaxException& e) {
+      std::cerr << "Unable to load config file!"          << std::endl
+                << "Error: " << e.m_Message.toStdString() << std::endl
+                << "Line:  " << e.m_Line                  << std::endl;
+      return 1;
+   }
+   catch(...) {
+      std::cerr << "Error!" << std::endl;
+      return 1;
+   }
+}

@@ -1,11 +1,11 @@
-/* $Id$
+/*
  * ##########################################################################
  *
  *              //===//   //=====   //===//   //       //   //===//
  *             //    //  //        //    //  //       //   //    //
  *            //===//   //=====   //===//   //       //   //===<<
  *           //   \\         //  //        //       //   //    //
- *          //     \\  =====//  //        //=====  //   //===//    Version II
+ *          //     \\  =====//  //        //=====  //   //===//   Version III
  *
  *             ###################################################
  *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
@@ -34,38 +34,41 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#include "canvas.h"
-#include "mainwidget.h"
+#ifndef MAINWIDGET_H
+#define MAINWIDGET_H
+
+#include <QMainWindow>
+#include <QMap>
+#include <QImage>
+#include <QResizeEvent>
+
+#include "rdconfiguration.h"
+#include "rdgraphicsnode.h"
+#include "rdgraphicsscene.h"
 
 
-// ###### Constructor #######################################################
-CCanvas::CCanvas(QObject* parent, CConfiguration* configuration)
-   : QGraphicsScene(parent),
-     m_Configuration(configuration)
+class RDConfiguration;
+class RDGraphicsView;
+
+
+class RDMainWindow : public QMainWindow
 {
-    m_AdvanceTimer = new QTimer(this);
-    Q_CHECK_PTR(m_AdvanceTimer);
-    QObject::connect(m_AdvanceTimer, SIGNAL(timeout()), this, SLOT(advance()));
-}
+   Q_OBJECT
+   public:
+   RDMainWindow(const QString& configFile);
+   virtual ~RDMainWindow();
+
+   protected:
+   void resizeEvent(QResizeEvent* event);
+
+   private:
+   void createCanvasObjects();
+
+   RDConfiguration  m_Configuration;
+   QImage           m_BackgroundImage;
+   RDGraphicsScene* m_GraphicsScene;
+   RDGraphicsView*  m_GraphicsView;
+};
 
 
-// ###### Destructor ########################################################
-CCanvas::~CCanvas()
-{
-}
-
-
-// ###### Set advance period ################################################
-void CCanvas::setAdvancePeriod(int ms)
-{
-    m_AdvanceTimer->setInterval(ms);
-    m_AdvanceTimer->start();
-}
-
-
-// ###### Update scenario ###################################################
-void CCanvas::advance()
-{
-   m_Configuration->updateNodeData();
-   QGraphicsScene::advance();
-}
+#endif

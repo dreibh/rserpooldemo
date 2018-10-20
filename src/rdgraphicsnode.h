@@ -1,11 +1,11 @@
-/* $Id$
+/*
  * ##########################################################################
  *
  *              //===//   //=====   //===//   //       //   //===//
  *             //    //  //        //    //  //       //   //    //
  *            //===//   //=====   //===//   //       //   //===<<
  *           //   \\         //  //        //       //   //    //
- *          //     \\  =====//  //        //=====  //   //===//    Version II
+ *          //     \\  =====//  //        //=====  //   //===//   Version III
  *
  *             ###################################################
  *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
@@ -34,8 +34,8 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#ifndef CANVASNODE_H
-#define CANVASNODE_H
+#ifndef RDGRAPHICSNODE_H
+#define RDGRAPHICSNODE_H
 
 #include <QMap>
 #include <QLinkedList>
@@ -44,22 +44,22 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsSceneContextMenuEvent>
 
-#include "configuration.h"
-#include "canvas.h"
-#include "node.h"
+#include "rdconfiguration.h"
+#include "rdgraphicsscene.h"
+#include "rdconfignode.h"
 
 
-class CCanvasNode : public QGraphicsPixmapItem
+class RDGraphicsNode : public QGraphicsPixmapItem
 {
    public:
-   CCanvasNode(CCanvas*        canvas,
-               CNode*          node,
-               CConfiguration* configuration,
-               const QPixmap&  inactivePixmap,
-               const QPixmap&  activePixmap);
-   virtual ~CCanvasNode();
+   RDGraphicsNode(RDGraphicsScene* canvas,
+                  RDConfigNode*    configNode,
+                  RDConfiguration* configuration,
+                  const QPixmap&   inactivePixmap,
+                  const QPixmap&   activePixmap);
+   virtual ~RDGraphicsNode();
 
-   virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+   virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent* event);
    virtual void advance(int phase);
 
    QColor getColor(const int colorNumber) const;
@@ -67,18 +67,18 @@ class CCanvasNode : public QGraphicsPixmapItem
    void updatePosition();
 
    private:
-   CCanvas*                 m_Canvas;
-   CNode*                   m_Node;
-   CConfiguration*          m_Configuration;
+   RDGraphicsScene*         m_GraphicsScene;
+   RDConfigNode*            m_ConfigNode;
+   RDConfiguration*         m_Configuration;
    QPixmap                  m_InactivePixmap;
    QPixmap                  m_ActivePixmap;
-   double                   m_ZPosition;
    QGraphicsRectItem*       m_pBackground;
    QGraphicsSimpleTextItem* m_pTitle;
    QGraphicsSimpleTextItem* m_pStatusText;
    QGraphicsSimpleTextItem* m_pLocationText;
    QGraphicsSimpleTextItem* m_pWorkload;
    QGraphicsRectItem*       m_pWorkloadBackground;
+   double                   m_ZPosition;
 
    struct LinkText
    {

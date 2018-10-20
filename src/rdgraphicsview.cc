@@ -1,11 +1,11 @@
-/* $Id$
+/*
  * ##########################################################################
  *
  *              //===//   //=====   //===//   //       //   //===//
  *             //    //  //        //    //  //       //   //    //
  *            //===//   //=====   //===//   //       //   //===<<
  *           //   \\         //  //        //       //   //    //
- *          //     \\  =====//  //        //=====  //   //===//    Version II
+ *          //     \\  =====//  //        //=====  //   //===//   Version III
  *
  *             ###################################################
  *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
@@ -34,72 +34,37 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#ifndef NETWORKLISTENER_H
-#define NETWORKLISTENER_H
+#include <QContextMenuEvent>
+#include <QGraphicsItem>
 
-#include <QUdpSocket>
-
-#include <byteswap.h>
-#include <netinet/in.h>
-#include <sys/time.h>
-#include <time.h>
-
-#include "node.h"
-#include "componentstatuspackets.h"
+#include "rdgraphicsview.h"
+#include "rdgraphicsnode.h"
+#include "rdmainwindow.h"
 
 
-class CNode;
-
-class CNetworkListener
+RDGraphicsView::RDGraphicsView(QGraphicsScene* canvas, QWidget* parent = 0)
+   : QGraphicsView(canvas, parent)
 {
-   public:
-   CNetworkListener(int                    listenPort,
-                    QMap<QString, CNode*>& nodesMap);
-   ~CNetworkListener();
+}
 
 
-   static unsigned long long getMicroTime();
-   void update();
+RDGraphicsView::~RDGraphicsView()
+{
+}
 
 
-   private:
-   /**
-   * Convert 64-bit value to network byte order.
-   *
-   * @param value Value in host byte order.
-   * @return Value in network byte order.
-   */
-   static inline uint64_t hton64(const uint64_t value)
-   {
-#if BYTE_ORDER == LITTLE_ENDIAN
-      return(bswap_64(value));
-#elif BYTE_ORDER == BIG_ENDIAN
-      return(value);
-#else
-#error Byte order is not defined!
-#endif
+void RDGraphicsView::contentsContextMenuEvent(QContextMenuEvent* event)
+{
+#if 0
+   QList<QGraphicsItem*> list = scene()->collidingItems(event->pos());
+   RDGraphicsNode*          node = 0;
+   for(QList<QGraphicsItem*>::iterator it = list.begin();it != list.end();++it) {
+      node = dynamic_cast<RDGraphicsNode *>(*it) ;
+      if(node) {
+         node->m_ContextMenu->exec(event->globalPos());
+         return;
+      }
    }
-
-   /**
-   * Convert 64-bit value to host byte order.
-   *
-   * @param value Value in network byte order.
-   * @return Value in host byte order.
-   */
-   static inline uint64_t ntoh64(const uint64_t value)
-   {
-#if BYTE_ORDER == LITTLE_ENDIAN
-      return(bswap_64(value));
-#elif BYTE_ORDER == BIG_ENDIAN
-      return(value);
-#else
-#error Byte order is not defined!
 #endif
-   }
-
-   int                    m_ListenPort;
-   QMap<QString, CNode*>& m_NodesMap;
-   QUdpSocket*            m_SocketDevice;
-};
-
-#endif
+   puts("FIXME: contentsContextMenuEvent()");
+}
