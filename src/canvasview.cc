@@ -38,7 +38,7 @@
 #include <QGraphicsItem>
 
 #include "canvasview.h"
-#include "canvasnode.h"
+#include "rdgraphicsnode.h"
 #include "mainwidget.h"
 
 

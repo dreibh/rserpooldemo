@@ -34,7 +34,7 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#include "canvas.h"
+#include "rdgraphicsscene.h"
 #include "mainwidget.h"
 
 

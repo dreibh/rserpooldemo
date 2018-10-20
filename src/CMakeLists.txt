@@ -2,8 +2,8 @@ SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # ###### Program ############################################################
 ADD_EXECUTABLE(rserpooldemo
-   canvas.cc
-   canvasnode.cc
+   rdgraphicsscene.cc
+   rdgraphicsnode.cc
    canvasview.cc
    configuration.cc
    contextmenuconfig.cc

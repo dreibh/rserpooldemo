@@ -43,7 +43,7 @@
 #include <QMenu>
 #include <QGraphicsView>
 
-#include "canvasnode.h"
+#include "rdgraphicsnode.h"
 #include "node.h"
 #include "mainwidget.h"
 

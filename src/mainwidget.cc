@@ -40,9 +40,9 @@
 #include <QLinkedList>
 
 #include <mainwidget.h>
-#include "canvasnode.h"
+#include "rdgraphicsnode.h"
 #include "canvasview.h"
-#include "canvas.h"
+#include "rdgraphicsscene.h"
 
 
 

@@ -34,8 +34,8 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#ifndef CANVASNODE_H
-#define CANVASNODE_H
+#ifndef RDGRAPHICSNODE_H
+#define RDGRAPHICSNODE_H
 
 #include <QMap>
 #include <QLinkedList>
@@ -45,7 +45,7 @@
 #include <QGraphicsSceneContextMenuEvent>
 
 #include "configuration.h"
-#include "canvas.h"
+#include "rdgraphicsscene.h"
 #include "node.h"
 
 

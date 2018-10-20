@@ -43,8 +43,8 @@
 #include <QResizeEvent>
 
 #include "configuration.h"
-#include "canvasnode.h"
-#include "canvas.h"
+#include "rdgraphicsnode.h"
+#include "rdgraphicsscene.h"
 
 
 class RDConfiguration;
