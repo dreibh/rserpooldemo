@@ -67,7 +67,7 @@ class RDGraphicsNode : public QGraphicsPixmapItem
    void updatePosition();
 
    private:
-   RDGraphicsScene*                 m_Canvas;
+   RDGraphicsScene*                 m_GraphicsScene;
    RDConfigNode*                   m_Node;
    RDConfiguration*          m_Configuration;
    QPixmap                  m_InactivePixmap;

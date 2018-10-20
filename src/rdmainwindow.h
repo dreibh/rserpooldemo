@@ -51,12 +51,12 @@ class RDConfiguration;
 class RDGraphicsView;
 
 
-class CMainWidget : public QMainWindow
+class RDMainWindow : public QMainWindow
 {
    Q_OBJECT
    public:
-   CMainWidget(const QString& configFile);
-   virtual ~CMainWidget();
+   RDMainWindow(const QString& configFile);
+   virtual ~RDMainWindow();
 
    RDConfiguration m_Configuration;
    QImage          m_BackgroundImage;
@@ -67,8 +67,8 @@ class CMainWidget : public QMainWindow
    private:
    void createCanvasObjects();
 
-   RDGraphicsScene* m_Canvas;
-   RDGraphicsView*  m_CanvasView;
+   RDGraphicsScene* m_GraphicsScene;
+   RDGraphicsView*  m_GraphicsView;
 };
 
 

@@ -45,7 +45,7 @@
 
 #include "rdgraphicsnode.h"
 #include "rdconfignode.h"
-#include "mainwidget.h"
+#include "rdmainwindow.h"
 
 
 #define MARGIN_WORKLOAD   4
@@ -60,7 +60,7 @@ RDGraphicsNode::RDGraphicsNode(RDGraphicsScene*        canvas,
                          const QPixmap&  inactivePixmap,
                          const QPixmap&  activePixmap)
  : QGraphicsPixmapItem(inactivePixmap),
-   m_Canvas(canvas),
+   m_GraphicsScene(canvas),
    m_Node(node),
    m_Configuration(configuration),
    m_InactivePixmap(inactivePixmap),
@@ -79,14 +79,14 @@ RDGraphicsNode::RDGraphicsNode(RDGraphicsScene*        canvas,
    Q_CHECK_PTR(m_pTitle);
    m_pTitle->setFont(QFont("Helvetica", 12, QFont::Bold));
    m_pTitle->setZValue(m_ZPosition + 6);
-   m_Canvas->addItem(m_pTitle);
+   m_GraphicsScene->addItem(m_pTitle);
 
    m_pBackground = new QGraphicsRectItem(this);
    Q_CHECK_PTR(m_pBackground);
    m_pBackground->setZValue(m_ZPosition + 5);
    m_pBackground->setBrush(QBrush(QColor("#FFD700")));
    m_pBackground->setPen(QPen(QColor("#7C7777")));
-   m_Canvas->addItem(m_pBackground);
+   m_GraphicsScene->addItem(m_pBackground);
 
 
    // ====== Create workload label ==========================================
@@ -95,7 +95,7 @@ RDGraphicsNode::RDGraphicsNode(RDGraphicsScene*        canvas,
    m_pWorkload->setFont(QFont("Helvetica", 12, QFont::Bold));
    m_pWorkload->setPen(QColor("#222222"));
    m_pWorkload->setZValue(2000000001);
-   m_Canvas->addItem(m_pWorkload);
+   m_GraphicsScene->addItem(m_pWorkload);
 
    QFontMetrics workloadFM(m_pWorkload->font());
    m_pWorkloadBackground = new QGraphicsRectItem(0, 0,
@@ -107,7 +107,7 @@ RDGraphicsNode::RDGraphicsNode(RDGraphicsScene*        canvas,
    m_pWorkloadBackground->setBrush(QBrush(QColor("#D7D7FF")));
    m_pWorkloadBackground->setPen(QPen(QColor("#202020")));
    m_pWorkloadBackground->hide();   // It is hidden until there is workload to report!
-   m_Canvas->addItem(m_pWorkloadBackground);
+   m_GraphicsScene->addItem(m_pWorkloadBackground);
 
 
    // ====== Create status label ============================================
@@ -115,7 +115,7 @@ RDGraphicsNode::RDGraphicsNode(RDGraphicsScene*        canvas,
    Q_CHECK_PTR(m_pStatusText);
    m_pStatusText->setFont(QFont("Helvetica", 10, QFont::Bold ));
    m_pStatusText->setZValue(m_ZPosition + 6);
-   m_Canvas->addItem(m_pStatusText);
+   m_GraphicsScene->addItem(m_pStatusText);
 
 
    // ====== Create location label ==========================================
@@ -123,13 +123,13 @@ RDGraphicsNode::RDGraphicsNode(RDGraphicsScene*        canvas,
    Q_CHECK_PTR(m_pLocationText);
    m_pLocationText->setFont(QFont("Helvetica", 6));
    m_pLocationText->setZValue(m_ZPosition + 6);
-   m_Canvas->addItem(m_pLocationText);
+   m_GraphicsScene->addItem(m_pLocationText);
 
    // ====== Create ID to nodes map =========================================
    const QString uid = m_Node->getUniqueID();
-   (m_Canvas->getCanvasNodesMap())[uid] = this;
+   (m_GraphicsScene->getCanvasNodesMap())[uid] = this;
 
-   m_Canvas->addItem(this);
+   m_GraphicsScene->addItem(this);
    advance(1);
    updatePosition();
 }
@@ -257,8 +257,8 @@ void RDGraphicsNode::updatePosition()
    getAnchor(thisX, thisY);
    for(QMap<QString, QGraphicsLineItem*>::iterator iterator = m_ConUIDsLinesMap.begin();
        iterator != m_ConUIDsLinesMap.end(); ++iterator) {
-      if(m_Canvas->getCanvasNodesMap().find(iterator.key()) != m_Canvas->getCanvasNodesMap().end()) {
-         RDGraphicsNode* pOtherNode = *(m_Canvas->getCanvasNodesMap().find(iterator.key()));
+      if(m_GraphicsScene->getCanvasNodesMap().find(iterator.key()) != m_GraphicsScene->getCanvasNodesMap().end()) {
+         RDGraphicsNode* pOtherNode = *(m_GraphicsScene->getCanvasNodesMap().find(iterator.key()));
 
          // ====== Update link ==============================================
          // printf("%s: %s -> %s\n", iterator.key().toStdString().c_str(),
@@ -346,17 +346,17 @@ void RDGraphicsNode::advance(int phase)
                LinkText* linkText = *found;
                if(linkText != NULL) {
                   printf("DEL: %s\n", found.key().toStdString().c_str());
-                  m_Canvas->removeItem(linkText->m_pDurationText);
+                  m_GraphicsScene->removeItem(linkText->m_pDurationText);
 //                   delete linkText->m_pDurationText;
                   linkText->m_pDurationText = NULL;
-                  m_Canvas->removeItem(linkText->m_pBackground);
+                  m_GraphicsScene->removeItem(linkText->m_pBackground);
 //                   delete linkText->m_pBackground;
                   linkText->m_pBackground = NULL;
                   delete linkText;
                   m_ConUIDsTextMap.erase(found);
                }
             }
-            m_Canvas->removeItem(lineItem);
+            m_GraphicsScene->removeItem(lineItem);
 //             delete lineItem;
 
             iterator = m_ConUIDsLinesMap.erase(iterator);
@@ -370,12 +370,12 @@ void RDGraphicsNode::advance(int phase)
       const int displaySizeX = m_Configuration->getDisplaySizeX();
       const int displaySizeY = m_Configuration->getDisplaySizeY();
       for(QMap<QString, int>::iterator iterator = rMap.begin(); iterator != rMap.end(); ++iterator) {
-         if(m_Canvas->getCanvasNodesMap().find(iterator.key()) != m_Canvas->getCanvasNodesMap().end()) {
-            // const RDGraphicsNode* pOtherNode = *(m_Canvas->getCanvasNodesMap().find(iterator.key()));
+         if(m_GraphicsScene->getCanvasNodesMap().find(iterator.key()) != m_GraphicsScene->getCanvasNodesMap().end()) {
+            // const RDGraphicsNode* pOtherNode = *(m_GraphicsScene->getCanvasNodesMap().find(iterator.key()));
             // printf("%s -> %s\n", m_Node->getDisplayName().toStdString().c_str(),
             //                      pOtherNode->m_Node->getDisplayName().toStdString().c_str());
             if(m_ConUIDsLinesMap.find(iterator.key()) == m_ConUIDsLinesMap.end()) {
-               QGraphicsLineItem* line = m_Canvas->addLine(QLineF(), QPen(getColor(*iterator), 5));
+               QGraphicsLineItem* line = m_GraphicsScene->addLine(QLineF(), QPen(getColor(*iterator), 5));
                Q_CHECK_PTR(line);
                m_ConUIDsLinesMap[iterator.key()] = line;
                line->setZValue(0);
@@ -394,14 +394,14 @@ void RDGraphicsNode::advance(int phase)
                   Q_CHECK_PTR(linkText);
                   m_ConUIDsTextMap[iterator.key()] = linkText;
 
-                  pDurationText = m_Canvas->addText("", QFont("Helvetica", 11, QFont::Bold));
+                  pDurationText = m_GraphicsScene->addText("", QFont("Helvetica", 11, QFont::Bold));
                   Q_CHECK_PTR(pDurationText);
                   pDurationText->setZValue(z + 1);
                   pDurationText->setDefaultTextColor(getColor(*iterator));
                   pDurationText->show();
                   linkText->m_pDurationText = pDurationText;
 
-                  QGraphicsRectItem* pDurationRectangle = m_Canvas->addRect(
+                  QGraphicsRectItem* pDurationRectangle = m_GraphicsScene->addRect(
                      QRectF(), QPen(QColor("#7C7777"), 5), QBrush(QColor("#FFFF00")));
                   Q_CHECK_PTR(pDurationRectangle);
                   pDurationRectangle->setZValue(z);

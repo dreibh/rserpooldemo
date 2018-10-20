@@ -68,7 +68,7 @@ const char g_CaptionTag[]              = "Caption";
 
 RDConfiguration::RDConfiguration(QWidget*       canvasWidget,
                                const QString& configFile)
-   : m_CanvasWidget(canvasWidget),
+   : m_GraphicsSceneWidget(canvasWidget),
      m_DisplaySizeX(0),
      m_DisplaySizeY(0)
 {
@@ -184,7 +184,7 @@ RDConfigNode* RDConfiguration::createNode(QDomElement element)
             contextNodes.append(createContextMenuEntry(displayName, currentNode.toElement()));
          }
          else if(currentNode.toElement().tagName() == QString(g_ContextMenuSeparatorTag)) {
-            contextNodes.append(new RDContextMenuConfig(m_CanvasWidget, "", "", ""));
+            contextNodes.append(new RDContextMenuConfig(m_GraphicsSceneWidget, "", "", ""));
          }
          else {
             QMessageBox::critical(0, "Error!", "Found unknown tag in config file: " +
@@ -225,7 +225,7 @@ RDContextMenuConfig* RDConfiguration::createContextMenuEntry(const QString&     
       currentNode = currentNode.nextSibling();
    }
 
-   RDContextMenuConfig* node = new RDContextMenuConfig(m_CanvasWidget, nodeName, itemName, commandLine);
+   RDContextMenuConfig* node = new RDContextMenuConfig(m_GraphicsSceneWidget, nodeName, itemName, commandLine);
    return node;
 }
 

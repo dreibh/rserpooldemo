@@ -39,7 +39,7 @@
 #include <QFile>
 #include <iostream>
 
-#include "mainwidget.h"
+#include "rdmainwindow.h"
 
 
 int main(int argc, char** argv)
@@ -59,7 +59,7 @@ int main(int argc, char** argv)
 
       std::cout << "Using configuration \"" << configFile.toLocal8Bit().constData() << "\" ..." << std::endl;
       QApplication application(argc, argv);
-      CMainWidget* mainWindow = new CMainWidget(configFile);
+      RDMainWindow* mainWindow = new RDMainWindow(configFile);
       Q_CHECK_PTR(mainWindow);
       mainWindow->show();
 

@@ -108,7 +108,7 @@ class RDConfiguration
    RDContextMenuConfig* createContextMenuEntry(const QString&     displayName,
                                               const QDomElement& element);
 
-   QWidget*              m_CanvasWidget;
+   QWidget*              m_GraphicsSceneWidget;
    int                   m_DisplaySizeX;
    int                   m_DisplaySizeY;
    int                   m_RefreshTime;

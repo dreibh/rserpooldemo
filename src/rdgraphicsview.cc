@@ -39,7 +39,7 @@
 
 #include "rdgraphicsview.h"
 #include "rdgraphicsnode.h"
-#include "mainwidget.h"
+#include "rdmainwindow.h"
 
 
 RDGraphicsView::RDGraphicsView(QGraphicsScene* canvas, QWidget* parent = 0)

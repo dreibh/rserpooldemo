@@ -35,7 +35,7 @@
  */
 
 #include "rdgraphicsscene.h"
-#include "mainwidget.h"
+#include "rdmainwindow.h"
 
 
 // ###### Constructor #######################################################

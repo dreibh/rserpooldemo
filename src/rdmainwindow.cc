@@ -39,22 +39,22 @@
 #include <QList>
 #include <QLinkedList>
 
-#include <mainwidget.h>
+#include <rdmainwindow.h>
 #include "rdgraphicsnode.h"
 #include "rdgraphicsview.h"
 #include "rdgraphicsscene.h"
 
 
 
-CMainWidget::CMainWidget(const QString& configFile)
+RDMainWindow::RDMainWindow(const QString& configFile)
    : QMainWindow(NULL, NULL),
      m_Configuration(this, configFile)
 {
    setWindowTitle(m_Configuration.getCaption() + " - " + configFile);
 
-   m_Canvas = new RDGraphicsScene(this, &m_Configuration);
-   Q_CHECK_PTR(m_Canvas);
-   m_Canvas->setSceneRect(0, 0,
+   m_GraphicsScene = new RDGraphicsScene(this, &m_Configuration);
+   Q_CHECK_PTR(m_GraphicsScene);
+   m_GraphicsScene->setSceneRect(0, 0,
                           m_Configuration.getDisplaySizeX(),
                           m_Configuration.getDisplaySizeY());
 
@@ -62,32 +62,32 @@ CMainWidget::CMainWidget(const QString& configFile)
    QImage tempImage = m_BackgroundImage.scaled(m_Configuration.getDisplaySizeX(),
                                                m_Configuration.getDisplaySizeY()); // in pixels
 
-   m_Canvas->setBackgroundBrush(tempImage);
+   m_GraphicsScene->setBackgroundBrush(tempImage);
 
-   m_CanvasView = new RDGraphicsView(m_Canvas, this);
-   Q_CHECK_PTR(m_CanvasView);
-   m_CanvasView->setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
-   m_CanvasView->setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
-   setCentralWidget(m_CanvasView);
+   m_GraphicsView = new RDGraphicsView(m_GraphicsScene, this);
+   Q_CHECK_PTR(m_GraphicsView);
+   m_GraphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
+   m_GraphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
+   setCentralWidget(m_GraphicsView);
 
    createCanvasObjects();
-   m_Canvas->setAdvancePeriod(m_Configuration.getRefreshTime());
+   m_GraphicsScene->setAdvancePeriod(m_Configuration.getRefreshTime());
 
-   m_CanvasView->show();
+   m_GraphicsView->show();
 }
 
 
-CMainWidget::~CMainWidget()
+RDMainWindow::~RDMainWindow()
 {
 }
 
 
-void CMainWidget::createCanvasObjects()
+void RDMainWindow::createCanvasObjects()
 {
    QLinkedList<RDConfigNode*>& rNodeList = m_Configuration.getNodes();
    for(QLinkedList<RDConfigNode*>::iterator it = rNodeList.begin();it != rNodeList.end();++it) {
       RDConfigNode* pNode = *it;
-      RDGraphicsNode* node = new RDGraphicsNode(m_Canvas, pNode, &m_Configuration,
+      RDGraphicsNode* node = new RDGraphicsNode(m_GraphicsScene, pNode, &m_Configuration,
                                             QPixmap(pNode->getImageInactive()),
                                             QPixmap(pNode->getImageActive()));
       Q_CHECK_PTR(node);
@@ -96,13 +96,13 @@ void CMainWidget::createCanvasObjects()
 }
 
 
-void CMainWidget::resizeEvent(QResizeEvent* event)
+void RDMainWindow::resizeEvent(QResizeEvent* event)
 {
-   m_Canvas->setSceneRect(0, 0, event->size().width(), event->size().height());
-   m_Canvas->setBackgroundBrush(m_BackgroundImage.scaled(event->size().width(), event->size().height()));
+   m_GraphicsScene->setSceneRect(0, 0, event->size().width(), event->size().height());
+   m_GraphicsScene->setBackgroundBrush(m_BackgroundImage.scaled(event->size().width(), event->size().height()));
    m_Configuration.updateDisplaySize(event->size().width(), event->size().height());
 
-   QMap<QString, RDGraphicsNode*>& rNodeMap = m_Canvas->getCanvasNodesMap();
+   QMap<QString, RDGraphicsNode*>& rNodeMap = m_GraphicsScene->getCanvasNodesMap();
    for(QMap<QString, RDGraphicsNode*>::iterator it = rNodeMap.begin();it != rNodeMap.end();++it) {
       (*it)->updatePosition();
    }
