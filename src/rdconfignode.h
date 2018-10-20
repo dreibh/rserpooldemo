@@ -64,31 +64,44 @@ class RDConfigNode
       ACTIVE   = 1
    };
 
+   inline const QString& getUniqueID() const {
+      return m_UniqueID;
+   }
+   inline const QString& getDisplayName() const {
+      return m_DisplayName;
+   }
    inline const QString& getImageInactive() const {
       return m_ImageInactive;
    }
    inline const QString& getImageActive() const {
       return m_ImageActive;
    }
-   inline const QString& getUniqueID() const {
-      return m_UniqueID;
-   }
+
    inline int getPositionX(const int totalSizeX) const {
       return (m_PositionX * totalSizeX / 100);
    }
    inline int getPositionY(const int totalSizeY) const {
       return (m_PositionY * totalSizeY / 100);
    }
-   inline const QString& getDisplayName() const {
-      return m_DisplayName;
-   }
+
    double getWorkload() const;
    const QString getWorkloadString() const;
+   inline void setWorkload(const double workload) {
+      m_Workload = workload;
+   }
+
    inline const QString& getStatusText() const {
       return m_StatusText;
    }
+   inline void setStatusText(const QString& statusText) {
+      m_StatusText = statusText;
+   }
+
    inline const QString& getLocationText() const {
       return m_LocationText;
+   }
+   inline void setLocationText(const QString& locationText) {
+      m_LocationText = locationText;
    }
 
    inline QLinkedList<RDContextMenuConfig*>& getContextMenuConfig() {
@@ -101,37 +114,26 @@ class RDConfigNode
       return m_ConnectionDurationMap;
    }
 
-   inline NodeStatus getStatus() const {
-      return m_State;
-   }
-
-
-   inline void setWorkload(const double workload) {
-      m_Workload = workload;
-   }
-   inline void setStatusText(const QString& statusText) {
-      m_StatusText = statusText;
-   }
-   inline void setLocationText(const QString& locationText) {
-      m_LocationText = locationText;
-   }
    inline void setReportInterval(const uint64_t reportInterval) {
       m_ReportInterval = reportInterval;
    }
 
-   void setUpdated();
+   inline NodeStatus getStatus() const {
+      return m_Status;
+   }
    void updateStatus();
+   void setUpdated();
 
 
    private:
    // Values loaded from config files
-   const QString m_UniqueID;
-   const QString m_DisplayName;
-   const QString m_ImageActive;
-   const QString m_ImageInactive;
-   int           m_PositionX;
-   int           m_PositionY;
-   int           m_TimeoutMultiplier;
+   const QString                     m_UniqueID;
+   const QString                     m_DisplayName;
+   const QString                     m_ImageActive;
+   const QString                     m_ImageInactive;
+   int                               m_PositionX;
+   int                               m_PositionY;
+   int                               m_TimeoutMultiplier;
 
    // Values need during runtime
    QLinkedList<RDContextMenuConfig*> m_ContextMenuEntries;
@@ -139,7 +141,7 @@ class RDConfigNode
    QMap<QString, uint64_t>           m_ConnectionDurationMap;
    QString                           m_StatusText;
    QString                           m_LocationText;
-   NodeStatus                        m_State;
+   NodeStatus                        m_Status;
    uint64_t                          m_ReportInterval;
    uint64_t                          m_LastUpdated;
    double                            m_Workload;

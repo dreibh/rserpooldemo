@@ -52,7 +52,7 @@ RDConfigNode::RDConfigNode(const QString& uniqueID,
      m_PositionX(positionX),
      m_PositionY(positionY),
      m_TimeoutMultiplier(timeoutMultiplier),
-     m_State(INACTIVE),
+     m_Status(INACTIVE),
      m_ReportInterval(6000000),
      m_LastUpdated(0),
      m_Workload(-1.0)
@@ -76,7 +76,7 @@ void RDConfigNode::setUpdated()
 
 double RDConfigNode::getWorkload() const
 {
-   if((m_State == ACTIVE) && (m_Workload >= 0.0)) {
+   if((m_Status == ACTIVE) && (m_Workload >= 0.0)) {
       return(m_Workload);
    }
    return(-1.0);
@@ -85,8 +85,7 @@ double RDConfigNode::getWorkload() const
 
 const QString RDConfigNode::getWorkloadString() const
 {
-   if((m_State == ACTIVE) &&
-      (m_Workload >= 0.0)) {
+   if((m_Status == ACTIVE) && (m_Workload >= 0.0)) {
       char str[16];
       snprintf((char*)&str, sizeof(str), "%1.0f%%", 100.0 * m_Workload);
       return(QString(str));
@@ -98,12 +97,12 @@ const QString RDConfigNode::getWorkloadString() const
 void RDConfigNode::updateStatus()
 {
    if((m_LastUpdated + (m_ReportInterval*m_TimeoutMultiplier)) < CNetworkListener::getMicroTime()) {
-      m_State = INACTIVE;
+      m_Status = INACTIVE;
       m_ConnectedUIDsMap.clear();
       m_StatusText = "";
       m_LocationText = "";
    }
    else {
-      m_State = ACTIVE;
+      m_Status = ACTIVE;
    }
 }
