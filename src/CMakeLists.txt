@@ -2,14 +2,14 @@ SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # ###### Program ############################################################
 ADD_EXECUTABLE(rserpooldemo
-   rdgraphicsscene.cc
-   rdgraphicsnode.cc
-   rdgraphicsview.cc
-   rdconfiguration.cc
-   rdconfignode.cc
-   rdcontextmenuconfig.cc
    mainwidget.cc
    networklistener.cc
+   rdconfignode.cc
+   rdconfiguration.cc
+   rdcontextmenuconfig.cc
+   rdgraphicsnode.cc
+   rdgraphicsscene.cc
+   rdgraphicsview.cc
    rserpooldemo.cc
 )
 

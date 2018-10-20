@@ -59,7 +59,7 @@ class CMainWidget : public QMainWindow
    virtual ~CMainWidget();
 
    RDConfiguration m_Configuration;
-   QImage         m_BackgroundImage;
+   QImage          m_BackgroundImage;
 
    protected:
    void resizeEvent(QResizeEvent* event);
@@ -67,8 +67,8 @@ class CMainWidget : public QMainWindow
    private:
    void createCanvasObjects();
 
-   RDGraphicsScene*            m_Canvas;
-   RDGraphicsView* m_CanvasView;
+   RDGraphicsScene* m_Canvas;
+   RDGraphicsView*  m_CanvasView;
 };
 
 

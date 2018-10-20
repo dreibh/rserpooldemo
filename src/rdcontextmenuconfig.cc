@@ -64,7 +64,7 @@ RDContextMenuConfig::~RDContextMenuConfig()
 
 
 // ###### Split command line into arguments list ############################
-static QStringList splitCommandLine(const QString& commandLine)
+QStringList RDContextMenuConfig::splitCommandLine(const QString& commandLine)
 {
    QStringList                   list;
    QString                       argment;
@@ -73,7 +73,7 @@ static QStringList splitCommandLine(const QString& commandLine)
 
    foreach (QChar const c, commandLine) {
       if(!escape && c == '\\') {
-         escape = true; continue;          
+         escape = true; continue;
       }
       switch (state) {
          case Idle:
@@ -82,7 +82,7 @@ static QStringList splitCommandLine(const QString& commandLine)
             }
             else if(escape || !c.isSpace()) {
                 argment += c;
-                state = Arg;                
+                state = Arg;
             }
           break;
          case Arg:
@@ -94,7 +94,7 @@ static QStringList splitCommandLine(const QString& commandLine)
             }
             else {
                list << argment; argment.clear();
-               state = Idle;                
+               state = Idle;
             }
           break;
          case QuotedArg:

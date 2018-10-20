@@ -65,6 +65,8 @@ class RDContextMenuConfig : public QObject
    virtual void readStderr();
 
    private:
+   static QStringList splitCommandLine(const QString& commandLine);
+
    QWidget*         m_Parent;
    QString          m_NodeName;
    QString          m_ItemName;
