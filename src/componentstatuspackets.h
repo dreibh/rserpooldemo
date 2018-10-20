@@ -79,7 +79,7 @@ struct ComponentStatusReport
 
    uint16_t                           Workload;
    uint16_t                           Associations;
-   struct ComponentAssociation        AssociationArray[0];
+   struct ComponentAssociation        AssociationArray[];
 } __attribute__((packed));
 
 #define CSR_SET_WORKLOAD(w) ((w < 0.0) ? 0xffff : (uint16_t)rint(w * 0xfffe))
