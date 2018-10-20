@@ -52,14 +52,14 @@
 class RDGraphicsNode : public QGraphicsPixmapItem
 {
    public:
-   RDGraphicsNode(RDGraphicsScene*        canvas,
-               RDConfigNode*          node,
-               RDConfiguration* configuration,
-               const QPixmap&  inactivePixmap,
-               const QPixmap&  activePixmap);
+   RDGraphicsNode(RDGraphicsScene* canvas,
+                  RDConfigNode*    configNode,
+                  RDConfiguration* configuration,
+                  const QPixmap&   inactivePixmap,
+                  const QPixmap&   activePixmap);
    virtual ~RDGraphicsNode();
 
-   virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+   virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent* event);
    virtual void advance(int phase);
 
    QColor getColor(const int colorNumber) const;
@@ -67,18 +67,18 @@ class RDGraphicsNode : public QGraphicsPixmapItem
    void updatePosition();
 
    private:
-   RDGraphicsScene*                 m_GraphicsScene;
-   RDConfigNode*                   m_Node;
-   RDConfiguration*          m_Configuration;
+   RDGraphicsScene*         m_GraphicsScene;
+   RDConfigNode*            m_ConfigNode;
+   RDConfiguration*         m_Configuration;
    QPixmap                  m_InactivePixmap;
    QPixmap                  m_ActivePixmap;
-   double                   m_ZPosition;
    QGraphicsRectItem*       m_pBackground;
    QGraphicsSimpleTextItem* m_pTitle;
    QGraphicsSimpleTextItem* m_pStatusText;
    QGraphicsSimpleTextItem* m_pLocationText;
    QGraphicsSimpleTextItem* m_pWorkload;
    QGraphicsRectItem*       m_pWorkloadBackground;
+   double                   m_ZPosition;
 
    struct LinkText
    {

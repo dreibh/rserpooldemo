@@ -58,15 +58,14 @@ class RDMainWindow : public QMainWindow
    RDMainWindow(const QString& configFile);
    virtual ~RDMainWindow();
 
-   RDConfiguration m_Configuration;
-   QImage          m_BackgroundImage;
-
    protected:
    void resizeEvent(QResizeEvent* event);
 
    private:
    void createCanvasObjects();
 
+   RDConfiguration  m_Configuration;
+   QImage           m_BackgroundImage;
    RDGraphicsScene* m_GraphicsScene;
    RDGraphicsView*  m_GraphicsView;
 };

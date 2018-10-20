@@ -47,9 +47,9 @@ class RDContextMenuConfig : public QObject
    Q_OBJECT
    public:
    RDContextMenuConfig(QWidget*       parent,
-                      const QString& nodeName,
-                      const QString& itemName,
-                      const QString& commandLine);
+                       const QString& nodeName,
+                       const QString& itemName,
+                       const QString& commandLine);
    virtual ~RDContextMenuConfig();
 
    inline const QString& getName() const {

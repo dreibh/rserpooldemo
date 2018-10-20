@@ -38,13 +38,13 @@
 #include "networklistener.h"
 
 
-RDConfigNode::RDConfigNode(QString uniqueID,
-             QString displayName,
-             QString imageActive,
-             QString imageInactive,
-             int     positionX,
-             int     positionY,
-             int     timeoutMultiplier)
+RDConfigNode::RDConfigNode(const QString& uniqueID,
+                           const QString& displayName,
+                           const QString& imageActive,
+                           const QString& imageInactive,
+                           int            positionX,
+                           int            positionY,
+                           int            timeoutMultiplier)
    : m_UniqueID(uniqueID),
      m_DisplayName(displayName),
      m_ImageActive(imageActive),
@@ -76,8 +76,7 @@ void RDConfigNode::setUpdated()
 
 double RDConfigNode::getWorkload() const
 {
-   if((m_State == ACTIVE) &&
-      (m_Workload >= 0.0)) {
+   if((m_State == ACTIVE) && (m_Workload >= 0.0)) {
       return(m_Workload);
    }
    return(-1.0);

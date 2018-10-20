@@ -46,9 +46,9 @@ QProcess* RDContextMenuConfig::m_pProcess = NULL;
 
 // ###### Constructor #######################################################
 RDContextMenuConfig::RDContextMenuConfig(QWidget*       parent,
-                                       const QString& nodeName,
-                                       const QString& itemName,
-                                       const QString& commandLine)
+                                         const QString& nodeName,
+                                         const QString& itemName,
+                                         const QString& commandLine)
    : m_Parent(parent),
      m_NodeName(nodeName),
      m_ItemName(itemName),

@@ -57,16 +57,16 @@ class RDGraphicsScene : public QGraphicsScene
 
    void setAdvancePeriod(int ms);
    inline QMap<QString, RDGraphicsNode*>& getCanvasNodesMap() {
-      return m_GraphicsSceneNodesMap;
+      return m_GraphicsNodeMap;
    }
 
    public slots:
    void advance();
 
    private:
-   RDConfiguration*             m_Configuration;
-   QTimer*                     m_AdvanceTimer;
-   QMap<QString, RDGraphicsNode*> m_GraphicsSceneNodesMap;
+   RDConfiguration*               m_Configuration;
+   QTimer*                        m_AdvanceTimer;
+   QMap<QString, RDGraphicsNode*> m_GraphicsNodeMap;
 };
 
 
