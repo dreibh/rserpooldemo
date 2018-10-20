@@ -131,9 +131,7 @@ FOREACH(textFile IN LISTS TDD_TEXT_FILES)
                       DEPENDS ${textFile})
    LIST(APPEND all_texts ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Text/${textImage})
 
-   ADD_CUSTOM_TARGET(generate_${textImage}
-                     DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Text/${textImage}
-                             ${textFile})
+   ADD_CUSTOM_TARGET(generate_${textImage} DEPENDS ${textFile})
    LIST(APPEND generate_all_texts generate_${textImage})
 ENDFOREACH()
 
