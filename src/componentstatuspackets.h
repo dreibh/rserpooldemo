@@ -5,7 +5,7 @@
  *             //    //  //        //    //  //       //   //    //
  *            //===//   //=====   //===//   //       //   //===<<
  *           //   \\         //  //        //       //   //    //
- *          //     \\  =====//  //        //=====  //   //===//    Version II
+ *          //     \\  =====//  //        //=====  //   //===//   Version III
  *
  *             ###################################################
  *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
@@ -40,20 +40,9 @@
 #include <stdint.h>
 
 
-#define CSP_VERSION        0x0200
+#define CSP_VERSION 0x0200
+#define CSPT_REPORT   0x01
 
-
-#define CID_GROUP(id)  (((uint64_t)id >> 56) & (0xffffULL))
-#define CID_OBJECT(id) ((uint64_t)id & 0xffffffffffffffULL)
-
-#define CID_GROUP_REGISTRAR   0x0001
-#define CID_GROUP_POOLELEMENT 0x0002
-#define CID_GROUP_POOLUSER    0x0003
-
-#define CID_COMPOUND(group, object)  ((((uint64_t)(group & 0xffff)) << 56) | CID_OBJECT((uint64_t)object))
-
-
-#define CSPT_REPORT           0x01
 
 struct ComponentStatusCommonHeader
 {
@@ -63,7 +52,9 @@ struct ComponentStatusCommonHeader
    uint32_t Version;
    uint64_t SenderID;
    uint64_t SenderTimeStamp;
-};
+} __attribute__((packed));
+
+#define CSPF_FINAL         (1 << 0)
 
 
 #define CSPR_LOCATION_SIZE 128
@@ -76,7 +67,7 @@ struct ComponentAssociation
    uint16_t Flags;
    uint16_t ProtocolID;
    uint32_t PPID;
-};
+} __attribute__((packed));
 
 struct ComponentStatusReport
 {
@@ -89,7 +80,7 @@ struct ComponentStatusReport
    uint16_t                           Workload;
    uint16_t                           Associations;
    struct ComponentAssociation        AssociationArray[0];
-};
+} __attribute__((packed));
 
 #define CSR_SET_WORKLOAD(w) ((w < 0.0) ? 0xffff : (uint16_t)rint(w * 0xfffe))
 #define CSR_GET_WORKLOAD(w) ((w == 0xffff) ? -1.0 : (double)(w / (double)0xfffe))
