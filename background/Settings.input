@@ -36,7 +36,7 @@ SET(BUILD_VERSION ${BUILD_MAJOR}.${BUILD_MINOR}.${BUILD_PATCH})
 
 
 # ------ Helper variables ---------------------------------
-EXECUTE_PROCESS(COMMAND env LC_TIME=en_US.UTF-8 date "+%Y"
+EXECUTE_PROCESS(COMMAND env LC_TIME=en_IE.UTF-8 date "+%Y"
                 OUTPUT_VARIABLE this_year OUTPUT_STRIP_TRAILING_WHITESPACE)
 EXECUTE_PROCESS(COMMAND env LC_TIME=en_IE.UTF-8 date
                 OUTPUT_VARIABLE this_date OUTPUT_STRIP_TRAILING_WHITESPACE)
@@ -51,8 +51,8 @@ SET(TDD_RESOLUTIONS
    1024x768    # Standard
 #    1366x768
    1600x1200
-#    1920x1200   # Full HD 16:10
    1920x1080   # Full HD 16:9
+#    1920x1200   # Full HD 16:10
 #    2970x2100   # DIN A4
    3840x2160   # 4K 16:9
 )
@@ -61,6 +61,8 @@ SET(TDD_VARIANTS
    plain
 #   mosaic
 #   oil
+#   cloth
+#   oldphoto
 )
 
 SET(TDD_JPEG_QUALITY          92.5)
@@ -92,6 +94,7 @@ SET(TDD_ADD_DIST_TARGET          0)
 SET(TDD_FLAT_DIRECTORY_STRUCTURE 1)
 SET(TDD_OUTPUT_DIRECTORY         "Output")
 SET(TDD_INSTALL_SUBDIRECTORY     "${CMAKE_PROJECT_NAME}")   # Install under [PREFIX]/share/${TDD_INSTALL_SUBDIRECTORY}
+SET(TDD_INSTALL_ORIGINALS        0)
 
 # ------ Programs -----------------------------------------
 SET(MAKE_CROPPED    "${CMAKE_CURRENT_SOURCE_DIR}/gimp-scripts/Resize-with-Cropping")
@@ -99,3 +102,5 @@ SET(MAKE_LOGO       "${CMAKE_CURRENT_SOURCE_DIR}/gimp-scripts/Make-Logo")
 SET(MAKE_BACKGROUND "${CMAKE_CURRENT_SOURCE_DIR}/gimp-scripts/Make-Background")
 SET(MAKE_PAINTING   "${CMAKE_CURRENT_SOURCE_DIR}/gimp-scripts/Make-Painting")
 SET(MAKE_MOSAIC     "${CMAKE_CURRENT_SOURCE_DIR}/gimp-scripts/Make-Mosaic")
+SET(MAKE_CLOTH      "${CMAKE_CURRENT_SOURCE_DIR}/gimp-scripts/Make-Cloth")
+SET(MAKE_OLDPHOTO   "${CMAKE_CURRENT_SOURCE_DIR}/gimp-scripts/Make-OldPhoto")

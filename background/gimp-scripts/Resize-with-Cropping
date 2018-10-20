@@ -20,10 +20,10 @@
 # Contact: dreibh@simula.no
 #
 
-from wand.image import Image
 import math
 import re
 import sys
+import wand.image
 
 
 # ###### Handle arguments ###################################################
@@ -56,7 +56,7 @@ if len(sys.argv) > 4:
 
 
 # ###### Load image #########################################################
-image       = Image(filename=inputFileName)
+image       = wand.image.Image(filename=inputFileName)
 inputWidth  = float(image.width)         # Use float!
 inputHeight = float(image.height)        # Use float!
 inputAspect = inputWidth / inputHeight   # => result is also float!
