@@ -15,6 +15,10 @@ BuildRequires: gimp
 BuildRequires: ImageMagick
 BuildRequires: python3
 BuildRequires: python3-wand
+BuildRequires: ghostscript
+BuildRequires: texlive-epstopdf-bin
+BuildRequires: texlive-pdfcrop-bin
+BuildRequires: dia
 BuildRoot: %{_tmppath}/%{name}-%{version}-build
 
 %define _unpackaged_files_terminate_build 0
