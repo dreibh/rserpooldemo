@@ -62,12 +62,12 @@ class EXMLSyntaxException
 
 class CNetworkListener;
 
-class CConfiguration
+class RDConfiguration
 {
    public:
-   CConfiguration(QWidget*       canvasWidet,
+   RDConfiguration(QWidget*       canvasWidet,
                   const QString& configFile);
-   ~CConfiguration();
+   ~RDConfiguration();
 
    inline int getDisplaySizeX() const {
       return m_DisplaySizeX;

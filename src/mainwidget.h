@@ -47,7 +47,7 @@
 #include "canvas.h"
 
 
-class CConfiguration;
+class RDConfiguration;
 class CSerPoolCanvasView;
 
 
@@ -58,7 +58,7 @@ class CMainWidget : public QMainWindow
    CMainWidget(const QString& configFile);
    virtual ~CMainWidget();
 
-   CConfiguration m_Configuration;
+   RDConfiguration m_Configuration;
    QImage         m_BackgroundImage;
 
    protected:
@@ -67,7 +67,7 @@ class CMainWidget : public QMainWindow
    private:
    void createCanvasObjects();
 
-   CCanvas*            m_Canvas;
+   RDGraphicsScene*            m_Canvas;
    CSerPoolCanvasView* m_CanvasView;
 };
 

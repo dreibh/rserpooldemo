@@ -45,18 +45,18 @@
 #include "configuration.h"
 
 
-class CCanvasNode;
+class RDGraphicsNode;
 
 
-class CCanvas : public QGraphicsScene
+class RDGraphicsScene : public QGraphicsScene
 {
    Q_OBJECT
    public:
-   CCanvas(QObject* parent, CConfiguration* configuration);
-   ~CCanvas();
+   RDGraphicsScene(QObject* parent, RDConfiguration* configuration);
+   ~RDGraphicsScene();
 
    void setAdvancePeriod(int ms);
-   inline QMap<QString, CCanvasNode*>& getCanvasNodesMap() {
+   inline QMap<QString, RDGraphicsNode*>& getCanvasNodesMap() {
       return m_CanvasNodesMap;
    }
 
@@ -64,9 +64,9 @@ class CCanvas : public QGraphicsScene
    void advance();
 
    private:
-   CConfiguration*             m_Configuration;
+   RDConfiguration*             m_Configuration;
    QTimer*                     m_AdvanceTimer;
-   QMap<QString, CCanvasNode*> m_CanvasNodesMap;
+   QMap<QString, RDGraphicsNode*> m_CanvasNodesMap;
 };
 
 

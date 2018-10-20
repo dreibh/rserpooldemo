@@ -52,7 +52,7 @@ CMainWidget::CMainWidget(const QString& configFile)
 {
    setWindowTitle(m_Configuration.getCaption() + " - " + configFile);
 
-   m_Canvas = new CCanvas(this, &m_Configuration);
+   m_Canvas = new RDGraphicsScene(this, &m_Configuration);
    Q_CHECK_PTR(m_Canvas);
    m_Canvas->setSceneRect(0, 0,
                           m_Configuration.getDisplaySizeX(),
@@ -87,7 +87,7 @@ void CMainWidget::createCanvasObjects()
    QLinkedList<CNode*>& rNodeList = m_Configuration.getNodes();
    for(QLinkedList<CNode*>::iterator it = rNodeList.begin();it != rNodeList.end();++it) {
       CNode* pNode = *it;
-      CCanvasNode* node = new CCanvasNode(m_Canvas, pNode, &m_Configuration,
+      RDGraphicsNode* node = new RDGraphicsNode(m_Canvas, pNode, &m_Configuration,
                                             QPixmap(pNode->getImageInactive()),
                                             QPixmap(pNode->getImageActive()));
       Q_CHECK_PTR(node);
@@ -102,8 +102,8 @@ void CMainWidget::resizeEvent(QResizeEvent* event)
    m_Canvas->setBackgroundBrush(m_BackgroundImage.scaled(event->size().width(), event->size().height()));
    m_Configuration.updateDisplaySize(event->size().width(), event->size().height());
 
-   QMap<QString, CCanvasNode*>& rNodeMap = m_Canvas->getCanvasNodesMap();
-   for(QMap<QString, CCanvasNode*>::iterator it = rNodeMap.begin();it != rNodeMap.end();++it) {
+   QMap<QString, RDGraphicsNode*>& rNodeMap = m_Canvas->getCanvasNodesMap();
+   for(QMap<QString, RDGraphicsNode*>::iterator it = rNodeMap.begin();it != rNodeMap.end();++it) {
       (*it)->updatePosition();
    }
 }

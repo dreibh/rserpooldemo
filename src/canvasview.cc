@@ -34,38 +34,37 @@
  * Contact: dreibh@iem.uni-due.de
  */
 
-#include "canvas.h"
+#include <QContextMenuEvent>
+#include <QGraphicsItem>
+
+#include "canvasview.h"
+#include "canvasnode.h"
 #include "mainwidget.h"
 
 
-// ###### Constructor #######################################################
-CCanvas::CCanvas(QObject* parent, CConfiguration* configuration)
-   : QGraphicsScene(parent),
-     m_Configuration(configuration)
-{
-    m_AdvanceTimer = new QTimer(this);
-    Q_CHECK_PTR(m_AdvanceTimer);
-    QObject::connect(m_AdvanceTimer, SIGNAL(timeout()), this, SLOT(advance()));
-}
-
-
-// ###### Destructor ########################################################
-CCanvas::~CCanvas()
+CSerPoolCanvasView::CSerPoolCanvasView(QGraphicsScene* canvas, QWidget* parent = 0)
+   : QGraphicsView(canvas, parent)
 {
 }
 
 
-// ###### Set advance period ################################################
-void CCanvas::setAdvancePeriod(int ms)
+CSerPoolCanvasView::~CSerPoolCanvasView()
 {
-    m_AdvanceTimer->setInterval(ms);
-    m_AdvanceTimer->start();
 }
 
 
-// ###### Update scenario ###################################################
-void CCanvas::advance()
+void CSerPoolCanvasView::contentsContextMenuEvent(QContextMenuEvent* event)
 {
-   m_Configuration->updateNodeData();
-   QGraphicsScene::advance();
+#if 0
+   QList<QGraphicsItem*> list = scene()->collidingItems(event->pos());
+   RDGraphicsNode*          node = 0;
+   for(QList<QGraphicsItem*>::iterator it = list.begin();it != list.end();++it) {
+      node = dynamic_cast<RDGraphicsNode *>(*it) ;
+      if(node) {
+         node->m_ContextMenu->exec(event->globalPos());
+         return;
+      }
+   }
+#endif
+   puts("FIXME: contentsContextMenuEvent()");
 }

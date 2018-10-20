@@ -49,15 +49,15 @@
 #include "node.h"
 
 
-class CCanvasNode : public QGraphicsPixmapItem
+class RDGraphicsNode : public QGraphicsPixmapItem
 {
    public:
-   CCanvasNode(CCanvas*        canvas,
+   RDGraphicsNode(RDGraphicsScene*        canvas,
                CNode*          node,
-               CConfiguration* configuration,
+               RDConfiguration* configuration,
                const QPixmap&  inactivePixmap,
                const QPixmap&  activePixmap);
-   virtual ~CCanvasNode();
+   virtual ~RDGraphicsNode();
 
    virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
    virtual void advance(int phase);
@@ -67,9 +67,9 @@ class CCanvasNode : public QGraphicsPixmapItem
    void updatePosition();
 
    private:
-   CCanvas*                 m_Canvas;
+   RDGraphicsScene*                 m_Canvas;
    CNode*                   m_Node;
-   CConfiguration*          m_Configuration;
+   RDConfiguration*          m_Configuration;
    QPixmap                  m_InactivePixmap;
    QPixmap                  m_ActivePixmap;
    double                   m_ZPosition;
