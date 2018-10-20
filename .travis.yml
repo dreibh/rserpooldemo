@@ -127,9 +127,9 @@ install:
     if [ "$TRAVIS_OS_NAME" = "linux" ] ; then
        if [ "$VARIANT" = "ubuntu" ] ; then
           sudo docker exec -t ubuntu-test bash -c "apt-get update"
-          sudo docker exec -t ubuntu-test bash -c "apt-get install -y cmake gcc g++ clang make qtbase5-dev qtbase5-dev-tools bc exiftool gimp imagemagick gsfonts python3-all python3-wand"
+          sudo docker exec -t ubuntu-test bash -c "apt-get install -y cmake gcc g++ clang make qtbase5-dev qtbase5-dev-tools bc exiftool gimp imagemagick gsfonts python3-all python3-wand texlive-font-utils texlive-extra-utils ghostscript dia"
        elif [ "$VARIANT" = "fedora" ] ; then
-          sudo docker exec -t ubuntu-test bash -c "dnf install -y cmake gcc gcc-c++ clang make qt5-qtbase-devel bc perl-Image-ExifTool gimp ImageMagick python3 python3-wand"
+          sudo docker exec -t ubuntu-test bash -c "dnf install -y cmake gcc gcc-c++ clang make qt5-qtbase-devel bc perl-Image-ExifTool gimp ImageMagick python3 python3-wand dia"
        fi
     fi
 
