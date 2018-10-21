@@ -68,6 +68,7 @@ ENDIF()
 # ###### Requirements #######################################################
 INCLUDE(FindUnixCommands)
 
+# ------ Required prgorams --------------------------------------------------
 FIND_PROGRAM(BC bc PATHS /bin /usr/bin /usr/local/bin)
 IF(NOT BC)
    MESSAGE(FATAL_ERROR "bc (Ubuntu/Debian: bc; Fedora: bc) not found!")
@@ -86,6 +87,42 @@ ENDIF()
 FIND_PROGRAM(IDENTIFY identify PATHS /bin /usr/bin /usr/local/bin)
 IF(NOT IDENTIFY)
    MESSAGE(FATAL_ERROR "identify (Ubuntu/Debian: imagemagick; Fedora: ImageMagick) not found!")
+ENDIF()
+
+# ------ Required scripts ---------------------------------------------------
+FIND_PROGRAM(MAKE_CROPPED ${TDD_MAKE_CROPPED})
+IF(NOT IDENTIFY)
+   MESSAGE(FATAL_ERROR "Resize-with-Cropping (${TDD_MAKE_CROPPED}) not found!")
+ENDIF()
+
+FIND_PROGRAM(MAKE_LOGO ${TDD_MAKE_LOGO})
+IF(NOT IDENTIFY)
+   MESSAGE(FATAL_ERROR "Make-Logo (${TDD_MAKE_LOGO}) not found!")
+ENDIF()
+
+FIND_PROGRAM(MAKE_BACKGROUND ${TDD_MAKE_BACKGROUND})
+IF(NOT IDENTIFY)
+   MESSAGE(FATAL_ERROR "Make-Background (${TDD_MAKE_BACKGROUND}) not found!")
+ENDIF()
+
+FIND_PROGRAM(MAKE_PAINTING ${TDD_MAKE_PAINTING})
+IF(NOT IDENTIFY)
+   MESSAGE(FATAL_ERROR "Make-Painting (${TDD_MAKE_PAINTING}) not found!")
+ENDIF()
+
+FIND_PROGRAM(MAKE_MOSAIC ${TDD_MAKE_MOSAIC})
+IF(NOT IDENTIFY)
+   MESSAGE(FATAL_ERROR "Make-Mosaic (${TDD_MAKE_MOSAIC}) not found!")
+ENDIF()
+
+FIND_PROGRAM(MAKE_CLOTH ${TDD_MAKE_CLOTH})
+IF(NOT IDENTIFY)
+   MESSAGE(FATAL_ERROR "Make-Cloth (${TDD_MAKE_CLOTH}) not found!")
+ENDIF()
+
+FIND_PROGRAM(MAKE_OLDPHOTO ${TDD_MAKE_OLDPHOTO})
+IF(NOT IDENTIFY)
+   MESSAGE(FATAL_ERROR "Make-OldPhoto (${TDD_MAKE_OLDPHOTO}) not found!")
 ENDIF()
 
 
