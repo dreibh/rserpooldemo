@@ -177,6 +177,7 @@ FILE(MAKE_DIRECTORY ${TDD_OUTPUT_DIRECTORY})
 # Due to parallel runs of Gimp, make sure that gimp runs once allone first!
 SET(GIMP_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/.gimp)
 FILE(MAKE_DIRECTORY ${GIMP_DIRECTORY})
+FILE(MAKE_DIRECTORY ${GIMP_DIRECTORY}/./gradients)   # For some reason, Gimp 2.10 does not create this directory but complains about it.
 SET(gimpDirStamp "${GIMP_DIRECTORY}/gimp.stamp")
 ADD_CUSTOM_COMMAND(OUTPUT  ${gimpDirStamp}
                    COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${TEST_GIMP}
