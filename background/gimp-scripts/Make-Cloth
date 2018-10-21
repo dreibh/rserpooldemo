@@ -52,7 +52,7 @@ fi
 )
 (gimp-quit TRUE)
 EOF
-) | env LANG=C gimp --new-instance --no-interface --no-splash --batch - 2>&1 | \
+) | env LANG=C HOME=/tmp gimp --new-instance --no-interface --no-splash --batch - 2>&1 | \
        ( grep -vE "^ts>|^Copyright|^Welcome|GLib-GObject-WARNING|^$" || true )
 
 if [ ! -e "$OUTPUTFILENAME" ] ; then

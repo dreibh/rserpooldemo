@@ -29,7 +29,7 @@ if [ $# -lt 3 ] ; then
    echo >&2 "Usage: $0 filename logo_text logo_size [border_size [colorscheme [fontname]]]"
    exit 1
 fi
-FILENAME="$1"
+OUTPUTFILENAME="$1"
 CONTENT="$2"
 FONTSIZE=$3
 BORDERSIZE=5
@@ -92,7 +92,7 @@ fi
 )
 
 (let*
-   ((fileName    "$FILENAME")
+   ((fileName    "$OUTPUTFILENAME")
     (logoText    "$CONTENT")
     (fontName    "$FONTNAME")
     (fontSize     $FONTSIZE)
@@ -118,10 +118,10 @@ fi
 )
 (gimp-quit TRUE)
 EOF
-) | env LANG=C gimp --new-instance --no-interface --no-splash --batch - 2>&1 | \
+) | env LANG=C HOME=/tmp gimp --new-instance --no-interface --no-splash --batch - 2>&1 | \
        ( grep -vE "^ts>|^Copyright|^Welcome|GLib-GObject-WARNING|^$" || true )
 
-if [ ! -e "$FILENAME" ] ; then
-   echo >&2 "ERROR: $FILENAME has not been produced. Something went wrong!"
+if [ ! -e "$OUTPUTFILENAME" ] ; then
+   echo >&2 "ERROR: $OUTPUTFILENAME has not been produced. Something went wrong!"
    exit 1
 fi
