@@ -53,20 +53,3 @@ RDGraphicsView::RDGraphicsView(QGraphicsScene* canvas, QWidget* parent = 0)
 RDGraphicsView::~RDGraphicsView()
 {
 }
-
-
-void RDGraphicsView::contentsContextMenuEvent(QContextMenuEvent* event)
-{
-#if 0
-   QList<QGraphicsItem*> list = scene()->collidingItems(event->pos());
-   RDGraphicsNode*          node = 0;
-   for(QList<QGraphicsItem*>::iterator it = list.begin();it != list.end();++it) {
-      node = dynamic_cast<RDGraphicsNode *>(*it) ;
-      if(node) {
-         node->m_ContextMenu->exec(event->globalPos());
-         return;
-      }
-   }
-#endif
-   puts("FIXME: contentsContextMenuEvent()");
-}

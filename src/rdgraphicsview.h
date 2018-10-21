@@ -47,9 +47,6 @@ class RDGraphicsView : public QGraphicsView
    public:
    RDGraphicsView(QGraphicsScene* canvas, QWidget* parent);
    virtual ~RDGraphicsView();
-
-   protected:
-   void contentsContextMenuEvent(QContextMenuEvent* event);
 };
 
 #endif
