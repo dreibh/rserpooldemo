@@ -70,22 +70,22 @@ INCLUDE(FindUnixCommands)
 
 FIND_PROGRAM(BC bc PATHS /bin /usr/bin /usr/local/bin)
 IF(NOT BC)
-   MESSAGE(FATAL_ERROR "bc not found!")
+   MESSAGE(FATAL_ERROR "bc (Ubuntu/Debian: bc; Fedora: bc) not found!")
 ENDIF()
 
 FIND_PROGRAM(EXIFTOOL exiftool PATHS /bin /usr/bin /usr/local/bin)
 IF(NOT EXIFTOOL)
-   MESSAGE(FATAL_ERROR "exiftool not found!")
+   MESSAGE(FATAL_ERROR "exiftool (Ubuntu/Debian: exiftool; Fedora: perl-Image-ExifTool) not found!")
 ENDIF()
 
 FIND_PROGRAM(CONVERT convert PATHS /bin /usr/bin /usr/local/bin)
 IF(NOT CONVERT)
-   MESSAGE(FATAL_ERROR "convert not found!")
+   MESSAGE(FATAL_ERROR "convert (Ubuntu/Debian: imagemagick; Fedora: ImageMagick) not found!")
 ENDIF()
 
 FIND_PROGRAM(IDENTIFY identify PATHS /bin /usr/bin /usr/local/bin)
 IF(NOT IDENTIFY)
-   MESSAGE(FATAL_ERROR "identify not found!")
+   MESSAGE(FATAL_ERROR "identify (Ubuntu/Debian: imagemagick; Fedora: ImageMagick) not found!")
 ENDIF()
 
 

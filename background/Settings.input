@@ -39,11 +39,33 @@ SET(BUILD_PATCH "0")
 SET(BUILD_VERSION ${BUILD_MAJOR}.${BUILD_MINOR}.${BUILD_PATCH})
 
 
-# ------ Helper variables ---------------------------------
+# ###### Helper variables ###################################################
 EXECUTE_PROCESS(COMMAND env LC_TIME=en_IE.UTF-8 date "+%Y"
                 OUTPUT_VARIABLE this_year OUTPUT_STRIP_TRAILING_WHITESPACE)
 EXECUTE_PROCESS(COMMAND env LC_TIME=en_IE.UTF-8 date
                 OUTPUT_VARIABLE this_date OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+                
+# ###### Additional Requirements ############################################
+FIND_PROGRAM(GS gs PATHS /bin /usr/bin /usr/local/bin)
+IF(NOT GS)
+   MESSAGE(FATAL_ERROR "gs (Ubuntu/Debian: ghostscript; Fedora: ghostscript) not found!")
+ENDIF()
+
+FIND_PROGRAM(DIA dia PATHS /bin /usr/bin /usr/local/bin)
+IF(NOT DIA)
+   MESSAGE(FATAL_ERROR "dia (Ubuntu/Debian: dia; Fedora: dia) not found!")
+ENDIF()
+
+FIND_PROGRAM(EPSTOPDF epstopdf PATHS /bin /usr/bin /usr/local/bin)
+IF(NOT EPSTOPDF)
+   MESSAGE(FATAL_ERROR "epstopdf (Ubuntu/Debian: texlive-extra-utils; Fedora: texlive-epstopdf-bin) not found!")
+ENDIF()
+
+FIND_PROGRAM(PDFCROP pdfcrop PATHS /bin /usr/bin /usr/local/bin)
+IF(NOT PDFCROP)
+   MESSAGE(FATAL_ERROR "pdfcrop (Ubuntu/Debian: pdfcrop; Fedora: texlive-pdfcrop-bin texlive-pdftex-bin) not found!")
+ENDIF()
 
 
 # ###### Settings ###########################################################
