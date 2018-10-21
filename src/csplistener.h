@@ -53,8 +53,8 @@ class RDConfigNode;
 class CSPListener
 {
    public:
-   CSPListener(int                    listenPort,
-                    QMap<QString, RDConfigNode*>& nodesMap);
+   CSPListener(int                           listenPort,
+               QMap<QString, RDConfigNode*>& nodesMap);
    ~CSPListener();
 
 
@@ -97,9 +97,9 @@ class CSPListener
 #endif
    }
 
-   int                    m_ListenPort;
+   int                           m_ListenPort;
    QMap<QString, RDConfigNode*>& m_NodesMap;
-   QUdpSocket*            m_SocketDevice;
+   QUdpSocket*                   m_SocketDevice;
 };
 
 #endif
