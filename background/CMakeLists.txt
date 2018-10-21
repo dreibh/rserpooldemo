@@ -89,6 +89,11 @@ IF(NOT IDENTIFY)
    MESSAGE(FATAL_ERROR "identify (Ubuntu/Debian: imagemagick; Fedora: ImageMagick) not found!")
 ENDIF()
 
+FIND_PROGRAM(MAKE_CROPPED ${TDD_MAKE_CROPPED})
+IF(NOT IDENTIFY)
+   MESSAGE(FATAL_ERROR "Resize-with-Cropping (${TDD_MAKE_CROPPED}) not found!")
+ENDIF()
+
 # ------ Required scripts ---------------------------------------------------
 FIND_PROGRAM(MAKE_CROPPED ${TDD_MAKE_CROPPED})
 IF(NOT IDENTIFY)
@@ -123,6 +128,17 @@ ENDIF()
 FIND_PROGRAM(MAKE_OLDPHOTO ${TDD_MAKE_OLDPHOTO})
 IF(NOT IDENTIFY)
    MESSAGE(FATAL_ERROR "Make-OldPhoto (${TDD_MAKE_OLDPHOTO}) not found!")
+ENDIF()
+
+# ------ Customised background scripts --------------------------------------
+FIND_PROGRAM(MAKE_CAPTION ${TDD_MAKE_CAPTION})
+IF(NOT IDENTIFY)
+   MESSAGE(FATAL_ERROR "Caption script (${TDD_MAKE_CAPTION}) not found!")
+ENDIF()
+
+FIND_PROGRAM(MAKE_OVERLAY ${TDD_MAKE_OVERLAY})
+IF(NOT IDENTIFY)
+   MESSAGE(FATAL_ERROR "Caption script (${TDD_MAKE_OVERLAY}) not found!")
 ENDIF()
 
 
@@ -208,7 +224,7 @@ SET(bootsplash_overlayImage          "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_D
 SET(generate_bootsplash_overlayImage "generate_Caption-${TDD_BOOTSPLASH_RESOLUTION}.png")
 STRING(REGEX REPLACE "x.*$" "" bootsplash_width "${TDD_BOOTSPLASH_RESOLUTION}")
 ADD_CUSTOM_COMMAND(OUTPUT  ${bootsplash_overlayImage}
-                   COMMAND ${TDD_MAKE_CAPTION} ${bootsplash_overlayImage} ${captionFile} ${bootsplash_width}
+                   COMMAND ${MAKE_CAPTION} ${bootsplash_overlayImage} ${captionFile} ${bootsplash_width}
                    DEPENDS ${generate_captionFile}
                            ${captionFile})
 ADD_CUSTOM_TARGET(${generate_bootsplash_overlayImage} DEPENDS ${bootsplash_overlayImage})
@@ -230,7 +246,7 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
 
    # NOTE: Dependency on generate targets and files!
    ADD_CUSTOM_COMMAND(OUTPUT ${overlayImage}
-                      COMMAND env GIMP2_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}/.gimp ${TDD_MAKE_OVERLAY} ${overlayImage} ${width} ${height} ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Text
+                      COMMAND env GIMP2_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}/.gimp ${MAKE_OVERLAY} ${overlayImage} ${width} ${height} ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Text
                       DEPENDS generate_all_texts
                               ${all_texts})
    ADD_CUSTOM_TARGET(${generate_overlayImage} DEPENDS ${overlayImage})
