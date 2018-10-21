@@ -62,7 +62,7 @@ class RDMainWindow : public QMainWindow
    void resizeEvent(QResizeEvent* event);
 
    private:
-   void createCanvasObjects();
+   void createNodes();
 
    RDConfiguration  m_Configuration;
    QImage           m_BackgroundImage;

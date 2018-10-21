@@ -46,6 +46,7 @@
 
 
 
+// ###### Constructor #######################################################
 RDMainWindow::RDMainWindow(const QString& configFile)
    : QMainWindow(NULL, NULL),
      m_Configuration(this, configFile)
@@ -70,19 +71,21 @@ RDMainWindow::RDMainWindow(const QString& configFile)
    m_GraphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
    setCentralWidget(m_GraphicsView);
 
-   createCanvasObjects();
+   createNodes();
    m_GraphicsScene->setAdvancePeriod(m_Configuration.getRefreshTime());
 
    m_GraphicsView->show();
 }
 
 
+// ###### Destructor ########################################################
 RDMainWindow::~RDMainWindow()
 {
 }
 
 
-void RDMainWindow::createCanvasObjects()
+// ###### Create graphics nodes #############################################
+void RDMainWindow::createNodes()
 {
    QLinkedList<RDConfigNode*>& rNodeList = m_Configuration.getNodes();
    for(QLinkedList<RDConfigNode*>::iterator it = rNodeList.begin();it != rNodeList.end();++it) {
@@ -96,6 +99,7 @@ void RDMainWindow::createCanvasObjects()
 }
 
 
+// ###### Resize ############################################################
 void RDMainWindow::resizeEvent(QResizeEvent* event)
 {
    m_GraphicsScene->setSceneRect(0, 0, event->size().width(), event->size().height());
