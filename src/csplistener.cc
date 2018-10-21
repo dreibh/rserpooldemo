@@ -41,6 +41,7 @@
 #include "csplistener.h"
 
 
+// ###### Constructor #######################################################
 CSPListener::CSPListener(int                    listenPort,
                                    QMap<QString, RDConfigNode*>& nodesMap)
    : m_ListenPort(listenPort),
@@ -52,18 +53,18 @@ CSPListener::CSPListener(int                    listenPort,
    if(m_SocketDevice->bind(QHostAddress(), m_ListenPort, QUdpSocket::ReuseAddressHint) == false) {
       QMessageBox::critical(0, "Error!", "Error binding CSP socket!");
    }
-   puts("FIXME: setBlocking(false) !!!");
-//    m_SocketDevice->setBlocking(false);
-//    m_SocketDevice->setReceiveBufferSize (49152);
 }
 
 
+// ###### Destructor ########################################################
 CSPListener::~CSPListener()
 {
    delete m_SocketDevice;
+   m_SocketDevice = NULL;
 }
 
 
+// ###### Update configuration from CSP messages ############################
 void CSPListener::update()
 {
    char buffer[65536];
@@ -138,6 +139,7 @@ void CSPListener::update()
 }
 
 
+// ###### Get system time in microseconds ###################################
 unsigned long long CSPListener::getMicroTime()
 {
    struct timeval tv;
