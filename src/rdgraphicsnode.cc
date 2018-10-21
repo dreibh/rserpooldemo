@@ -162,6 +162,7 @@ void RDGraphicsNode::contextMenuEvent(QGraphicsSceneContextMenuEvent* event)
 }
 
 
+// ###### Obtain anchor coordinates #########################################
 void RDGraphicsNode::getAnchor(int& rX, int& rY)
 {
    const int displaySizeX = m_Configuration->getDisplaySizeX();
@@ -172,6 +173,7 @@ void RDGraphicsNode::getAnchor(int& rX, int& rY)
 }
 
 
+// ###### Obtain colour #####################################################
 QColor RDGraphicsNode::getColor(const int colorNumber) const
 {
     QMap<int, QString>::iterator colorNameIterator = m_Configuration->getColorMap().find(colorNumber);
@@ -186,6 +188,7 @@ QColor RDGraphicsNode::getColor(const int colorNumber) const
 }
 
 
+// ###### Update position ###################################################
 void RDGraphicsNode::updatePosition()
 {
    // ====== Update node icon ===============================================
@@ -297,6 +300,7 @@ void RDGraphicsNode::updatePosition()
 }
 
 
+// ###### Update layout #####################################################
 void RDGraphicsNode::advance(int phase)
 {
    if(phase == 1) {
@@ -345,7 +349,7 @@ void RDGraphicsNode::advance(int phase)
             if(found != m_ConUIDsTextMap.end()) {
                LinkText* linkText = *found;
                if(linkText != NULL) {
-                  printf("DEL: %s\n", found.key().toStdString().c_str());
+//                   printf("DEL: %s\n", found.key().toStdString().c_str());
                   m_GraphicsScene->removeItem(linkText->m_pDurationText);
 //                   delete linkText->m_pDurationText;
                   linkText->m_pDurationText = NULL;
