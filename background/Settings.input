@@ -123,6 +123,7 @@ SET(TDD_INSTALL_SUBDIRECTORY     "${CMAKE_PROJECT_NAME}")   # Install under [PRE
 SET(TDD_INSTALL_ORIGINALS        0)
 
 # ------ Programs -----------------------------------------
+SET(TDD_TEST_GIMP       "${CMAKE_CURRENT_SOURCE_DIR}/gimp-scripts/Test-Gimp")
 SET(TDD_MAKE_CROPPED    "${CMAKE_CURRENT_SOURCE_DIR}/gimp-scripts/Resize-with-Cropping")
 SET(TDD_MAKE_LOGO       "${CMAKE_CURRENT_SOURCE_DIR}/gimp-scripts/Make-Logo")
 SET(TDD_MAKE_BACKGROUND "${CMAKE_CURRENT_SOURCE_DIR}/gimp-scripts/Make-Background")

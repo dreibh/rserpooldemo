@@ -89,12 +89,12 @@ IF(NOT IDENTIFY)
    MESSAGE(FATAL_ERROR "identify (Ubuntu/Debian: imagemagick; Fedora: ImageMagick) not found!")
 ENDIF()
 
-FIND_PROGRAM(MAKE_CROPPED ${TDD_MAKE_CROPPED})
-IF(NOT IDENTIFY)
-   MESSAGE(FATAL_ERROR "Resize-with-Cropping (${TDD_MAKE_CROPPED}) not found!")
+# ------ Required scripts ---------------------------------------------------
+FIND_PROGRAM(TEST_GIMP ${TDD_TEST_GIMP})
+IF(NOT TEST_GIMP)
+   MESSAGE(FATAL_ERROR "Test-Gimp (${TDD_TEST_GIMP}) not found!")
 ENDIF()
 
-# ------ Required scripts ---------------------------------------------------
 FIND_PROGRAM(MAKE_CROPPED ${TDD_MAKE_CROPPED})
 IF(NOT IDENTIFY)
    MESSAGE(FATAL_ERROR "Resize-with-Cropping (${TDD_MAKE_CROPPED}) not found!")
@@ -173,6 +173,17 @@ LIST(SORT TDD_VARIANTS)
 FILE(MAKE_DIRECTORY ${TDD_OUTPUT_DIRECTORY})
 
 
+# ###### Initialise GIMP directory ##########################################
+# Due to parallel runs of Gimp, make sure that gimp runs once allone first!
+SET(GIMP_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/.gimp)
+FILE(MAKE_DIRECTORY ${GIMP_DIRECTORY})
+SET(gimpDirStamp "${GIMP_DIRECTORY}/gimp.stamp")
+ADD_CUSTOM_COMMAND(OUTPUT  ${gimpDirStamp}
+                   COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${TEST_GIMP}
+                   COMMAND touch ${gimpDirStamp})
+ADD_CUSTOM_TARGET(generate_gimpDirStamp DEPENDS ${gimpDirStamp})
+
+
 # ###### Generate text images ###############################################
 FILE(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Text)
 FOREACH(textFile IN LISTS TDD_TEXT_FILES)
@@ -180,8 +191,10 @@ FOREACH(textFile IN LISTS TDD_TEXT_FILES)
    GET_FILENAME_COMPONENT(textImage ${textImage} NAME)
 
    ADD_CUSTOM_COMMAND(OUTPUT  ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Text/${textImage}
-                      COMMAND env GIMP2_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}/.gimp MAKE_LOGO="${MAKE_LOGO}" OUTPUT="${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Text/${textImage}" ${BASH} ${textFile}
-                      DEPENDS ${textFile})
+                      COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} MAKE_LOGO="${MAKE_LOGO}" OUTPUT="${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Text/${textImage}" ${BASH} ${textFile}
+                      DEPENDS ${textFile}
+                              generate_gimpDirStamp
+                              ${gimpDirStamp})
    LIST(APPEND all_texts ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Text/${textImage})
 ENDFOREACH()
 ADD_CUSTOM_TARGET(generate_all_texts DEPENDS ${all_texts})
@@ -204,8 +217,10 @@ FOREACH(image IN LISTS TDD_IMAGE_FILES)
       SET(hostnameImage          "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Text/${hostname}.png")
       SET(generate_hostnameImage "generate_${hostname}.png")
 
-      ADD_CUSTOM_COMMAND(OUTPUT ${hostnameImage}
-                         COMMAND env GIMP2_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}/.gimp ${MAKE_LOGO} ${hostnameImage} "${hostname}" 256 10 "Brushed Aluminium" "Comic Sans MS")
+      ADD_CUSTOM_COMMAND(OUTPUT  ${hostnameImage}
+                         COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_LOGO} ${hostnameImage} "${hostname}" 256 10 "Brushed Aluminium" "Comic Sans MS"
+                         DEPENDS generate_gimpDirStamp
+                                 ${gimpDirStamp})
       ADD_CUSTOM_TARGET(${generate_hostnameImage} DEPENDS ${hostnameImage})
    ENDIF()
 ENDFOREACH()
@@ -246,7 +261,7 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
 
    # NOTE: Dependency on generate targets and files!
    ADD_CUSTOM_COMMAND(OUTPUT ${overlayImage}
-                      COMMAND env GIMP2_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}/.gimp ${MAKE_OVERLAY} ${overlayImage} ${width} ${height} ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Text
+                      COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_OVERLAY} ${overlayImage} ${width} ${height} ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Text
                       DEPENDS generate_all_texts
                               ${all_texts})
    ADD_CUSTOM_TARGET(${generate_overlayImage} DEPENDS ${overlayImage})
@@ -284,19 +299,23 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
          IF(variant STREQUAL "plain")
             IF(imageExtension STREQUAL ".png")
                ADD_CUSTOM_COMMAND(OUTPUT  ${imageWithoutLogo}
-                                  COMMAND env GIMP2_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}/.gimp ${MAKE_BACKGROUND} ${image} ${imageTemp2}
-                                  COMMAND env GIMP2_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}/.gimp ${MAKE_CROPPED}    ${imageTemp2} ${imageTemp1} ${aspectRatio}
+                                  COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_BACKGROUND} ${image} ${imageTemp2}
+                                  COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CROPPED}    ${imageTemp2} ${imageTemp1} ${aspectRatio}
                                   COMMAND ${CONVERT} ${imageTemp1} -resize ${resolution} -interlace line ${imageWithoutLogo}
                                   COMMAND ${EXIFTOOL} -q -overwrite_original -Copyright="${TDD_COPYRIGHT}" ${imageWithoutLogo}
                                   COMMAND ${RM} -f ${imageTemp1} ${imageTemp2}
-                                  DEPENDS ${image})
+                                  DEPENDS ${image}
+                                          generate_gimpDirStamp
+                                          ${gimpDirStamp})
             ELSE()
                ADD_CUSTOM_COMMAND(OUTPUT  ${imageWithoutLogo}
-                                  COMMAND env GIMP2_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}/.gimp ${MAKE_CROPPED} ${image} ${imageTemp1} ${aspectRatio}
+                                  COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CROPPED} ${image} ${imageTemp1} ${aspectRatio}
                                   COMMAND ${CONVERT} ${imageTemp1} -resize ${resolution} -interlace line ${imageWithoutLogo}
                                   COMMAND ${EXIFTOOL} -q -overwrite_original -Copyright="${TDD_COPYRIGHT}" ${imageWithoutLogo}
                                   COMMAND ${RM} -f ${imageTemp1} ${imageTemp2}
-                                  DEPENDS ${image})
+                                  DEPENDS ${image}
+                                          generate_gimpDirStamp
+                                          ${gimpDirStamp})
             ENDIF()
 
          # ------ Oil Painting ----------------------------------------------
@@ -304,12 +323,14 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
             EXECUTE_PROCESS(COMMAND echo "(8*${width})/1024" COMMAND ${BC} -l OUTPUT_VARIABLE maskSize OUTPUT_STRIP_TRAILING_WHITESPACE)
             # MESSAGE("Painting: ${originalResulution} ${width} -> ${maskSize}")
             ADD_CUSTOM_COMMAND(OUTPUT  ${imageWithoutLogo}
-                               COMMAND env GIMP2_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}/.gimp ${MAKE_CROPPED}  ${image} ${imageTemp2} ${aspectRatio} ${width}
-                               COMMAND env GIMP2_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}/.gimp ${MAKE_PAINTING} ${imageTemp2} ${imageTemp1} ${makeSize} >/dev/null
+                               COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CROPPED}  ${image} ${imageTemp2} ${aspectRatio} ${width}
+                               COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_PAINTING} ${imageTemp2} ${imageTemp1} ${makeSize} >/dev/null
                                COMMAND ${CONVERT} ${imageTemp1} -interlace line ${imageWithoutLogo}
                                COMMAND ${EXIFTOOL} -q -overwrite_original -Copyright="${TDD_COPYRIGHT}" ${imageWithoutLogo}
                                COMMAND ${RM} -f ${imageTemp1} ${imageTemp2}
-                               DEPENDS ${image})
+                               DEPENDS ${image}
+                                       generate_gimpDirStamp
+                                       ${gimpDirStamp})
 
          # ------ Mosaic ----------------------------------------------------
          ELSEIF(variant STREQUAL "mosaic")
@@ -317,32 +338,38 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
             EXECUTE_PROCESS(COMMAND echo "(1.0*${height})/1024" COMMAND ${BC} -l OUTPUT_VARIABLE tileHeight OUTPUT_STRIP_TRAILING_WHITESPACE)
             # MESSAGE("Mosaic: ${originalResulution} ${width} -> ${tileSize} ${tileHeight}")
             ADD_CUSTOM_COMMAND(OUTPUT  ${imageWithoutLogo}
-                               COMMAND env GIMP2_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}/.gimp ${MAKE_CROPPED} ${image} ${imageTemp2} ${aspectRatio} ${width}
-                               COMMAND env GIMP2_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}/.gimp ${MAKE_MOSAIC}  ${imageTemp2} ${imageTemp1} ${tileSize} ${tileHeight} ${tileHeight} hexagons rough >/dev/null
+                               COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CROPPED} ${image} ${imageTemp2} ${aspectRatio} ${width}
+                               COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_MOSAIC}  ${imageTemp2} ${imageTemp1} ${tileSize} ${tileHeight} ${tileHeight} hexagons rough >/dev/null
                                COMMAND ${CONVERT} ${imageTemp1} -interlace line ${imageWithoutLogo}
                                COMMAND ${EXIFTOOL} -q -overwrite_original -Copyright="${TDD_COPYRIGHT}" ${imageWithoutLogo}
                                COMMAND ${RM} -f ${imageTemp1} ${imageTemp2}
-                               DEPENDS ${image})
+                               DEPENDS ${image}
+                                       generate_gimpDirStamp
+                                       ${gimpDirStamp})
 
          # ------ Cloth -----------------------------------------------------
          ELSEIF(variant STREQUAL "cloth")
             ADD_CUSTOM_COMMAND(OUTPUT  ${imageWithoutLogo}
-                               COMMAND env GIMP2_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}/.gimp ${MAKE_CROPPED} ${image} ${imageTemp2} ${aspectRatio} ${width}
-                               COMMAND env GIMP2_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}/.gimp ${MAKE_CLOTH}   ${imageTemp2} ${imageTemp1} 5 >/dev/null
+                               COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CROPPED} ${image} ${imageTemp2} ${aspectRatio} ${width}
+                               COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CLOTH}   ${imageTemp2} ${imageTemp1} 5 >/dev/null
                                COMMAND ${CONVERT} ${imageTemp1} -interlace line ${imageWithoutLogo}
                                COMMAND ${EXIFTOOL} -q -overwrite_original -Copyright="${TDD_COPYRIGHT}" ${imageWithoutLogo}
                                COMMAND ${RM} -f ${imageTemp1} ${imageTemp2}
-                               DEPENDS ${image})
+                               DEPENDS ${image}
+                                       generate_gimpDirStamp
+                                       ${gimpDirStamp})
 
          # ------ Old Photo -------------------------------------------------
          ELSEIF(variant STREQUAL "oldphoto")
             ADD_CUSTOM_COMMAND(OUTPUT  ${imageWithoutLogo}
-                               COMMAND env GIMP2_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}/.gimp ${MAKE_CROPPED}  ${image} ${imageTemp2} ${aspectRatio} ${width}
-                               COMMAND env GIMP2_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}/.gimp ${MAKE_OLDPHOTO} ${imageTemp2} ${imageTemp1} 20 >/dev/null
+                               COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CROPPED}  ${image} ${imageTemp2} ${aspectRatio} ${width}
+                               COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_OLDPHOTO} ${imageTemp2} ${imageTemp1} 20 >/dev/null
                                COMMAND ${CONVERT} ${imageTemp1} -interlace line ${imageWithoutLogo}
                                COMMAND ${EXIFTOOL} -q -overwrite_original -Copyright="${TDD_COPYRIGHT}" ${imageWithoutLogo}
                                COMMAND ${RM} -f ${imageTemp1} ${imageTemp2}
-                               DEPENDS ${image})
+                               DEPENDS ${image}
+                                       generate_gimpDirStamp
+                                       ${gimpDirStamp})
                                
          # ------ Error -----------------------------------------------------
          ELSE()
