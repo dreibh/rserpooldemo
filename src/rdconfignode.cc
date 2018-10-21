@@ -38,6 +38,7 @@
 #include "csplistener.h"
 
 
+// ###### Constructor #######################################################
 RDConfigNode::RDConfigNode(const QString& uniqueID,
                            const QString& displayName,
                            const QString& imageActive,
@@ -60,6 +61,7 @@ RDConfigNode::RDConfigNode(const QString& uniqueID,
 }
 
 
+// ###### Destructor ########################################################
 RDConfigNode::~RDConfigNode()
 {
    while (!m_ContextMenuEntries.isEmpty()) {
@@ -74,6 +76,7 @@ void RDConfigNode::setUpdated()
 }
 
 
+// ###### Get workload value ################################################
 double RDConfigNode::getWorkload() const
 {
    if((m_Status == ACTIVE) && (m_Workload >= 0.0)) {
@@ -83,6 +86,7 @@ double RDConfigNode::getWorkload() const
 }
 
 
+// ###### Get workload string ###############################################
 const QString RDConfigNode::getWorkloadString() const
 {
    if((m_Status == ACTIVE) && (m_Workload >= 0.0)) {
@@ -94,12 +98,13 @@ const QString RDConfigNode::getWorkloadString() const
 }
 
 
+// ###### Update status #####################################################
 void RDConfigNode::updateStatus()
 {
    if((m_LastUpdated + (m_ReportInterval*m_TimeoutMultiplier)) < CSPListener::getMicroTime()) {
       m_Status = INACTIVE;
       m_ConnectedUIDsMap.clear();
-      m_StatusText = "";
+      m_StatusText   = "";
       m_LocationText = "";
    }
    else {

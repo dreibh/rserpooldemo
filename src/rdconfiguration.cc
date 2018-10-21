@@ -65,6 +65,7 @@ const char g_BackgroundImageTag[]      = "BackgroundImage";
 const char g_CaptionTag[]              = "Caption";
 
 
+// ###### Constructor #######################################################
 RDConfiguration::RDConfiguration(QWidget*       canvasWidget,
                                const QString& configFile)
    : m_GraphicsSceneWidget(canvasWidget),
@@ -129,6 +130,7 @@ RDConfiguration::RDConfiguration(QWidget*       canvasWidget,
 }
 
 
+// ###### Destructor ########################################################
 RDConfiguration::~RDConfiguration()
 {
    while (!m_ConfigNodes.isEmpty()) {
@@ -137,6 +139,7 @@ RDConfiguration::~RDConfiguration()
 }
 
 
+// ###### Create config node ################################################
 RDConfigNode* RDConfiguration::createNode(QDomElement element)
 {
    QLinkedList<RDContextMenuConfig*> contextNodes;
@@ -200,8 +203,9 @@ RDConfigNode* RDConfiguration::createNode(QDomElement element)
 }
 
 
-RDContextMenuConfig* RDConfiguration::createContextMenuEntry(const QString&    nodeName,
-                                                            const QDomElement& element)
+// ###### Create entry for context menu #####################################
+RDContextMenuConfig* RDConfiguration::createContextMenuEntry(const QString&     nodeName,
+                                                             const QDomElement& element)
 {
    QString  itemName;
    QString  commandLine;
@@ -228,7 +232,8 @@ RDContextMenuConfig* RDConfiguration::createContextMenuEntry(const QString&    n
 }
 
 
-void RDConfiguration::updateNodeData()
+// ###### Update configuration from CSP messages ############################
+void RDConfiguration::update()
 {
    m_NetworkListener->update();
 }

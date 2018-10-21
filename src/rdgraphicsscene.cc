@@ -66,6 +66,6 @@ void RDGraphicsScene::setAdvancePeriod(int ms)
 // ###### Update scenario ###################################################
 void RDGraphicsScene::advance()
 {
-   m_Configuration->updateNodeData();
+   m_Configuration->update();
    QGraphicsScene::advance();
 }

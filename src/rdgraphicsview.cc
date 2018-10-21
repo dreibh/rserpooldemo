@@ -42,12 +42,14 @@
 #include "rdmainwindow.h"
 
 
+// ###### Constructor #######################################################
 RDGraphicsView::RDGraphicsView(QGraphicsScene* canvas, QWidget* parent = 0)
    : QGraphicsView(canvas, parent)
 {
 }
 
 
+// ###### Destructor ########################################################
 RDGraphicsView::~RDGraphicsView()
 {
 }

@@ -101,7 +101,7 @@ class RDConfiguration
       m_DisplaySizeX = x;
       m_DisplaySizeY = y;
    }
-   void updateNodeData();
+   void update();
 
    private:
    RDConfigNode* createNode(QDomElement element);
