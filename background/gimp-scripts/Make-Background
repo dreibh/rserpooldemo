@@ -36,6 +36,7 @@ OUTPUTFILENAME="$2"
 
 
 # ====== Call Gimp ==========================================================
+rm -f "$OUTPUTFILENAME"
 ( cat <<EOF
 (let*
    ((inputFileName    "$INPUTFILENAME")
