@@ -118,5 +118,10 @@ fi
 )
 (gimp-quit TRUE)
 EOF
-) | env LANG=C gimp --new-instance --no-interface --no-splash --batch - 2>/dev/null | \
-       ( grep -vE "^ts>|^Copyright|^Welcome|^$" || true )
+) | env LANG=C gimp --new-instance --no-interface --no-splash --batch - 2>&1 | \
+       ( grep -vE "^ts>|^Copyright|^Welcome|GLib-GObject-WARNING|^$" || true )
+
+if [ ! -e "$FILENAME" ] ; then
+   echo >&2 "ERROR: $FILENAME has not been produced. Something went wrong!"
+   exit 1
+fi
