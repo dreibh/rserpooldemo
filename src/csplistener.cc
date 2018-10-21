@@ -111,23 +111,26 @@ void CSPListener::update()
             pNode->getConnectedUIDsMap().clear();
             pNode->getConnectedUIDsDurationMap().clear();
 
+            ComponentAssociation* association = (ComponentAssociation*)&cspReport->AssociationArray;
             for(uint i = 0;i < cspReport->Associations;i++) {
-               cspReport->AssociationArray[i].ReceiverID = ntoh64(cspReport->AssociationArray[i].ReceiverID);
-               cspReport->AssociationArray[i].Duration   = ntoh64(cspReport->AssociationArray[i].Duration);
-               cspReport->AssociationArray[i].Flags      = ntohs(cspReport->AssociationArray[i].Flags);
-               cspReport->AssociationArray[i].ProtocolID = ntohs(cspReport->AssociationArray[i].ProtocolID);
-               cspReport->AssociationArray[i].PPID       = ntohl(cspReport->AssociationArray[i].PPID);
+               association[i].ReceiverID = ntoh64(association[i].ReceiverID);
+               association[i].Duration   = ntoh64(association[i].Duration);
+               association[i].Flags      = ntohs(association[i].Flags);
+               association[i].ProtocolID = ntohs(association[i].ProtocolID);
+               association[i].PPID       = ntohl(association[i].PPID);
 
                snprintf(nameBuffer, sizeof(nameBuffer), "%llx",
-                        (unsigned long long)cspReport->AssociationArray[i].ReceiverID);
+                        (unsigned long long)association[i].ReceiverID);
                QString peerName(nameBuffer);
                QMap<QString, RDConfigNode*>::iterator nodeIterator;
                if((nodeIterator = m_NodesMap.find(peerName)) != m_NodesMap.end()) {
-                  pNode->getConnectedUIDsDurationMap()[peerName] = cspReport->AssociationArray[i].Duration;
-                  pNode->getConnectedUIDsMap()[peerName]         = cspReport->AssociationArray[i].PPID;
+                  pNode->getConnectedUIDsDurationMap()[peerName] = association[i].Duration;
+                  pNode->getConnectedUIDsMap()[peerName]         = association[i].PPID;
                }
                else {
-                  std::cerr << "WARNING: Received status for unknwon connection from " << name.toLocal8Bit().constData() << " to " << peerName.toLocal8Bit().constData() << std::endl;
+                  std::cerr << "WARNING: Received status for unknwon connection from "
+                            << name.toLocal8Bit().constData() << " to "
+                            << peerName.toLocal8Bit().constData() << std::endl;
                }
             }
          }
