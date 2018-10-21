@@ -1,3 +1,149 @@
+commit 9eb27ced1187a958acf5fa0117a7b762d8dd8952
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Oct 21 12:15:59 2018 +0200
+
+    Updated configuration.
+
+commit c87dc221d13f454401fec5d15e6d6ce7fd3e5b70
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Oct 21 11:33:27 2018 +0200
+
+    Improved error handling.
+
+commit d4b4203b976e43aedafe291b3f52b1dcab641522
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Oct 21 11:12:19 2018 +0200
+
+    Also check for custom background scripts.
+
+commit 14b2782df075a2cffa9819f1d552c523de6dd44b
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Oct 21 11:09:10 2018 +0200
+
+    Also check for existence of scripts.
+
+commit 18dd67f8c6e55f88dbeb82d43e099d9ed660eb83
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Oct 21 10:53:02 2018 +0200
+
+    Look for all needed packages.
+
+commit 0f20bd0793725663d11fa6dfb95e89bb83351cde
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Oct 21 10:25:55 2018 +0200
+
+    Fedora needs another package for build.
+
+commit e5b2fd791f5c3f50a89fc5869c1895f9bea3bfb3
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Oct 21 00:42:23 2018 +0200
+
+    Another fix.
+
+commit 1eb8ee4b8f580e5ba49907158b59f53426600874
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Oct 20 23:35:11 2018 +0200
+
+    Minor update.
+
+commit c27c2b6806e2f10b9ecbbc1f32266b9e1e4506f8
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Oct 20 23:18:06 2018 +0200
+
+    Improved script.
+
+commit c882e005f939c517d2be9463ca472c0d7273552f
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Oct 20 23:10:06 2018 +0200
+
+    A fix in the TARGET-type dependencies.
+
+commit 9fe3227eca53540cbf87030fc8c41cbacb5ae63b
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Oct 20 22:00:13 2018 +0200
+
+    Dependency fix.
+
+commit a3892cdbdd352bcec0f70e11c375103479148c3e
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Oct 20 21:45:29 2018 +0200
+
+    Updated RPM spec file.
+
+commit 76a5f183b775b382716fcd99d18ed4dc3cf11654
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Oct 20 21:45:24 2018 +0200
+
+    A fix.
+
+commit e38c66c74e8a5c25dc727e379995bdcc15708895
+Merge: 257ea16 a746f97
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Oct 20 21:37:07 2018 +0200
+
+    Merge branch 'dreibh/qt5' of github.com:dreibh/rserpooldemo into dreibh/qt5
+
+commit 257ea167c255446729db9155ddd7bae04c2e55bb
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Oct 20 21:36:47 2018 +0200
+
+    Added configuration file.
+
+commit a746f9733d9d821ca1118bc6123a198c7ca79ed2
+Merge: 6adbb33 a6c88f1
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Oct 20 21:10:23 2018 +0200
+
+    Merge branch 'dreibh/qt5' of https://github.com/dreibh/rserpooldemo into dreibh/qt5
+
+commit 6adbb330dca843abcdab37c3396a017a846eb153
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Oct 20 21:10:17 2018 +0200
+
+    Updated RPM spec file.
+
+commit a6c88f14f28f5fd046d58ec43bdd9cc65b89e57a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Oct 20 21:10:03 2018 +0200
+
+    Some updates.
+
+commit 3480cfc87ef7402bb9f6efc85768498c2f2d3add
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Oct 20 19:16:21 2018 +0200
+
+    Replaced "convert" by "gs" for PDF handling.
+
+commit 632cfcd3efb81c450c4956e2b8b2dac75aa64155
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Oct 20 15:42:40 2018 +0200
+
+    Another try.
+
+commit 67f7f621edd4d78f8280f40a26d7eeb49f150560
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Oct 20 14:43:47 2018 +0200
+
+    Another try.
+
+commit aa55ce1c7de03bb34c47d008747536b6b7d3f992
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Oct 20 14:32:24 2018 +0200
+
+    Minor updates.
+
+commit d2c11bb29a2240c6faf2dd29ef7090bd25167f33
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Oct 20 14:22:13 2018 +0200
+
+    Added helper script.
+
+commit d0f80f4199e9ea8083c8082ef1bc32fbda02bf7e
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Oct 20 14:20:26 2018 +0200
+
+    Added packaging files.
+
 commit 82f87615bd5b04f494ed58e64042f0b394ca83b2
 Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Sat Oct 20 12:44:28 2018 +0200
