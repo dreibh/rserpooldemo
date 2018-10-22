@@ -65,7 +65,7 @@ if inputAspect < 1.0:
 
 
 # ###### Crop image #########################################################
-#print('Input:  ' + str(inputWidth) + '*' + str(inputHeight) + ' (' + str(inputAspect) + ':1)')
+print('Input:  ' + str(inputWidth) + '*' + str(inputHeight) + ' (' + str(inputAspect) + ':1)')
 if inputAspect < outputAspect:
    croppedInputWidth  = int(inputWidth)
    croppedInputHeight = int(round(croppedInputWidth / outputAspect))
@@ -75,19 +75,20 @@ else:
 
 cropWidth  = int(inputWidth - croppedInputWidth)
 cropHeight = int(inputHeight - croppedInputHeight)
-#print(' -> crop: w=' + str(cropWidth) + ' h=' + str(cropHeight))
+print(' -> crop: cw=' + str(cropWidth) + ' ch=' + str(cropHeight))
 
-#print('Cropped: ' + str(croppedInputWidth) + '*' + str(croppedInputHeight) + ' (' + str(outputAspect) + ':1)')
+print('Crop: ' + str(croppedInputWidth) + '*' + str(croppedInputHeight) + ' (' + str(outputAspect) + ':1)')
 image.crop(int(cropWidth / 2), int(cropHeight / 2),
            width=croppedInputWidth, height=croppedInputHeight)
 
 
 # ###### Resize image #######################################################
 if newWidth != None:
-   #print('Resized: ' + str(newWidth) + '*' + str(newHeight) + ' (' + str(outputAspect) + ':1)')
+   print('Resize: ' + str(newWidth) + '*' + str(newHeight) + ' (' + str(outputAspect) + ':1)')
    image.resize(newWidth, newHeight)
 
 
 
 # ###### Save image #########################################################
+print('Output:  ' + outputFileName)
 image.save(filename=outputFileName)
