@@ -300,9 +300,9 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
          IF(variant STREQUAL "plain")
             IF(imageExtension STREQUAL ".png")
                ADD_CUSTOM_COMMAND(OUTPUT  ${imageWithoutLogo}
-                                  COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_BACKGROUND} ${image} ${imageTemp2}
-                                  COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CROPPED}    ${imageTemp2} ${imageTemp1} ${aspectRatio}
-                                  COMMAND ${CONVERT} ${imageTemp1} -resize ${resolution} -interlace line ${imageWithoutLogo}
+                                  COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CROPPED}    ${image} ${imageTemp2} ${aspectRatio} ${width}
+                                  COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_BACKGROUND} ${imageTemp2} ${imageTemp1}
+                                  COMMAND ${CONVERT} ${imageTemp1} -interlace line ${imageWithoutLogo}
                                   COMMAND ${EXIFTOOL} -q -overwrite_original -Copyright="${TDD_COPYRIGHT}" ${imageWithoutLogo}
                                   COMMAND ${RM} -f ${imageTemp1} ${imageTemp2}
                                   DEPENDS ${image}
@@ -310,8 +310,8 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
                                           ${gimpDirStamp})
             ELSE()
                ADD_CUSTOM_COMMAND(OUTPUT  ${imageWithoutLogo}
-                                  COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CROPPED} ${image} ${imageTemp1} ${aspectRatio}
-                                  COMMAND ${CONVERT} ${imageTemp1} -resize ${resolution} -interlace line ${imageWithoutLogo}
+                                  COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CROPPED} ${image} ${imageTemp1} ${aspectRatio} ${width}
+                                  COMMAND ${CONVERT} ${imageTemp1} -interlace line ${imageWithoutLogo}
                                   COMMAND ${EXIFTOOL} -q -overwrite_original -Copyright="${TDD_COPYRIGHT}" ${imageWithoutLogo}
                                   COMMAND ${RM} -f ${imageTemp1} ${imageTemp2}
                                   DEPENDS ${image}
