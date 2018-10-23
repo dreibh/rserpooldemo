@@ -1,5 +1,5 @@
 Name: rserpooldemo
-Version: 3.0.0~rc1.6
+Version: 3.0.0~rc1.12
 Release: 1
 Summary: RSerPool Demo Tool
 Group: Applications/Internet
@@ -17,7 +17,6 @@ BuildRequires: perl-Image-ExifTool
 BuildRequires: gimp
 BuildRequires: ImageMagick
 BuildRequires: python3
-BuildRequires: python3-wand
 BuildRequires: ghostscript
 BuildRequires: texlive-epstopdf-bin
 BuildRequires: texlive-pdfcrop-bin texlive-pdftex-bin
