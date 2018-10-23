@@ -23,7 +23,10 @@
 import math
 import re
 import sys
-import wand.image
+import pgmagick
+
+# GraphicsMagick API:
+# https://pgmagick.readthedocs.io/en/latest/cookbook.html
 
 
 # ###### Handle arguments ###################################################
@@ -56,9 +59,9 @@ if len(sys.argv) > 4:
 
 
 # ###### Load image #########################################################
-image       = wand.image.Image(filename=inputFileName)
-inputWidth  = float(image.width)         # Use float!
-inputHeight = float(image.height)        # Use float!
+image       = pgmagick.Image(inputFileName)
+inputWidth  = float(image.columns())     # Use float!
+inputHeight = float(image.rows())        # Use float!
 inputAspect = inputWidth / inputHeight   # => result is also float!
 if inputAspect < 1.0:
    outputAspect = 1 / outputAspect       # Input image is in portrait format => convert aspect
@@ -78,17 +81,18 @@ cropHeight = int(inputHeight - croppedInputHeight)
 print(' -> crop: cw=' + str(cropWidth) + ' ch=' + str(cropHeight))
 
 print('Crop: ' + str(croppedInputWidth) + '*' + str(croppedInputHeight) + ' (' + str(outputAspect) + ':1)')
-image.crop(int(cropWidth / 2), int(cropHeight / 2),
-           width=croppedInputWidth, height=croppedInputHeight)
+image.crop(pgmagick.Geometry( croppedInputWidth, croppedInputHeight,int(cropWidth / 2), int(cropHeight / 2)))
 
 
 # ###### Resize image #######################################################
 if newWidth != None:
    print('Resize: ' + str(newWidth) + '*' + str(newHeight) + ' (' + str(outputAspect) + ':1)')
-   image.resize(newWidth, newHeight)
+   image.scale(pgmagick.Geometry(newWidth, newHeight))
 
 
 
-# ###### Save image #########################################################
+## ###### Save image #########################################################
 print('Output:  ' + outputFileName)
-image.save(filename=outputFileName)
+image.write(outputFileName)
+
+print('Done!')

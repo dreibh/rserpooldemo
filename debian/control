@@ -15,7 +15,7 @@ Build-Depends: bc,
                imagemagick,
                libfile-fcntllock-perl,
                python3-all,
-               python3-wand,
+               python3-pgmagick,
                qtbase5-dev,
                texlive-extra-utils,
                texlive-font-utils
@@ -132,8 +132,8 @@ Depends: autoconf,
          lua5.2,
          pbuilder,
          pkg-config,
-         python3-psycopg2,
-         python3-pymongo,
+         python3-wand,
+         python3-pgmagick,
          qtbase5-dev,
          quilt,
          r-base,
@@ -147,8 +147,7 @@ Depends: autoconf,
          yum-utils,
          ${misc:Depends},
          ${shlibs:Depends}
-Recommends: python3-wand,
-            ubuntu-dev-tools
+Recommends: ubuntu-dev-tools
 Description: RSerPoolDemo Development Tools
  This meta-package contains basic software for RSerPoolDemo development.
  The software installed provides a common working environment.
