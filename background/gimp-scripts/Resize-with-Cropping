@@ -49,7 +49,7 @@ fi
 newWidth=
 if [ $# -ge 4 ] ; then
    newWidth="$4"
-   newHeight=0`echo "(${newWidth}/${outputAspect})+0.5" | bc -l | sed -e "s/\.[0-9]*$//"`
+   newHeight=`echo "(${newWidth}/${outputAspect})+0.5" | bc -l | sed -e "s/\.[0-9]*$//"`
 fi
 
 
