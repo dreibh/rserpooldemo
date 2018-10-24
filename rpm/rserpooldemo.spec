@@ -1,5 +1,5 @@
 Name: rserpooldemo
-Version: 3.0.0~rc1.6
+Version: 3.0.0~rc1.13
 Release: 1
 Summary: RSerPool Demo Tool
 Group: Applications/Internet
@@ -8,20 +8,18 @@ URL: https://www.uni-due.de/~be0001/rserpool/
 Source: https://www.uni-due.de/~be0001/rserpool/download/%{name}-%{version}.tar.gz
 
 AutoReqProv: on
+BuildRequires: bc
 BuildRequires: cmake
+BuildRequires: dia
 BuildRequires: gcc
 BuildRequires: gcc-c++
-BuildRequires: qt5-qtbase-devel
-BuildRequires: bc
-BuildRequires: perl-Image-ExifTool
+BuildRequires: ghostscript
 BuildRequires: gimp
 BuildRequires: ImageMagick
-BuildRequires: python3
-BuildRequires: python3-wand
-BuildRequires: ghostscript
+BuildRequires: perl-Image-ExifTool
+BuildRequires: qt5-qtbase-devel
 BuildRequires: texlive-epstopdf-bin
 BuildRequires: texlive-pdfcrop-bin texlive-pdftex-bin
-BuildRequires: dia
 BuildRoot: %{_tmppath}/%{name}-%{version}-build
 
 %define _unpackaged_files_terminate_build 0
