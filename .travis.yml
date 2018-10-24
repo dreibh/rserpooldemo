@@ -91,25 +91,25 @@ matrix:
       group: travis_latest
       env: DOCKER="fedora:28" VARIANT="fedora" COMPILER_C="clang" COMPILER_CXX="clang++"
 
-    ## ====== Fedora 29 ======================================================
-    #- os: linux
-      #dist: xenial
-      #group: travis_latest
-      #env: DOCKER="fedora:29" VARIANT="fedora" COMPILER_C="gcc" COMPILER_CXX="g++"
-    #- os: linux
-      #dist: xenial
-      #group: travis_latest
-      #env: DOCKER="fedora:29" VARIANT="fedora" COMPILER_C="clang" COMPILER_CXX="clang++"
+    # ====== Fedora 29 ======================================================
+    - os: linux
+      dist: xenial
+      group: travis_latest
+      env: DOCKER="fedora:29" VARIANT="fedora" COMPILER_C="gcc" COMPILER_CXX="g++"
+    - os: linux
+      dist: xenial
+      group: travis_latest
+      env: DOCKER="fedora:29" VARIANT="fedora" COMPILER_C="clang" COMPILER_CXX="clang++"
 
-    ## ====== Fedora Rawhide =================================================
-    #- os: linux
-      #dist: xenial
-      #group: travis_latest
-      #env: DOCKER="fedora:rawhide" VARIANT="fedora" COMPILER_C="gcc" COMPILER_CXX="g++"
-    #- os: linux
-      #dist: xenial
-      #group: travis_latest
-      #env: DOCKER="fedora:rawhide" VARIANT="fedora" COMPILER_C="clang" COMPILER_CXX="clang++"
+    # ====== Fedora Rawhide =================================================
+    - os: linux
+      dist: xenial
+      group: travis_latest
+      env: DOCKER="fedora:rawhide" VARIANT="fedora" COMPILER_C="gcc" COMPILER_CXX="g++"
+    - os: linux
+      dist: xenial
+      group: travis_latest
+      env: DOCKER="fedora:rawhide" VARIANT="fedora" COMPILER_C="clang" COMPILER_CXX="clang++"
 
 
     # ###### Fedora Linux ###################################################
