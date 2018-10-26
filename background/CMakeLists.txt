@@ -229,14 +229,14 @@ ENDFOREACH()
 
 # ###### Generate bootsplash overlay ########################################
 FILE(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Overlay)
-FILE(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Splash)
+FILE(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${TDD_OUTPUT_SPLASH})
 
-SET(captionFile          "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Splash/Caption.input")
+SET(captionFile          "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${TDD_OUTPUT_SPLASH}/Caption.input")
 SET(generate_captionFile "generate_Caption.input")
 FILE(GENERATE OUTPUT ${captionFile} CONTENT "${TDD_BOOTSPLASH_TEXT}")
 ADD_CUSTOM_TARGET(${generate_captionFile} DEPENDS ${captionFile})
 
-SET(bootsplash_overlayImage          "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Overlay/Caption-${TDD_BOOTSPLASH_RESOLUTION}.png")
+SET(bootsplash_overlayImage          "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${TDD_OUTPUT_OVERLAY}/Caption-${TDD_BOOTSPLASH_RESOLUTION}.png")
 SET(generate_bootsplash_overlayImage "generate_Caption-${TDD_BOOTSPLASH_RESOLUTION}.png")
 STRING(REGEX REPLACE "x.*$" "" bootsplash_width "${TDD_BOOTSPLASH_RESOLUTION}")
 ADD_CUSTOM_COMMAND(OUTPUT  ${bootsplash_overlayImage}
@@ -247,8 +247,8 @@ ADD_CUSTOM_TARGET(${generate_bootsplash_overlayImage} DEPENDS ${bootsplash_overl
 
 
 # ###### Generate desktop graphics ##########################################
-FILE(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Desktop-with-Logo)
-FILE(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Desktop-without-Logo)
+FILE(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${TDD_OUTPUT_WITH_LOGO})
+FILE(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${TDD_OUTPUT_WITHOUT_LOGO})
 FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
 
    # ====== Set variables ===================================================
@@ -257,7 +257,7 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
    STRING(REGEX REPLACE "x" ":"   aspectRatio "${resolution}")
 
    # ====== Generate overlay graphics =======================================
-   SET(overlayImage          "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Overlay/Overlay-${resolution}.png")
+   SET(overlayImage          "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${TDD_OUTPUT_OVERLAY}/Overlay-${resolution}.png")
    SET(generate_overlayImage "generate_overlayImage-${resolution}.png")
 
    # NOTE: Dependency on generate targets and files!
@@ -282,13 +282,13 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
 
          # ====== Without logo ==============================================
          IF(FLAT_DIRECTORY_STRUCTURE)
-            SET(dirWithoutLogo     "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Desktop-without-Logo")
+            SET(dirWithoutLogo     "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${TDD_OUTPUT_WITHOUT_LOGO}")
             SET(imageWithoutLogo   "${dirWithoutLogo}/${imageName}-${resolution}-${variant}${imageExtension}")
-            SET(instDirWithoutLogo "${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/Desktop-without-Logo")
+            SET(instDirWithoutLogo "${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/${TDD_OUTPUT_WITHOUT_LOGO}")
          ELSE()
-            SET(dirWithoutLogo     "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Desktop-without-Logo/${resolution}/${variant}")
+            SET(dirWithoutLogo     "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${TDD_OUTPUT_WITHOUT_LOGO}/${resolution}/${variant}")
             SET(imageWithoutLogo   "${dirWithoutLogo}/${imageName}${imageExtension}")
-            SET(instDirWithoutLogo "${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/Desktop-without-Logo/${resolution}/${variant}")
+            SET(instDirWithoutLogo "${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/${TDD_OUTPUT_WITHOUT_LOGO}/${resolution}/${variant}")
          ENDIF()
          SET(generate_imageWithoutLogo "generate_${imageName}-without-Logo-${variant}-${resolution}${imageExtension}")
          FILE(MAKE_DIRECTORY ${dirWithoutLogo})
@@ -389,13 +389,13 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
 
          # ====== With logo =================================================
          IF(FLAT_DIRECTORY_STRUCTURE)
-            SET(dirWithLogo     "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Desktop-with-Logo")
+            SET(dirWithLogo     "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${TDD_OUTPUT_WITH_LOGO}")
             SET(imageWithLogo   "${dirWithLogo}/${imageName}-${resolution}-${variant}${imageExtension}")
-            SET(instDirWithLogo "${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/Desktop-with-Logo")
+            SET(instDirWithLogo "${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/${TDD_OUTPUT_WITH_LOGO}")
          ELSE()
-            SET(dirWithLogo     "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Desktop-with-Logo/${resolution}/${variant}")
+            SET(dirWithLogo     "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${TDD_OUTPUT_WITH_LOGO}/${resolution}/${variant}")
             SET(imageWithLogo   "${dirWithLogo}/${imageName}${imageExtension}")
-            SET(instDirWithLogo "${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/Desktop-with-Logo/${resolution}/${variant}")
+            SET(instDirWithLogo "${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/${TDD_OUTPUT_WITH_LOGO}/${resolution}/${variant}")
          ENDIF()
          SET(generate_imageWithLogo "generate_${imageName}-with-Logo-${variant}-${resolution}${imageExtension}")
          FILE(MAKE_DIRECTORY ${dirWithLogo})
@@ -435,7 +435,7 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
 
          # ====== Bootsplash ================================================
          IF((BUILD_BOOTSPLASH) AND (resolution STREQUAL "${TDD_BOOTSPLASH_RESOLUTION}") AND (variant STREQUAL "${TDD_BOOTSPLASH_VARIANT}"))
-            SET(imageBootsplash          "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Splash/${imageName}-${resolution}.jpeg")
+            SET(imageBootsplash          "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${TDD_OUTPUT_SPLASH}/${imageName}-${resolution}.jpeg")
             SET(generate_imageBootsplash "generate_${imageName}-Splash-${resolution}.jpeg")
 
             ADD_CUSTOM_COMMAND(OUTPUT  ${imageBootsplash}
@@ -446,7 +446,7 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
                                        ${generate_imageWithLogo}
                                        ${imageWithLogo})
             ADD_CUSTOM_TARGET(${generate_imageBootsplash} ALL DEPENDS ${imageBootsplash})
-            INSTALL(FILES ${imageBootsplash} DESTINATION ${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/Splash)
+            INSTALL(FILES ${imageBootsplash} DESTINATION ${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/${TDD_OUTPUT_SPLASH})
          ENDIF()
 
 
