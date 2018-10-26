@@ -15,6 +15,16 @@ matrix:
       group: travis_latest
       env: DOCKER="ubuntu:latest" VARIANT="ubuntu" COMPILER_C="clang" COMPILER_CXX="clang++"
 
+    # ====== Ubuntu 18.10 (Cosmic Cuttlefish) ===============================
+    - os: linux
+      dist: xenial
+      group: travis_latest
+      env: DOCKER="ubuntu:cosmic" VARIANT="ubuntu" COMPILER_C="gcc" COMPILER_CXX="g++"
+    - os: linux
+      dist: xenial
+      group: travis_latest
+      env: DOCKER="ubuntu:cosmic" VARIANT="ubuntu" COMPILER_C="clang" COMPILER_CXX="clang++"
+
     # ====== Ubuntu 18.04 (Bionic Beaver) ===================================
     - os: linux
       dist: xenial
@@ -80,6 +90,16 @@ matrix:
 
 
     # ###### Fedora Linux ###################################################
+
+    # ====== Fedora 28 ======================================================
+    - os: linux
+      dist: xenial
+      group: travis_latest
+      env: DOCKER="fedora:28" VARIANT="fedora" COMPILER_C="gcc" COMPILER_CXX="g++"
+    - os: linux
+      dist: xenial
+      group: travis_latest
+      env: DOCKER="fedora:28" VARIANT="fedora" COMPILER_C="clang" COMPILER_CXX="clang++"
 
     # ====== Fedora 29 ======================================================
     - os: linux
