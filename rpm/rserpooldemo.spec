@@ -108,8 +108,7 @@ Recommends: rsplib-registrar
 This package contains the RSerPoolDemo tool.
 See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
 
-
-%files
+%files tool
 /usr/bin/rserpooldemo
 /usr/share/man/man1/rserpooldemo.1.gz
 /usr/share/rserpooldemo/graphics/*
