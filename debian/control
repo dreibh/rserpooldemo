@@ -3,8 +3,7 @@ Section: net
 Priority: optional
 Maintainer: Thomas Dreibholz <dreibh@simula.no>
 Homepage: https://www.uni-due.de/~be0001/
-Build-Depends: bc,
-               cmake,
+Build-Depends: cmake,
                debhelper (>= 9),
                dia,
                exiftool,

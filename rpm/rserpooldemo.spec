@@ -8,7 +8,6 @@ URL: https://www.uni-due.de/~be0001/rserpool/
 Source: https://www.uni-due.de/~be0001/rserpool/download/%{name}-%{version}.tar.gz
 
 AutoReqProv: on
-BuildRequires: bc
 BuildRequires: cmake
 BuildRequires: dia
 BuildRequires: gcc

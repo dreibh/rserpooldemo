@@ -69,9 +69,9 @@ ENDIF()
 INCLUDE(FindUnixCommands)
 
 # ------ Required prgorams --------------------------------------------------
-FIND_PROGRAM(BC bc PATHS /bin /usr/bin /usr/local/bin)
-IF(NOT BC)
-   MESSAGE(FATAL_ERROR "bc (Ubuntu/Debian: bc; Fedora: bc) not found!")
+FIND_PROGRAM(AWK awk PATHS /bin /usr/bin /usr/local/bin)
+IF(NOT AWK)
+   MESSAGE(FATAL_ERROR "awk (Ubuntu/Debian: awk; Fedora: awk) not found!")
 ENDIF()
 
 FIND_PROGRAM(EXIFTOOL exiftool PATHS /bin /usr/bin /usr/local/bin)
@@ -321,11 +321,11 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
 
          # ------ Oil Painting ----------------------------------------------
          ELSEIF(variant STREQUAL "oil")
-            EXECUTE_PROCESS(COMMAND echo "(8*${width})/1024" COMMAND ${BC} -l OUTPUT_VARIABLE maskSize OUTPUT_STRIP_TRAILING_WHITESPACE)
-            # MESSAGE("Painting: ${originalResulution} ${width} -> ${maskSize}")
+            EXECUTE_PROCESS(COMMAND ${AWK} "BEGIN { print int((8*${width})/1024 + 0.5) }" OUTPUT_VARIABLE maskSize OUTPUT_STRIP_TRAILING_WHITESPACE)
+            # MESSAGE("Painting: ${width} -> ${maskSize}")
             ADD_CUSTOM_COMMAND(OUTPUT  ${imageWithoutLogo}
                                COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CROPPED}  ${image} ${imageTemp2} ${aspectRatio} ${width}
-                               COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_PAINTING} ${imageTemp2} ${imageTemp1} ${makeSize} >/dev/null
+                               COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_PAINTING} ${imageTemp2} ${imageTemp1} ${makeSize}
                                COMMAND ${CONVERT} ${imageTemp1} -interlace line ${imageWithoutLogo}
                                COMMAND ${EXIFTOOL} -q -overwrite_original -Copyright="${TDD_COPYRIGHT}" ${imageWithoutLogo}
                                COMMAND ${RM} -f ${imageTemp1} ${imageTemp2}
@@ -335,12 +335,18 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
 
          # ------ Mosaic ----------------------------------------------------
          ELSEIF(variant STREQUAL "mosaic")
-            EXECUTE_PROCESS(COMMAND echo "(5.5*${width})/1024"  COMMAND ${BC} -l OUTPUT_VARIABLE tileSize   OUTPUT_STRIP_TRAILING_WHITESPACE)
-            EXECUTE_PROCESS(COMMAND echo "(1.0*${height})/1024" COMMAND ${BC} -l OUTPUT_VARIABLE tileHeight OUTPUT_STRIP_TRAILING_WHITESPACE)
-            # MESSAGE("Mosaic: ${originalResulution} ${width} -> ${tileSize} ${tileHeight}")
+            EXECUTE_PROCESS(COMMAND ${AWK} "BEGIN { print int((5.5*${width})/1024  + 0.5) }" OUTPUT_VARIABLE tileSize   OUTPUT_STRIP_TRAILING_WHITESPACE)
+            EXECUTE_PROCESS(COMMAND ${AWK} "BEGIN { print int((1.0*${height})/1024 + 0.5) }" OUTPUT_VARIABLE tileHeight OUTPUT_STRIP_TRAILING_WHITESPACE)
+            IF(${tileSize} LESS 3)
+               SET(tileSize 3)
+            ENDIF()
+            IF(${tileHeight} LESS 1)
+               SET(tileHeight 1)
+            ENDIF()
+            # MESSAGE("Mosaic: ${width} ${height} -> ${tileSize} ${tileHeight}")
             ADD_CUSTOM_COMMAND(OUTPUT  ${imageWithoutLogo}
                                COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CROPPED} ${image} ${imageTemp2} ${aspectRatio} ${width}
-                               COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_MOSAIC}  ${imageTemp2} ${imageTemp1} ${tileSize} ${tileHeight} ${tileHeight} hexagons rough >/dev/null
+                               COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_MOSAIC}  ${imageTemp2} ${imageTemp1} ${tileSize} ${tileHeight} ${tileHeight} hexagons rough
                                COMMAND ${CONVERT} ${imageTemp1} -interlace line ${imageWithoutLogo}
                                COMMAND ${EXIFTOOL} -q -overwrite_original -Copyright="${TDD_COPYRIGHT}" ${imageWithoutLogo}
                                COMMAND ${RM} -f ${imageTemp1} ${imageTemp2}
@@ -352,7 +358,7 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
          ELSEIF(variant STREQUAL "cloth")
             ADD_CUSTOM_COMMAND(OUTPUT  ${imageWithoutLogo}
                                COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CROPPED} ${image} ${imageTemp2} ${aspectRatio} ${width}
-                               COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CLOTH}   ${imageTemp2} ${imageTemp1} 5 >/dev/null
+                               COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CLOTH}   ${imageTemp2} ${imageTemp1} 5
                                COMMAND ${CONVERT} ${imageTemp1} -interlace line ${imageWithoutLogo}
                                COMMAND ${EXIFTOOL} -q -overwrite_original -Copyright="${TDD_COPYRIGHT}" ${imageWithoutLogo}
                                COMMAND ${RM} -f ${imageTemp1} ${imageTemp2}
@@ -364,14 +370,14 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
          ELSEIF(variant STREQUAL "oldphoto")
             ADD_CUSTOM_COMMAND(OUTPUT  ${imageWithoutLogo}
                                COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CROPPED}  ${image} ${imageTemp2} ${aspectRatio} ${width}
-                               COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_OLDPHOTO} ${imageTemp2} ${imageTemp1} 20 >/dev/null
+                               COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_OLDPHOTO} ${imageTemp2} ${imageTemp1} 20
                                COMMAND ${CONVERT} ${imageTemp1} -interlace line ${imageWithoutLogo}
                                COMMAND ${EXIFTOOL} -q -overwrite_original -Copyright="${TDD_COPYRIGHT}" ${imageWithoutLogo}
                                COMMAND ${RM} -f ${imageTemp1} ${imageTemp2}
                                DEPENDS ${image}
                                        generate_gimpDirStamp
                                        ${gimpDirStamp})
-                               
+
          # ------ Error -----------------------------------------------------
          ELSE()
             MESSAGE(FATAL_ERROR "Invalid variant: ${variant}!")
@@ -418,7 +424,7 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
                                COMMAND ${CONVERT} '\(' ${imageWithoutLogo} '\)' -append '\(' ${overlayImage} '\)' -gravity center -composite -interlace line -quality ${TDD_JPEG_QUALITY} ${imageWithLogo}
                                COMMAND ${EXIFTOOL} -q -overwrite_original -Copyright="${TDD_COPYRIGHT}" ${imageWithLogo}
                                DEPENDS ${generate_overlayImage}
-                                       ${overlayImage} 
+                                       ${overlayImage}
                                        ${generate_imageWithoutLogo}
                                        ${imageWithoutLogo})
          ENDIF()

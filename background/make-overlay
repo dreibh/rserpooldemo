@@ -49,10 +49,10 @@ websiteIndent=0.050   # of Height
 
 
 # ------ Create logo --------------------------------------------------------
-logoWidthValue=`echo "${WIDTH}*${logoWidth}" | bc -l`
-logoIndentValue=`echo "${HEIGHT}*${logoIndent}" | bc -l`
-websiteWidthValue=`echo "${WIDTH}*${websiteWidth}" | bc -l`
-websiteIndentValue=`echo "${HEIGHT}*${websiteIndent}" | bc -l`
+logoWidthValue=`awk "BEGIN { print ${WIDTH}*${logoWidth} }"`
+logoIndentValue=`awk "BEGIN { print ${HEIGHT}*${logoIndent} }"`
+websiteWidthValue=`awk "BEGIN { print ${WIDTH}*${websiteWidth} }"`
+websiteIndentValue=`awk "BEGIN { print ${HEIGHT}*${websiteIndent} }"`
 
 convert -size ${WIDTH}x${HEIGHT} xc:none \
    \( $DIRECTORY/Logo-RSPLIB.png -trim +repage -resize ${logoWidthValue}x \) -gravity northeast -geometry +${logoIndentValue}+${logoIndentValue} -composite \
