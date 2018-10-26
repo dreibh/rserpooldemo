@@ -45,26 +45,11 @@ EXECUTE_PROCESS(COMMAND env LC_TIME=en_IE.UTF-8 date "+%Y"
 EXECUTE_PROCESS(COMMAND env LC_TIME=en_IE.UTF-8 date
                 OUTPUT_VARIABLE this_date OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-                
+
 # ###### Additional Requirements ############################################
-FIND_PROGRAM(GS gs PATHS /bin /usr/bin /usr/local/bin)
-IF(NOT GS)
-   MESSAGE(FATAL_ERROR "gs (Ubuntu/Debian: ghostscript; Fedora: ghostscript) not found!")
-ENDIF()
-
-FIND_PROGRAM(DIA dia PATHS /bin /usr/bin /usr/local/bin)
-IF(NOT DIA)
-   MESSAGE(FATAL_ERROR "dia (Ubuntu/Debian: dia; Fedora: dia) not found!")
-ENDIF()
-
-FIND_PROGRAM(EPSTOPDF epstopdf PATHS /bin /usr/bin /usr/local/bin)
-IF(NOT EPSTOPDF)
-   MESSAGE(FATAL_ERROR "epstopdf (Ubuntu/Debian: texlive-extra-utils; Fedora: texlive-epstopdf-bin) not found!")
-ENDIF()
-
-FIND_PROGRAM(PDFCROP pdfcrop PATHS /bin /usr/bin /usr/local/bin)
-IF(NOT PDFCROP)
-   MESSAGE(FATAL_ERROR "pdfcrop (Ubuntu/Debian: pdfcrop; Fedora: texlive-pdfcrop-bin texlive-pdftex-bin) not found!")
+FIND_PROGRAM(INKSCAPE inkscape PATHS /bin /usr/bin /usr/local/bin)
+IF(NOT INKSCAPE)
+   MESSAGE(FATAL_ERROR "inkscape (Ubuntu/Debian: inkscape; Fedora: inkscape) not found!")
 ENDIF()
 
 
@@ -74,13 +59,13 @@ ENDIF()
 SET(TDD_RESOLUTIONS
 #   320x200
 #   640x480     # VGA
-#   1024x768    # Standard
-#    1366x768
-#   1600x1200
-#   1920x1080   # Full HD 16:9
-    1920x1200   # Full HD 16:10
-#    2970x2100   # DIN A4
-#   3840x2160   # 4K 16:9
+   1024x768    # Standard
+   1366x768
+   1600x1200
+   1920x1080   # Full HD 16:9
+   1920x1200   # Full HD 16:10
+   2970x2100   # DIN A4
+   3840x2160   # 4K 16:9
 )
 
 SET(TDD_VARIANTS

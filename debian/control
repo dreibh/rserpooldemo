@@ -5,16 +5,13 @@ Maintainer: Thomas Dreibholz <dreibh@simula.no>
 Homepage: https://www.uni-due.de/~be0001/
 Build-Depends: cmake,
                debhelper (>= 9),
-               dia,
                exiftool,
-               ghostscript,
                gimp,
                gsfonts,
                imagemagick,
+               inkscape,
                libfile-fcntllock-perl,
-               qtbase5-dev,
-               texlive-extra-utils,
-               texlive-font-utils
+               qtbase5-dev
 Standards-Version: 4.1.4
 Vcs-Git: https://bitbucket.org/dreibh/rserpooldemo.git
 Vcs-Browser: https://bitbucket.org/dreibh/rserpooldemo/tags
@@ -101,7 +98,6 @@ Depends: autoconf,
          createrepo,
          debhelper,
          devscripts,
-         dia,
          exiftool,
          flex,
          gdb,
@@ -109,6 +105,7 @@ Depends: autoconf,
          gnupg,
          gnuplot,
          imagemagick,
+         inkscape,
          kbuild,
          kernel-package,
          kernel-wedge,

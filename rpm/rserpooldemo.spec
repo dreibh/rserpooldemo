@@ -9,16 +9,14 @@ Source: https://www.uni-due.de/~be0001/rserpool/download/%{name}-%{version}.tar.
 
 AutoReqProv: on
 BuildRequires: cmake
-BuildRequires: dia
+BuildRequires: inkscape
 BuildRequires: gcc
 BuildRequires: gcc-c++
-BuildRequires: ghostscript
 BuildRequires: gimp
 BuildRequires: ImageMagick
 BuildRequires: perl-Image-ExifTool
 BuildRequires: qt5-qtbase-devel
 BuildRequires: texlive-epstopdf-bin
-BuildRequires: texlive-pdfcrop-bin texlive-pdftex-bin
 BuildRoot: %{_tmppath}/%{name}-%{version}-build
 
 %define _unpackaged_files_terminate_build 0
@@ -58,13 +56,13 @@ Requires: %{name} = %{version}-%{release}
 Requires: autoconf
 Requires: automake
 Requires: bison
+Requires: clang
 Requires: cmake
-Requires: dia
 Requires: flex
 Requires: gcc
 Requires: gcc-c++
 Requires: gdb
-Requires: clang
+Requires: inkscape
 Requires: make
 Requires: mock
 Requires: qt5-qtbase-devel
@@ -74,8 +72,6 @@ Requires: gimp
 Requires: ImageMagick
 Requires: ghostscript
 Requires: texlive-epstopdf-bin
-Requires: texlive-pdfcrop-bin
-Requires: texlive-pdftex-bin
 Requires: valgrind
 
 %description development
