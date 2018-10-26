@@ -1,5 +1,5 @@
 Name: rserpooldemo
-Version: 3.0.0~rc1.13
+Version: 3.0.0~rc1.14
 Release: 1
 Summary: RSerPool Demo Tool
 Group: Applications/Internet
@@ -24,8 +24,8 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-build
 %define _unpackaged_files_terminate_build 0
 
 %description
- This metapackage contains the RSerPool Demo Tool
- See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
+This package contains the RSerPool Demo Tool
+See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
 
 %prep
 %setup -q
@@ -37,16 +37,88 @@ make %{?_smp_mflags}
 %install
 make DESTDIR=%{buildroot} install
 
+
+%package management
+Summary: RSerPool Demo Management
+Group: Applications/Internet
+Requires: %{name} = %{version}-%{release}
+Requires: joe
+Requires: git
+Requires: gpm
+
+%description management
+This metapackage contains basic software for RSerPoolDemo system management.
+See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
+
+
+%package development
+Summary: RSerPool Demo Development
+Group: Applications/Internet
+Requires: %{name} = %{version}-%{release}
+Requires: autoconf
+Requires: automake
+Requires: bison
+Requires: cmake
+Requires: dia
+Requires: flex
+Requires: gcc
+Requires: gcc-c++
+Requires: gdb
+Requires: clang
+Requires: make
+Requires: mock
+Requires: qt5-qtbase-devel
+Requires: bc
+Requires: perl-Image-ExifTool
+Requires: gimp
+Requires: ImageMagick
+Requires: ghostscript
+Requires: texlive-epstopdf-bin
+Requires: texlive-pdfcrop-bin
+Requires: texlive-pdftex-bin
+Requires: valgrind
+
+%description development
+This meta-package contains basic software for RSerPoolDemo development.
+See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
+
+%package desktop
+Summary: RSerPool Demo Desktop
+Group: Applications/Internet
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-management
+
+%description desktop
+This package contains the scripts to configure a RSerPoolDemo desktop.
+See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
+
+
 %files
 /usr/share/rserpooldemo/Desktop-with-Logo/*
 /usr/share/rserpooldemo/Desktop-without-Logo/*
 /usr/share/rserpooldemo/Splash/*
+
+
+%package tool
+Summary: RSerPool Demo Tool
+Group: Applications/Internet
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-management
+Requires: rsplib-fgp-cfgfiles
+Requires: %{name}-desktop
+Recommends: rsplib-registrar
+
+%description tool
+This package contains the RSerPoolDemo tool.
+See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
+
+
+%files
 /usr/bin/rserpooldemo
 /usr/share/man/man1/rserpooldemo.1.gz
 /usr/share/rserpooldemo/graphics/*
 /usr/share/rserpooldemo/local-scenario/*
 
-%doc
 
 %changelog
 * Wed Nov 22 2017 Thomas Dreibholz <dreibh@iem.uni-due.de> - 0.0.0
