@@ -204,7 +204,7 @@ ADD_CUSTOM_TARGET(generate_all_texts DEPENDS ${all_texts})
 
 
 # ###### Prepare input images ###############################################
-SET(originalsDir "${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/Originals")
+SET(originalsDir "${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/${TDD_OUTPUT_ORIGINALS}")
 FOREACH(image IN LISTS TDD_IMAGE_FILES)
    # ====== Install original ================================================
    IF(INSTALL_ORIGINALS)
