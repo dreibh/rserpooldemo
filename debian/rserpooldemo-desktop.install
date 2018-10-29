@@ -1,5 +1,4 @@
+/etc/grub.d/??_rserpooldemo_desktop_theme
 /usr/share/rserpooldemo/Desktop-with-Logo/*
 /usr/share/rserpooldemo/Desktop-without-Logo/*
 /usr/share/rserpooldemo/Splash/*
-grub/??_rserpooldemo_desktop_theme   /etc/grub.d
-grub/grub-defaults                   /etc/rserpooldemo
