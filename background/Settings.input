@@ -111,6 +111,7 @@ SET(TDD_OUTPUT_ORIGINALS         "Originals")
 SET(TDD_OUTPUT_WITHOUT_LOGO      "Desktop-without-Logo")
 SET(TDD_OUTPUT_WITH_LOGO         "Desktop-with-Logo")
 SET(TDD_OUTPUT_SPLASH            "Splash")
+SET(TDD_OUTPUT_CAPTIONFILE       "Caption.input")
 
 # ------ Programs -----------------------------------------
 SET(TDD_TEST_GIMP       "${CMAKE_CURRENT_SOURCE_DIR}/gimp-scripts/Test-Gimp")
