@@ -235,6 +235,9 @@ SET(captionFile          "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${
 SET(generate_captionFile "generate_Caption.input")
 FILE(GENERATE OUTPUT ${captionFile} CONTENT "${TDD_BOOTSPLASH_TEXT}")
 ADD_CUSTOM_TARGET(${generate_captionFile} DEPENDS ${captionFile})
+IF(BUILD_BOOTSPLASH)
+   INSTALL(FILES ${captionFile} DESTINATION "${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/${TDD_OUTPUT_SPLASH}")
+ENDIF()
 
 SET(bootsplash_overlayImage          "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${TDD_OUTPUT_OVERLAY}/Caption-${TDD_BOOTSPLASH_RESOLUTION}.png")
 SET(generate_bootsplash_overlayImage "generate_Caption-${TDD_BOOTSPLASH_RESOLUTION}.png")
