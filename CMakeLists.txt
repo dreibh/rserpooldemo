@@ -77,8 +77,6 @@ INCLUDE(CheckStructHasMember)
 # OS-DEPENDENT
 #############################################################################
 
-SET(CMAKE_MACOSX_RPATH 1)
-
 IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     MESSAGE(STATUS ${CMAKE_SYSTEM_NAME} " supported")
     ADD_DEFINITIONS("-D_DEFAULT_SOURCE -DLINUX")
