@@ -1,5 +1,5 @@
 Name: rserpooldemo
-Version: 3.0.0~rc1.15
+Version: 3.0.0~rc1.16
 Release: 1
 Summary: RSerPool Demo Tool
 Group: Applications/Internet
@@ -14,6 +14,7 @@ BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: gimp
 BuildRequires: ImageMagick
+BuildRequires: GraphicsMagick
 BuildRequires: perl-Image-ExifTool
 BuildRequires: qt5-qtbase-devel
 BuildRequires: texlive-epstopdf-bin
