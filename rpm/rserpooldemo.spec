@@ -79,6 +79,7 @@ Requires: valgrind
 This meta-package contains basic software for RSerPoolDemo development.
 See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
 
+
 %package desktop
 Summary: RSerPool Demo Desktop
 Group: Applications/Internet
@@ -89,11 +90,12 @@ Requires: %{name}-management
 This package contains the scripts to configure a RSerPoolDemo desktop.
 See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
 
-
-%files
+%files desktop
 /usr/share/rserpooldemo/Desktop-with-Logo/*
 /usr/share/rserpooldemo/Desktop-without-Logo/*
 /usr/share/rserpooldemo/Splash/*
+/etc/grub.d/??_rserpooldemo_desktop_theme
+/usr/share/rserpooldemo/grub-defaults
 
 
 %package tool
