@@ -41,6 +41,8 @@ WIDTH="$2"
 HEIGHT="$3"
 DIRECTORY="$4"
 
+GM="/usr/bin/gm"
+
 # ------ Proportions --------------------------------------------------------
 logoWidth=0.25        # of Width
 logoIndent=0.025      # of Height
@@ -54,16 +56,29 @@ logoIndentValue=`awk "BEGIN { print ${HEIGHT}*${logoIndent} }"`
 websiteWidthValue=`awk "BEGIN { print ${WIDTH}*${websiteWidth} }"`
 websiteIndentValue=`awk "BEGIN { print ${HEIGHT}*${websiteIndent} }"`
 
-convert -size ${WIDTH}x${HEIGHT} xc:none \
-   \( $DIRECTORY/Logo-RSPLIB.png -trim +repage -resize ${logoWidthValue}x \) -gravity northeast -geometry +${logoIndentValue}+${logoIndentValue} -composite \
-   \( -background none \
-      \( $DIRECTORY/Website.png     -trim +repage -resize ${websiteWidthValue}x \) -gravity center -append \) \
-         -gravity south -geometry +0+${websiteIndentValue} -composite \
-"$OUTPUT"
-
+# convert -size ${WIDTH}x${HEIGHT} xc:none \
+#    \( $DIRECTORY/Logo-RSPLIB.png -trim +repage -resize ${logoWidthValue}x \) -gravity northeast -geometry +${logoIndentValue}+${logoIndentValue} -composite \
 #    \( -background none \
-#       \( $DIRECTORY/Title.png       -trim +repage -resize ${logoWidthValue}x \) -gravity center -append \
-#       \( $DIRECTORY/Subtitle.png    -trim +repage -resize ${sublogoWidthValue}x -bordercolor none -border 0x${titleBorderValue} \) -gravity south  -append \) -gravity center -composite \
+#       \( $DIRECTORY/Website.png     -trim +repage -resize ${websiteWidthValue}x \) -gravity center -append \) \
+#          -gravity south -geometry +0+${websiteIndentValue} -composite \
+# "$OUTPUT"
 
-#    \( $DIRECTORY/hostname.png       -trim +repage -resize x${hostHeight} \) \
-#       -gravity north -geometry +0+${logoIndent} -composite \
+tempDirectory=`mktemp -d`
+
+${GM} convert $DIRECTORY/Logo-RSPLIB.png -trim \
+   -resize ${logoWidthValue}x \
+   ${tempDirectory}/logo.miff
+${GM} convert $DIRECTORY/Website.png -trim \
+   -resize ${websiteWidthValue}x \
+   ${tempDirectory}/website.miff
+
+${GM} composite -size ${WIDTH}x${HEIGHT} \
+   -gravity NorthEast ${tempDirectory}/logo.miff -geometry +${logoIndentValue}+${logoIndentValue} \
+   xc:none ${tempDirectory}/layer-logo.miff
+${GM} composite -size ${WIDTH}x${HEIGHT} \
+   -gravity South -geometry +0+${websiteIndentValue} ${tempDirectory}/website.miff \
+   xc:none ${tempDirectory}/layer-website.miff
+
+${GM} composite ${tempDirectory}/layer-logo.miff ${tempDirectory}/layer-website.miff "$OUTPUT"
+
+rm -rf ${tempDirectory}
