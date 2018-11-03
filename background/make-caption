@@ -104,37 +104,27 @@ rm -f "$OUTPUTFILENAME"
     (tileSpacing      $TILESPACING)
     (tileSurface      $TILESURFACE)
     (theText)
+    (drawable)
     (image (car (gimp-image-new captionWidth captionHeight RGB)))
     (layer (car (gimp-layer-new image captionWidth captionHeight RGBA-IMAGE "Layer 1" 100 NORMAL)))
    )
-   (gimp-image-add-layer image layer 0)
    ; ------------------------------------------------------------------------
+   (gimp-image-add-layer image layer 0)
    (gimp-context-set-background "#ffd700")   ; Gold
    (gimp-context-set-foreground "#02266b")   ; Dark Blue
    (gimp-drawable-fill layer BACKGROUND-FILL)
-   (set! theText
-                      (car
-                           (gimp-text-fontname
-                            image layer
-                            0 0
-                            captionText
-                            0
-                            TRUE
-                            28 POINTS
-                            "Noto Sans Bold")
-                       )
-        )
+
+   (set! theText (car (gimp-text-fontname image layer 0 0 captionText 0 TRUE 28 POINTS "Noto Sans Bold") ) )
    (gimp-layer-set-offsets
       theText
       (/ (- captionWidth  (car (gimp-drawable-width  theText))) 2)
       (/ (- captionHeight (car (gimp-drawable-height theText))) 2))
 
- ;  (gimp-layer-resize layer textWidth textHeight 0 0)
-
    (gimp-image-merge-visible-layers image CLIP-TO-IMAGE)
    (gimp-display-new image)
    ; ------------------------------------------------------------------------
-   (file-png-save2 RUN-NONINTERACTIVE image layer outputFileName outputFileName TRUE 9 TRUE TRUE FALSE TRUE TRUE FALSE TRUE)
+   (set! drawable (car (gimp-image-get-active-layer image)))
+   (file-png-save2 RUN-NONINTERACTIVE image drawable outputFileName outputFileName TRUE 9 TRUE TRUE FALSE TRUE TRUE FALSE TRUE)
 )
 ;(gimp-quit TRUE)
 EOF
