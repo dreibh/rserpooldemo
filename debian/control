@@ -5,16 +5,13 @@ Maintainer: Thomas Dreibholz <dreibh@simula.no>
 Homepage: https://www.uni-due.de/~be0001/
 Build-Depends: cmake,
                debhelper (>= 9),
-               dia,
                exiftool,
-               ghostscript,
                gimp,
+               graphicsmagick,
                gsfonts,
-               imagemagick,
+               inkscape,
                libfile-fcntllock-perl,
-               qtbase5-dev,
-               texlive-extra-utils,
-               texlive-font-utils
+               qtbase5-dev
 Standards-Version: 4.1.4
 Vcs-Git: https://bitbucket.org/dreibh/rserpooldemo.git
 Vcs-Browser: https://bitbucket.org/dreibh/rserpooldemo/tags
@@ -96,18 +93,19 @@ Depends: autoconf,
          automake,
          autopoint,
          bison,
+         clang,
          cmake,
          createrepo,
          debhelper,
          devscripts,
-         dia,
          exiftool,
          flex,
          gdb,
          ghostscript,
          gnupg,
          gnuplot,
-         imagemagick,
+         graphicsmagick,
+         inkscape,
          kbuild,
          kernel-package,
          kernel-wedge,
@@ -154,7 +152,7 @@ Depends: rserpooldemo-management,
          ${shlibs:Depends}
 Recommends: kubuntu-desktop | lubuntu-desktop | ubuntu-desktop
 Description: RSerPoolDemo Desktop
- This meta-package contains the scripts to configure a RSerPoolDemo desktop.
+ This package contains the scripts to configure a RSerPoolDemo desktop.
  .
  See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
 
@@ -167,3 +165,6 @@ Depends: rserpooldemo-management,
 Recommends: kubuntu-desktop | lubuntu-desktop | ubuntu-desktop,
             rsplib-registrar
 Description: RSerPoolDemo Tool
+ This package contains the RSerPoolDemo tool.
+ .
+ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!

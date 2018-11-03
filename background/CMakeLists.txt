@@ -30,7 +30,7 @@
 
 
 # ###### Initialise #########################################################
-CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 PROJECT(undefined NONE)   # to be set in Setting.cmake
 INCLUDE(Settings.input)
 
@@ -74,19 +74,14 @@ IF(NOT AWK)
    MESSAGE(FATAL_ERROR "awk (Ubuntu/Debian: awk; Fedora: awk) not found!")
 ENDIF()
 
+FIND_PROGRAM(GM gm PATHS /bin /usr/bin /usr/local/bin)
+IF(NOT GM)
+   MESSAGE(FATAL_ERROR "gm (Ubuntu/Debian: graphicsmagick; Fedora: GraphicsMagick) not found!")
+ENDIF()
+
 FIND_PROGRAM(EXIFTOOL exiftool PATHS /bin /usr/bin /usr/local/bin)
 IF(NOT EXIFTOOL)
-   MESSAGE(FATAL_ERROR "exiftool (Ubuntu/Debian: exiftool; Fedora: perl-Image-ExifTool) not found!")
-ENDIF()
-
-FIND_PROGRAM(CONVERT convert PATHS /bin /usr/bin /usr/local/bin)
-IF(NOT CONVERT)
-   MESSAGE(FATAL_ERROR "convert (Ubuntu/Debian: imagemagick; Fedora: ImageMagick) not found!")
-ENDIF()
-
-FIND_PROGRAM(IDENTIFY identify PATHS /bin /usr/bin /usr/local/bin)
-IF(NOT IDENTIFY)
-   MESSAGE(FATAL_ERROR "identify (Ubuntu/Debian: imagemagick; Fedora: ImageMagick) not found!")
+   MESSAGE(FATAL_ERROR "exiftool (Ubuntu/Debian: libimage-exiftool-perl; Fedora: perl-Image-ExifTool) not found!")
 ENDIF()
 
 # ------ Required scripts ---------------------------------------------------
@@ -96,48 +91,48 @@ IF(NOT TEST_GIMP)
 ENDIF()
 
 FIND_PROGRAM(MAKE_CROPPED ${TDD_MAKE_CROPPED})
-IF(NOT IDENTIFY)
+IF(NOT MAKE_CROPPED)
    MESSAGE(FATAL_ERROR "Resize-with-Cropping (${TDD_MAKE_CROPPED}) not found!")
 ENDIF()
 
 FIND_PROGRAM(MAKE_LOGO ${TDD_MAKE_LOGO})
-IF(NOT IDENTIFY)
+IF(NOT MAKE_LOGO)
    MESSAGE(FATAL_ERROR "Make-Logo (${TDD_MAKE_LOGO}) not found!")
 ENDIF()
 
 FIND_PROGRAM(MAKE_BACKGROUND ${TDD_MAKE_BACKGROUND})
-IF(NOT IDENTIFY)
+IF(NOT MAKE_BACKGROUND)
    MESSAGE(FATAL_ERROR "Make-Background (${TDD_MAKE_BACKGROUND}) not found!")
 ENDIF()
 
 FIND_PROGRAM(MAKE_PAINTING ${TDD_MAKE_PAINTING})
-IF(NOT IDENTIFY)
+IF(NOT MAKE_PAINTING)
    MESSAGE(FATAL_ERROR "Make-Painting (${TDD_MAKE_PAINTING}) not found!")
 ENDIF()
 
 FIND_PROGRAM(MAKE_MOSAIC ${TDD_MAKE_MOSAIC})
-IF(NOT IDENTIFY)
+IF(NOT MAKE_MOSAIC)
    MESSAGE(FATAL_ERROR "Make-Mosaic (${TDD_MAKE_MOSAIC}) not found!")
 ENDIF()
 
 FIND_PROGRAM(MAKE_CLOTH ${TDD_MAKE_CLOTH})
-IF(NOT IDENTIFY)
+IF(NOT MAKE_CLOTH)
    MESSAGE(FATAL_ERROR "Make-Cloth (${TDD_MAKE_CLOTH}) not found!")
 ENDIF()
 
 FIND_PROGRAM(MAKE_OLDPHOTO ${TDD_MAKE_OLDPHOTO})
-IF(NOT IDENTIFY)
+IF(NOT MAKE_OLDPHOTO)
    MESSAGE(FATAL_ERROR "Make-OldPhoto (${TDD_MAKE_OLDPHOTO}) not found!")
 ENDIF()
 
 # ------ Customised background scripts --------------------------------------
 FIND_PROGRAM(MAKE_CAPTION ${TDD_MAKE_CAPTION})
-IF(NOT IDENTIFY)
+IF(NOT MAKE_CAPTION)
    MESSAGE(FATAL_ERROR "Caption script (${TDD_MAKE_CAPTION}) not found!")
 ENDIF()
 
 FIND_PROGRAM(MAKE_OVERLAY ${TDD_MAKE_OVERLAY})
-IF(NOT IDENTIFY)
+IF(NOT MAKE_OVERLAY)
    MESSAGE(FATAL_ERROR "Caption script (${TDD_MAKE_OVERLAY}) not found!")
 ENDIF()
 
@@ -204,7 +199,7 @@ ADD_CUSTOM_TARGET(generate_all_texts DEPENDS ${all_texts})
 
 
 # ###### Prepare input images ###############################################
-SET(originalsDir "${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/Originals")
+SET(originalsDir "${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/${TDD_OUTPUT_ORIGINALS}")
 FOREACH(image IN LISTS TDD_IMAGE_FILES)
    # ====== Install original ================================================
    IF(INSTALL_ORIGINALS)
@@ -229,14 +224,17 @@ ENDFOREACH()
 
 # ###### Generate bootsplash overlay ########################################
 FILE(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Overlay)
-FILE(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Splash)
+FILE(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${TDD_OUTPUT_SPLASH})
 
-SET(captionFile          "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Splash/Caption.input")
+SET(captionFile          "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${TDD_OUTPUT_SPLASH}/${TDD_OUTPUT_CAPTIONFILE}")
 SET(generate_captionFile "generate_Caption.input")
 FILE(GENERATE OUTPUT ${captionFile} CONTENT "${TDD_BOOTSPLASH_TEXT}")
 ADD_CUSTOM_TARGET(${generate_captionFile} DEPENDS ${captionFile})
+IF(BUILD_BOOTSPLASH)
+   INSTALL(FILES ${captionFile} DESTINATION "${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/${TDD_OUTPUT_SPLASH}")
+ENDIF()
 
-SET(bootsplash_overlayImage          "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Overlay/Caption-${TDD_BOOTSPLASH_RESOLUTION}.png")
+SET(bootsplash_overlayImage          "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${TDD_OUTPUT_OVERLAY}/Caption-${TDD_BOOTSPLASH_RESOLUTION}.png")
 SET(generate_bootsplash_overlayImage "generate_Caption-${TDD_BOOTSPLASH_RESOLUTION}.png")
 STRING(REGEX REPLACE "x.*$" "" bootsplash_width "${TDD_BOOTSPLASH_RESOLUTION}")
 ADD_CUSTOM_COMMAND(OUTPUT  ${bootsplash_overlayImage}
@@ -247,8 +245,8 @@ ADD_CUSTOM_TARGET(${generate_bootsplash_overlayImage} DEPENDS ${bootsplash_overl
 
 
 # ###### Generate desktop graphics ##########################################
-FILE(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Desktop-with-Logo)
-FILE(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Desktop-without-Logo)
+FILE(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${TDD_OUTPUT_WITH_LOGO})
+FILE(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${TDD_OUTPUT_WITHOUT_LOGO})
 FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
 
    # ====== Set variables ===================================================
@@ -256,8 +254,12 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
    STRING(REGEX REPLACE "^.*x" "" height "${resolution}")
    STRING(REGEX REPLACE "x" ":"   aspectRatio "${resolution}")
 
+   MATH(EXPR hostnameHeight "${height}/20")   # 5% of height
+   MATH(EXPR hostnameIndent "${height}/40")   # 2.5% of height
+
+
    # ====== Generate overlay graphics =======================================
-   SET(overlayImage          "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Overlay/Overlay-${resolution}.png")
+   SET(overlayImage          "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${TDD_OUTPUT_OVERLAY}/Overlay-${resolution}.png")
    SET(generate_overlayImage "generate_overlayImage-${resolution}.png")
 
    # NOTE: Dependency on generate targets and files!
@@ -268,9 +270,32 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
    ADD_CUSTOM_TARGET(${generate_overlayImage} DEPENDS ${overlayImage})
 
 
-   # ====== Generate backgrounds ============================================
-   FOREACH(variant IN LISTS TDD_VARIANTS)
-      FOREACH(image IN LISTS TDD_IMAGE_FILES)
+   # ====== Process images ==================================================
+   FOREACH(image IN LISTS TDD_IMAGE_FILES)
+
+      # ====== Generate overlay graphics with hostname ======================
+      GET_FILENAME_COMPONENT(imageName ${image} NAME_WE)
+      IF(imageName MATCHES ^[a-z])
+         SET(hostname               "${imageName}.${TDD_DOMAIN}")
+         SET(hostnameImage          "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Text/${hostname}.png")
+         SET(generate_hostnameImage "generate_${hostname}.png")
+
+         SET(overlayImageWithHostname          "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${TDD_OUTPUT_OVERLAY}/Overlay-${hostname}-${resolution}.png")
+         SET(generate_overlayImageWithHostname "generate_overlayImageWithHostname-${hostname}-${resolution}.png")
+
+         # NOTE: Dependency on generate targets and files!
+         ADD_CUSTOM_COMMAND(OUTPUT ${overlayImageWithHostname}
+                           COMMAND ${GM} composite -gravity North -geometry +0+${hostnameIndent} -resize x${hostnameHeight} ${hostnameImage} ${overlayImage} ${overlayImageWithHostname}
+                           DEPENDS ${generate_hostnameImage}
+                                   ${hostnameImage}
+                                   ${generate_overlayImage}
+                                   ${overlayImage})
+         ADD_CUSTOM_TARGET(${generate_overlayImageWithHostname} DEPENDS ${overlayImageWithHostname})
+      ENDIF()
+
+
+      # ====== Generate backgrounds =========================================
+      FOREACH(variant IN LISTS TDD_VARIANTS)
          # ====== Extract name and extension ================================
          GET_FILENAME_COMPONENT(imageName      ${image} NAME_WE)
          GET_FILENAME_COMPONENT(imageExtension ${image} EXT)
@@ -282,13 +307,13 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
 
          # ====== Without logo ==============================================
          IF(FLAT_DIRECTORY_STRUCTURE)
-            SET(dirWithoutLogo     "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Desktop-without-Logo")
+            SET(dirWithoutLogo     "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${TDD_OUTPUT_WITHOUT_LOGO}")
             SET(imageWithoutLogo   "${dirWithoutLogo}/${imageName}-${resolution}-${variant}${imageExtension}")
-            SET(instDirWithoutLogo "${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/Desktop-without-Logo")
+            SET(instDirWithoutLogo "${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/${TDD_OUTPUT_WITHOUT_LOGO}")
          ELSE()
-            SET(dirWithoutLogo     "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Desktop-without-Logo/${resolution}/${variant}")
+            SET(dirWithoutLogo     "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${TDD_OUTPUT_WITHOUT_LOGO}/${resolution}/${variant}")
             SET(imageWithoutLogo   "${dirWithoutLogo}/${imageName}${imageExtension}")
-            SET(instDirWithoutLogo "${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/Desktop-without-Logo/${resolution}/${variant}")
+            SET(instDirWithoutLogo "${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/${TDD_OUTPUT_WITHOUT_LOGO}/${resolution}/${variant}")
          ENDIF()
          SET(generate_imageWithoutLogo "generate_${imageName}-without-Logo-${variant}-${resolution}${imageExtension}")
          FILE(MAKE_DIRECTORY ${dirWithoutLogo})
@@ -302,7 +327,7 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
                ADD_CUSTOM_COMMAND(OUTPUT  ${imageWithoutLogo}
                                   COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CROPPED}    ${image} ${imageTemp2} ${aspectRatio} ${width}
                                   COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_BACKGROUND} ${imageTemp2} ${imageTemp1}
-                                  COMMAND ${CONVERT} ${imageTemp1} -interlace line ${imageWithoutLogo}
+                                  COMMAND ${GM} convert ${imageTemp1} -interlace line ${imageWithoutLogo}
                                   COMMAND ${EXIFTOOL} -q -overwrite_original -Copyright="${TDD_COPYRIGHT}" ${imageWithoutLogo}
                                   COMMAND ${RM} -f ${imageTemp1} ${imageTemp2}
                                   DEPENDS ${image}
@@ -311,7 +336,7 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
             ELSE()
                ADD_CUSTOM_COMMAND(OUTPUT  ${imageWithoutLogo}
                                   COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CROPPED} ${image} ${imageTemp1} ${aspectRatio} ${width}
-                                  COMMAND ${CONVERT} ${imageTemp1} -interlace line ${imageWithoutLogo}
+                                  COMMAND ${GM} convert ${imageTemp1} -interlace line ${imageWithoutLogo}
                                   COMMAND ${EXIFTOOL} -q -overwrite_original -Copyright="${TDD_COPYRIGHT}" ${imageWithoutLogo}
                                   COMMAND ${RM} -f ${imageTemp1} ${imageTemp2}
                                   DEPENDS ${image}
@@ -326,7 +351,7 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
             ADD_CUSTOM_COMMAND(OUTPUT  ${imageWithoutLogo}
                                COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CROPPED}  ${image} ${imageTemp2} ${aspectRatio} ${width}
                                COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_PAINTING} ${imageTemp2} ${imageTemp1} ${makeSize}
-                               COMMAND ${CONVERT} ${imageTemp1} -interlace line ${imageWithoutLogo}
+                               COMMAND ${GM} convert ${imageTemp1} -interlace line ${imageWithoutLogo}
                                COMMAND ${EXIFTOOL} -q -overwrite_original -Copyright="${TDD_COPYRIGHT}" ${imageWithoutLogo}
                                COMMAND ${RM} -f ${imageTemp1} ${imageTemp2}
                                DEPENDS ${image}
@@ -347,7 +372,7 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
             ADD_CUSTOM_COMMAND(OUTPUT  ${imageWithoutLogo}
                                COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CROPPED} ${image} ${imageTemp2} ${aspectRatio} ${width}
                                COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_MOSAIC}  ${imageTemp2} ${imageTemp1} ${tileSize} ${tileHeight} ${tileHeight} hexagons rough
-                               COMMAND ${CONVERT} ${imageTemp1} -interlace line ${imageWithoutLogo}
+                               COMMAND ${GM} convert ${imageTemp1} -interlace line ${imageWithoutLogo}
                                COMMAND ${EXIFTOOL} -q -overwrite_original -Copyright="${TDD_COPYRIGHT}" ${imageWithoutLogo}
                                COMMAND ${RM} -f ${imageTemp1} ${imageTemp2}
                                DEPENDS ${image}
@@ -359,7 +384,7 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
             ADD_CUSTOM_COMMAND(OUTPUT  ${imageWithoutLogo}
                                COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CROPPED} ${image} ${imageTemp2} ${aspectRatio} ${width}
                                COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CLOTH}   ${imageTemp2} ${imageTemp1} 5
-                               COMMAND ${CONVERT} ${imageTemp1} -interlace line ${imageWithoutLogo}
+                               COMMAND ${GM} convert ${imageTemp1} -interlace line ${imageWithoutLogo}
                                COMMAND ${EXIFTOOL} -q -overwrite_original -Copyright="${TDD_COPYRIGHT}" ${imageWithoutLogo}
                                COMMAND ${RM} -f ${imageTemp1} ${imageTemp2}
                                DEPENDS ${image}
@@ -371,7 +396,7 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
             ADD_CUSTOM_COMMAND(OUTPUT  ${imageWithoutLogo}
                                COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CROPPED}  ${image} ${imageTemp2} ${aspectRatio} ${width}
                                COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_OLDPHOTO} ${imageTemp2} ${imageTemp1} 20
-                               COMMAND ${CONVERT} ${imageTemp1} -interlace line ${imageWithoutLogo}
+                               COMMAND ${GM} convert ${imageTemp1} -interlace line ${imageWithoutLogo}
                                COMMAND ${EXIFTOOL} -q -overwrite_original -Copyright="${TDD_COPYRIGHT}" ${imageWithoutLogo}
                                COMMAND ${RM} -f ${imageTemp1} ${imageTemp2}
                                DEPENDS ${image}
@@ -389,39 +414,31 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
 
          # ====== With logo =================================================
          IF(FLAT_DIRECTORY_STRUCTURE)
-            SET(dirWithLogo     "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Desktop-with-Logo")
+            SET(dirWithLogo     "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${TDD_OUTPUT_WITH_LOGO}")
             SET(imageWithLogo   "${dirWithLogo}/${imageName}-${resolution}-${variant}${imageExtension}")
-            SET(instDirWithLogo "${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/Desktop-with-Logo")
+            SET(instDirWithLogo "${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/${TDD_OUTPUT_WITH_LOGO}")
          ELSE()
-            SET(dirWithLogo     "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Desktop-with-Logo/${resolution}/${variant}")
+            SET(dirWithLogo     "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${TDD_OUTPUT_WITH_LOGO}/${resolution}/${variant}")
             SET(imageWithLogo   "${dirWithLogo}/${imageName}${imageExtension}")
-            SET(instDirWithLogo "${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/Desktop-with-Logo/${resolution}/${variant}")
+            SET(instDirWithLogo "${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/${TDD_OUTPUT_WITH_LOGO}/${resolution}/${variant}")
          ENDIF()
          SET(generate_imageWithLogo "generate_${imageName}-with-Logo-${variant}-${resolution}${imageExtension}")
          FILE(MAKE_DIRECTORY ${dirWithLogo})
 
          # ------ With hostname ---------------------------------------------
          IF((INSERT_HOSTNAME) AND (imageName MATCHES ^[a-z]))
-            SET(hostname               "${imageName}.${TDD_DOMAIN}")
-            SET(hostnameImage          "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Text/${hostname}.png")
-            SET(generate_hostnameImage "generate_${hostname}.png")
-
-            MATH(EXPR hostnameHeight "${height}/20")   # 5% of height
-            MATH(EXPR hostnameIndent "${height}/20")   # 5% of height
             ADD_CUSTOM_COMMAND(OUTPUT ${imageWithLogo}
-                               COMMAND ${CONVERT} '\(' ${imageWithoutLogo} '\)' -append '\(' ${overlayImage} '\)' -gravity center -composite '\(' ${hostnameImage} -trim +repage -resize x${hostnameHeight} '\)' -gravity north -geometry +0+${hostnameIndent} -composite -interlace line -quality ${TDD_JPEG_QUALITY} ${imageWithLogo}
+                               COMMAND ${GM} composite ${overlayImageWithHostname} ${imageWithoutLogo} -interlace line -quality ${TDD_JPEG_QUALITY} ${imageWithLogo}
                                COMMAND ${EXIFTOOL} -q -overwrite_original -Copyright="${TDD_COPYRIGHT}" ${imageWithLogo}
-                               DEPENDS ${generate_overlayImage}
-                                       ${overlayImage}
-                                       ${generate_hostnameImage}
-                                       ${hostnameImage}
+                               DEPENDS ${generate_overlayImageWithHostname}
+                                       ${overlayImageWithHostname}
                                        ${generate_imageWithoutLogo}
                                        ${imageWithoutLogo})
 
          # ------ Without hostname ------------------------------------------
          ELSE()
             ADD_CUSTOM_COMMAND(OUTPUT ${imageWithLogo}
-                               COMMAND ${CONVERT} '\(' ${imageWithoutLogo} '\)' -append '\(' ${overlayImage} '\)' -gravity center -composite -interlace line -quality ${TDD_JPEG_QUALITY} ${imageWithLogo}
+                               COMMAND ${GM} composite ${overlayImage} ${imageWithoutLogo} -interlace line -quality ${TDD_JPEG_QUALITY} ${imageWithLogo}
                                COMMAND ${EXIFTOOL} -q -overwrite_original -Copyright="${TDD_COPYRIGHT}" ${imageWithLogo}
                                DEPENDS ${generate_overlayImage}
                                        ${overlayImage}
@@ -435,18 +452,18 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
 
          # ====== Bootsplash ================================================
          IF((BUILD_BOOTSPLASH) AND (resolution STREQUAL "${TDD_BOOTSPLASH_RESOLUTION}") AND (variant STREQUAL "${TDD_BOOTSPLASH_VARIANT}"))
-            SET(imageBootsplash          "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/Splash/${imageName}-${resolution}.jpeg")
+            SET(imageBootsplash          "${CMAKE_CURRENT_BINARY_DIR}/${TDD_OUTPUT_DIRECTORY}/${TDD_OUTPUT_SPLASH}/${imageName}-${resolution}.jpeg")
             SET(generate_imageBootsplash "generate_${imageName}-Splash-${resolution}.jpeg")
 
             ADD_CUSTOM_COMMAND(OUTPUT  ${imageBootsplash}
-                               COMMAND ${CONVERT} -size ${TDD_BOOTSPLASH_RESOLUTION} xc:skyblue '\(' ${imageWithLogo} '\)' -gravity center -composite '\(' ${bootsplash_overlayImage} '\)' -gravity South -composite -quality ${TDD_JPEG_QUALITY} ${imageBootsplash}
+                               COMMAND ${GM} composite  -gravity South ${bootsplash_overlayImage} ${imageWithLogo} -quality ${TDD_JPEG_QUALITY} ${imageBootsplash}
                                COMMAND ${EXIFTOOL} -q -overwrite_original -Copyright="${TDD_COPYRIGHT}" ${imageBootsplash}
                                DEPENDS ${generate_bootsplash_overlayImage}
                                        ${bootsplash_overlayImage}
                                        ${generate_imageWithLogo}
                                        ${imageWithLogo})
             ADD_CUSTOM_TARGET(${generate_imageBootsplash} ALL DEPENDS ${imageBootsplash})
-            INSTALL(FILES ${imageBootsplash} DESTINATION ${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/Splash)
+            INSTALL(FILES ${imageBootsplash} DESTINATION ${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY}/${TDD_OUTPUT_SPLASH})
          ENDIF()
 
 
@@ -459,7 +476,7 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
             SET(generate_pdfA4 "generate_${TDD_PRINT_PREFIX}-A4.pdf")
 
             ADD_CUSTOM_COMMAND(OUTPUT ${pdfA4}
-                              COMMAND ${CONVERT} ${imageWithLogo} ${overlayImage} -units PixelsPerCentimeter -density 100x100 -page 2970x2100 -resize 2970x2100 -gravity center -compress lossless ${pdfA4}
+                              COMMAND ${GM} convert ${imageWithLogo} ${overlayImage} -units PixelsPerCentimeter -density 100x100 -page 2970x2100 -resize 2970x2100 -gravity center -compress lossless ${pdfA4}
                               DEPENDS ${generate_overlayImage}
                                       ${overlayImage}
                                       ${generate_imageWithLogo}
@@ -467,6 +484,7 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
             ADD_CUSTOM_TARGET(${generate_pdfA4} ALL DEPENDS ${pdfA4})
             INSTALL(FILES ${pdfA4} DESTINATION ${CMAKE_INSTALL_DATADIR}/${TDD_INSTALL_SUBDIRECTORY})
          ENDIF()
+
 
          # ====== Print PDF DIN A3 ==========================================
          IF((PRINT_A3) AND
@@ -477,7 +495,7 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
             SET(generate_pdfA3 "generate_${TDD_PRINT_PREFIX}-A3.pdf")
 
             ADD_CUSTOM_COMMAND(OUTPUT ${pdfA3}
-                              COMMAND ${CONVERT} ${imageWithLogo} ${overlayImage} -units PixelsPerCentimeter -density 100x100 -page 5940x4200 -resize 5940x4200 -gravity center -compress lossless ${pdfA3}
+                              COMMAND ${GM} convert ${imageWithLogo} ${overlayImage} -units PixelsPerCentimeter -density 100x100 -page 5940x4200 -resize 5940x4200 -gravity center -compress lossless ${pdfA3}
                               DEPENDS ${generate_overlayImage}
                                       ${overlayImage}
                                       ${generate_imageWithLogo}

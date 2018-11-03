@@ -37,7 +37,7 @@ PROJECT(rserpooldemo)
 
 SET(BUILD_MAJOR "3")
 SET(BUILD_MINOR "0")
-SET(BUILD_PATCH "0~rc1.13")
+SET(BUILD_PATCH "0~rc1.20")
 SET(BUILD_VERSION ${BUILD_MAJOR}.${BUILD_MINOR}.${BUILD_PATCH})
 
 
@@ -76,8 +76,6 @@ INCLUDE(CheckStructHasMember)
 #############################################################################
 # OS-DEPENDENT
 #############################################################################
-
-SET(CMAKE_MACOSX_RPATH 1)
 
 IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     MESSAGE(STATUS ${CMAKE_SYSTEM_NAME} " supported")
@@ -156,3 +154,4 @@ ENDIF()
 
 ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(background)
+ADD_SUBDIRECTORY(grub)
