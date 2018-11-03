@@ -32,25 +32,117 @@
 #
 
 
+# if [ $# -lt 3 ] ; then
+#    echo >&2 "Usage: $0 output_file caption width"
+#    exit 1
+# fi
+# OUTPUT="$1"
+# if [ ! -e "$2" ] ; then
+#    echo >&2 "ERROR: Caption file $2 does not exist!"
+#    exit 1
+# fi
+# CAPTION="`cat "$2"`"
+# WIDTH="$3"
+#
+# GM="/usr/bin/gm"
+#
+#
+# ${GM} convert \
+#    -size ${WIDTH}x42 xc:#FFD70044 \
+#    -fill "#02266b" \
+#    -font Helvetica-Bold -pointsize 24 \
+#    -gravity Center \
+#    -draw "text 0,1 \"${CAPTION}\"" \
+#    "${OUTPUT}"
+
+
+
+#!/bin/bash -e
+#
+# Caption Script
+# Copyright (C) 2017-2018 by Thomas Dreibholz
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY# without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Contact: dreibh@simula.no
+
+
+# Example:
+# Make-Caption Caption.png Caption.input 1024
+
+
+# ====== Handle arguments ===================================================
 if [ $# -lt 3 ] ; then
-   echo >&2 "Usage: $0 output_file caption width"
+   echo >&2 "Usage: $0 output_filename caption_filename caption_width"
    exit 1
 fi
-OUTPUT="$1"
-if [ ! -e "$2" ] ; then
-   echo >&2 "ERROR: Caption file $2 does not exist!"
+OUTPUTFILENAME="$1"
+CAPTION_TEXT="`cat "$2"`"
+CAPTION_WIDTH=$3
+
+# ====== Call Gimp ==========================================================
+rm -f "$OUTPUTFILENAME"
+( cat <<EOF
+(let*
+   ((outputFileName   "$OUTPUTFILENAME")
+    (captionText      "$CAPTION_TEXT")
+    (captionWidth     $CAPTION_WIDTH)
+    (captionHeight    42)
+    (tileSize         $TILESIZE)
+    (tileHeight       $TILEHEIGHT)
+    (tileSpacing      $TILESPACING)
+    (tileSurface      $TILESURFACE)
+    (theText)
+    (image (car (gimp-image-new captionWidth captionHeight RGB)))
+    (layer (car (gimp-layer-new image captionWidth captionHeight RGBA-IMAGE "Layer 1" 100 NORMAL)))
+   )
+   (gimp-image-add-layer image layer 0)
+   ; ------------------------------------------------------------------------
+   (gimp-context-set-background "#ffd700")   ; Gold
+   (gimp-context-set-foreground "#02266b")   ; Dark Blue
+   (gimp-drawable-fill layer BACKGROUND-FILL)
+   (set! theText
+                      (car
+                           (gimp-text-fontname
+                            image layer
+                            0 0
+                            captionText
+                            0
+                            TRUE
+                            28 POINTS
+                            "Noto Sans Bold")
+                       )
+        )
+   (gimp-layer-set-offsets
+      theText
+      (/ (- captionWidth  (car (gimp-drawable-width  theText))) 2)
+      (/ (- captionHeight (car (gimp-drawable-height theText))) 2))
+
+ ;  (gimp-layer-resize layer textWidth textHeight 0 0)
+
+   (gimp-image-merge-visible-layers image CLIP-TO-IMAGE)
+   (gimp-display-new image)
+   ; ------------------------------------------------------------------------
+   (file-png-save2 RUN-NONINTERACTIVE image layer outputFileName outputFileName TRUE 9 TRUE TRUE FALSE TRUE TRUE FALSE TRUE)
+)
+;(gimp-quit TRUE)
+EOF
+) | env LANG=C HOME=/tmp gimp --new-instance --batch -
+# 2>&1 | \
+#        ( grep -vE "^ts>|(#t)|^Copyright|^Welcome|GLib-GObject-WARNING|GEGL-CRITICAL|missing babl fast path|Missing fast-path babl|accelerates GEGL|first occurance of formats|programmatically by bab|GeglBuffers leaked|Failed to parse tag cache|^$" || true )
+
+if [ ! -e "$OUTPUTFILENAME" ] ; then
+   echo >&2 "ERROR: $OUTPUTFILENAME has not been produced. Something went wrong!"
    exit 1
 fi
-CAPTION="`cat "$2"`"
-WIDTH="$3"
-
-GM="/usr/bin/gm"
-
-
-${GM} convert \
-   -size ${WIDTH}x42 xc:#FFD70044 \
-   -fill "#02266b" \
-   -font Helvetica-Bold -pointsize 24 \
-   -gravity Center \
-   -draw "text 0,1 \"${CAPTION}\"" \
-   "${OUTPUT}"
