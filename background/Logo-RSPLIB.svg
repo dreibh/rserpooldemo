@@ -34,16 +34,16 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="2762"
-     inkscape:window-height="1971"
+     inkscape:window-width="3840"
+     inkscape:window-height="2027"
      id="namedview469"
      showgrid="false"
      inkscape:zoom="15"
-     inkscape:cx="113.38583"
+     inkscape:cx="101.11916"
      inkscape:cy="75.590551"
-     inkscape:window-x="334"
+     inkscape:window-x="0"
      inkscape:window-y="0"
-     inkscape:window-maximized="0"
+     inkscape:window-maximized="1"
      inkscape:current-layer="Hintergrund" />
   <defs
      id="defs2" />
@@ -59,14 +59,14 @@
     <text
        font-size="20.32"
        style="font-style:italic;font-weight:normal;font-size:20.31999969px;font-family:'urw chancery l';text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
-       x="68.675003"
-       y="47.025002"
+       x="67.95269"
+       y="47.231377"
        id="text8">
       <tspan
          xml:space="preserve"
-         x="68.675003"
-         y="47.025002"
-         id="tspan6"> RSPLIB </tspan>    </text>
+         x="67.95269"
+         y="47.231377"
+         id="tspan6">RSPLIB </tspan>    </text>
     <g
        id="g14">
       <line

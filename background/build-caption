@@ -51,4 +51,4 @@ fi
 ${MAKE_CAPTION} \
    "${OUTPUT}" "${CAPTION}" 1024 36 \
    "Noto Sans Bold" 60 \
-   "#02266b" "#ffd700" 26
+   "#02266b" "#d7d7d7" 26
