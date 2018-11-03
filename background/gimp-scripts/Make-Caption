@@ -20,8 +20,8 @@
 
 
 # Example:
-# Make-Caption Caption.png Caption.input 1024 42 "Noto Sans Bold" 75
-# Make-Caption Caption.png Caption.input 1024 42 "Noto Sans Bold" 75 "#02266b" "#ffd700" 26
+# Make-Caption Caption.png Caption.input 1024 42 "Noto Sans Bold" 60
+# Make-Caption Caption.png Caption.input 1024 42 "Noto Sans Bold" 60 "#02266b" "#ffd700" 26
 
 
 # ====== Handle arguments ===================================================
