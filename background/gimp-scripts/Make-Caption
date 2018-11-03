@@ -66,8 +66,8 @@ rm -f "$OUTPUTFILENAME"
     (theText)
     (drawable)
     (image (car (gimp-image-new captionWidth captionHeight RGB)))
-    (layer1 (car (gimp-layer-new image captionWidth captionHeight RGBA-IMAGE "Layer 1" captionOpacity NORMAL)))
-    (layer2 (car (gimp-layer-new image captionWidth captionHeight RGBA-IMAGE "Layer 2" 100 NORMAL)))
+    (layer1 (car (gimp-layer-new image captionWidth captionHeight RGBA-IMAGE "Layer 1" captionOpacity NORMAL-MODE)))
+    (layer2 (car (gimp-layer-new image captionWidth captionHeight RGBA-IMAGE "Layer 2" 100 NORMAL-MODE)))
    )
    ; ------------------------------------------------------------------------
    (gimp-image-add-layer image layer1 0)
