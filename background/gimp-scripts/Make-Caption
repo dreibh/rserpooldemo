@@ -57,7 +57,7 @@ rm -f "$OUTPUTFILENAME"
    ((outputFileName   "$OUTPUTFILENAME")
     (captionText      "$CAPTION_TEXT")
     (captionWidth     $CAPTION_WIDTH)
-    (captionHeight    42)
+    (captionHeight    $CAPTION_HEIGHT)
     (captionFont      "$FONT")
     (captionFontSize  (/ (* $FONT_SIZE captionHeight) 100))
     (captionOpacity   (- 100 $TRANSPARENCY))

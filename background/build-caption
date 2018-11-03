@@ -49,6 +49,6 @@ if [ "${MAKE_CAPTION}" = "" ] ; then
 fi
 
 ${MAKE_CAPTION} \
-   "${OUTPUT}" "${CAPTION}" 1024 42 \
-   "Noto Sans Bold" 75 \
+   "${OUTPUT}" "${CAPTION}" 1024 36 \
+   "Noto Sans Bold" 60 \
    "#02266b" "#ffd700" 26

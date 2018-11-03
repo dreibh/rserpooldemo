@@ -1,5 +1,5 @@
 Name: rserpooldemo
-Version: 3.0.0~rc1.21
+Version: 3.0.0~rc1.22
 Release: 1
 Summary: RSerPool Demo Tool
 Group: Applications/Internet
@@ -14,6 +14,7 @@ BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: gimp
 BuildRequires: GraphicsMagick
+BuildRequires: urw-base35-fonts
 BuildRequires: perl-Image-ExifTool
 BuildRequires: qt5-qtbase-devel
 BuildRequires: texlive-epstopdf-bin
@@ -59,6 +60,7 @@ Requires: bison
 Requires: clang
 Requires: cmake
 Requires: flex
+Requires: GraphicsMagick
 Requires: gcc
 Requires: gcc-c++
 Requires: gdb
@@ -69,7 +71,7 @@ Requires: qt5-qtbase-devel
 Requires: bc
 Requires: perl-Image-ExifTool
 Requires: gimp
-Requires: ghostscript
+Requires: urw-base35-fonts
 Requires: texlive-epstopdf-bin
 Requires: valgrind
 
