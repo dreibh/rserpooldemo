@@ -1,63 +1,4 @@
 #!/bin/bash -e
-# ##########################################################################
-#
-#              //===//   //=====   //===//   //       //   //===//
-#             //    //  //        //    //  //       //   //    //
-#            //===//   //=====   //===//   //       //   //===<<
-#           //   \\         //  //        //       //   //    //
-#          //     \\  =====//  //        //=====  //   //===//   Version III
-#
-#             ###################################################
-#           ======  D E M O N S T R A T I O N   S Y S T E M  ======
-#             ###################################################
-#
-# ############# An Efficient RSerPool Prototype Implementation #############
-#
-# Copyright (C) 2002-2019 by Thomas Dreibholz
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-# Contact: dreibh@iem.uni-due.de
-#
-
-
-# if [ $# -lt 3 ] ; then
-#    echo >&2 "Usage: $0 output_file caption width"
-#    exit 1
-# fi
-# OUTPUT="$1"
-# if [ ! -e "$2" ] ; then
-#    echo >&2 "ERROR: Caption file $2 does not exist!"
-#    exit 1
-# fi
-# CAPTION="`cat "$2"`"
-# WIDTH="$3"
-#
-# GM="/usr/bin/gm"
-#
-#
-# ${GM} convert \
-#    -size ${WIDTH}x42 xc:#FFD70044 \
-#    -fill "#02266b" \
-#    -font Helvetica-Bold -pointsize 24 \
-#    -gravity Center \
-#    -draw "text 0,1 \"${CAPTION}\"" \
-#    "${OUTPUT}"
-
-
-
-#!/bin/bash -e
 #
 # Caption Script
 # Copyright (C) 2017-2018 by Thomas Dreibholz
@@ -85,11 +26,11 @@
 
 # ====== Handle arguments ===================================================
 if [ $# -lt 6 ] ; then
-   echo >&2 "Usage: $0 output_filename caption_filename caption_width caption_height font font_size_percent [foreground [background [transparency]]]"
+   echo >&2 "Usage: $0 output_filename caption_text caption_width caption_height font font_size_percent [foreground [background [transparency]]]"
    exit 1
 fi
 OUTPUTFILENAME="$1"
-CAPTION_TEXT="`cat "$2"`"
+CAPTION_TEXT="$2"
 CAPTION_WIDTH=$3
 CAPTION_HEIGHT=$4
 FONT="$5"
@@ -149,9 +90,8 @@ rm -f "$OUTPUTFILENAME"
 )
 (gimp-quit TRUE)
 EOF
-) | env LANG=C HOME=/tmp gimp --new-instance --batch -
-# 2>&1 | \
-#        ( grep -vE "^ts>|(#t)|^Copyright|^Welcome|GLib-GObject-WARNING|GEGL-CRITICAL|missing babl fast path|Missing fast-path babl|accelerates GEGL|first occurance of formats|programmatically by bab|GeglBuffers leaked|Failed to parse tag cache|^$" || true )
+) | env LANG=C HOME=/tmp gimp --new-instance --no-interface --no-splash --batch - 2>&1 | \
+       ( grep -vE "^ts>|(#t)|^Copyright|^Welcome|GLib-GObject-WARNING|GEGL-CRITICAL|missing babl fast path|Missing fast-path babl|accelerates GEGL|first occurance of formats|programmatically by bab|GeglBuffers leaked|Failed to parse tag cache|^$" || true )
 
 if [ ! -e "$OUTPUTFILENAME" ] ; then
    echo >&2 "ERROR: $OUTPUTFILENAME has not been produced. Something went wrong!"
