@@ -8,7 +8,6 @@ Build-Depends: cmake,
                exiftool,
                gimp,
                graphicsmagick,
-               gsfonts,
                inkscape,
                libfile-fcntllock-perl,
                qtbase5-dev
