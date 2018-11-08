@@ -42,6 +42,8 @@ HEIGHT="$3"
 DIRECTORY="$4"
 
 GM="/usr/bin/gm"
+SCRIPT=`realpath -s "$0"`
+SCRIPTPATH=`dirname "${SCRIPT}"`   # NOTE: Current directory may be a build directory!
 
 # ------ Proportions --------------------------------------------------------
 logoWidth=0.25        # of Width
