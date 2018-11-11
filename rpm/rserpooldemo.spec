@@ -9,15 +9,23 @@ Source: https://www.uni-due.de/~be0001/rserpool/download/%{name}-%{version}.tar.
 
 AutoReqProv: on
 BuildRequires: cmake
-BuildRequires: inkscape
+BuildRequires: dejavu-sans-fonts
+BuildRequires: dejavu-sans-mono-fonts
+BuildRequires: dejavu-serif-fonts
 BuildRequires: gcc
 BuildRequires: gcc-c++
+BuildRequires: ghostscript
 BuildRequires: gimp
+BuildRequires: google-noto-cjk-fonts
+BuildRequires: google-noto-mono-fonts
+BuildRequires: google-noto-sans-fonts
+BuildRequires: google-noto-serif-fonts
 BuildRequires: GraphicsMagick
-BuildRequires: urw-base35-fonts
+BuildRequires: inkscape
 BuildRequires: perl-Image-ExifTool
 BuildRequires: qt5-qtbase-devel
 BuildRequires: texlive-epstopdf-bin
+BuildRequires: urw-base35-fonts
 BuildRoot: %{_tmppath}/%{name}-%{version}-build
 
 %define _unpackaged_files_terminate_build 0
