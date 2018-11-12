@@ -17,7 +17,6 @@ BuildRequires: gcc-c++
 BuildRequires: ghostscript
 BuildRequires: gimp
 BuildRequires: google-noto-cjk-fonts
-BuildRequires: google-noto-mono-fonts
 BuildRequires: google-noto-sans-fonts
 BuildRequires: google-noto-serif-fonts
 BuildRequires: GraphicsMagick
