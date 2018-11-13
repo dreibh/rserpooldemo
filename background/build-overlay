@@ -42,8 +42,7 @@ HEIGHT="$3"
 DIRECTORY="$4"
 
 GM="/usr/bin/gm"
-SCRIPT=`realpath -s "$0"`
-SCRIPTPATH=`dirname "${SCRIPT}"`   # NOTE: Current directory may be a build directory!
+SCRIPTPATH=`dirname "$0"`   # NOTE: Current directory may be a build directory!
 
 # ------ Proportions --------------------------------------------------------
 logoWidth=0.25        # of Width
@@ -51,19 +50,11 @@ logoIndent=0.025      # of Height
 websiteWidth=0.925    # of Width
 websiteIndent=0.050   # of Height
 
-
-# ------ Create logo --------------------------------------------------------
 logoWidthValue=`awk "BEGIN { print ${WIDTH}*${logoWidth} }"`
 logoIndentValue=`awk "BEGIN { print ${HEIGHT}*${logoIndent} }"`
 websiteWidthValue=`awk "BEGIN { print ${WIDTH}*${websiteWidth} }"`
 websiteIndentValue=`awk "BEGIN { print ${HEIGHT}*${websiteIndent} }"`
 
-# convert -size ${WIDTH}x${HEIGHT} xc:none \
-#    \( $DIRECTORY/Logo-RSPLIB.png -trim +repage -resize ${logoWidthValue}x \) -gravity northeast -geometry +${logoIndentValue}+${logoIndentValue} -composite \
-#    \( -background none \
-#       \( $DIRECTORY/Website.png     -trim +repage -resize ${websiteWidthValue}x \) -gravity center -append \) \
-#          -gravity south -geometry +0+${websiteIndentValue} -composite \
-# "$OUTPUT"
 
 tempDirectory=`mktemp -d`
 
