@@ -32,7 +32,7 @@
 #
 # Contact: dreibh@iem.uni-due.de
 
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
 PROJECT(rserpooldemo)
 
 SET(BUILD_MAJOR "3")

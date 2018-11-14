@@ -4,7 +4,7 @@ export TRAVIS_OS_NAME="linux"
 export TOOL="pbuilder"
 
 
-# export DOCKER="debian:testing"
+# export DOCKER="debian:stretch"
 # export VARIANT="debian"
 
 export DOCKER="ubuntu:trusty"
@@ -16,7 +16,7 @@ export VARIANT="ubuntu"
 
 
 SCRIPTS="before-install install build"
-# SCRIPTS="build"
+# SCRIPTS="install"
 
 for script in $SCRIPTS ; do
    sudo env \
