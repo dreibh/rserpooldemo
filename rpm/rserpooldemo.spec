@@ -44,7 +44,7 @@ make %{?_smp_mflags}
 make DESTDIR=%{buildroot} install
 # ====== Relocate files =====================================================
 mkdir -p %{buildroot}/boot/RSerPoolDemo
-mv %{buildroot}/usr/share/rserpooldemo/splash/Background-1024x768.jpeg %{buildroot}/boot/RSerPoolDemo
+mv %{buildroot}/usr/share/rserpooldemo/splash/Zollverein-1024x768.jpeg %{buildroot}/boot/RSerPoolDemo
 mkdir -p %{buildroot}/etc/rserpooldemo
 mv %{buildroot}/usr/share/rserpooldemo/splash/rserpooldemo-version %{buildroot}/etc/rserpooldemo
 # ===========================================================================
@@ -103,7 +103,6 @@ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo
 %package development
 Summary: RSerPool Demo Development
 Group: Applications/Internet
-Requires: %{name} = %{version}-%{release}
 Requires: autoconf
 Requires: automake
 Requires: banner
@@ -167,7 +166,7 @@ This package contains the scripts to configure a RSerPoolDemo desktop.
 See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
 
 %files desktop
-/boot/RSerPoolDemo/Background-1024x768.jpeg
+/boot/RSerPoolDemo/Zollverein-1024x768.jpeg
 /etc/grub.d/??_rserpooldemo_desktop_theme
 /usr/share/rserpooldemo/background/*
 /usr/share/rserpooldemo/desktop/*
@@ -175,11 +174,11 @@ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo
 
 %post desktop
 cp /usr/share/rserpooldemo/grub-defaults /etc/default/grub
-update-grub || true
+grub2-mkconfig -o /boot/grub2/grub.cfg
 
 %postun desktop
 rm -f /etc/grub.d/??_rserpooldemo_desktop_theme
-update-grub || true
+grub2-mkconfig -o /boot/grub2/grub.cfg
 
 
 %package tool

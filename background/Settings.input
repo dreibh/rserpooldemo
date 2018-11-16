@@ -87,7 +87,7 @@ SET(TDD_BOOTSPLASH_VARIANT    "plain")
 SET(TDD_BOOTSPLASH_TEXT       "RSerPool System ${this_version}, built on ${this_date}")
 
 SET(TDD_PRINT_VARIANT         "plain")
-SET(TDD_PRINT_IMAGE           "Background.png")
+SET(TDD_PRINT_IMAGE           "Zollverein.jpeg")
 SET(TDD_PRINT_PREFIX          "RSPLIB-Project")
 SET(TDD_PRINT_A4              0)
 SET(TDD_PRINT_A3              0)
