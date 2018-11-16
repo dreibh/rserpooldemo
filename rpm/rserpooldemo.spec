@@ -92,10 +92,12 @@ Recommends: rsplib-services
 Recommends: rsplib-tools
 Recommends: wireshark-cli
 
-
 %description management
 This metapackage contains basic software for RSerPoolDemo system management.
 See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
+
+%files management
+/etc/rserpooldemo/rserpooldemo-version
 
 
 %package development
@@ -148,10 +150,11 @@ Requires: texlive-epstopdf-bin
 Requires: urw-base35-fonts
 Requires: valgrind
 
-
 %description development
 This meta-package contains basic software for RSerPoolDemo development.
 See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
+
+%files development
 
 
 %package desktop
@@ -166,7 +169,6 @@ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo
 %files desktop
 /boot/RSerPoolDemo/Background-1024x768.jpeg
 /etc/grub.d/??_rserpooldemo_desktop_theme
-/etc/rserpooldemo/rserpooldemo-version
 /usr/share/rserpooldemo/background/*
 /usr/share/rserpooldemo/desktop/*
 /usr/share/rserpooldemo/grub-defaults
