@@ -124,8 +124,7 @@ update-grub || true
 %package tool
 Summary: RSerPool Demo Tool
 Group: Applications/Internet
-Requires: %{name} = %{version}-%{release}
-Requires: %{name}-management
+Requires: %{name}-management = %{version}-%{release}
 Requires: rsplib-fgp-cfgfiles
 Requires: %{name}-desktop
 Recommends: rsplib-registrar
