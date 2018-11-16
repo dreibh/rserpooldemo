@@ -42,6 +42,12 @@ make %{?_smp_mflags}
 
 %install
 make DESTDIR=%{buildroot} install
+# ====== Relocate files =====================================================
+mkdir -p %{buildroot}/boot/RSerPoolDemo
+mv %{buildroot}/usr/share/rserpooldemo/Splash/Background-1024x768.jpeg %{buildroot}/boot/RSerPoolDemo
+mkdir -p %{buildroot}/etc/rserpooldemo
+mv %{buildroot}/usr/share/rserpooldemo/Splash/rserpooldemo-version %{buildroot}/etc/rserpooldemo
+# ===========================================================================
 
 
 %package management
@@ -103,6 +109,14 @@ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo
 /usr/share/rserpooldemo/Splash/*
 /etc/grub.d/??_rserpooldemo_desktop_theme
 /usr/share/rserpooldemo/grub-defaults
+
+%post desktop
+cp /usr/share/rserpooldemo/grub-defaults /etc/default/grub
+update-grub || true
+
+%postun desktop
+rm -f /etc/grub.d/??_rserpooldemo_desktop_theme
+update-grub || true
 
 
 %package tool
