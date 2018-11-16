@@ -110,8 +110,9 @@ Summary: RSerPool Demo Tool
 Group: Applications/Internet
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-management
-Requires: rsplib-fgp-cfgfiles
 Requires: %{name}-desktop
+Recommends: rsplib-tools
+Recommends: rsplib-fgp-cfgfiles
 Recommends: rsplib-registrar
 
 %description tool
