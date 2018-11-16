@@ -27,7 +27,8 @@ BuildRequires: texlive-epstopdf-bin
 BuildRequires: urw-base35-fonts
 BuildRoot: %{_tmppath}/%{name}-%{version}-build
 
-%define _unpackaged_files_terminate_build 0
+# TEST ONLY:
+# %define _unpackaged_files_terminate_build 0
 
 %description
 This package contains the RSerPool Demo Tool
