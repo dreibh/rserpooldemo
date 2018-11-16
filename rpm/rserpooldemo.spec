@@ -1,5 +1,5 @@
 Name: rserpooldemo
-Version: 3.0.0~rc1.24
+Version: 3.0.0~rc1.25
 Release: 1
 Summary: RSerPool Demo Tool
 Group: Applications/Internet
@@ -53,7 +53,6 @@ mv %{buildroot}/usr/share/rserpooldemo/Splash/rserpooldemo-version %{buildroot}/
 %package management
 Summary: RSerPool Demo Management
 Group: Applications/Internet
-Requires: %{name} = %{version}-%{release}
 Requires: joe
 Requires: git
 Requires: gpm
@@ -69,24 +68,47 @@ Group: Applications/Internet
 Requires: %{name} = %{version}-%{release}
 Requires: autoconf
 Requires: automake
+Requires: autopoint
+Requires: bc
 Requires: bison
+Requires: bzip2-devel
 Requires: clang
 Requires: cmake
+Requires: createrepo
+Requires: debhelper
+Requires: devscripts
 Requires: flex
-Requires: GraphicsMagick
 Requires: gcc
 Requires: gcc-c++
 Requires: gdb
+Requires: ghostscript
+Requires: gimp
+Requires: glib2-devel
+Requires: gnupg
+Requires: gnuplot
+Requires: google-noto-cjk-fonts
+Requires: google-noto-sans-fonts
+Requires: google-noto-serif-fonts
+Requires: GraphicsMagick
 Requires: inkscape
+Requires: libcurl-devel
+Requires: libpcap-devel
+Requires: libtool
+Requires: lksctp-tools-devel
 Requires: make
 Requires: mock
-Requires: qt5-qtbase-devel
-Requires: bc
+Requires: openssl-devel
+Requires: pbuilder
 Requires: perl-Image-ExifTool
-Requires: gimp
-Requires: urw-base35-fonts
+Requires: pkg-config
+Requires: qt5-qtbase-devel
+Requires: quilt
+Requires: R-base
+Requires: rpm
 Requires: texlive-epstopdf-bin
+Requires: urw-base35-fonts
 Requires: valgrind
+
 
 %description development
 This meta-package contains basic software for RSerPoolDemo development.
@@ -96,8 +118,7 @@ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo
 %package desktop
 Summary: RSerPool Demo Desktop
 Group: Applications/Internet
-Requires: %{name} = %{version}-%{release}
-Requires: %{name}-management
+Requires: %{name}-management = %{version}-%{release}
 
 %description desktop
 This package contains the scripts to configure a RSerPoolDemo desktop.
@@ -106,7 +127,6 @@ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo
 %files desktop
 /usr/share/rserpooldemo/Desktop-with-Logo/*
 /usr/share/rserpooldemo/Desktop-without-Logo/*
-#/usr/share/rserpooldemo/Splash/*
 /boot/RSerPoolDemo/Background-1024x768.jpeg
 /etc/rserpooldemo/rserpooldemo-version
 /etc/grub.d/??_rserpooldemo_desktop_theme
@@ -124,10 +144,11 @@ update-grub || true
 %package tool
 Summary: RSerPool Demo Tool
 Group: Applications/Internet
+Requires: %{name}-desktop = %{version}-%{release}
 Requires: %{name}-management = %{version}-%{release}
-Requires: rsplib-fgp-cfgfiles
-Requires: %{name}-desktop
+Recommends: rsplib-fgp-cfgfiles
 Recommends: rsplib-registrar
+Recommends: rsplib-tools
 
 %description tool
 This package contains the RSerPoolDemo tool.
