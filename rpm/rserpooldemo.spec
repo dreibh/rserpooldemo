@@ -56,6 +56,7 @@ Group: Applications/Internet
 Requires: bash-completion
 Requires: bridge-utils
 Requires: btrfs-progs
+Requires: bc
 Requires: bwm-ng
 Requires: colordiff
 Requires: cronie
@@ -106,7 +107,6 @@ Group: Applications/Internet
 Requires: autoconf
 Requires: automake
 Requires: banner
-Requires: bc
 Requires: bison
 Requires: bzip2-devel
 Requires: clang
