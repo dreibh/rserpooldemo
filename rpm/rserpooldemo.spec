@@ -106,7 +106,9 @@ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo
 %files desktop
 /usr/share/rserpooldemo/Desktop-with-Logo/*
 /usr/share/rserpooldemo/Desktop-without-Logo/*
-/usr/share/rserpooldemo/Splash/*
+#/usr/share/rserpooldemo/Splash/*
+/boot/RSerPoolDemo/Background-1024x768.jpeg
+/etc/rserpooldemo/rserpooldemo-version
 /etc/grub.d/??_rserpooldemo_desktop_theme
 /usr/share/rserpooldemo/grub-defaults
 
