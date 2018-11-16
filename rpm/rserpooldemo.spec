@@ -53,9 +53,44 @@ mv %{buildroot}/usr/share/rserpooldemo/Splash/rserpooldemo-version %{buildroot}/
 %package management
 Summary: RSerPool Demo Management
 Group: Applications/Internet
-Requires: joe
+Requires: bash-completion
+Requires: bridge-utils
+Requires: btrfs-progs
+Requires: bwm-ng
+Requires: colordiff
+Requires: cronie
+Requires: ethtool
 Requires: git
 Requires: gpm
+Requires: hping3
+Requires: htop
+Requires: ipsec-tools
+Requires: joe
+Requires: libidn
+Requires: lksctp-tools
+Requires: mlocate
+Requires: netperfmeter
+Requires: net-snmp-utils
+Requires: net-tools
+Requires: nmap
+Requires: ntpdate
+Requires: pxz
+Requires: reiserfs-utils
+Requires: reprepro
+Requires: smartmontools
+Requires: sslscan
+Requires: subnetcalc
+Requires: tcpdump
+Requires: tftp
+Requires: traceroute
+Requires: tree
+Requires: vconfig
+Requires: virt-what
+Requires: whois
+Recommends: rsplib-docs
+Recommends: rsplib-services
+Recommends: rsplib-tools
+
 
 %description management
 This metapackage contains basic software for RSerPoolDemo system management.
