@@ -109,11 +109,11 @@ SET(TDD_FLAT_DIRECTORY_STRUCTURE 1)
 SET(TDD_OUTPUT_DIRECTORY         "Output")
 SET(TDD_INSTALL_SUBDIRECTORY     "${CMAKE_PROJECT_NAME}")   # Install under [PREFIX]/share/${TDD_INSTALL_SUBDIRECTORY}
 SET(TDD_INSTALL_ORIGINALS        0)
-SET(TDD_OUTPUT_OVERLAY           "Overlay")
-SET(TDD_OUTPUT_ORIGINALS         "Originals")
-SET(TDD_OUTPUT_WITHOUT_LOGO      "Desktop-without-Logo")
-SET(TDD_OUTPUT_WITH_LOGO         "Desktop-with-Logo")
-SET(TDD_OUTPUT_SPLASH            "Splash")
+SET(TDD_OUTPUT_OVERLAY           "overlay")
+SET(TDD_OUTPUT_ORIGINALS         "originals")
+SET(TDD_OUTPUT_WITHOUT_LOGO      "background")
+SET(TDD_OUTPUT_WITH_LOGO         "desktop")
+SET(TDD_OUTPUT_SPLASH            "splash")
 SET(TDD_OUTPUT_CAPTIONFILE       "rserpooldemo-version")
 
 # ------ Programs -----------------------------------------

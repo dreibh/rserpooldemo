@@ -44,9 +44,9 @@ make %{?_smp_mflags}
 make DESTDIR=%{buildroot} install
 # ====== Relocate files =====================================================
 mkdir -p %{buildroot}/boot/RSerPoolDemo
-mv %{buildroot}/usr/share/rserpooldemo/Splash/Background-1024x768.jpeg %{buildroot}/boot/RSerPoolDemo
+mv %{buildroot}/usr/share/rserpooldemo/splash/Background-1024x768.jpeg %{buildroot}/boot/RSerPoolDemo
 mkdir -p %{buildroot}/etc/rserpooldemo
-mv %{buildroot}/usr/share/rserpooldemo/Splash/rserpooldemo-version %{buildroot}/etc/rserpooldemo
+mv %{buildroot}/usr/share/rserpooldemo/splash/rserpooldemo-version %{buildroot}/etc/rserpooldemo
 # ===========================================================================
 
 
@@ -90,6 +90,7 @@ Requires: whois
 Recommends: rsplib-docs
 Recommends: rsplib-services
 Recommends: rsplib-tools
+Recommends: wireshark-cli
 
 
 %description management
@@ -103,7 +104,7 @@ Group: Applications/Internet
 Requires: %{name} = %{version}-%{release}
 Requires: autoconf
 Requires: automake
-Requires: autopoint
+Requires: banner
 Requires: bc
 Requires: bison
 Requires: bzip2-devel
@@ -111,6 +112,9 @@ Requires: clang
 Requires: cmake
 Requires: createrepo
 Requires: debhelper
+Requires: dejavu-sans-fonts
+Requires: dejavu-sans-mono-fonts
+Requires: dejavu-serif-fonts
 Requires: devscripts
 Requires: flex
 Requires: gcc
@@ -160,11 +164,11 @@ This package contains the scripts to configure a RSerPoolDemo desktop.
 See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
 
 %files desktop
-/usr/share/rserpooldemo/Desktop-with-Logo/*
-/usr/share/rserpooldemo/Desktop-without-Logo/*
 /boot/RSerPoolDemo/Background-1024x768.jpeg
-/etc/rserpooldemo/rserpooldemo-version
 /etc/grub.d/??_rserpooldemo_desktop_theme
+/etc/rserpooldemo/rserpooldemo-version
+/usr/share/rserpooldemo/background/*
+/usr/share/rserpooldemo/desktop/*
 /usr/share/rserpooldemo/grub-defaults
 
 %post desktop
