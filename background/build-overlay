@@ -56,7 +56,7 @@ websiteWidthValue=`awk "BEGIN { print ${WIDTH}*${websiteWidth} }"`
 websiteIndentValue=`awk "BEGIN { print ${HEIGHT}*${websiteIndent} }"`
 
 
-tempDirectory=`mktemp -d`
+tempDirectory=`mktemp -d rserpooldemo-overlay-${WIDTH}x${HEIGHT}.XXXXXXXXXXXXXXXX`
 
 ${GM} convert $DIRECTORY/Logo-RSPLIB.png -trim \
    -resize ${logoWidthValue}x \
