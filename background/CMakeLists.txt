@@ -11,7 +11,7 @@
 # --------------------------------------------------------------------------
 #
 # SuNILab Desktop Background Script
-# Copyright (C) 2017-2018 by Thomas Dreibholz
+# Copyright (C) 2017-2019 by Thomas Dreibholz
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,7 +33,7 @@
 # INITIALISE
 #############################################################################
 
-CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.0.2)
 PROJECT(undefined LANGUAGES C)   # to be set in Setting.cmake
 INCLUDE(Settings.input)
 

@@ -203,5 +203,5 @@ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo
 
 
 %changelog
-* Wed Nov 22 2017 Thomas Dreibholz <dreibh@iem.uni-due.de> - 0.0.0
+* Wed Nov 22 2017-2019 Thomas Dreibholz <dreibh@iem.uni-due.de> - 0.0.0
 - Created RPM package.
