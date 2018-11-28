@@ -71,7 +71,6 @@ Requires: joe
 Requires: libidn
 Requires: lksctp-tools
 Requires: mlocate
-Requires: netperfmeter
 Requires: net-snmp-utils
 Requires: net-tools
 Requires: nmap
@@ -89,6 +88,7 @@ Requires: tree
 Requires: vconfig
 Requires: virt-what
 Requires: whois
+Recommends: netperfmeter
 Recommends: rsplib-docs
 Recommends: rsplib-services
 Recommends: rsplib-tools
@@ -105,6 +105,7 @@ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo
 %package development
 Summary: RSerPool Demo Development
 Group: Applications/Internet
+Requires: %{name}-management = %{version}-%{release}
 Requires: autoconf
 Requires: automake
 Requires: banner
@@ -161,6 +162,7 @@ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo
 Summary: RSerPool Demo Desktop
 Group: Applications/Internet
 Requires: %{name}-management = %{version}-%{release}
+Recommends: grub2-tools
 
 %description desktop
 This package contains the scripts to configure a RSerPoolDemo desktop.
@@ -174,12 +176,18 @@ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo
 /usr/share/rserpooldemo/grub-defaults
 
 %post desktop
-cp /usr/share/rserpooldemo/grub-defaults /etc/default/grub
-grub2-mkconfig -o /boot/grub2/grub.cfg
+echo "Updating /etc/default/grub with RSerPool Demo settings:"
+echo "-----"
+cat /usr/share/rserpooldemo/grub-defaults | \
+   ( if grep "biosdevname=0" >/dev/null 2>&1 /proc/cmdline ; then sed "s/^GRUB_CMDLINE_LINUX=\"/GRUB_CMDLINE_LINUX=\"biosdevname=0 /g" ; else cat ; fi ) | \
+   ( if grep "net.ifnames=0" >/dev/null 2>&1 /proc/cmdline ; then sed "s/^GRUB_CMDLINE_LINUX=\"/GRUB_CMDLINE_LINUX=\"net.ifnames=0 /g" ; else cat ; fi ) | tee /etc/default/grub.new && \
+mv /etc/default/grub.new /etc/default/grub
+echo "-----"
+if [ -e /usr/sbin/grub2-mkconfig ] ; then /usr/sbin/grub2-mkconfig -o /boot/grub2/grub.cfg || true ; fi
 
 %postun desktop
 rm -f /etc/grub.d/??_rserpooldemo_desktop_theme
-grub2-mkconfig -o /boot/grub2/grub.cfg
+if [ -e /usr/sbin/grub2-mkconfig ] ; then /usr/sbin/grub2-mkconfig -o /boot/grub2/grub.cfg || true ; fi
 
 
 %package tool
