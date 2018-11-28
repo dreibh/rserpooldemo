@@ -60,18 +60,18 @@ tempDirectory=`mktemp -d rserpooldemo-overlay-${WIDTH}x${HEIGHT}.XXXXXXXXXXXXXXX
 
 ${GM} convert $DIRECTORY/Logo-RSPLIB.png -trim \
    -resize ${logoWidthValue}x \
-   ${tempDirectory}/logo.miff
+   +compress ${tempDirectory}/logo.tiff
 ${GM} convert $DIRECTORY/Website.png -trim \
    -resize ${websiteWidthValue}x \
-   ${tempDirectory}/website.miff
+   +compress ${tempDirectory}/website.tiff
 
 ${GM} composite -size ${WIDTH}x${HEIGHT} \
-   -gravity NorthEast ${tempDirectory}/logo.miff -geometry +${logoIndentValue}+${logoIndentValue} \
-   xc:none ${tempDirectory}/layer-logo.miff
+   -gravity NorthEast ${tempDirectory}/logo.tiff -geometry +${logoIndentValue}+${logoIndentValue} \
+   xc:none +compress ${tempDirectory}/layer-logo.tiff
 ${GM} composite -size ${WIDTH}x${HEIGHT} \
-   -gravity South -geometry +0+${websiteIndentValue} ${tempDirectory}/website.miff \
-   xc:none ${tempDirectory}/layer-website.miff
+   -gravity South -geometry +0+${websiteIndentValue} ${tempDirectory}/website.tiff \
+   xc:none +compress ${tempDirectory}/layer-website.tiff
 
-${GM} composite ${tempDirectory}/layer-logo.miff ${tempDirectory}/layer-website.miff "$OUTPUT"
+${GM} composite ${tempDirectory}/layer-logo.tiff ${tempDirectory}/layer-website.tiff "$OUTPUT"
 
 rm -rf ${tempDirectory}
