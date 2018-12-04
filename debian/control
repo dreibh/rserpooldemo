@@ -125,7 +125,7 @@ Depends: autoconf,
          r-cran-ggplot2,
          r-cran-hmisc,
          rpm,
-         rserpooldemo-management,
+         rserpooldemo-management (>= ${source:Version}),
          sysvbanner,
          texlive-extra-utils,
          texlive-font-utils,
@@ -141,10 +141,12 @@ Description: RSerPoolDemo Development Tools
 
 Package: rserpooldemo-desktop
 Architecture: any
-Depends: rserpooldemo-management,
+Depends: firefox | firefox-esr,
+         kubuntu-desktop | neon-desktop | kde-standard | deepin-desktop-environment | lubuntu-desktop | ubuntu-desktop,
+         rserpooldemo-management (>= ${source:Version}),
+         sddm | kdm | lightdm | gdm3,
          ${misc:Depends},
          ${shlibs:Depends}
-Recommends: kubuntu-desktop | lubuntu-desktop | ubuntu-desktop
 Description: RSerPoolDemo Desktop
  This package contains the scripts to configure a RSerPoolDemo desktop.
  .
@@ -152,12 +154,11 @@ Description: RSerPoolDemo Desktop
 
 Package: rserpooldemo-tool
 Architecture: any
-Depends: rserpooldemo-management,
+Depends: rserpooldemo-management (>= ${source:Version}),
          rsplib-fgp-cfgfiles,
          ${misc:Depends},
          ${shlibs:Depends}
-Recommends: kubuntu-desktop | lubuntu-desktop | ubuntu-desktop,
-            rsplib-registrar
+Recommends: rsplib-registrar
 Description: RSerPoolDemo Tool
  This package contains the RSerPoolDemo tool.
  .
