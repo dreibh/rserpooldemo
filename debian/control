@@ -125,7 +125,7 @@ Depends: autoconf,
          r-cran-ggplot2,
          r-cran-hmisc,
          rpm,
-         rserpooldemo-management (>= ${source:Version}),
+         rserpooldemo-management (= ${binary:Version}),
          sysvbanner,
          texlive-extra-utils,
          texlive-font-utils,
@@ -143,7 +143,7 @@ Package: rserpooldemo-desktop
 Architecture: any
 Depends: firefox | firefox-esr,
          kubuntu-desktop | neon-desktop | kde-standard | deepin-desktop-environment | lubuntu-desktop | ubuntu-desktop,
-         rserpooldemo-management (>= ${source:Version}),
+         rserpooldemo-management (= ${binary:Version}),
          sddm | kdm | lightdm | gdm3,
          ${misc:Depends},
          ${shlibs:Depends}
@@ -154,7 +154,7 @@ Description: RSerPoolDemo Desktop
 
 Package: rserpooldemo-tool
 Architecture: any
-Depends: rserpooldemo-management (>= ${source:Version}),
+Depends: rserpooldemo-management (= ${binary:Version}),
          rsplib-fgp-cfgfiles,
          ${misc:Depends},
          ${shlibs:Depends}
