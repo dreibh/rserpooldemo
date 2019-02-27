@@ -16,12 +16,12 @@ Build-Depends: cmake (>= 3.0.2) | cmake3,
                libfile-fcntllock-perl,
                libimage-exiftool-perl,
                qtbase5-dev
-Standards-Version: 4.2.1
+Standards-Version: 4.3.0
 Vcs-Git: https://bitbucket.org/dreibh/rserpooldemo.git
 Vcs-Browser: https://bitbucket.org/dreibh/rserpooldemo
 
 Package: rserpooldemo-management
-Architecture: any
+Architecture: all
 Depends: apt-file,
          apt-show-versions,
          bash-completion,
@@ -84,7 +84,7 @@ Description: RSerPoolDemo Management Tools
  See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
 
 Package: rserpooldemo-development
-Architecture: any
+Architecture: all
 Depends: autoconf,
          automake,
          bc,
@@ -140,7 +140,7 @@ Description: RSerPoolDemo Development Tools
  See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
 
 Package: rserpooldemo-desktop
-Architecture: any
+Architecture: all
 Depends: firefox | firefox-esr,
          kubuntu-desktop | neon-desktop | kde-standard | deepin-desktop-environment | lubuntu-desktop | ubuntu-desktop,
          rserpooldemo-management (= ${binary:Version}),
@@ -153,7 +153,7 @@ Description: RSerPoolDemo Desktop
  See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
 
 Package: rserpooldemo-tool
-Architecture: any
+Architecture: all
 Depends: rserpooldemo-management (= ${binary:Version}),
          rsplib-fgp-cfgfiles,
          ${misc:Depends},

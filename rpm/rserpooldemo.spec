@@ -27,8 +27,10 @@ BuildRequires: texlive-epstopdf-bin
 BuildRequires: urw-base35-fonts
 BuildRoot: %{_tmppath}/%{name}-%{version}-build
 
+
 # TEST ONLY:
-# %define _unpackaged_files_terminate_build 0
+# define _unpackaged_files_terminate_build 0
+
 
 %description
 This package contains the RSerPool Demo Tool
@@ -54,6 +56,7 @@ mv %{buildroot}/usr/share/rserpooldemo/splash/rserpooldemo-version %{buildroot}/
 %package management
 Summary: RSerPool Demo Management
 Group: Applications/Internet
+BuildArch: noarch
 Requires: bash-completion
 Requires: bridge-utils
 Requires: btrfs-progs
@@ -104,6 +107,7 @@ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo
 %package development
 Summary: RSerPool Demo Development
 Group: Applications/Internet
+BuildArch: noarch
 Requires: %{name}-management = %{version}-%{release}
 Requires: autoconf
 Requires: automake
@@ -160,6 +164,7 @@ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo
 %package desktop
 Summary: RSerPool Demo Desktop
 Group: Applications/Internet
+BuildArch: noarch
 Requires: %{name}-management = %{version}-%{release}
 Recommends: grub2-tools
 
@@ -192,6 +197,7 @@ if [ -e /usr/sbin/grub2-mkconfig ] ; then /usr/sbin/grub2-mkconfig -o /boot/grub
 %package tool
 Summary: RSerPool Demo Tool
 Group: Applications/Internet
+BuildArch: noarch
 Requires: %{name}-desktop = %{version}-%{release}
 Requires: %{name}-management = %{version}-%{release}
 Recommends: rsplib-fgp-cfgfiles
