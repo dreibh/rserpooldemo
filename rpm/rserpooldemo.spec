@@ -101,7 +101,7 @@ This metapackage contains basic software for RSerPoolDemo system management.
 See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
 
 %files management
-/etc/rserpooldemo/rserpooldemo-version
+%{_sysconfdir}/rserpooldemo/rserpooldemo-version
 
 
 %package development
@@ -174,10 +174,10 @@ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo
 
 %files desktop
 /boot/RSerPoolDemo/Zollverein-1024x768.jpeg
-/etc/grub.d/??_rserpooldemo_desktop_theme
-/usr/share/rserpooldemo/background/*
-/usr/share/rserpooldemo/desktop/*
-/usr/share/rserpooldemo/grub-defaults
+%{_sysconfdir}/grub.d/??_rserpooldemo_desktop_theme
+%{_datadir}/rserpooldemo/background/*
+%{_datadir}/rserpooldemo/desktop/*
+%{_datadir}/rserpooldemo/grub-defaults
 
 %post desktop
 echo "Updating /etc/default/grub with RSerPool Demo settings:"
@@ -209,10 +209,10 @@ This package contains the RSerPoolDemo tool.
 See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
 
 %files tool
-/usr/bin/rserpooldemo
-/usr/share/man/man1/rserpooldemo.1.gz
-/usr/share/rserpooldemo/graphics/*
-/usr/share/rserpooldemo/local-scenario/*
+%{_bindir}/rserpooldemo
+%{_mandir}/man1/rserpooldemo.1.gz
+%{_datadir}/rserpooldemo/graphics/*
+%{_datadir}/rserpooldemo/local-scenario/*
 
 
 %changelog
