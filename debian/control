@@ -74,7 +74,6 @@ Recommends: apport-retrace,
             language-pack-de-base,
             language-pack-en-base,
             language-pack-nb-base,
-            linux-crashdump,
             tshark,
             update-motd
 Description: RSerPoolDemo Management Tools
@@ -132,7 +131,8 @@ Depends: autoconf,
          valgrind,
          ${misc:Depends},
          ${shlibs:Depends}
-Recommends: ubuntu-dev-tools
+Recommends: linux-crashdump,
+            ubuntu-dev-tools
 Description: RSerPoolDemo Development Tools
  This meta-package contains basic software for RSerPoolDemo development.
  The software installed provides a common working environment.
