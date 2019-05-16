@@ -5,7 +5,7 @@ Summary: RSerPool Demo Tool
 Group: Applications/Internet
 License: GPLv3
 URL: https://www.uni-due.de/~be0001/rserpool/
-Source: https://www.uni-due.de/~be0001/rserpool/download/%{name}-%{version}.tar.gz
+Source: https://www.uni-due.de/~be0001/rserpool/download/%{name}-%{version}.tar.xz
 
 AutoReqProv: on
 BuildRequires: cmake
@@ -178,6 +178,7 @@ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo
 %{_datadir}/rserpooldemo/background/*
 %{_datadir}/rserpooldemo/desktop/*
 %{_datadir}/rserpooldemo/grub-defaults
+%ghost %{_datadir}/rserpooldemo/splash
 
 %post desktop
 echo "Updating /etc/default/grub with RSerPool Demo settings:"
@@ -197,7 +198,6 @@ if [ -e /usr/sbin/grub2-mkconfig ] ; then /usr/sbin/grub2-mkconfig -o /boot/grub
 %package tool
 Summary: RSerPool Demo Tool
 Group: Applications/Internet
-BuildArch: noarch
 Requires: %{name}-desktop = %{version}-%{release}
 Requires: %{name}-management = %{version}-%{release}
 Recommends: rsplib-fgp-cfgfiles
