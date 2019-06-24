@@ -1,3 +1,27 @@
+commit 352e0bd11bb251bd8bc57a86143d036d9a57255a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Jun 17 17:16:55 2019 +0200
+
+    Dependency fix.
+
+commit dd6bbe7109b1ca7c0aac48af116353a9ea193d05
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jun 13 12:47:42 2019 +0200
+
+    A fix.
+
+commit 8b1d065875a9290235597f961350dd97348b318d
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jun 13 12:46:59 2019 +0200
+
+    Packaging improvements.
+
+commit 7226cacb6525b598f457e21b8b02bf34029a97c6
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jun 13 12:46:21 2019 +0200
+
+    Improved build script.
+
 commit 1a508ef10a9df69bd1f7b74051da401ec60c70cd
 Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Thu Jun 13 12:27:22 2019 +0200
