@@ -70,7 +70,6 @@ Depends: apt-file,
          ${misc:Depends},
          ${shlibs:Depends}
 Recommends: apport-retrace,
-            kdump-tools,
             language-pack-de-base,
             language-pack-en-base,
             language-pack-nb-base,
@@ -131,8 +130,7 @@ Depends: autoconf,
          valgrind,
          ${misc:Depends},
          ${shlibs:Depends}
-Recommends: linux-crashdump,
-            ubuntu-dev-tools
+Recommends: ubuntu-dev-tools
 Description: RSerPoolDemo Development Tools
  This meta-package contains basic software for RSerPoolDemo development.
  The software installed provides a common working environment.
