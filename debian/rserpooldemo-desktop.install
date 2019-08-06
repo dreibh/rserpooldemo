@@ -1,6 +1,6 @@
-/etc/grub.d/??_rserpooldemo_desktop_theme
-/usr/share/rserpooldemo/background/*
-/usr/share/rserpooldemo/desktop/*
-/usr/share/rserpooldemo/grub-defaults
-/usr/share/rserpooldemo/splash/*
-/usr/share/rserpooldemo/splash/Zollverein-1024x768.jpeg /boot/RSerPoolDemo
+etc/grub.d/??_rserpooldemo_desktop_theme
+usr/share/rserpooldemo/background/*
+usr/share/rserpooldemo/desktop/*
+usr/share/rserpooldemo/grub-defaults
+usr/share/rserpooldemo/splash/*
+usr/share/rserpooldemo/splash/Zollverein-1024x768.jpeg /boot/RSerPoolDemo
