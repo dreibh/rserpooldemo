@@ -1,5 +1,5 @@
 Name: rserpooldemo
-Version: 3.0.0~rc1.31
+Version: 3.0.0~rc1.32
 Release: 1
 Summary: RSerPool Demo Tool
 Group: Applications/Internet
@@ -55,7 +55,7 @@ mv %{buildroot}/usr/share/rserpooldemo/splash/rserpooldemo-version %{buildroot}/
 
 
 %package management
-Summary: RSerPool Demo Management
+Summary: Management tools for the RSerPool Demo system
 Group: Applications/Internet
 BuildArch: noarch
 Requires: bash-completion
@@ -106,7 +106,7 @@ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo
 
 
 %package development
-Summary: RSerPool Demo Development
+Summary: Development tools for the RSerPool Demo system
 Group: Applications/Internet
 BuildArch: noarch
 Requires: %{name}-management = %{version}-%{release}
@@ -163,7 +163,7 @@ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo
 
 
 %package desktop
-Summary: RSerPool Demo Desktop
+Summary: Desktop setup for the RSerPool Demo system
 Group: Applications/Internet
 BuildArch: noarch
 Requires: %{name}-management = %{version}-%{release}
@@ -196,12 +196,27 @@ rm -f /etc/grub.d/??_rserpooldemo_desktop_theme
 if [ -e /usr/sbin/grub2-mkconfig ] ; then /usr/sbin/grub2-mkconfig -o /boot/grub2/grub.cfg || true ; fi
 
 
+%package scenario-cfgfiles
+Summary: Scenario configuration files for the RSerPool Demo system
+Group: Applications/Internet
+BuildArch: noarch
+Recommends: rsplib-fgp-cfgfiles
+
+%description scenario-cfgfiles
+This package contains the scenario files for the RSerPoolDemo tool.
+See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
+
+%files scenario-cfgfiles
+%{_datadir}/rserpooldemo/graphics/*
+%{_datadir}/rserpooldemo/local-scenario/*
+
+
 %package tool
-Summary: RSerPool Demo Tool
+Summary: GUI tool for the RSerPool Demo system
 Group: Applications/Internet
 Requires: %{name}-desktop = %{version}-%{release}
 Requires: %{name}-management = %{version}-%{release}
-Recommends: rsplib-fgp-cfgfiles
+Requires: %{name}-scenario-cfgfiles = %{version}-%{release}
 Recommends: rsplib-registrar
 Recommends: rsplib-tools
 
@@ -212,8 +227,6 @@ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo
 %files tool
 %{_bindir}/rserpooldemo
 %{_mandir}/man1/rserpooldemo.1.gz
-%{_datadir}/rserpooldemo/graphics/*
-%{_datadir}/rserpooldemo/local-scenario/*
 
 
 %changelog

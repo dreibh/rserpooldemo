@@ -1,5 +1,5 @@
-rserpooldemo (3.0.0~rc1.31-1ubuntu1) disco; urgency=medium
+rserpooldemo (3.0.0~rc1.32-1ubuntu1) disco; urgency=medium
 
   * New release.
 
- -- Thomas Dreibholz <dreibh@iem.uni-due.de>  Wed, 27 Feb 2019 08:08:08 +0800
+ -- Thomas Dreibholz <dreibh@iem.uni-due.de>  Wed, 07 Aug 2019 11:03:50 +0200
