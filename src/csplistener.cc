@@ -128,14 +128,14 @@ void CSPListener::update()
                   pNode->getConnectedUIDsMap()[peerName]         = association[i].PPID;
                }
                else {
-                  std::cerr << "WARNING: Received status for unknwon connection from "
+                  std::cerr << "WARNING: Received status for unknown connection from "
                             << name.toLocal8Bit().constData() << " to "
                             << peerName.toLocal8Bit().constData() << std::endl;
                }
             }
          }
          else {
-            std::cerr << "WARNING: Received status for unknwon ID " << name.toLocal8Bit().constData() << std::endl;
+            std::cerr << "WARNING: Received status for unknown ID " << name.toLocal8Bit().constData() << std::endl;
          }
       }
    }
