@@ -67,7 +67,7 @@ RDContextMenuConfig::~RDContextMenuConfig()
 QStringList RDContextMenuConfig::splitCommandLine(const QString& commandLine)
 {
    QStringList                   list;
-   QString                       argment;
+   QString                       argument;
    enum { Idle, Arg, QuotedArg } state  = Idle;
    bool                          escape = false;
 
@@ -81,7 +81,7 @@ QStringList RDContextMenuConfig::splitCommandLine(const QString& commandLine)
                 state = QuotedArg;
             }
             else if(escape || !c.isSpace()) {
-                argment += c;
+                argument += c;
                 state = Arg;
             }
           break;
@@ -90,26 +90,26 @@ QStringList RDContextMenuConfig::splitCommandLine(const QString& commandLine)
                state = QuotedArg;
             }
             else if(escape || !c.isSpace()) {
-               argment += c;
+               argument += c;
             }
             else {
-               list << argment; argment.clear();
+               list << argument; argument.clear();
                state = Idle;
             }
           break;
          case QuotedArg:
             if(!escape && c == '"') {
-               state = argment.isEmpty() ? Idle : Arg;
+               state = argument.isEmpty() ? Idle : Arg;
             }
             else {
-               argment += c;
+               argument += c;
             }
             break;
        }
        escape = false;
     }
-    if(!argment.isEmpty()) {
-       list << argment;
+    if(!argument.isEmpty()) {
+       list << argument;
     }
     return list;
 }
