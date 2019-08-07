@@ -79,7 +79,8 @@ Description: RSerPoolDemo Management Tools
  This metapackage contains basic software for RSerPoolDemo system management.
  The software installed provides a common working environment.
  .
- See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
+ See https://www.uni-due.de/~be0001/ for details on RSerPool and the
+ RSerPoolDemo tool!
 
 Package: rserpooldemo-development
 Architecture: all
@@ -130,10 +131,11 @@ Depends: autoconf,
          ${shlibs:Depends}
 Recommends: ubuntu-dev-tools
 Description: RSerPoolDemo Development Tools
- This meta-package contains basic software for RSerPoolDemo development.
+ This metapackage contains basic software for RSerPoolDemo development.
  The software installed provides a common working environment.
  .
- See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
+ See https://www.uni-due.de/~be0001/ for details on RSerPool and the
+ RSerPoolDemo tool!
 
 Package: rserpooldemo-desktop
 Architecture: all
@@ -146,10 +148,11 @@ Depends: firefox | firefox-esr,
 Description: RSerPoolDemo Desktop
  This package contains the scripts to configure a RSerPoolDemo desktop.
  .
- See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
+ See https://www.uni-due.de/~be0001/ for details on RSerPool and the
+ RSerPoolDemo tool!
 
 Package: rserpooldemo-tool
-Architecture: all
+Architecture: any
 Depends: rserpooldemo-management (= ${binary:Version}),
          rsplib-fgp-cfgfiles,
          ${misc:Depends},
@@ -158,4 +161,5 @@ Recommends: rsplib-registrar
 Description: RSerPoolDemo Tool
  This package contains the RSerPoolDemo tool.
  .
- See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
+ See https://www.uni-due.de/~be0001/ for details on RSerPool and the
+ RSerPoolDemo tool!

@@ -156,7 +156,7 @@ Requires: urw-base35-fonts
 Requires: valgrind
 
 %description development
-This meta-package contains basic software for RSerPoolDemo development.
+This metapackage contains basic software for RSerPoolDemo development.
 See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
 
 %files development
