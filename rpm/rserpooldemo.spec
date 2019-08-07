@@ -3,7 +3,7 @@ Version: 3.0.0~rc1.31
 Release: 1
 Summary: RSerPool Demo Tool
 Group: Applications/Internet
-License: GPLv3
+License: GPL-3+
 URL: https://www.uni-due.de/~be0001/rserpool/
 Source: https://www.uni-due.de/~be0001/rserpool/download/%{name}-%{version}.tar.xz
 
