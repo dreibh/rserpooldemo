@@ -45,4 +45,4 @@ LIST(APPEND scenario_files
    RunProgram
 )
 
-INSTALL(FILES ${scenario_files} DESTINATION ${CMAKE_INSTALL_DATADIR}/rserpooldemo/local-scenario)
+INSTALL(PROGRAMS ${scenario_files} DESTINATION ${CMAKE_INSTALL_DATADIR}/rserpooldemo/local-scenario)
