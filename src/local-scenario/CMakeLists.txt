@@ -38,6 +38,9 @@
 
 LIST(APPEND scenario_files
    local-setup.xml
+)
+
+LIST(APPEND scenario_programs
    LocalScenario.config
    LocalScenario-StartAll
    LocalScenario-StopAll
@@ -45,4 +48,5 @@ LIST(APPEND scenario_files
    RunProgram
 )
 
-INSTALL(PROGRAMS ${scenario_files} DESTINATION ${CMAKE_INSTALL_DATADIR}/rserpooldemo/local-scenario)
+INSTALL(FILES    ${scenario_files}    DESTINATION ${CMAKE_INSTALL_DATADIR}/rserpooldemo/local-scenario)
+INSTALL(PROGRAMS ${scenario_programs} DESTINATION ${CMAKE_INSTALL_DATADIR}/rserpooldemo/local-scenario)
