@@ -16,8 +16,9 @@ USES=		cmake qt:5 shebangfix tar:xz
 RUN_DEPENDS=    fractgen:graphics/fractgen \
                 rsplib:net/rsplib
 BUILD_DEPENDS=  gimp:graphics/gimp-app \
-                GraphicsMagick:graphics/GraphicsMagick \
-                inkscape:graphics/inkscape
+                gm:graphics/GraphicsMagick \
+                inkscape:graphics/inkscape \
+                exiftool:graphics/p5-Image-ExifTool
 
 CMAKE_ARGS+=	-DCMAKE_INSTALL_MANDIR=${PREFIX}/man \
 		-DDOCSDIR="${DOCSDIR}"
