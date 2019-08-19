@@ -13,6 +13,10 @@ LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 USES=		cmake qt:5 shebangfix tar:xz
+RUN_DEPENDS=    fractgen:graphics/fractgen \
+                rsplib:net/rsplib
+BUILD_DEPENDS=  gimp:graphics/gimp-app \
+                inkscape:graphics/inkscape
 
 CMAKE_ARGS+=	-DCMAKE_INSTALL_MANDIR=${PREFIX}/man \
 		-DDOCSDIR="${DOCSDIR}"
