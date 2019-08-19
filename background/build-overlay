@@ -41,7 +41,7 @@ WIDTH="$2"
 HEIGHT="$3"
 DIRECTORY="$4"
 
-GM="/usr/bin/gm"
+GM="gm"
 SCRIPTPATH=`dirname "$0"`   # NOTE: Current directory may be a build directory!
 
 # ------ Proportions --------------------------------------------------------
@@ -50,10 +50,10 @@ logoIndent=0.025      # of Height
 websiteWidth=0.925    # of Width
 websiteIndent=0.050   # of Height
 
-logoWidthValue=`awk "BEGIN { print ${WIDTH}*${logoWidth} }"`
-logoIndentValue=`awk "BEGIN { print ${HEIGHT}*${logoIndent} }"`
-websiteWidthValue=`awk "BEGIN { print ${WIDTH}*${websiteWidth} }"`
-websiteIndentValue=`awk "BEGIN { print ${HEIGHT}*${websiteIndent} }"`
+logoWidthValue=`LC_NUMERIC=C awk "BEGIN { print int(${WIDTH}*${logoWidth}) }"`
+logoIndentValue=`LC_NUMERIC=C awk "BEGIN { print int(${HEIGHT}*${logoIndent}) }"`
+websiteWidthValue=`LC_NUMERIC=C awk "BEGIN { print int(${WIDTH}*${websiteWidth}) }"`
+websiteIndentValue=`LC_NUMERIC=C awk "BEGIN { print int(${HEIGHT}*${websiteIndent}) }"`
 
 
 tempDirectory=`mktemp -d rserpooldemo-overlay-${WIDTH}x${HEIGHT}.XXXXXXXXXXXXXXXX`
