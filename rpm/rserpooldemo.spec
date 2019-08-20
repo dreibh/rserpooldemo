@@ -70,7 +70,6 @@ Requires: git
 Requires: gpm
 Requires: hping3
 Requires: htop
-Requires: ipsec-tools
 Requires: joe
 Requires: libidn
 Requires: lksctp-tools
@@ -91,6 +90,7 @@ Requires: tree
 Requires: vconfig
 Requires: virt-what
 Requires: whois
+Recommends: ipsec-tools
 Recommends: netperfmeter
 Recommends: rsplib-docs
 Recommends: rsplib-services
