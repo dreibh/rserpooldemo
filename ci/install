@@ -399,10 +399,10 @@ elif [ "${TRAVIS_OS_NAME}" == "linux" -a "${QEMU}" == "FreeBSD" ] ; then
 
       # Bash shell:
       # Use bash, and make sure it is available under /bin/bash.
-      ssh -p 8829 -oStrictHostKeyChecking=no -i ~/.ssh/id_rsa root@localhost \
-         chsh -s /usr/local/bin/bash
-      ssh -p 8829 -oStrictHostKeyChecking=no -i ~/.ssh/id_rsa root@localhost \
-         ln -s /usr/local/bin/bash /bin/bash || true
+      # ssh -p 8829 -oStrictHostKeyChecking=no -i ~/.ssh/id_rsa root@localhost \
+      #    chsh -s /usr/local/bin/bash
+      # ssh -p 8829 -oStrictHostKeyChecking=no -i ~/.ssh/id_rsa root@localhost \
+      #    ln -s /usr/local/bin/bash /bin/bash || true
 
       # Ports collection:
       # This is the slow method via portsnap:
