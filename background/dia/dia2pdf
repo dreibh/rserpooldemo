@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Thomas Dreibholz's LaTeX Toolchain
 # Copyright (C) 2007-2019 by Thomas Dreibholz, dreibh@iem.uni-due.de
