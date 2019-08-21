@@ -389,10 +389,16 @@ elif [ "${TRAVIS_OS_NAME}" == "linux" -a "${QEMU}" == "FreeBSD" ] ; then
       fi
 
       # ====== Install packages =============================================
+      # Ensure the file system is okay (fuse-ufs2 in write mode is unreliable!)
+      ssh -p 8829 -oStrictHostKeyChecking=no -i ~/.ssh/id_rsa root@localhost \
+         "mount -fr / ; fsck -y /dev/gpt/rootfs ; mount -fw /"
+
       # Basic dependencies:
       ssh -p 8829 -oStrictHostKeyChecking=no -i ~/.ssh/id_rsa root@localhost \
          env ASSUME_ALWAYS_YES=yes pkg install -y bash gcc joe git
 
+      # Bash shell:
+      # Use bash, and make sure it is available under /bin/bash.
       ssh -p 8829 -oStrictHostKeyChecking=no -i ~/.ssh/id_rsa root@localhost \
          chsh -s /usr/local/bin/bash
       ssh -p 8829 -oStrictHostKeyChecking=no -i ~/.ssh/id_rsa root@localhost \
