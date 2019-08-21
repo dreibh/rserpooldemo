@@ -391,7 +391,7 @@ elif [ "${TRAVIS_OS_NAME}" == "linux" -a "${QEMU}" == "FreeBSD" ] ; then
       # ====== Install packages =============================================
       # Ensure the file system is okay (fuse-ufs2 in write mode is unreliable!)
       ssh -p 8829 -oStrictHostKeyChecking=no -i ~/.ssh/id_rsa root@localhost \
-         "mount -fr / ; fsck -y /dev/gpt/rootfs ; mount -fw /"
+         "mount -fr / ; fsck -y /dev/gpt/rootfs ; mount -fw / ; df -h /"
 
       # Basic dependencies:
       ssh -p 8829 -oStrictHostKeyChecking=no -i ~/.ssh/id_rsa root@localhost \
