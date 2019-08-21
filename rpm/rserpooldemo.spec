@@ -1,5 +1,5 @@
 Name: rserpooldemo
-Version: 3.0.0~rc1.34
+Version: 3.0.0~rc1.35
 Release: 1
 Summary: RSerPool Demo Tool
 Group: Applications/Internet
@@ -70,7 +70,6 @@ Requires: git
 Requires: gpm
 Requires: hping3
 Requires: htop
-Requires: ipsec-tools
 Requires: joe
 Requires: libidn
 Requires: lksctp-tools
@@ -91,6 +90,7 @@ Requires: tree
 Requires: vconfig
 Requires: virt-what
 Requires: whois
+Recommends: ipsec-tools
 Recommends: netperfmeter
 Recommends: rsplib-docs
 Recommends: rsplib-services
