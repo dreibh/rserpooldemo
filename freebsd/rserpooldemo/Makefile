@@ -13,8 +13,9 @@ LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 USES=		cmake qt:5 shebangfix tar:xz
-RUN_DEPENDS=    fractgen:graphics/fractgen \
-                rsplib:net/rsplib
+RUN_DEPENDS=    rsplib:net/rsplib
+# fractgen:graphics/fractgen
+
 BUILD_DEPENDS=  gimp:graphics/gimp-app \
                 gm:graphics/GraphicsMagick \
                 inkscape:graphics/inkscape \
