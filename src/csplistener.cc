@@ -72,10 +72,10 @@ void CSPListener::update()
       uint received = m_SocketDevice->readDatagram(buffer, sizeof(buffer));
       if(received >= sizeof(ComponentStatusReport)) {
          ComponentStatusReport* cspReport = (ComponentStatusReport*)&buffer;
-         cspReport->Header.Length          = ntohs(cspReport->Header.Length);
-         cspReport->Header.Version         = ntohl(cspReport->Header.Version);
-         cspReport->Header.SenderID        = ntoh64(cspReport->Header.SenderID);
-         cspReport->Header.SenderTimeStamp = ntoh64(cspReport->Header.SenderTimeStamp);
+         cspReport->Header.Length          = be16toh(cspReport->Header.Length);
+         cspReport->Header.Version         = be32toh(cspReport->Header.Version);
+         cspReport->Header.SenderID        = be64toh(cspReport->Header.SenderID);
+         cspReport->Header.SenderTimeStamp = be64toh(cspReport->Header.SenderTimeStamp);
          if(cspReport->Header.Version != CSP_VERSION) {
             std::cerr << "WARNING: Wrong message version received!" << std::endl;
             continue;
@@ -84,9 +84,9 @@ void CSPListener::update()
             std::cerr << "WARNING: Wrong message type received!" << std::endl;
             continue;
          }
-         cspReport->ReportInterval = ntohl(cspReport->ReportInterval);
-         cspReport->Associations   = ntohs(cspReport->Associations);
-         cspReport->Workload       = ntohs(cspReport->Workload);
+         cspReport->ReportInterval = be32toh(cspReport->ReportInterval);
+         cspReport->Associations   = be16toh(cspReport->Associations);
+         cspReport->Workload       = be16toh(cspReport->Workload);
          if(received < sizeof(ComponentStatusReport) + cspReport->Associations * sizeof(ComponentAssociation)) {
             std::cerr << "WARNING: Malformed report message received (too short)!" << std::endl;
             continue;
@@ -113,11 +113,11 @@ void CSPListener::update()
 
             ComponentAssociation* association = (ComponentAssociation*)&cspReport->AssociationArray;
             for(uint i = 0;i < cspReport->Associations;i++) {
-               association[i].ReceiverID = ntoh64(association[i].ReceiverID);
-               association[i].Duration   = ntoh64(association[i].Duration);
-               association[i].Flags      = ntohs(association[i].Flags);
-               association[i].ProtocolID = ntohs(association[i].ProtocolID);
-               association[i].PPID       = ntohl(association[i].PPID);
+               association[i].ReceiverID = be64toh(association[i].ReceiverID);
+               association[i].Duration   = be64toh(association[i].Duration);
+               association[i].Flags      = be16toh(association[i].Flags);
+               association[i].ProtocolID = be16toh(association[i].ProtocolID);
+               association[i].PPID       = be32toh(association[i].PPID);
 
                snprintf(nameBuffer, sizeof(nameBuffer), "%llx",
                         (unsigned long long)association[i].ReceiverID);

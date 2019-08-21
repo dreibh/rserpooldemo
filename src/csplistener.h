@@ -39,10 +39,14 @@
 
 #include <QUdpSocket>
 
-#include <byteswap.h>
 #include <netinet/in.h>
 #include <sys/time.h>
 #include <time.h>
+#ifdef __FreeBSD__
+#include <sys/endian.h>
+#else
+#include <endian.h>
+#endif
 
 #include "rdconfignode.h"
 #include "componentstatuspackets.h"
@@ -57,46 +61,10 @@ class CSPListener
                QMap<QString, RDConfigNode*>& nodesMap);
    ~CSPListener();
 
-
    static unsigned long long getMicroTime();
    void update();
 
-
    private:
-   /**
-   * Convert 64-bit value to network byte order.
-   *
-   * @param value Value in host byte order.
-   * @return Value in network byte order.
-   */
-   static inline uint64_t hton64(const uint64_t value)
-   {
-#if BYTE_ORDER == LITTLE_ENDIAN
-      return(bswap_64(value));
-#elif BYTE_ORDER == BIG_ENDIAN
-      return(value);
-#else
-#error Byte order is not defined!
-#endif
-   }
-
-   /**
-   * Convert 64-bit value to host byte order.
-   *
-   * @param value Value in network byte order.
-   * @return Value in host byte order.
-   */
-   static inline uint64_t ntoh64(const uint64_t value)
-   {
-#if BYTE_ORDER == LITTLE_ENDIAN
-      return(bswap_64(value));
-#elif BYTE_ORDER == BIG_ENDIAN
-      return(value);
-#else
-#error Byte order is not defined!
-#endif
-   }
-
    int                           m_ListenPort;
    QMap<QString, RDConfigNode*>& m_NodesMap;
    QUdpSocket*                   m_SocketDevice;

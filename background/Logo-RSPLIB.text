@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-SCRIPT=`realpath -s "$0"`
+SCRIPT=`realpath "$0"`
 SCRIPTPATH=`dirname "${SCRIPT}"`   # NOTE: Current directory may be a build directory!
 
 env DISPLAY= inkscape "${SCRIPTPATH}/Logo-RSPLIB.svg" --export-width=1024 --export-png="${OUTPUT}"

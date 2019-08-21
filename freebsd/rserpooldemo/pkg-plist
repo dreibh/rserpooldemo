@@ -1,0 +1,10 @@
+share/rserpooldemo/background/*
+share/rserpooldemo/desktop/*
+share/rserpooldemo/grub-defaults
+share/rserpooldemo/splash/*
+share/rserpooldemo/splash/Zollverein-1024x768.jpeg
+share/rserpooldemo/splash/rserpooldemo-version /etc/rserpooldemo
+share/rserpooldemo/graphics/*
+share/rserpooldemo/local-scenario/*
+bin/rserpooldemo
+man/man1/rserpooldemo.1.gz
