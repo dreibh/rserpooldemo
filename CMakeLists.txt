@@ -136,5 +136,3 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror")
 #############################################################################
 
 ADD_SUBDIRECTORY(src)
-ADD_SUBDIRECTORY(background)
-ADD_SUBDIRECTORY(grub)
