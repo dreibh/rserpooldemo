@@ -99,8 +99,8 @@ RDGraphicsNode::RDGraphicsNode(RDGraphicsScene*        canvas,
 
    QFontMetrics workloadFM(m_pWorkload->font());
    m_pWorkloadBackground = new QGraphicsRectItem(0, 0,
-                                                 MARGIN_WORKLOAD + workloadFM.width("100%"),
-                                                 MARGIN_WORKLOAD + workloadFM.height(),
+                                                 MARGIN_WORKLOAD + workloadFM.boundingRect("100%").width(),
+                                                 MARGIN_WORKLOAD + workloadFM.boundingRect("100%").height(),
                                                  this);
    Q_CHECK_PTR(m_pWorkloadBackground);
    m_pWorkloadBackground->setZValue(2000000000);
@@ -280,8 +280,8 @@ void RDGraphicsNode::updatePosition()
                LinkText* linkText = m_ConUIDsTextMap[iterator.key()];
                if( (linkText != NULL) && (linkText->m_pDurationText) && (linkText->m_pBackground) ) {
                   const QFontMetrics fontMetrics(linkText->m_pDurationText->font());
-                  const int offsetX = -fontMetrics.width(linkText->m_pDurationText->toPlainText()) / 2;
-                  const int offsetY = -fontMetrics.height() / 2;
+                  const int offsetX = -fontMetrics.boundingRect(linkText->m_pDurationText->toPlainText()).width() / 2;
+                  const int offsetY = -fontMetrics.boundingRect(linkText->m_pDurationText->toPlainText()).height() / 2;
 
                   const int tx = ((thisX + otherX) / 2) + offsetX;
                   const int ty = ((thisY + otherY) / 2) + offsetY;
