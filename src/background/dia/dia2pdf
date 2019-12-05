@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # Thomas Dreibholz's LaTeX Toolchain
-# Copyright (C) 2007-2019 by Thomas Dreibholz, dreibh@iem.uni-due.de
+# Copyright (C) 2007-2020 by Thomas Dreibholz, dreibh@iem.uni-due.de
 #
 # $Id: dia2pdf 3353 2011-11-04 16:15:36Z dreibh $
 #
