@@ -1,6 +1,14 @@
-#!/bin/sh -e
+#!/usr/bin/env bash
+
+# Bash options:
+set -e
 
 SCRIPT=`realpath "$0"`
 SCRIPTPATH=`dirname "${SCRIPT}"`   # NOTE: Current directory may be a build directory!
 
-env DISPLAY= inkscape "${SCRIPTPATH}/Logo-RSPLIB.svg" --export-width=1024 --export-png="${OUTPUT}"
+INKSCAPE_VERSION="`inkscape --version --without-gui`"
+if [[ "${INKSCAPE_VERSION}" =~ ^Inkscape.0 ]] ; then
+   env DISPLAY= inkscape "${SCRIPTPATH}/Logo-RSPLIB.svg" --without-gui --export-width=1024 --export-png="${OUTPUT}"
+else
+   env DISPLAY= inkscape "${SCRIPTPATH}/Logo-RSPLIB.svg" --without-gui --export-width=1024 --actions="export-type=png; export-filename:${OUTPUT}"
+fi
