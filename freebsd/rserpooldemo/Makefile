@@ -19,7 +19,9 @@ RUN_DEPENDS=    rsplib:net/rsplib
 BUILD_DEPENDS=  gimp:graphics/gimp-app \
                 gm:graphics/GraphicsMagick \
                 inkscape:graphics/inkscape \
-                exiftool:graphics/p5-Image-ExifTool
+                exiftool:graphics/p5-Image-ExifTool \
+                libomp.so:devel/llvm-devel
+# Fix for build with FreeBSD 12.0-RELEASE: devel/llvm-devel for libomp required by Gimp!
 
 CMAKE_ARGS+=	-DCMAKE_INSTALL_MANDIR=${PREFIX}/man \
 		-DDOCSDIR="${DOCSDIR}"
