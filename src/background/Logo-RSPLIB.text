@@ -6,9 +6,9 @@ set -e
 SCRIPT=`realpath "$0"`
 SCRIPTPATH=`dirname "${SCRIPT}"`   # NOTE: Current directory may be a build directory!
 
-INKSCAPE_VERSION="`inkscape --version --without-gui`"
+INKSCAPE_VERSION="`inkscape --version --shell`"
 if [[ "${INKSCAPE_VERSION}" =~ ^Inkscape.0 ]] ; then
-   env DISPLAY= inkscape "${SCRIPTPATH}/Logo-RSPLIB.svg" --export-width=1024 --export-png="${OUTPUT}"
+   env DISPLAY= inkscape "${SCRIPTPATH}/Logo-RSPLIB.svg" --shell --export-width=1024 --export-png="${OUTPUT}"
 else
-   env DISPLAY= inkscape "${SCRIPTPATH}/Logo-RSPLIB.svg" --without-gui --export-width=1024 --actions="export-type=png; export-filename:${OUTPUT}"
+   env DISPLAY= inkscape "${SCRIPTPATH}/Logo-RSPLIB.svg" --shell --export-width=1024 --actions="export-type=png; export-filename:${OUTPUT}"
 fi
