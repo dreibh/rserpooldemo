@@ -48,7 +48,7 @@ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo
 %cmake_install
 # ====== Relocate files =====================================================
 mkdir -p %{buildroot}/boot/RSerPoolDemo
-mv %{buildroot}/usr/share/rserpooldemo/splash/Zollverein-1024x768.jpeg %{buildroot}/boot/RSerPoolDemo
+mv %{buildroot}/usr/share/rserpooldemo/splash/Zollverein-*.jpeg %{buildroot}/boot/RSerPoolDemo
 mkdir -p %{buildroot}/etc/rserpooldemo
 mv %{buildroot}/usr/share/rserpooldemo/splash/rserpooldemo-version %{buildroot}/etc/rserpooldemo
 # ===========================================================================
@@ -174,7 +174,7 @@ This package contains the scripts to configure a RSerPoolDemo desktop.
 See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
 
 %files desktop
-/boot/RSerPoolDemo/Zollverein-1024x768.jpeg
+/boot/RSerPoolDemo/Zollverein-*.jpeg
 %{_sysconfdir}/grub.d/??_rserpooldemo_desktop_theme
 %{_datadir}/rserpooldemo/background/*
 %{_datadir}/rserpooldemo/desktop/*
