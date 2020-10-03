@@ -179,6 +179,8 @@ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo
 %{_datadir}/rserpooldemo/background/*
 %{_datadir}/rserpooldemo/desktop/*
 %{_datadir}/rserpooldemo/grub-defaults
+%{_sysconfdir}/system-info.d/30-rsplib
+%{_sysconfdir}/system-maintenance.d/30-rsplib
 %ghost %{_datadir}/rserpooldemo/splash
 
 %post desktop

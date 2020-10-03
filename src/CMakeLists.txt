@@ -58,6 +58,16 @@ INSTALL(FILES rserpooldemo.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
 
 
 #############################################################################
+# CONFIGURATION FILES
+#############################################################################
+
+INSTALL(PROGRAMS system-info.d/30-rsplib DESTINATION ${CMAKE_INSTALL_FULL_SYSCONFDIR}/system-info.d)
+
+INSTALL(PROGRAMS system-maintenance.d/30-rsplib DESTINATION ${CMAKE_INSTALL_FULL_SYSCONFDIR}/system-maintenance.d)
+
+
+
+#############################################################################
 # SOURCE DIRECTORIES
 #############################################################################
 

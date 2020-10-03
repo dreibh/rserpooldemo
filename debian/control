@@ -74,8 +74,7 @@ Recommends: apport-retrace,
             language-pack-de-base,
             language-pack-en-base,
             language-pack-nb-base,
-            tshark,
-            update-motd
+            tshark
 Description: Management tools for the RSerPool Demo system
  This metapackage contains basic software for RSerPoolDemo system management.
  The software installed provides a common working environment.

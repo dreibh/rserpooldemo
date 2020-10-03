@@ -1,1 +1,3 @@
+etc/system-info.d/30-rsplib
+etc/system-maintenance.d/30-rsplib
 usr/share/rserpooldemo/splash/rserpooldemo-version /etc/rserpooldemo
