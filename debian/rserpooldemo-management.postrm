@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -e
+
+case "$1" in
+   remove|purge|abort-install)
+      rm -f /etc/system-info.d/??-rsplib
+      rm -f /etc/system-maintenance.d/??-rsplib
+      ;;
+esac
+
+#DEBHELPER#
+
+exit 0

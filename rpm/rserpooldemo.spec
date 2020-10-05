@@ -1,5 +1,5 @@
 Name: rserpooldemo
-Version: 3.0.0
+Version: 3.0.1~alpha1.2
 Release: 1
 Summary: RSerPool Demo Tool
 Group: Applications/Internet
@@ -184,15 +184,6 @@ See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo
 %ghost %{_datadir}/rserpooldemo/splash
 
 %post desktop
-echo "Updating /etc/default/grub with RSerPool Demo settings:"
-echo "-----"
-cat /usr/share/rserpooldemo/grub-defaults | \
-   ( if grep "biosdevname=0" >/dev/null 2>&1 /proc/cmdline ; then sed "s/^GRUB_CMDLINE_LINUX=\"/GRUB_CMDLINE_LINUX=\"biosdevname=0 /g" ; else cat ; fi ) | \
-   ( if grep "net.ifnames=0" >/dev/null 2>&1 /proc/cmdline ; then sed "s/^GRUB_CMDLINE_LINUX=\"/GRUB_CMDLINE_LINUX=\"net.ifnames=0 /g" ; else cat ; fi ) | \
-   tee /etc/default/grub.new && \
-grep "^GRUB_ENABLE_CRYPTODISK=" /etc/default/grub | tee --append /etc/default/grub.new && \
-mv /etc/default/grub.new /etc/default/grub
-echo "-----"
 if [ -e /usr/sbin/grub2-mkconfig ] ; then /usr/sbin/grub2-mkconfig -o /boot/grub2/grub.cfg || true ; fi
 
 %postun desktop
