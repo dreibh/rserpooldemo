@@ -1,3 +1,93 @@
+commit 82cc1e24ddc41bec860a19ab31d3e191e5a9e735
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Oct 5 22:01:46 2020 +0200
+
+    Improved packaging configuration.
+
+commit 3b9d369fb72b19c42a784db82eec4354423a3fde
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Oct 5 10:18:09 2020 +0200
+
+    Updated packaging configuration.
+
+commit bffbc8bcdca618058bb3c08a13de9536f8c7e3f9
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Oct 3 18:44:09 2020 +0200
+
+    Update to System-Info/System-Maintenance scripts.
+
+commit 0e581ce18ba40ade4a170be580e4aeebbec90470
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Oct 1 11:54:36 2020 +0200
+
+    Packaging file updates.
+
+commit d3f4e9694194ebcc450202f71c86b977634a8c99
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Oct 1 11:05:24 2020 +0200
+
+    Updated scripts.
+
+commit 0b6266d54751023f4f595c28f701ec587054524b
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Sep 30 17:04:55 2020 +0200
+
+    Updated RPM spec file.
+
+commit 442c4457d0f861aca92a0bd2f16d65a1c7e049d7
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Sep 30 16:55:42 2020 +0200
+
+    Updated build scripts
+
+commit 3913fc43f5640b271cd5f8e74a62c80de69791ae
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Sep 10 12:41:21 2020 +0200
+
+    Updated build scripts
+
+commit 24c5fe484f5651ca6b4175861979925a5782c72c
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Sep 10 12:41:11 2020 +0200
+
+    Updated packaging configuration.
+
+commit 084aa45e439edf57a74cd7d000a5f55e08ffb64a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Sep 10 12:36:38 2020 +0200
+
+    Updated signing key.
+
+commit e0e34c7d1459b890463e664018591346ec524bf3
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Sep 4 14:15:28 2020 +0200
+
+    Updated build scripts
+
+commit 5fa34d3acffafb59c91996d1692b0e080981d778
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Sep 4 14:11:58 2020 +0200
+
+    Updated Travis CI configuration.
+
+commit 70ba42eaa04f5a054fbf0ed2557bdbc8c381ed98
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Sep 4 14:09:51 2020 +0200
+
+    Updated build scripts
+
+commit d8b12af3052003f9571468f0b0cd8674f37598db
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Jul 18 15:55:56 2020 +0200
+
+    Updated build scripts
+
+commit 53edd0bd47dbfc568061623383a135ab9873b78b
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue May 5 13:17:05 2020 +0200
+
+    New release rserpooldemo-3.0.0.
+
 commit 96e5e985c4f1e4bc55539a8ee4cf8f0f359846f2
 Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Tue May 5 13:15:39 2020 +0200
