@@ -1,8 +1,8 @@
-rserpooldemo (3.0.3~rc0-1ubuntu1) focal; urgency=medium
+rserpooldemo (3.0.3-1ubuntu1) focal; urgency=medium
 
   * New upstream release.
 
- -- Thomas Dreibholz <dreibh@iem.uni-due.de>  Thu, 12 Nov 2020 23:50:59 +0100
+ -- Thomas Dreibholz <dreibh@iem.uni-due.de>  Fri, 13 Nov 2020 19:01:40 +0100
 
 rserpooldemo (3.0.2-1ubuntu1) focal; urgency=medium
 
