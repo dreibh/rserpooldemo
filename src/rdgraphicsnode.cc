@@ -39,7 +39,6 @@
 #include <QStringList>
 #include <QDateTime>
 #include <QPixmap>
-#include <QLinkedList>
 #include <QMenu>
 #include <QGraphicsView>
 
@@ -54,11 +53,11 @@
 
 
 // ###### Constructor #######################################################
-RDGraphicsNode::RDGraphicsNode(RDGraphicsScene*        canvas,
-                         RDConfigNode*          node,
-                         RDConfiguration* configuration,
-                         const QPixmap&  inactivePixmap,
-                         const QPixmap&  activePixmap)
+RDGraphicsNode::RDGraphicsNode(RDGraphicsScene* canvas,
+                               RDConfigNode*    node,
+                               RDConfiguration* configuration,
+                               const QPixmap&   inactivePixmap,
+                               const QPixmap&   activePixmap)
  : QGraphicsPixmapItem(inactivePixmap),
    m_GraphicsScene(canvas),
    m_ConfigNode(node),
@@ -145,8 +144,8 @@ RDGraphicsNode::~RDGraphicsNode()
 void RDGraphicsNode::contextMenuEvent(QGraphicsSceneContextMenuEvent* event)
 {
    QMenu contextMenu;
-   QLinkedList<RDContextMenuConfig*>& rNodeList = m_ConfigNode->getContextMenuConfig();
-   for(QLinkedList<RDContextMenuConfig*>::iterator iterator = rNodeList.begin();
+   std::list<RDContextMenuConfig*>& rNodeList = m_ConfigNode->getContextMenuConfig();
+   for(std::list<RDContextMenuConfig*>::iterator iterator = rNodeList.begin();
        iterator != rNodeList.end(); ++iterator) {
       RDContextMenuConfig* pNode = *iterator;
       if(pNode->getName() != "") {

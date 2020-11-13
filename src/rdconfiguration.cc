@@ -37,7 +37,6 @@
 #include <QDomElement>
 #include <QFile>
 #include <QMessageBox>
-#include <QLinkedList>
 
 #include "rdconfiguration.h"
 #include "csplistener.h"
@@ -115,7 +114,7 @@ RDConfiguration::RDConfiguration(QWidget*       canvasWidget,
          }
          else if(currentNode.toElement().tagName() == QString(g_NodeTag)) {
             RDConfigNode* node = createNode(currentNode.toElement());
-            m_ConfigNodes.append(node);
+            m_ConfigNodes.push_back(node);
             m_ConfigNodesMap[node->getUniqueID()] = node;
          }
          else {
@@ -133,8 +132,9 @@ RDConfiguration::RDConfiguration(QWidget*       canvasWidget,
 // ###### Destructor ########################################################
 RDConfiguration::~RDConfiguration()
 {
-   while (!m_ConfigNodes.isEmpty()) {
-      delete m_ConfigNodes.takeFirst();
+   while (!m_ConfigNodes.empty()) {
+      delete m_ConfigNodes.front();
+      m_ConfigNodes.pop_front();
    }
 }
 
@@ -142,14 +142,14 @@ RDConfiguration::~RDConfiguration()
 // ###### Create config node ################################################
 RDConfigNode* RDConfiguration::createNode(QDomElement element)
 {
-   QLinkedList<RDContextMenuConfig*> contextNodes;
-   QString                          uniqueID;
-   QString                          displayName;
-   QString                          imageActive;
-   QString                          imageInactive;
-   int                              refreshTimeout = 0;
-   int                              positionX      = 0;
-   int                              positionY      = 0;
+   std::list<RDContextMenuConfig*> contextNodes;
+   QString                         uniqueID;
+   QString                         displayName;
+   QString                         imageActive;
+   QString                         imageInactive;
+   int                             refreshTimeout = 0;
+   int                             positionX      = 0;
+   int                             positionY      = 0;
 
    QDomNode currentNode = element.firstChild();
    while(!currentNode.isNull()) {
@@ -182,10 +182,10 @@ RDConfigNode* RDConfiguration::createNode(QDomElement element)
             }
          }
          else if(currentNode.toElement().tagName() == QString(g_ContextMenuEntryTag)) {
-            contextNodes.append(createContextMenuEntry(displayName, currentNode.toElement()));
+            contextNodes.push_back(createContextMenuEntry(displayName, currentNode.toElement()));
          }
          else if(currentNode.toElement().tagName() == QString(g_ContextMenuSeparatorTag)) {
-            contextNodes.append(new RDContextMenuConfig(m_GraphicsSceneWidget, "", "", ""));
+            contextNodes.push_back(new RDContextMenuConfig(m_GraphicsSceneWidget, "", "", ""));
          }
          else {
             QMessageBox::critical(0, "Error!", "Found unknown tag in config file: " +
