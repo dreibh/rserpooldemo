@@ -1,7 +1,7 @@
 Begin4
 Title:          rserpooldemo
-Version:        3.0.0~rc1.36
-Entered-date:   2019-08-22
+Version:        3.0.3
+Entered-date:   2020-11-13
 Description:    This package contains the RSerPool Demo Tool for RSPLIB.
                 See https://www.uni-due.de/~be0001/rserpool/ for details on
                 Reliable Server Pooling (RSerPool) and the RSerPoolDemo tool!
@@ -9,7 +9,7 @@ Keywords:       RSerPool Demo, RSPLIB
 Author:         dreibh@simula.no (Thomas Dreibholz)
 Maintained-by:  dreibh@simula.no (Thomas Dreibholz)
 Primary-site:   https://packages.nntb.no/software/rserpooldemo
-                12138 kB rserpooldemo-3.0.0~rc1.36.tar.xz
+                12179 kB rserpooldemo-3.0.3.tar.xz
 Original-site:  https://www.uni-due.de/~be0001/rserpool/
 Platforms:      Linux
 Copying-policy: GPL-3+

@@ -37,7 +37,8 @@
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
 
-#include <QLinkedList>
+#include <list>
+
 #include <QDomElement>
 
 #include "rdconfignode.h"
@@ -87,7 +88,7 @@ class RDConfiguration
    inline const QString getBackgroundImageName() const {
       return m_BackgroundImageName;
    }
-   inline QLinkedList<RDConfigNode*>& getNodes() {
+   inline std::list<RDConfigNode*>& getNodes() {
       return m_ConfigNodes;
    }
    inline QMap<QString, RDConfigNode*>& getNodesMap() {
@@ -111,7 +112,7 @@ class RDConfiguration
    QWidget*                     m_GraphicsSceneWidget;
    QString                      m_Caption;
    QString                      m_BackgroundImageName;
-   QLinkedList<RDConfigNode*>   m_ConfigNodes;
+   std::list<RDConfigNode*>     m_ConfigNodes;
    QMap<QString, RDConfigNode*> m_ConfigNodesMap;
    QMap<int, QString>           m_ColorMap;
    CSPListener*                 m_NetworkListener;

@@ -38,7 +38,6 @@
 #define RDGRAPHICSNODE_H
 
 #include <QMap>
-#include <QLinkedList>
 #include <QPixmap>
 #include <QMenu>
 #include <QGraphicsPixmapItem>

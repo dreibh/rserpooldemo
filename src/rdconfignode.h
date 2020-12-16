@@ -37,9 +37,10 @@
 #ifndef NODE_H
 #define NODE_H
 
+#include <list>
+
 #include <QString>
 #include <QMap>
-#include <QLinkedList>
 
 #include <netinet/in.h>
 
@@ -104,7 +105,7 @@ class RDConfigNode
       m_LocationText = locationText;
    }
 
-   inline QLinkedList<RDContextMenuConfig*>& getContextMenuConfig() {
+   inline std::list<RDContextMenuConfig*>& getContextMenuConfig() {
       return m_ContextMenuEntries;
    }
    inline QMap<QString, int>& getConnectedUIDsMap() {
@@ -136,7 +137,7 @@ class RDConfigNode
    int                               m_TimeoutMultiplier;
 
    // Values need during runtime
-   QLinkedList<RDContextMenuConfig*> m_ContextMenuEntries;
+   std::list<RDContextMenuConfig*>   m_ContextMenuEntries;
    QMap<QString, int>                m_ConnectedUIDsMap;
    QMap<QString, uint64_t>           m_ConnectionDurationMap;
    QString                           m_StatusText;

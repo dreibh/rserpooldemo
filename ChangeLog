@@ -1,3 +1,93 @@
+commit 4b7a4e6de156e6d467959bc363889a858c743aaf
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 13 12:00:11 2020 +0100
+
+    Configuration handling improvements.
+
+commit 9f8a232fd527e0914def563a475096e211055279
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 13 11:44:27 2020 +0100
+
+    Minor clean-ups.
+
+commit 3820ebe13bcc9630e98b782213f0e5b634fb1f03
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 13 11:20:45 2020 +0100
+
+    Configuration update.
+
+commit 6a26a3ade3fb7ad3fe3c685ac293a9c53b02169a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 13 10:50:21 2020 +0100
+
+    Replaced deprecated QLinkedList by std::list.
+
+commit 453e0c105341320df89956138291dbfcec90c1a6
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 13 10:24:50 2020 +0100
+
+    Updated Travis CI configuration.
+
+commit fdbfa9042a3dd7ca758eeee29329787898211a77
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Nov 12 23:51:04 2020 +0100
+
+    Version bump.
+
+commit 398257eb30b47ed6a03555fd4d01490196d527bd
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Nov 12 23:50:46 2020 +0100
+
+    Packaging clean-ups.
+
+commit 8c9716e39d6e05a9579e0eaf98a31dbc9acc3b99
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Nov 12 23:09:17 2020 +0100
+
+    Updated build scripts
+
+commit a2408adfbcb5809ae172501597ea5705d36cd4bf
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Nov 5 17:09:54 2020 +0100
+
+    Updated build scripts
+
+commit 3ef4f230aaa1b3cb364bf3095b52c5f45bdd1ea8
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Oct 27 22:31:10 2020 +0100
+
+    Further improvements.
+
+commit d93fd964caa21e498716528e09e82828d7fe0083
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Oct 27 22:23:57 2020 +0100
+
+    A fix.
+
+commit 95a16e1f8004cc5eddbb3180e1d3254029e96d00
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Oct 9 16:39:59 2020 +0200
+
+    Updated LSM entry.
+
+commit 3b09267cea3ef37482d8a0cb09ea623a07ed18c5
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Oct 9 16:36:58 2020 +0200
+
+    New release rserpooldemo-3.0.2.
+
+commit 771424811ed711005cbd711b1d803a586b2130fb
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Oct 7 17:56:19 2020 +0200
+
+    Improved script.
+
+commit 8166c91a0bce92d319fe9ec0fa812c7974f8644a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Oct 6 20:51:05 2020 +0200
+
+    New release rserpooldemo-3.0.1.
+
 commit 82cc1e24ddc41bec860a19ab31d3e191e5a9e735
 Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Mon Oct 5 22:01:46 2020 +0200

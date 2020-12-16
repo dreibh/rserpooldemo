@@ -36,8 +36,6 @@
 
 #include <QPixmap>
 #include <QResizeEvent>
-#include <QList>
-#include <QLinkedList>
 
 #include <rdmainwindow.h>
 #include "rdgraphicsnode.h"
@@ -48,8 +46,7 @@
 
 // ###### Constructor #######################################################
 RDMainWindow::RDMainWindow(const QString& configFile)
-   : QMainWindow(NULL, NULL),
-     m_Configuration(this, configFile)
+   : m_Configuration(this, configFile)
 {
    setWindowTitle(m_Configuration.getCaption() + " - " + configFile);
 
@@ -87,12 +84,12 @@ RDMainWindow::~RDMainWindow()
 // ###### Create graphics nodes #############################################
 void RDMainWindow::createNodes()
 {
-   QLinkedList<RDConfigNode*>& rNodeList = m_Configuration.getNodes();
-   for(QLinkedList<RDConfigNode*>::iterator it = rNodeList.begin();it != rNodeList.end();++it) {
+   std::list<RDConfigNode*>& rNodeList = m_Configuration.getNodes();
+   for(std::list<RDConfigNode*>::iterator it = rNodeList.begin();it != rNodeList.end();++it) {
       RDConfigNode* pNode = *it;
       RDGraphicsNode* node = new RDGraphicsNode(m_GraphicsScene, pNode, &m_Configuration,
-                                            QPixmap(pNode->getImageInactive()),
-                                            QPixmap(pNode->getImageActive()));
+                                                QPixmap(pNode->getImageInactive()),
+                                                QPixmap(pNode->getImageActive()));
       Q_CHECK_PTR(node);
       node->show();
    }

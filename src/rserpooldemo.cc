@@ -36,6 +36,7 @@
 
 #include <QApplication>
 #include <QString>
+#include <QDir>
 #include <QFile>
 #include <iostream>
 
@@ -58,7 +59,15 @@ int main(int argc, char** argv)
          }
       }
 
-      std::cout << "Using configuration \"" << configFile.toLocal8Bit().constData() << "\" ..." << std::endl;
+      const QFileInfo configFileInfo(configFile);
+      const QString configFileDirectory = QFileInfo(configFile).absoluteDir().absolutePath();
+      configFile = configFileInfo.fileName();
+
+      QDir::setCurrent(configFileDirectory);
+
+      std::cout << "Using configuration \"" << configFile.toLocal8Bit().constData()
+                << "\" in \"" << configFileDirectory.toLocal8Bit().constData()
+                << "\" ..." << std::endl;
       QApplication application(argc, argv);
       RDMainWindow* mainWindow = new RDMainWindow(configFile);
       Q_CHECK_PTR(mainWindow);

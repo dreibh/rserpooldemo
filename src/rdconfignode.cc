@@ -64,8 +64,9 @@ RDConfigNode::RDConfigNode(const QString& uniqueID,
 // ###### Destructor ########################################################
 RDConfigNode::~RDConfigNode()
 {
-   while (!m_ContextMenuEntries.isEmpty()) {
-      delete m_ContextMenuEntries.takeFirst();
+   while (!m_ContextMenuEntries.empty()) {
+      delete m_ContextMenuEntries.front();
+      m_ContextMenuEntries.pop_front();
    }
 }
 
