@@ -103,7 +103,6 @@ Depends: autoconf,
          graphicsmagick,
          gsfonts,
          inkscape,
-         kernel-package,
          libbz2-dev,
          libcpprspserver-dev,
          libglib2.0-dev,
@@ -127,9 +126,7 @@ Depends: autoconf,
          valgrind,
          ${misc:Depends},
          ${shlibs:Depends}
-Recommends: createrepo,
-            mock,
-            ubuntu-dev-tools
+Recommends: ubuntu-dev-tools
 Description: Development tools for the RSerPool Demo system
  This metapackage contains basic software for RSerPoolDemo development.
  The software installed provides a common working environment.
