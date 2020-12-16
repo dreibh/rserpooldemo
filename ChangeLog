@@ -1,3 +1,28 @@
+commit c462e40cc56f0d54858c5f7769173d55eac904db
+Merge: 37356fb e075b61
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Dec 16 12:49:45 2020 +0100
+
+    Merge branch 'master' of github.com:dreibh/rserpooldemo
+
+commit 37356fbcb39cb842fa9108925f66f25b56683ebc
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Dec 16 12:49:37 2020 +0100
+
+    Dependency fix.
+
+commit e075b612e63cfd4834acbf1fdabbf86dddebc5c1
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 13 19:47:56 2020 +0100
+
+    Updated LSM entry.
+
+commit fda5252bbb7a929e71f43c8a1114537155a2b543
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 13 19:01:43 2020 +0100
+
+    New release rserpooldemo-3.0.3.
+
 commit 4b7a4e6de156e6d467959bc363889a858c743aaf
 Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Fri Nov 13 12:00:11 2020 +0100
