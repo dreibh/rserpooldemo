@@ -38,7 +38,7 @@
    <DiagramResolutionX>1200</DiagramResolutionX>
    <DiagramResolutionY>800</DiagramResolutionY>
    <Caption>Thomas Dreibholz's RSerPool Demonstration Tool</Caption>
-   <BackgroundImage>pictures/World1.png</BackgroundImage>
+   <BackgroundImage>../graphics/World1.png</BackgroundImage>
    <ProtocolColor ID="0">#8b7500</ProtocolColor>
    <ProtocolColor ID="11">blue2</ProtocolColor>
    <ProtocolColor ID="12">red2</ProtocolColor>
@@ -48,8 +48,8 @@
       <UID>100000000010000</UID>
       <DisplayName>Registrar 1</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/RegistrarActive2.png</ActiveImageURL>
-      <InactiveImageURL>pictures/RegistrarInactive2.png</InactiveImageURL>
+      <ActiveImageURL>../graphics/RegistrarActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/RegistrarInactive2.png</InactiveImageURL>
       <PositionX>10</PositionX>
       <PositionY>20</PositionY>
       <ContextMenuEntry>
@@ -81,8 +81,8 @@
       <UID>100000000010001</UID>
       <DisplayName>Registrar 2</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/RegistrarActive2.png</ActiveImageURL>
-      <InactiveImageURL>pictures/RegistrarInactive2.png</InactiveImageURL>
+      <ActiveImageURL>../graphics/RegistrarActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/RegistrarInactive2.png</InactiveImageURL>
       <PositionX>10</PositionX>
       <PositionY>60</PositionY>
       <ContextMenuEntry>
@@ -114,8 +114,8 @@
       <UID>200000000000100</UID>
       <DisplayName>Pool Element 1</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/PoolElementActive4.png</ActiveImageURL>
-      <InactiveImageURL>pictures/PoolElementInactive4.png</InactiveImageURL>
+      <ActiveImageURL>../graphics/PoolElementActive4.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/PoolElementInactive4.png</InactiveImageURL>
       <PositionX>30</PositionX>
       <PositionY>75</PositionY>
       <ContextMenuEntry>
@@ -160,8 +160,8 @@
       <UID>200000000000101</UID>
       <DisplayName>Pool Element 2</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/PoolElementActive4.png</ActiveImageURL>
-      <InactiveImageURL>pictures/PoolElementInactive4.png</InactiveImageURL>
+      <ActiveImageURL>../graphics/PoolElementActive4.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/PoolElementInactive4.png</InactiveImageURL>
       <PositionX>55</PositionX>
       <PositionY>75</PositionY>
       <ContextMenuEntry>
@@ -206,8 +206,8 @@
       <UID>200000000000104</UID>
       <DisplayName>Stuttgart</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/PoolElementActive2.png</ActiveImageURL>
-      <InactiveImageURL>pictures/PoolElementInactive2.png</InactiveImageURL>
+      <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
       <PositionX>80</PositionX>
       <PositionY>15</PositionY>
       <ContextMenuEntry>
@@ -243,8 +243,8 @@
       <UID>200000000000103</UID>
       <DisplayName>Melbourne</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/PoolElementActive2.png</ActiveImageURL>
-      <InactiveImageURL>pictures/PoolElementInactive2.png</InactiveImageURL>
+      <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
       <PositionX>80</PositionX>
       <PositionY>40</PositionY>
       <ContextMenuEntry>
@@ -281,8 +281,8 @@
       <UID>200000000000102</UID>
       <DisplayName>Jerusalem (القدس)</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/PoolElementActive2.png</ActiveImageURL>
-      <InactiveImageURL>pictures/PoolElementInactive2.png</InactiveImageURL>
+      <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
       <PositionX>80</PositionX>
       <PositionY>40</PositionY>
       <ContextMenuEntry>
@@ -319,8 +319,8 @@
       <UID>200000000000105</UID>
       <DisplayName>San Diego</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/PoolElementActive2.png</ActiveImageURL>
-      <InactiveImageURL>pictures/PoolElementInactive2.png</InactiveImageURL>
+      <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
       <PositionX>80</PositionX>
       <PositionY>65</PositionY>
       <ContextMenuEntry>
@@ -356,8 +356,8 @@
       <UID>300000000000001</UID>
       <DisplayName>Pool User 1</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/PoolUserActive2.png</ActiveImageURL>
-      <InactiveImageURL>pictures/PoolUserInactive2.png</InactiveImageURL>
+      <ActiveImageURL>../graphics/PoolUserActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/PoolUserInactive2.png</InactiveImageURL>
       <PositionX>30</PositionX>
       <PositionY>5</PositionY>
       <ContextMenuEntry>
@@ -384,8 +384,8 @@
       <UID>300000000000002</UID>
       <DisplayName>Pool User 2</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/PoolUserActive2.png</ActiveImageURL>
-      <InactiveImageURL>pictures/PoolUserInactive2.png</InactiveImageURL>
+      <ActiveImageURL>../graphics/PoolUserActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/PoolUserInactive2.png</InactiveImageURL>
       <PositionX>60</PositionX>
       <PositionY>5</PositionY>
       <ContextMenuEntry>
@@ -412,10 +412,10 @@
       <UID>NOUID</UID>
       <DisplayName>Control</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
-      <ActiveImageURL>pictures/Controller.png</ActiveImageURL>
-      <InactiveImageURL>pictures/Controller.png</InactiveImageURL>
-      <PositionX>0</PositionX>
-      <PositionY>0</PositionY>
+      <ActiveImageURL>../graphics/Controller.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/Controller.png</InactiveImageURL>
+      <PositionX>2</PositionX>
+      <PositionY>2</PositionY>
       <ContextMenuEntry>
          <Name>Demo: Start in Reliable Mode</Name>
          <Command>./PlanetLabScenario-Demo1 start</Command>
