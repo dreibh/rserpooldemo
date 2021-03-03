@@ -310,8 +310,8 @@
       <RefreshTimeout>5</RefreshTimeout>
       <ActiveImageURL>../graphics/Controller.png</ActiveImageURL>
       <InactiveImageURL>../graphics/Controller.png</InactiveImageURL>
-      <PositionX>0</PositionX>
-      <PositionY>0</PositionY>
+      <PositionX>2</PositionX>
+      <PositionY>2</PositionY>
       <ContextMenuEntry>
          <Name>Start All Components</Name>
          <Command>./LocalScenario-StartAll</Command>
