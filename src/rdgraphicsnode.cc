@@ -226,7 +226,7 @@ void RDGraphicsNode::updatePosition()
    const int lx = m_ConfigNode->getPositionX(displaySizeX) +
                        ((boundingRect().width() / 2) -
                         ((m_pLocationText->boundingRect().right() - m_pLocationText->boundingRect().left()) / 2));
-   const int ly = m_ConfigNode->getPositionY(displaySizeY) +  m_pTitle->boundingRect().height() + m_pLocationText->boundingRect().height() + boundingRect().height();
+   const int ly = m_ConfigNode->getPositionY(displaySizeY) +  m_pTitle->boundingRect().height() + m_pStatusText->boundingRect().height() + boundingRect().height();
    m_pLocationText->setPos(lx, ly);
 
 
