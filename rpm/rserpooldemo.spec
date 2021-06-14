@@ -77,7 +77,7 @@ Requires: mlocate
 Requires: net-snmp-utils
 Requires: net-tools
 Requires: nmap
-Requires: ntpdate
+Requires: (ntpsec or ntpdate)
 Requires: pxz
 Requires: reiserfs-utils
 Requires: reprepro
