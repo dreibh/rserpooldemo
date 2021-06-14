@@ -1,3 +1,123 @@
+commit 4e138be2aeacdf89a53538f384369271df044b7e
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Jun 14 12:42:21 2021 +0200
+
+    RPM build fix for Fedora 34.
+
+commit 36c07e2a14d2eb23fca433ee9dbedfcd5bad409f
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon May 3 21:23:10 2021 +0200
+
+    Updated build scripts
+
+commit 9b405fe56b8fde8280d0046462da9dc70bb8c081
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Mar 7 00:11:09 2021 +0100
+
+    Updated Travis CI configuration.
+
+commit 73a78474f6ee4df47cc42162aa39f9c516128b06
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Mar 5 18:52:37 2021 +0100
+
+    Updated Travis CI configuration
+
+commit f5396790c5be119ee0e990485678d50f2b2612fb
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Mar 5 16:01:45 2021 +0100
+
+    Updated build scripts
+
+commit 53e5f8ea154d9118918b40b7eef2695999afef82
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Mar 3 19:33:56 2021 +0100
+
+    Updated script.
+
+commit fc743045d704fa3525091b1e7733a2794003dcb5
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Mar 3 19:33:25 2021 +0100
+
+    Fixed file names in PlanetLab demo setup.
+
+commit 2f9163ff0d780811c807fe5b8d41562d67462b1f
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Mar 3 19:31:05 2021 +0100
+
+    Improved layout of local demo setup.
+
+commit 47d4a093496bdeecb1496d41be6ba3e7d7f7f45c
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Mar 3 19:28:42 2021 +0100
+
+    Fixed small layout problem.
+
+commit 3502783d3e67c129c0b472d5ceef8f07ee34916f
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Mar 1 21:20:30 2021 +0100
+
+    Updated build scripts
+
+commit be9f3350310cab8deb0e3b9de037f52f630e3fef
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Mar 1 16:30:36 2021 +0100
+
+    Updated build scripts
+
+commit 1b520e93d6d1c0344cc3b259c6b99deee247274b
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Mar 1 16:13:22 2021 +0100
+
+    Improved autogen.sh with options for static analysis.
+
+commit e682eb8edefa17698a3e8052f76e41253566e721
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Feb 17 17:57:12 2021 +0100
+
+    Cleaned up CMakeLists.txt.
+
+commit 8f64dce0c44df600c223b75716220eb44254eaf7
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Feb 17 15:19:07 2021 +0100
+
+    Updated build scripts
+
+commit 7ce0290d0ea74b1ba0d38fcbe4c63b49cfa441d9
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Feb 17 15:19:07 2021 +0100
+
+    Updated build scripts
+
+commit dd71ab91b8f7be08b09139be725b92215096deab
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Feb 17 15:17:37 2021 +0100
+
+    Updated build scripts
+
+commit 41e80cc3bf70347e5d612a93385a6b89050a64b0
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Feb 17 15:17:37 2021 +0100
+
+    Updated build scripts
+
+commit daca555014f86669019031d8d5afb24330ca017a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Feb 17 15:16:37 2021 +0100
+
+    Header updates.
+
+commit ef283d35f2850e4cc50028767a70dec132f9a8f8
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Jan 30 07:40:00 2021 +0100
+
+    Updated Travis CI configuration
+
+commit 652fa7bb4226e812bc9645b598818619ebcab298
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Dec 16 12:50:16 2020 +0100
+
+    New release rserpooldemo-3.0.4.
+
 commit c462e40cc56f0d54858c5f7769173d55eac904db
 Merge: 37356fb e075b61
 Author: Thomas Dreibholz <dreibh@simula.no>

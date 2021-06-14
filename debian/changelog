@@ -1,3 +1,9 @@
+rserpooldemo (3.0.5-1ubuntu1) focal; urgency=medium
+
+  * New upstream release.
+
+ -- Thomas Dreibholz <dreibh@iem.uni-due.de>  Mon, 14 Jun 2021 12:43:37 +0200
+
 rserpooldemo (3.0.4-1ubuntu1) focal; urgency=medium
 
   * New upstream release.
