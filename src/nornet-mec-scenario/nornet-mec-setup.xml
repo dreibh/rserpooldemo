@@ -79,7 +79,7 @@
 
    <Node>
       <UID>200000000000200</UID>
-      <DisplayName>MEC Pool Element 1 in Fornebu, Norway</DisplayName>
+      <DisplayName>PE 1 in Fornebu, Norway</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
       <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
       <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
@@ -87,20 +87,20 @@
       <PositionY>35</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 2 start -identifier=0x200</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 start -identifier=0x200 -policy=PriorityLeastUsed:0.1</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 2 start -identifier=0x200 -fgpfailureafter=20</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 start -identifier=0x200 -policy=PriorityLeastUsed:0.1 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 2 restart -identifier=0x200</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 restart -identifier=0x200 -policy=PriorityLeastUsed:0.1</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 2 restart -identifier=0x200 -fgpfailureafter=20</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 restart -identifier=0x200 -policy=PriorityLeastUsed:0.1 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
@@ -125,7 +125,7 @@
 
    <Node>
       <UID>200000000000201</UID>
-      <DisplayName>MEC Pool Element 2 in Fornebu, Norway</DisplayName>
+      <DisplayName>PE 2 in Fornebu, Norway</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
       <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
       <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
@@ -133,20 +133,20 @@
       <PositionY>35</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 3 start -identifier=0x201</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 start -identifier=0x201 -policy=PriorityLeastUsed:0.1</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 3 start -identifier=0x201 -fgpfailureafter=20</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 start -identifier=0x201 -policy=PriorityLeastUsed:0.1 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 3 restart -identifier=0x201</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 restart -identifier=0x201 -policy=PriorityLeastUsed:0.1</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 3 restart -identifier=0x201 -fgpfailureafter=20</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 restart -identifier=0x201 -policy=PriorityLeastUsed:0.1 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
@@ -212,20 +212,20 @@
       <PositionY>60</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 10 start -identifier=0x300</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 10 start -identifier=0x300 -policy=PriorityLeastUsed:0.5</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 10 start -identifier=0x300 -fgpfailureafter=20</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 10 start -identifier=0x300 -policy=PriorityLeastUsed:0.5 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 10 restart -identifier=0x300</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 10 restart -identifier=0x300 -policy=PriorityLeastUsed:0.5</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 10 restart -identifier=0x300 -fgpfailureafter=20</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 10 restart -identifier=0x300 -policy=PriorityLeastUsed:0.5 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
@@ -258,20 +258,20 @@
       <PositionY>60</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 11 start -identifier=0x301</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 11 start -identifier=0x301 -policy=PriorityLeastUsed:0.5</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 11 start -identifier=0x301 -fgpfailureafter=20</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 11 start -identifier=0x301 -policy=PriorityLeastUsed:0.5 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 11 restart -identifier=0x301</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 11 restart -identifier=0x301 -policy=PriorityLeastUsed:0.5</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 11 restart -identifier=0x301 -fgpfailureafter=20</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 11 restart -identifier=0x301 -policy=PriorityLeastUsed:0.5 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
@@ -304,20 +304,20 @@
       <PositionY>80</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 12 start -identifier=0x302</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 12 start -identifier=0x302 -policy=PriorityLeastUsed:0.5</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 12 start -identifier=0x302 -fgpfailureafter=20</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 12 start -identifier=0x302 -policy=PriorityLeastUsed:0.5 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 12 restart -identifier=0x302</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 12 restart -identifier=0x302 -policy=PriorityLeastUsed:0.5</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 12 restart -identifier=0x302 -fgpfailureafter=20</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 12 restart -identifier=0x302 -policy=PriorityLeastUsed:0.5 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
@@ -342,7 +342,7 @@
 
    <Node>
       <UID>200000000000303</UID>
-      <DisplayName>PE in Haikou, China</DisplayName>
+      <DisplayName>PE in Haikou (海口), China</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
       <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
       <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
@@ -350,20 +350,20 @@
       <PositionY>80</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 13 start -identifier=0x303</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 13 start -identifier=0x303 -policy=PriorityLeastUsed:0.5</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 13 start -identifier=0x303 -fgpfailureafter=20</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 13 start -identifier=0x303 -policy=PriorityLeastUsed:0.5 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 13 restart -identifier=0x303</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 13 restart -identifier=0x303 -policy=PriorityLeastUsed:0.5</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 13 restart -identifier=0x303 -fgpfailureafter=20</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 13 restart -identifier=0x303 -policy=PriorityLeastUsed:0.5 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
@@ -448,7 +448,7 @@
 
 
    <Node>
-      <UID>200000000000101</UID>
+      <UID>200000000000100</UID>
       <DisplayName>Pool Element on UE</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
       <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
@@ -457,20 +457,20 @@
       <PositionY>10</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 1 start -identifier=0x101</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 start -identifier=0x100 -policy=PriorityLeastUsed:1.0 -fgpmaxthreads=1</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 1 start -identifier=0x101 -fgpfailureafter=20</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 start -identifier=0x100 -policy=PriorityLeastUsed:1.0 -fgpmaxthreads=1 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 1 restart -identifier=0x101</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 restart -identifier=0x100 -policy=PriorityLeastUsed:1.0 -fgpmaxthreads=1</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 1 restart -identifier=0x101 -fgpfailureafter=20</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 restart -identifier=0x100 -policy=PriorityLeastUsed:1.0 -fgpmaxthreads=1 -fgpfailureafter=20</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
