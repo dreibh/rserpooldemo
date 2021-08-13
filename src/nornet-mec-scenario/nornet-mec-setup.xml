@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<!--
+* ##########################################################################
+*
+*              //===//   //=====   //===//   //       //   //===//
+*             //    //  //        //    //  //       //   //    //
+*            //===//   //=====   //===//   //       //   //===<<
+*           //   \\         //  //        //       //   //    //
+*          //     \\  =====//  //        //=====  //   //===//   Version III
+*
+*             ###################################################
+*           ======  D E M O N S T R A T I O N   S Y S T E M  ======
+*             ###################################################
+*
+* ############# An Efficient RSerPool Prototype Implementation #############
+*
+* Copyright (C) 2002-2021 by Thomas Dreibholz
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*
+* Contact: dreibh.iem.uni-due.de
+-->
+
+<RSerPoolDemoConfigurationRoot>
+   <RefreshTime>500</RefreshTime>
+   <ListenPort>2960</ListenPort>
+   <DiagramResolutionX>1200</DiagramResolutionX>
+   <DiagramResolutionY>800</DiagramResolutionY>
+   <Caption>Thomas Dreibholz's RSerPool Demonstration Tool</Caption>
+   <BackgroundImage>NorNet-MEC-Scenario.png</BackgroundImage>
+   <ProtocolColor ID="0">#eec900</ProtocolColor>
+   <ProtocolColor ID="11">blue</ProtocolColor>
+   <ProtocolColor ID="12">red</ProtocolColor>
+
+
+   <Node>
+      <UID>100000000010000</UID>
+      <DisplayName>Registrar in Fornebu, Norway</DisplayName>
+      <RefreshTimeout>5</RefreshTimeout>
+      <ActiveImageURL>../graphics/RegistrarActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/RegistrarInactive2.png</InactiveImageURL>
+      <PositionX>12</PositionX>
+      <PositionY>35</PositionY>
+      <ContextMenuEntry>
+         <Name>Start Registrar</Name>
+         <Command>./ComponentControl ./LocalScenario.config PR 1 start -identifier=0x10000</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Stop Registrar (SIGINT)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PR 1 stop</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Kill Registrar (SIGKILL)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PR 1 kill</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Show Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PR 1 log -T "Logfile of Registrar 1"</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Monitor Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PR 1 monitor -T "Logfile of Registrar 1"</Command>
+      </ContextMenuEntry>
+   </Node>
+
+
+   <Node>
+      <UID>200000000000100</UID>
+      <DisplayName>MEC Pool Element 1 in Fornebu, Norway</DisplayName>
+      <RefreshTimeout>5</RefreshTimeout>
+      <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
+      <PositionX>50</PositionX>
+      <PositionY>35</PositionY>
+      <ContextMenuEntry>
+         <Name>Start Pool Element (Reliable Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 start -identifier=0x100</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Start Pool Element (Failure Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 start -identifier=0x100 -fgpfailureafter=20</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Restart Pool Element (Reliable Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 restart -identifier=0x100</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Restart Pool Element (Failure Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 restart -identifier=0x100 -fgpfailureafter=20</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Stop Pool Element (SIGINT)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 stop</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Kill Pool Element (SIGKILL)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 kill</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>View Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 log -T "Logfile of Pool Element 3"</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Monitor Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 monitor -T "Logfile of Pool Element 1"</Command>
+      </ContextMenuEntry>
+   </Node>
+
+
+   <Node>
+      <UID>200000000000100</UID>
+      <DisplayName>MEC Pool Element 2 in Fornebu, Norway</DisplayName>
+      <RefreshTimeout>5</RefreshTimeout>
+      <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
+      <PositionX>80</PositionX>
+      <PositionY>35</PositionY>
+      <ContextMenuEntry>
+         <Name>Start Pool Element (Reliable Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 start -identifier=0x100</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Start Pool Element (Failure Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 start -identifier=0x100 -fgpfailureafter=20</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Restart Pool Element (Reliable Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 restart -identifier=0x100</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Restart Pool Element (Failure Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 restart -identifier=0x100 -fgpfailureafter=20</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Stop Pool Element (SIGINT)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 stop</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Kill Pool Element (SIGKILL)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 kill</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>View Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 log -T "Logfile of Pool Element 3"</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Monitor Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 monitor -T "Logfile of Pool Element 1"</Command>
+      </ContextMenuEntry>
+   </Node>
+
+
+   <Node>
+      <UID>100000000010001</UID>
+      <DisplayName>Registrar in Trondheim, Norway</DisplayName>
+      <RefreshTimeout>5</RefreshTimeout>
+      <ActiveImageURL>../graphics/RegistrarActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/RegistrarInactive2.png</InactiveImageURL>
+      <PositionX>12</PositionX>
+      <PositionY>72</PositionY>
+      <ContextMenuEntry>
+         <Name>Start Registrar</Name>
+         <Command>./ComponentControl ./LocalScenario.config PR 2 start -identifier=0x10001</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Stop Registrar (SIGINT)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PR 2 stop</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Kill Registrar (SIGKILL)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PR 2 kill</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>View Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PR 2 log -T "Logfile of Registrar 2"</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Monitor Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PR 2 monitor -T "Logfile of Registrar 2"</Command>
+      </ContextMenuEntry>
+   </Node>
+
+
+   <Node>
+      <UID>200000000000100</UID>
+      <DisplayName>PE in Tromø, Norway</DisplayName>
+      <RefreshTimeout>5</RefreshTimeout>
+      <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
+      <PositionX>40</PositionX>
+      <PositionY>60</PositionY>
+      <ContextMenuEntry>
+         <Name>Start Pool Element (Reliable Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 start -identifier=0x100</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Start Pool Element (Failure Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 start -identifier=0x100 -fgpfailureafter=20</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Restart Pool Element (Reliable Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 restart -identifier=0x100</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Restart Pool Element (Failure Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 restart -identifier=0x100 -fgpfailureafter=20</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Stop Pool Element (SIGINT)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 stop</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Kill Pool Element (SIGKILL)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 kill</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>View Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 log -T "Logfile of Pool Element 3"</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Monitor Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 monitor -T "Logfile of Pool Element 1"</Command>
+      </ContextMenuEntry>
+   </Node>
+
+
+   <Node>
+      <UID>200000000000101</UID>
+      <DisplayName>PE in Essen, DE</DisplayName>
+      <RefreshTimeout>5</RefreshTimeout>
+      <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
+      <PositionX>80</PositionX>
+      <PositionY>60</PositionY>
+      <ContextMenuEntry>
+         <Name>Start Pool Element (Reliable Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 start -identifier=0x101</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Start Pool Element (Failure Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 start -identifier=0x101 -fgpfailureafter=20</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Restart Pool Element (Reliable Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 restart -identifier=0x101</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Restart Pool Element (Failure Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 restart -identifier=0x101 -fgpfailureafter=20</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Stop Pool Element (SIGINT)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 stop</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Kill Pool Element (SIGKILL)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 kill</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>View Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 log -T "Logfile of Pool Element 2"</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Monitor Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 2 monitor -T "Logfile of Pool Element 2"</Command>
+      </ContextMenuEntry>
+   </Node>
+
+
+   <Node>
+      <UID>200000000000102</UID>
+      <DisplayName>PE in Gjøvik, Norway</DisplayName>
+      <RefreshTimeout>5</RefreshTimeout>
+      <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
+      <PositionX>40</PositionX>
+      <PositionY>80</PositionY>
+      <ContextMenuEntry>
+         <Name>Start Pool Element (Reliable Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 start -identifier=0x102</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Start Pool Element (Failure Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 start -identifier=0x102 -fgpfailureafter=20</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Restart Pool Element (Reliable Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 restart -identifier=0x102</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Restart Pool Element (Failure Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 restart -identifier=0x102 -fgpfailureafter=20</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Stop Pool Element (SIGINT)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 stop</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Kill Pool Element (SIGKILL)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 kill</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>View Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 log -T "Logfile of Pool Element 3"</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Monitor Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 monitor -T "Logfile of Pool Element 3"</Command>
+      </ContextMenuEntry>
+   </Node>
+
+
+   <Node>
+      <UID>200000000000102</UID>
+      <DisplayName>PE in Haikou, China</DisplayName>
+      <RefreshTimeout>5</RefreshTimeout>
+      <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
+      <PositionX>80</PositionX>
+      <PositionY>80</PositionY>
+      <ContextMenuEntry>
+         <Name>Start Pool Element (Reliable Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 start -identifier=0x102</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Start Pool Element (Failure Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 start -identifier=0x102 -fgpfailureafter=20</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Restart Pool Element (Reliable Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 restart -identifier=0x102</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Restart Pool Element (Failure Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 restart -identifier=0x102 -fgpfailureafter=20</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Stop Pool Element (SIGINT)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 stop</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Kill Pool Element (SIGKILL)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 kill</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>View Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 log -T "Logfile of Pool Element 3"</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Monitor Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 monitor -T "Logfile of Pool Element 3"</Command>
+      </ContextMenuEntry>
+   </Node>
+
+
+   <Node>
+      <UID>100000000010000</UID>
+      <DisplayName>Registrar on UE</DisplayName>
+      <RefreshTimeout>5</RefreshTimeout>
+      <ActiveImageURL>../graphics/RegistrarActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/RegistrarInactive2.png</InactiveImageURL>
+      <PositionX>45</PositionX>
+      <PositionY>10</PositionY>
+      <ContextMenuEntry>
+         <Name>Start Registrar</Name>
+         <Command>./ComponentControl ./LocalScenario.config PR 1 start -identifier=0x10000</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Stop Registrar (SIGINT)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PR 1 stop</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Kill Registrar (SIGKILL)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PR 1 kill</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Show Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PR 1 log -T "Logfile of Registrar 1"</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Monitor Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PR 1 monitor -T "Logfile of Registrar 1"</Command>
+      </ContextMenuEntry>
+   </Node>
+
+
+   <Node>
+      <UID>300000000000001</UID>
+      <DisplayName>Pool User on UE</DisplayName>
+      <RefreshTimeout>5</RefreshTimeout>
+      <ActiveImageURL>../graphics/PoolUserActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/PoolUserInactive2.png</InactiveImageURL>
+      <PositionX>65</PositionX>
+      <PositionY>10</PositionY>
+      <ContextMenuEntry>
+         <Name>Start Pool User</Name>
+         <Command>./ComponentControl ./LocalScenario.config PU 1 start -identifier=0x1 -caption=PoolUser-1</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Stop Pool User</Name>
+         <Command>./ComponentControl ./LocalScenario.config PU 1 kill</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>View Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PU 1 log -T "Logfile of Pool User 1"</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Monitor Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PU 1 monitor -T "Logfile of Pool User 1"</Command>
+      </ContextMenuEntry>
+   </Node>
+
+
+   <Node>
+      <UID>200000000000102</UID>
+      <DisplayName>Pool Element on UE</DisplayName>
+      <RefreshTimeout>5</RefreshTimeout>
+      <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
+      <PositionX>85</PositionX>
+      <PositionY>10</PositionY>
+      <ContextMenuEntry>
+         <Name>Start Pool Element (Reliable Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 start -identifier=0x102</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Start Pool Element (Failure Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 start -identifier=0x102 -fgpfailureafter=20</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Restart Pool Element (Reliable Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 restart -identifier=0x102</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Restart Pool Element (Failure Mode)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 restart -identifier=0x102 -fgpfailureafter=20</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Stop Pool Element (SIGINT)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 stop</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Kill Pool Element (SIGKILL)</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 kill</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>View Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 log -T "Logfile of Pool Element 3"</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Monitor Logfile</Name>
+         <Command>./ComponentControl ./LocalScenario.config PE 3 monitor -T "Logfile of Pool Element 3"</Command>
+      </ContextMenuEntry>
+   </Node>
+
+
+   <Node>
+      <UID>NOUID</UID>
+      <DisplayName>Control</DisplayName>
+      <RefreshTimeout>5</RefreshTimeout>
+      <ActiveImageURL>../graphics/Controller.png</ActiveImageURL>
+      <InactiveImageURL>../graphics/Controller.png</InactiveImageURL>
+      <PositionX>2</PositionX>
+      <PositionY>2</PositionY>
+      <ContextMenuEntry>
+         <Name>Start All Components</Name>
+         <Command>./LocalScenario-StartAll</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Stop All Components (SIGINT)</Name>
+         <Command>./LocalScenario-StopAll stop</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Kill All Components (SIGKILL)</Name>
+         <Command>./LocalScenario-StopAll kill</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Activate Dummy Interface</Name>
+         <Command>./dummy-interface up</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Deactivate Dummy Interface</Name>
+         <Command>./dummy-interface down</Command>
+      </ContextMenuEntry>
+      <ContextMenuSeparator />
+      <ContextMenuEntry>
+         <Name>Run Wireshark</Name>
+         <Command>./RunProgram wireshark</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>Run Shell</Name>
+         <Command>./RunProgram konsole</Command>
+      </ContextMenuEntry>
+      <ContextMenuEntry>
+         <Name>View RSerPool Page</Name>
+         <Command>./RunProgram konqueror https://www.uni-due.de/~be0001/rserpool/</Command>
+      </ContextMenuEntry>
+   </Node>
+
+</RSerPoolDemoConfigurationRoot>

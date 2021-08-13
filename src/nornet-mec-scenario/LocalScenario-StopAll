@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+# * ##########################################################################
+# *
+# *              //===//   //=====   //===//   //       //   //===//
+# *             //    //  //        //    //  //       //   //    //
+# *            //===//   //=====   //===//   //       //   //===<<
+# *           //   \\         //  //        //       //   //    //
+# *          //     \\  =====//  //        //=====  //   //===//   Version III
+# *
+# *             ###################################################
+# *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
+# *             ###################################################
+# *
+# * ############# An Efficient RSerPool Prototype Implementation #############
+# *
+# * Copyright (C) 2002-2021 by Thomas Dreibholz
+# *
+# * This program is free software: you can redistribute it and/or modify
+# * it under the terms of the GNU General Public License as published by
+# * the Free Software Foundation, either version 3 of the License, or
+# * (at your option) any later version.
+# *
+# * This program is distributed in the hope that it will be useful,
+# * but WITHOUT ANY WARRANTY; without even the implied warranty of
+# * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# * GNU General Public License for more details.
+# *
+# * You should have received a copy of the GNU General Public License
+# * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# *
+# * Contact: dreibh.iem.uni-due.de
+
+if [ $# -lt 1 ] ; then
+   echo >&2 "Usage: LocalScenario-StopAll [stop|kill]"
+   exit 1
+fi
+
+
+if [ "x$1" = "xstop" ] ; then
+   command=stopall
+elif [ "x$1" = "xkill" ] ; then
+   command=killall
+else
+   echo >&2 "ERROR: Bad command $1!"
+   exit 1
+fi
+
+
+./ComponentControl ./LocalScenario.config PU 0 killall
+./ComponentControl ./LocalScenario.config PE 0 $command
+./ComponentControl ./LocalScenario.config PR 0 $command
+
+if [ "$command" = "killall" ] ; then
+   rm -f output/*.pid output/*.log || true
+   killall -KILL server || true
+   killall -KILL lt-server || true
+   killall -KILL registrar || true
+   killall -KILL lt-registrar || true
+   killall -KILL fractalpooluser || true
+   killall -KILL lt-fractalpooluser || true
+fi
