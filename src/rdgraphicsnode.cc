@@ -210,15 +210,19 @@ void RDGraphicsNode::updatePosition()
    const int wy = m_ConfigNode->getPositionY(displaySizeY);
    m_pWorkloadBackground->setPos(wx, wy);
 
-   m_pWorkload->setPos(m_pWorkloadBackground->x() + (MARGIN_WORKLOAD / 2) + ((m_pWorkloadBackground->boundingRect().right() - m_pWorkloadBackground->boundingRect().left()) / 2),
-                       m_pWorkloadBackground->y() - (MARGIN_WORKLOAD / 2) - ((m_pWorkloadBackground->boundingRect().top() - m_pWorkloadBackground->boundingRect().bottom()) / 2));
+   const QFontMetrics fontMetrics(m_pWorkload->font());
+   const int offsetX = (MARGIN_WORKLOAD / 2) +
+      std::max(0, (int)(m_pWorkloadBackground->boundingRect().right() - m_pWorkloadBackground->boundingRect().left() - fontMetrics.boundingRect(m_pWorkload->text()).width()) / 2);
+   const int offsetY = (MARGIN_WORKLOAD / 2);
+   m_pWorkload->setPos(m_pWorkloadBackground->x() + offsetX,
+                       m_pWorkloadBackground->y() + offsetY);
 
 
    // ====== Update status label ============================================
    const int sx = m_ConfigNode->getPositionX(displaySizeX) +
                        ((boundingRect().width() / 2) -
                         ((m_pStatusText->boundingRect().right() - m_pStatusText->boundingRect().left()) / 2));
-   const int sy = m_ConfigNode->getPositionY(displaySizeY) +  m_pTitle->boundingRect().bottom() - m_pTitle->boundingRect().top() + boundingRect().height();
+   const int sy = m_ConfigNode->getPositionY(displaySizeY) + m_pTitle->boundingRect().bottom() - m_pTitle->boundingRect().top() + boundingRect().height();
    m_pStatusText->setPos(sx, sy);
 
 
@@ -226,7 +230,7 @@ void RDGraphicsNode::updatePosition()
    const int lx = m_ConfigNode->getPositionX(displaySizeX) +
                        ((boundingRect().width() / 2) -
                         ((m_pLocationText->boundingRect().right() - m_pLocationText->boundingRect().left()) / 2));
-   const int ly = m_ConfigNode->getPositionY(displaySizeY) +  m_pTitle->boundingRect().height() + m_pStatusText->boundingRect().height() + boundingRect().height();
+   const int ly = m_ConfigNode->getPositionY(displaySizeY) + m_pTitle->boundingRect().height() + m_pStatusText->boundingRect().height() + boundingRect().height();
    m_pLocationText->setPos(lx, ly);
 
 
