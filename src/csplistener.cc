@@ -127,11 +127,13 @@ void CSPListener::update()
                   pNode->getConnectedUIDsDurationMap()[peerName] = association[i].Duration;
                   pNode->getConnectedUIDsMap()[peerName]         = association[i].PPID;
                }
+#if 0
                else {
                   std::cerr << "WARNING: Received status for unknown connection from "
                             << name.toLocal8Bit().constData() << " to "
                             << peerName.toLocal8Bit().constData() << std::endl;
                }
+#endif
             }
          }
          else {
