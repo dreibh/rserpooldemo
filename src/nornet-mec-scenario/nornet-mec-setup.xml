@@ -32,6 +32,15 @@
 * Contact: dreibh.iem.uni-due.de
 -->
 
+<!--
+ !!! NOTE: These addresses need to be adjusted! !!!
+ IP Settings:
+ * 10.1.1.50: CSP Server (the machine the RSerPoolDemo tool is running on)
+ * 10.1.1.16: PR Oslo (midtstuen.simula.nornet)
+ * 
+-->
+
+
 <RSerPoolDemoConfigurationRoot>
    <RefreshTime>500</RefreshTime>
    <ListenPort>2960</ListenPort>
@@ -46,7 +55,7 @@
 
    <Node>
       <UID>100000000010010</UID>
-      <DisplayName>Registrar in Fornebu, Norway</DisplayName>
+      <DisplayName>Registrar in Oslo, Norway</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
       <ActiveImageURL>../graphics/RegistrarActive2.png</ActiveImageURL>
       <InactiveImageURL>../graphics/RegistrarInactive2.png</InactiveImageURL>
@@ -54,32 +63,32 @@
       <PositionY>35</PositionY>
       <ContextMenuEntry>
          <Name>Start Registrar</Name>
-         <Command>./ComponentControl ./LocalScenario.config PR 2 start -identifier=0x10010</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.16 ./LocalScenario.config PR 2 start -identifier=0x10010 -asap=[::]:4000 -enrp=[::]:4001 -asapannounce=off -enrpannounce=off -cspserver=10.1.1.50:2960</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop Registrar (SIGINT)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PR 2 stop</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.16 ./LocalScenario.config PR 2 stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Registrar (SIGKILL)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PR 2 kill</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.16 ./LocalScenario.config PR 2 kill</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Show Logfile</Name>
-         <Command>./ComponentControl ./LocalScenario.config PR 2 log -T "Logfile of Registrar"</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.16 ./LocalScenario.config PR 2 log -T "Logfile of Registrar"</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Monitor Logfile</Name>
-         <Command>./ComponentControl ./LocalScenario.config PR 2 monitor -T "Logfile of Registrar"</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.16 ./LocalScenario.config PR 2 monitor -T "Logfile of Registrar"</Command>
       </ContextMenuEntry>
    </Node>
 
 
    <Node>
       <UID>200000000000200</UID>
-      <DisplayName>PE 1 in Fornebu, Norway</DisplayName>
+      <DisplayName>PE 1 in Oslo, Norway</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
       <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
       <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
@@ -87,45 +96,45 @@
       <PositionY>35</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 2 start -identifier=0x200 -policy=PriorityLeastUsed:0.1</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.76 ./LocalScenario.config PE 2 start -identifier=0x200 -policy=PriorityLeastUsed:0.1 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 2 start -identifier=0x200 -policy=PriorityLeastUsed:0.1 -fgpfailureafter=20</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.76 ./LocalScenario.config PE 2 start -identifier=0x200 -policy=PriorityLeastUsed:0.1 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 2 restart -identifier=0x200 -policy=PriorityLeastUsed:0.1</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.76 ./LocalScenario.config PE 2 restart -identifier=0x200 -policy=PriorityLeastUsed:0.1 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 2 restart -identifier=0x200 -policy=PriorityLeastUsed:0.1 -fgpfailureafter=20</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.76 ./LocalScenario.config PE 2 restart -identifier=0x200 -policy=PriorityLeastUsed:0.1 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop Pool Element (SIGINT)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 2 stop</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.76 ./LocalScenario.config PE 2 stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Pool Element (SIGKILL)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 2 kill</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.76 ./LocalScenario.config PE 2 kill</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>View Logfile</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 2 log -T "Logfile of Pool Element"</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.76 ./LocalScenario.config PE 2 log -T "Logfile of Pool Element"</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Monitor Logfile</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 2 monitor -T "Logfile of Pool Element"</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.76 ./LocalScenario.config PE 2 monitor -T "Logfile of Pool Element"</Command>
       </ContextMenuEntry>
    </Node>
 
 
    <Node>
       <UID>200000000000201</UID>
-      <DisplayName>PE 2 in Fornebu, Norway</DisplayName>
+      <DisplayName>PE 2 in Oslo, Norway</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
       <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
       <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
@@ -133,38 +142,38 @@
       <PositionY>35</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 3 start -identifier=0x201 -policy=PriorityLeastUsed:0.1</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.75 ./LocalScenario.config PE 3 start -identifier=0x201 -policy=PriorityLeastUsed:0.1 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 3 start -identifier=0x201 -policy=PriorityLeastUsed:0.1 -fgpfailureafter=20</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.75 ./LocalScenario.config PE 3 start -identifier=0x201 -policy=PriorityLeastUsed:0.1 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 3 restart -identifier=0x201 -policy=PriorityLeastUsed:0.1</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.75 ./LocalScenario.config PE 3 restart -identifier=0x201 -policy=PriorityLeastUsed:0.1 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 3 restart -identifier=0x201 -policy=PriorityLeastUsed:0.1 -fgpfailureafter=20</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.75 ./LocalScenario.config PE 3 restart -identifier=0x201 -policy=PriorityLeastUsed:0.1 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop Pool Element (SIGINT)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 3 stop</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.75 ./LocalScenario.config PE 3 stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill Pool Element (SIGKILL)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 3 kill</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.75 ./LocalScenario.config PE 3 kill</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>View Logfile</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 3 log -T "Logfile of Pool Element"</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.75 ./LocalScenario.config PE 3 log -T "Logfile of Pool Element"</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Monitor Logfile</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 3 monitor -T "Logfile of Pool Element"</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.75 ./LocalScenario.config PE 3 monitor -T "Logfile of Pool Element"</Command>
       </ContextMenuEntry>
    </Node>
 
@@ -534,7 +543,7 @@
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>View RSerPool Page</Name>
-         <Command>./RunProgram konqueror https://www.uni-due.de/~be0001/rserpool/</Command>
+         <Command>./RunProgram firefox https://www.uni-due.de/~be0001/rserpool/</Command>
       </ContextMenuEntry>
    </Node>
 
