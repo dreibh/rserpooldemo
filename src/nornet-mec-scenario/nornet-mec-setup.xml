@@ -35,7 +35,7 @@
 <!--
  !!! NOTE: These addresses need to be adjusted! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  IP Settings:
- * 10.1.1.50 (this machine!):             CSP Server, i.e. the machine the RSerPoolDemo tool is running on
+ * 10.1.1.9 (this machine!):              CSP Server, i.e. the machine the RSerPoolDemo tool is running on
  * 10.1.1.16 (midtstuen.simula.nornet):   MEC PR Oslo
  * 10.1.1.76 (warrnambool.simula.nornet): MEC PE #1
  * 10.1.1.75 (geelong.simula.nornet):     MEC PE #2
@@ -72,7 +72,7 @@
       <PositionY>35</PositionY>
       <ContextMenuEntry>
          <Name>Start Registrar</Name>
-         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.16 ./LocalScenario.config PR 2 start -identifier=0x10010 -asap=[::]:4000 -enrp=[::]:4001 -asapannounce=off -enrpannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.16 ./LocalScenario.config PR 2 start -identifier=0x10010 -asap=[::]:4000 -enrp=[::]:4001 -asapannounce=off -enrpannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
@@ -105,20 +105,20 @@
       <PositionY>35</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.76 ./LocalScenario.config PE 2 start -identifier=0x200 -policy=PriorityLeastUsed:0.1 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.76 ./LocalScenario.config PE 2 start -identifier=0x200 -policy=PriorityLeastUsed:0.1 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.76 ./LocalScenario.config PE 2 start -identifier=0x200 -policy=PriorityLeastUsed:0.1 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.76 ./LocalScenario.config PE 2 start -identifier=0x200 -policy=PriorityLeastUsed:0.1 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.76 ./LocalScenario.config PE 2 restart -identifier=0x200 -policy=PriorityLeastUsed:0.1 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.76 ./LocalScenario.config PE 2 restart -identifier=0x200 -policy=PriorityLeastUsed:0.1 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.76 ./LocalScenario.config PE 2 restart -identifier=0x200 -policy=PriorityLeastUsed:0.1 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.76 ./LocalScenario.config PE 2 restart -identifier=0x200 -policy=PriorityLeastUsed:0.1 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
@@ -151,20 +151,20 @@
       <PositionY>35</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.75 ./LocalScenario.config PE 3 start -identifier=0x201 -policy=PriorityLeastUsed:0.1 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.75 ./LocalScenario.config PE 3 start -identifier=0x201 -policy=PriorityLeastUsed:0.1 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.75 ./LocalScenario.config PE 3 start -identifier=0x201 -policy=PriorityLeastUsed:0.1 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.75 ./LocalScenario.config PE 3 start -identifier=0x201 -policy=PriorityLeastUsed:0.1 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.75 ./LocalScenario.config PE 3 restart -identifier=0x201 -policy=PriorityLeastUsed:0.1 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.75 ./LocalScenario.config PE 3 restart -identifier=0x201 -policy=PriorityLeastUsed:0.1 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.75 ./LocalScenario.config PE 3 restart -identifier=0x201 -policy=PriorityLeastUsed:0.1 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./MEC-User.config 10.1.1.75 ./LocalScenario.config PE 3 restart -identifier=0x201 -policy=PriorityLeastUsed:0.1 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
@@ -197,7 +197,7 @@
       <PositionY>72</PositionY>
       <ContextMenuEntry>
          <Name>Start Registrar</Name>
-         <Command>./RemoteComponentControl ./PMC-User.config lerkendal.ntnu.nornet ./LocalScenario.config PR 3 start -identifier=0x10020 -asap=[::]:4000 -enrp=[::]:4001 -asapannounce=off -enrpannounce=off -peer=10.1.1.16:4001 -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./PMC-User.config lerkendal.ntnu.nornet ./LocalScenario.config PR 3 start -identifier=0x10020 -asap=[::]:4000 -enrp=[::]:4001 -asapannounce=off -enrpannounce=off -peer=10.1.1.16:4001 -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
@@ -230,20 +230,20 @@
       <PositionY>60</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./RemoteComponentControl ./PMC-User.config aunegaarden.uit.nornet ./LocalScenario.config PE 10 start -identifier=0x300 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./PMC-User.config aunegaarden.uit.nornet ./LocalScenario.config PE 10 start -identifier=0x300 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./RemoteComponentControl ./PMC-User.config aunegaarden.uit.nornet ./LocalScenario.config PE 10 start -identifier=0x300 -policy=PriorityLeastUsed:0.5 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./PMC-User.config aunegaarden.uit.nornet ./LocalScenario.config PE 10 start -identifier=0x300 -policy=PriorityLeastUsed:0.5 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./RemoteComponentControl ./PMC-User.config aunegaarden.uit.nornet ./LocalScenario.config PE 10 restart -identifier=0x300 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./PMC-User.config aunegaarden.uit.nornet ./LocalScenario.config PE 10 restart -identifier=0x300 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./RemoteComponentControl ./PMC-User.config aunegaarden.uit.nornet ./LocalScenario.config PE 10 restart -identifier=0x300 -policy=PriorityLeastUsed:0.5 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./PMC-User.config aunegaarden.uit.nornet ./LocalScenario.config PE 10 restart -identifier=0x300 -policy=PriorityLeastUsed:0.5 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
@@ -276,20 +276,20 @@
       <PositionY>60</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./RemoteComponentControl ./PMC-User.config borbeck.ude.nornet ./LocalScenario.config PE 11 start -identifier=0x301 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./PMC-User.config borbeck.ude.nornet ./LocalScenario.config PE 11 start -identifier=0x301 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./RemoteComponentControl ./PMC-User.config borbeck.ude.nornet ./LocalScenario.config PE 11 start -identifier=0x301 -policy=PriorityLeastUsed:0.5 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./PMC-User.config borbeck.ude.nornet ./LocalScenario.config PE 11 start -identifier=0x301 -policy=PriorityLeastUsed:0.5 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./RemoteComponentControl ./PMC-User.config borbeck.ude.nornet ./LocalScenario.config PE 11 restart -identifier=0x301 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./PMC-User.config borbeck.ude.nornet ./LocalScenario.config PE 11 restart -identifier=0x301 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./RemoteComponentControl ./PMC-User.config borbeck.ude.nornet ./LocalScenario.config PE 11 restart -identifier=0x301 -policy=PriorityLeastUsed:0.5 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./PMC-User.config borbeck.ude.nornet ./LocalScenario.config PE 11 restart -identifier=0x301 -policy=PriorityLeastUsed:0.5 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
@@ -322,20 +322,20 @@
       <PositionY>80</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./RemoteComponentControl ./PMC-User.config skreia.hig.nornet ./LocalScenario.config PE 12 start -identifier=0x302 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./PMC-User.config skreia.hig.nornet ./LocalScenario.config PE 12 start -identifier=0x302 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./RemoteComponentControl ./PMC-User.config skreia.hig.nornet ./LocalScenario.config PE 12 start -identifier=0x302 -policy=PriorityLeastUsed:0.5 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./PMC-User.config skreia.hig.nornet ./LocalScenario.config PE 12 start -identifier=0x302 -policy=PriorityLeastUsed:0.5 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./RemoteComponentControl ./PMC-User.config skreia.hig.nornet ./LocalScenario.config PE 12 restart -identifier=0x302 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./PMC-User.config skreia.hig.nornet ./LocalScenario.config PE 12 restart -identifier=0x302 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./RemoteComponentControl ./PMC-User.config skreia.hig.nornet ./LocalScenario.config PE 12 restart -identifier=0x302 -policy=PriorityLeastUsed:0.5 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./PMC-User.config skreia.hig.nornet ./LocalScenario.config PE 12 restart -identifier=0x302 -policy=PriorityLeastUsed:0.5 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
@@ -368,20 +368,20 @@
       <PositionY>80</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./RemoteComponentControl ./PMC-User.config boao.hu.nornet ./LocalScenario.config PE 13 start -identifier=0x303 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./PMC-User.config boao.hu.nornet ./LocalScenario.config PE 13 start -identifier=0x303 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./RemoteComponentControl ./PMC-User.config boao.hu.nornet ./LocalScenario.config PE 13 start -identifier=0x303 -policy=PriorityLeastUsed:0.5 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./PMC-User.config boao.hu.nornet ./LocalScenario.config PE 13 start -identifier=0x303 -policy=PriorityLeastUsed:0.5 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./RemoteComponentControl ./PMC-User.config boao.hu.nornet ./LocalScenario.config PE 13 restart -identifier=0x303 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./PMC-User.config boao.hu.nornet ./LocalScenario.config PE 13 restart -identifier=0x303 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./RemoteComponentControl ./PMC-User.config boao.hu.nornet ./LocalScenario.config PE 13 restart -identifier=0x303 -policy=PriorityLeastUsed:0.5 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./RemoteComponentControl ./PMC-User.config boao.hu.nornet ./LocalScenario.config PE 13 restart -identifier=0x303 -policy=PriorityLeastUsed:0.5 -fgpfailureafter=20 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
@@ -414,7 +414,7 @@
       <PositionY>6</PositionY>
       <ContextMenuEntry>
          <Name>Start Registrar</Name>
-         <Command>./ComponentControl ./LocalScenario.config PR 1 start -identifier=0x10000 -asap=[::]:4000 -enrp=[::]:4001 -asapannounce=off -enrpannounce=off -peer=10.1.1.16:4001 -cspserver=10.1.1.50:2960</Command>
+         <Command>./ComponentControl ./LocalScenario.config PR 1 start -identifier=0x10000 -asap=[::]:4000 -enrp=[::]:4001 -asapannounce=off -enrpannounce=off -peer=10.1.1.16:4001 -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
@@ -447,7 +447,7 @@
       <PositionY>10</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool User</Name>
-         <Command>./ComponentControl ./LocalScenario.config PU 1 start -identifier=0x1 -caption=PoolUser-1 -registrar=127.0.0.1:4000 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./ComponentControl ./LocalScenario.config PU 1 start -identifier=0x1 -caption=PoolUser-1 -registrar=127.0.0.1:4000 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Stop Pool User</Name>
@@ -475,20 +475,20 @@
       <PositionY>10</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 1 start -identifier=0x100 -policy=PriorityLeastUsed:1.0 -fgpmaxthreads=1 -registrar=127.0.0.1:4000 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 start -identifier=0x100 -policy=PriorityLeastUsed:1.0 -fgpmaxthreads=1 -registrar=127.0.0.1:4000 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Start Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 1 start -identifier=0x100 -policy=PriorityLeastUsed:1.0 -fgpmaxthreads=1 -fgpfailureafter=20 -registrar=127.0.0.1:4000 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 start -identifier=0x100 -policy=PriorityLeastUsed:1.0 -fgpmaxthreads=1 -fgpfailureafter=20 -registrar=127.0.0.1:4000 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Restart Pool Element (Reliable Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 1 restart -identifier=0x100 -policy=PriorityLeastUsed:1.0 -fgpmaxthreads=1 -registrar=127.0.0.1:4000 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 restart -identifier=0x100 -policy=PriorityLeastUsed:1.0 -fgpmaxthreads=1 -registrar=127.0.0.1:4000 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Restart Pool Element (Failure Mode)</Name>
-         <Command>./ComponentControl ./LocalScenario.config PE 1 restart -identifier=0x100 -policy=PriorityLeastUsed:1.0 -fgpmaxthreads=1 -fgpfailureafter=20 -registrar=127.0.0.1:4000 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.50:2960</Command>
+         <Command>./ComponentControl ./LocalScenario.config PE 1 restart -identifier=0x100 -policy=PriorityLeastUsed:1.0 -fgpmaxthreads=1 -fgpfailureafter=20 -registrar=127.0.0.1:4000 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
@@ -531,15 +531,6 @@
       <ContextMenuEntry>
          <Name>Kill All Components (SIGKILL)</Name>
          <Command>./LocalScenario-StopAll kill</Command>
-      </ContextMenuEntry>
-      <ContextMenuSeparator />
-      <ContextMenuEntry>
-         <Name>Activate Dummy Interface</Name>
-         <Command>./dummy-interface up</Command>
-      </ContextMenuEntry>
-      <ContextMenuEntry>
-         <Name>Deactivate Dummy Interface</Name>
-         <Command>./dummy-interface down</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
