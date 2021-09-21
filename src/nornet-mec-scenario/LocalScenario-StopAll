@@ -46,16 +46,21 @@ else
 fi
 
 
-./ComponentControl ./LocalScenario.config PU 0 killall
-./ComponentControl ./LocalScenario.config PE 0 $command
-./ComponentControl ./LocalScenario.config PR 0 $command
+./ComponentControl ./LocalScenario.config PE 1 $command &
+./ComponentControl ./LocalScenario.config PR 1 $command &
 
-if [ "$command" = "killall" ] ; then
-   rm -f output/*.pid output/*.log || true
-   killall -KILL server || true
-   killall -KILL lt-server || true
-   killall -KILL registrar || true
-   killall -KILL lt-registrar || true
-   killall -KILL fractalpooluser || true
-   killall -KILL lt-fractalpooluser || true
-fi
+./RemoteComponentControl ./MEC-User.config 10.1.1.76 ./LocalScenario.config PE 2 $command &
+./RemoteComponentControl ./MEC-User.config 10.1.1.75 ./LocalScenario.config PE 3 $command &
+
+./RemoteComponentControl ./PMC-User.config aunegaarden.uit.nornet ./LocalScenario.config PE 10 $command &
+./RemoteComponentControl ./PMC-User.config borbeck.ude.nornet ./LocalScenario.config PE 11 $command &
+./RemoteComponentControl ./PMC-User.config skreia.hig.nornet ./LocalScenario.config PE 12 $command &
+./RemoteComponentControl ./PMC-User.config boao.hu.nornet ./LocalScenario.config PE 13 $command &
+
+wait
+
+./ComponentControl ./LocalScenario.config PU 1 killall &
+./RemoteComponentControl ./MEC-User.config 10.1.1.16 ./LocalScenario.config PR 2 $command &
+./RemoteComponentControl ./PMC-User.config lerkendal.ntnu.nornet ./LocalScenario.config PR 3 $command &
+
+wait

@@ -30,16 +30,22 @@
 # *
 # * Contact: dreibh.iem.uni-due.de
 
-./ComponentControl ./LocalScenario.config PR 1 start -identifier=0x10000
-./ComponentControl ./LocalScenario.config PR 2 start -identifier=0x10010
-./ComponentControl ./LocalScenario.config PR 3 start -identifier=0x10020
-sleep 5
-./ComponentControl ./LocalScenario.config PE  1 start -identifier=0x100 -policy=PriorityLeastUsed:1.0 -fgpmaxthreads=1
-./ComponentControl ./LocalScenario.config PE  2 start -identifier=0x200 -policy=PriorityLeastUsed:0.1
-./ComponentControl ./LocalScenario.config PE  3 start -identifier=0x201 -policy=PriorityLeastUsed:0.1
-./ComponentControl ./LocalScenario.config PE 10 start -identifier=0x300 -policy=PriorityLeastUsed:0.5
-./ComponentControl ./LocalScenario.config PE 11 start -identifier=0x301 -policy=PriorityLeastUsed:0.5
-./ComponentControl ./LocalScenario.config PE 12 start -identifier=0x302 -policy=PriorityLeastUsed:0.5
-./ComponentControl ./LocalScenario.config PE 13 start -identifier=0x303 -policy=PriorityLeastUsed:0.5
+./ComponentControl ./LocalScenario.config PR 1 start -identifier=0x10000 -asap=[::]:4000 -enrp=[::]:4001 -asapannounce=off -enrpannounce=off -peer=10.1.1.16:4001 -cspserver=10.1.1.9:2960 &
+./RemoteComponentControl ./MEC-User.config 10.1.1.16 ./LocalScenario.config PR 2 start -identifier=0x10010 -asap=[::]:4000 -enrp=[::]:4001 -asapannounce=off -enrpannounce=off -cspserver=10.1.1.9:2960 &
+./RemoteComponentControl ./PMC-User.config lerkendal.ntnu.nornet ./LocalScenario.config PR 3 start -identifier=0x10020 -asap=[::]:4000 -enrp=[::]:4001 -asapannounce=off -enrpannounce=off -peer=10.1.1.16:4001 -cspserver=10.1.1.9:2960 &
+
+wait
 sleep 2
-./ComponentControl ./LocalScenario.config PU 1 start -identifier=0x1 -caption=PoolUser-1
+
+./ComponentControl ./LocalScenario.config PE 1 start -identifier=0x100 -policy=PriorityLeastUsed:1.0 -fgpmaxthreads=1 -registrar=127.0.0.1:4000 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960 &
+./RemoteComponentControl ./MEC-User.config 10.1.1.76 ./LocalScenario.config PE 2 start -identifier=0x200 -policy=PriorityLeastUsed:0.1 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960 &
+./RemoteComponentControl ./MEC-User.config 10.1.1.75 ./LocalScenario.config PE 3 start -identifier=0x201 -policy=PriorityLeastUsed:0.1 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960 &
+./RemoteComponentControl ./PMC-User.config aunegaarden.uit.nornet ./LocalScenario.config PE 10 start -identifier=0x300 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960 &
+./RemoteComponentControl ./PMC-User.config borbeck.ude.nornet ./LocalScenario.config PE 11 start -identifier=0x301 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960 &
+./RemoteComponentControl ./PMC-User.config skreia.hig.nornet ./LocalScenario.config PE 12 start -identifier=0x302 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960 &
+./RemoteComponentControl ./PMC-User.config boao.hu.nornet ./LocalScenario.config PE 13 start -identifier=0x303 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960 &
+
+wait
+sleep 2
+
+./ComponentControl ./LocalScenario.config PU 1 start -identifier=0x1 -caption=PoolUser-1 -registrar=127.0.0.1:4000 -registrar=10.1.1.16:4000 -asapannounce=off -cspserver=10.1.1.9:2960
