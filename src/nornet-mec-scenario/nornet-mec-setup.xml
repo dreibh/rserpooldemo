@@ -222,7 +222,7 @@
 
    <Node>
       <UID>200000000000300</UID>
-      <DisplayName>PE in Tromø, Norway</DisplayName>
+      <DisplayName>PE in Tromsø, Norway</DisplayName>
       <RefreshTimeout>5</RefreshTimeout>
       <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
       <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
