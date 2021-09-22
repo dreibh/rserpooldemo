@@ -521,16 +521,16 @@
       <PositionY>15</PositionY>
       <ContextMenuEntry>
          <Name>Start All Components</Name>
-         <Command>./LocalScenario-StartAll</Command>
+         <Command>./RemoteScenario-StartAll</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
          <Name>Stop All Components (SIGINT)</Name>
-         <Command>./LocalScenario-StopAll stop</Command>
+         <Command>./RemoteScenario-StopAll stop</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Kill All Components (SIGKILL)</Name>
-         <Command>./LocalScenario-StopAll kill</Command>
+         <Command>./RemoteScenario-StopAll kill</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
