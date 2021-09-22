@@ -40,10 +40,10 @@ sleep 2
 ./ComponentControl ./LocalScenario.config PE 1 start  -identifier=0x100 -policy=PriorityLeastUsed:1.0 -fgpmaxthreads=1 -registrar=127.0.0.1:4100 -registrar=10.1.1.9:4200 -asapannounce=off -cspserver=10.1.1.9:2960 &
 ./ComponentControl ./LocalScenario.config PE 2 start  -identifier=0x200 -policy=PriorityLeastUsed:0.1 -registrar=10.1.1.9:4200 -asapannounce=off -cspserver=10.1.1.9:2960 &
 ./ComponentControl ./LocalScenario.config PE 3 start  -identifier=0x201 -policy=PriorityLeastUsed:0.1 -registrar=10.1.1.9:4200 -asapannounce=off -cspserver=10.1.1.9:2960 &
-./ComponentControl ./LocalScenario.config PE 10 start -identifier=0x300 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.9:4200 -asapannounce=off -cspserver=10.1.1.9:2960 &
-./ComponentControl ./LocalScenario.config PE 11 start -identifier=0x301 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.9:4200 -asapannounce=off -cspserver=10.1.1.9:2960 &
-./ComponentControl ./LocalScenario.config PE 12 start -identifier=0x302 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.9:4200 -asapannounce=off -cspserver=10.1.1.9:2960 &
-./ComponentControl ./LocalScenario.config PE 13 start -identifier=0x303 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.9:4200 -asapannounce=off -cspserver=10.1.1.9:2960 &
+./ComponentControl ./LocalScenario.config PE 10 start -identifier=0x300 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.9:4200 -registrar=10.1.1.9:4300 -asapannounce=off -cspserver=10.1.1.9:2960 &
+./ComponentControl ./LocalScenario.config PE 11 start -identifier=0x301 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.9:4200 -registrar=10.1.1.9:4300 -asapannounce=off -cspserver=10.1.1.9:2960 &
+./ComponentControl ./LocalScenario.config PE 12 start -identifier=0x302 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.9:4200 -registrar=10.1.1.9:4300 -asapannounce=off -cspserver=10.1.1.9:2960 &
+./ComponentControl ./LocalScenario.config PE 13 start -identifier=0x303 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.9:4200 -registrar=10.1.1.9:4300 -asapannounce=off -cspserver=10.1.1.9:2960 &
 
 wait
 sleep 2

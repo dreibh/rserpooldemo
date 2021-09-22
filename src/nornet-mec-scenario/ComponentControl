@@ -142,7 +142,7 @@ if [ "x$CC_COMMAND" = "xstart" ] ; then
    echo "   Output File = $OUTFILE"
    echo "   PID File    = $PIDFILE"
    echo "   Log File    = $LOGFILE"
-   $CC_PRESTART $PROGFILE $CC_ARGS >$OUTFILE 2>&1 &
+   LANG=C $CC_PRESTART $PROGFILE $CC_ARGS >$OUTFILE 2>&1 &
    PID=$!
    if [ $? = 0 ] ; then
       echo $PID > $PIDFILE
