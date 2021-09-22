@@ -65,6 +65,7 @@
    <Node>
       <UID>100000000010010</UID>
       <DisplayName>Registrar in Oslo, Norway</DisplayName>
+      <DisplayLocation>midtstuen.simula.nornet</DisplayLocation>
       <RefreshTimeout>5</RefreshTimeout>
       <ActiveImageURL>../graphics/RegistrarActive2.png</ActiveImageURL>
       <InactiveImageURL>../graphics/RegistrarInactive2.png</InactiveImageURL>
@@ -98,6 +99,7 @@
    <Node>
       <UID>200000000000200</UID>
       <DisplayName>PE 1 in Oslo, Norway</DisplayName>
+      <DisplayLocation>warrnambool.simula.nornet</DisplayLocation>
       <RefreshTimeout>5</RefreshTimeout>
       <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
       <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
@@ -144,6 +146,7 @@
    <Node>
       <UID>200000000000201</UID>
       <DisplayName>PE 2 in Oslo, Norway</DisplayName>
+      <DisplayLocation>geelong.simula.nornet</DisplayLocation>
       <RefreshTimeout>5</RefreshTimeout>
       <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
       <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
@@ -190,6 +193,7 @@
    <Node>
       <UID>100000000010020</UID>
       <DisplayName>Registrar in Trondheim, Norway</DisplayName>
+      <DisplayLocation>lerkendal.ntnu.nornet</DisplayLocation>
       <RefreshTimeout>5</RefreshTimeout>
       <ActiveImageURL>../graphics/RegistrarActive2.png</ActiveImageURL>
       <InactiveImageURL>../graphics/RegistrarInactive2.png</InactiveImageURL>
@@ -223,6 +227,7 @@
    <Node>
       <UID>200000000000300</UID>
       <DisplayName>PE in Tromsø, Norway</DisplayName>
+      <DisplayLocation>aunegaarden.uit.nornet</DisplayLocation>
       <RefreshTimeout>5</RefreshTimeout>
       <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
       <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
@@ -269,6 +274,7 @@
    <Node>
       <UID>200000000000301</UID>
       <DisplayName>PE in Essen, DE</DisplayName>
+      <DisplayLocation>borbeck.ude.nornet</DisplayLocation>
       <RefreshTimeout>5</RefreshTimeout>
       <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
       <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
@@ -315,6 +321,7 @@
    <Node>
       <UID>200000000000302</UID>
       <DisplayName>PE in Gjøvik, Norway</DisplayName>
+      <DisplayLocation>skreia.hig.nornet</DisplayLocation>
       <RefreshTimeout>5</RefreshTimeout>
       <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
       <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
@@ -361,6 +368,7 @@
    <Node>
       <UID>200000000000303</UID>
       <DisplayName>PE in Haikou (海口), China</DisplayName>
+      <DisplayLocation>boao.hu.nornet</DisplayLocation>
       <RefreshTimeout>5</RefreshTimeout>
       <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
       <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
@@ -407,6 +415,7 @@
    <Node>
       <UID>100000000010000</UID>
       <DisplayName>Registrar on UE</DisplayName>
+      <DisplayLocation>localhost</DisplayLocation>
       <RefreshTimeout>5</RefreshTimeout>
       <ActiveImageURL>../graphics/RegistrarActive2.png</ActiveImageURL>
       <InactiveImageURL>../graphics/RegistrarInactive2.png</InactiveImageURL>
@@ -440,6 +449,7 @@
    <Node>
       <UID>300000000000001</UID>
       <DisplayName>Pool User on UE</DisplayName>
+      <DisplayLocation>localhost</DisplayLocation>
       <RefreshTimeout>5</RefreshTimeout>
       <ActiveImageURL>../graphics/PoolUserActive2.png</ActiveImageURL>
       <InactiveImageURL>../graphics/PoolUserInactive2.png</InactiveImageURL>
@@ -468,6 +478,7 @@
    <Node>
       <UID>200000000000100</UID>
       <DisplayName>Pool Element on UE</DisplayName>
+      <DisplayLocation>localhost</DisplayLocation>
       <RefreshTimeout>5</RefreshTimeout>
       <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
       <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
