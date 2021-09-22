@@ -50,8 +50,9 @@ const char g_ProtocolColorIDTag[]      = "ID";
 const char g_ListenPortTag[]           = "ListenPort";
 const char g_NodeTag[]                 = "Node";
 const char g_UIDTag[]                  = "UID";
-const char g_displayNameTag[]          = "DisplayName";
-const char g_refreshTimeoutTag[]       = "RefreshTimeout";
+const char g_DisplayNameTag[]          = "DisplayName";
+const char g_DisplayLocationTag[]      = "DisplayLocation";
+const char g_RefreshTimeoutTag[]       = "RefreshTimeout";
 const char g_ActiveImageURLTag[]       = "ActiveImageURL";
 const char g_InactiveImageURLTag[]     = "InactiveImageURL";
 const char g_ContextMenuEntryTag[]     = "ContextMenuEntry";
@@ -66,7 +67,7 @@ const char g_CaptionTag[]              = "Caption";
 
 // ###### Constructor #######################################################
 RDConfiguration::RDConfiguration(QWidget*       canvasWidget,
-                               const QString& configFile)
+                                 const QString& configFile)
    : m_GraphicsSceneWidget(canvasWidget),
      m_DisplaySizeX(0),
      m_DisplaySizeY(0)
@@ -145,6 +146,7 @@ RDConfigNode* RDConfiguration::createNode(QDomElement element)
    std::list<RDContextMenuConfig*> contextNodes;
    QString                         uniqueID;
    QString                         displayName;
+   QString                         displayLocation;
    QString                         imageActive;
    QString                         imageInactive;
    int                             refreshTimeout = 0;
@@ -157,10 +159,13 @@ RDConfigNode* RDConfiguration::createNode(QDomElement element)
          if(currentNode.toElement().tagName() == QString(g_UIDTag)) {
             uniqueID = currentNode.toElement().text();
          }
-         else if(currentNode.toElement().tagName() == QString(g_displayNameTag)) {
+         else if(currentNode.toElement().tagName() == QString(g_DisplayNameTag)) {
             displayName = currentNode.toElement().text();
          }
-         else if(currentNode.toElement().tagName() == QString(g_refreshTimeoutTag)) {
+         else if(currentNode.toElement().tagName() == QString(g_DisplayLocationTag)) {
+            displayLocation = currentNode.toElement().text();
+         }
+         else if(currentNode.toElement().tagName() == QString(g_RefreshTimeoutTag)) {
             refreshTimeout = currentNode.toElement().text().toInt();
          }
          else if(currentNode.toElement().tagName() == QString(g_ActiveImageURLTag)) {
@@ -195,9 +200,9 @@ RDConfigNode* RDConfiguration::createNode(QDomElement element)
 
       currentNode = currentNode.nextSibling();
    }
-   RDConfigNode* node = new RDConfigNode(uniqueID, displayName,
-                           imageActive, imageInactive,
-                           positionX, positionY, refreshTimeout);
+   RDConfigNode* node = new RDConfigNode(uniqueID, displayName, displayLocation,
+                                         imageActive, imageInactive,
+                                         positionX, positionY, refreshTimeout);
    node->getContextMenuConfig() = contextNodes;
    return node;
 }
