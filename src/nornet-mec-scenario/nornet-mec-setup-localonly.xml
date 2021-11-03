@@ -424,7 +424,7 @@
       <PositionY>6</PositionY>
       <ContextMenuEntry>
          <Name>Start Registrar</Name>
-         <Command>./ComponentControl ./LocalScenario.config PR 1 start -identifier=0x10000 -asap=[::]:4100 -enrp=[::]:4101 -asapannounce=off -enrpannounce=off -peer=10.1.1.9:4201 -cspserver=10.1.1.9:2960</Command>
+         <Command>./ComponentControl ./LocalScenario.config PR 1 start -identifier=0x10000 -asap=[::]:4100 -enrp=[::]:4101 -asapannounce=auto -enrpannounce=off -peer=10.1.1.9:4201 -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuSeparator />
       <ContextMenuEntry>
@@ -458,7 +458,7 @@
       <PositionY>10</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool User</Name>
-         <Command>./ComponentControl ./LocalScenario.config PU 1 start -identifier=0x1 -caption=PoolUser-1 -registrar=127.0.0.1:4100 -registrar=10.1.1.9:4200 -asapannounce=off -cspserver=10.1.1.9:2960</Command>
+         <Command>./ComponentControl ./LocalScenario.config PU 1 start -identifier=0x1 -caption=PoolUser-1 -registrar=127.0.0.1:4100 -registrar=10.1.1.9:4200 -asapannounce=auto -cspserver=10.1.1.9:2960</Command>
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>Stop Pool User</Name>

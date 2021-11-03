@@ -30,9 +30,10 @@
 # *
 # * Contact: dreibh.iem.uni-due.de
 
-./ComponentControl                                                ./LocalScenario.config PR 1 start -identifier=0x10000 -asap=[::]:4100 -enrp=[::]:4101 -asapannounce=off -enrpannounce=off -peer=10.1.1.16:4201 -cspserver=10.1.1.9:2960 &
-./RemoteComponentControl ./MEC-User.config 10.1.1.16              ./LocalScenario.config PR 2 start -identifier=0x10010 -asap=[::]:4200 -enrp=[::]:4201 -asapannounce=off -enrpannounce=off -cspserver=10.1.1.9:2960 &
-./RemoteComponentControl ./PMC-User.config lerkendal.ntnu.nornet  ./LocalScenario.config PR 3 start -identifier=0x10020 -asap=[::]:4300 -enrp=[::]:4301 -asapannounce=off -enrpannounce=off -peer=10.1.1.16:4201 -cspserver=10.1.1.9:2960 &
+# !!! PR #1 sends ASAP announces! !!!
+./ComponentControl                                                ./LocalScenario.config PR 1 start -identifier=0x10000 -asap=[::]:4100 -enrp=[::]:4101 -asapannounce=auto -enrpannounce=off -peer=10.1.1.16:4201 -cspserver=10.1.1.9:2960 &
+./RemoteComponentControl ./MEC-User.config 10.1.1.16              ./LocalScenario.config PR 2 start -identifier=0x10010 -asap=[::]:4200 -enrp=[::]:4201 -asapannounce=off  -enrpannounce=off -cspserver=10.1.1.9:2960 &
+./RemoteComponentControl ./PMC-User.config lerkendal.ntnu.nornet  ./LocalScenario.config PR 3 start -identifier=0x10020 -asap=[::]:4300 -enrp=[::]:4301 -asapannounce=off  -enrpannounce=off -peer=10.1.1.16:4201 -cspserver=10.1.1.9:2960 &
 
 wait
 sleep 2
@@ -48,4 +49,5 @@ sleep 2
 wait
 sleep 2
 
-./ComponentControl ./LocalScenario.config PU 1 start -identifier=0x1 -caption=PoolUser-1 -registrar=127.0.0.1:4100 -registrar=10.1.1.16:4200 -asapannounce=off -cspserver=10.1.1.9:2960
+# !!! PU listens to ASAP announces! !!!
+./ComponentControl ./LocalScenario.config PU 1 start -identifier=0x1 -caption=PoolUser-1 -registrar=127.0.0.1:4100 -registrar=10.1.1.16:4200 -asapannounce=auto -cspserver=10.1.1.9:2960
