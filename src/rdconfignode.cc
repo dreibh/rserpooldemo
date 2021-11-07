@@ -41,6 +41,7 @@
 // ###### Constructor #######################################################
 RDConfigNode::RDConfigNode(const QString& uniqueID,
                            const QString& displayName,
+                           const QString& displayLocation,
                            const QString& imageActive,
                            const QString& imageInactive,
                            int            positionX,
@@ -48,6 +49,7 @@ RDConfigNode::RDConfigNode(const QString& uniqueID,
                            int            timeoutMultiplier)
    : m_UniqueID(uniqueID),
      m_DisplayName(displayName),
+     m_DisplayLocation(displayLocation),
      m_ImageActive(imageActive),
      m_ImageInactive(imageInactive),
      m_PositionX(positionX),

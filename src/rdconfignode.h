@@ -52,6 +52,7 @@ class RDConfigNode
    public:
    RDConfigNode(const QString& uniqueID,
                 const QString& displayName,
+                const QString& displayLocation,
                 const QString& imageActive,
                 const QString& imageInactive,
                 int            positionX,
@@ -99,7 +100,7 @@ class RDConfigNode
    }
 
    inline const QString& getLocationText() const {
-      return m_LocationText;
+      return (m_DisplayLocation == QString() ? m_LocationText : m_DisplayLocation);
    }
    inline void setLocationText(const QString& locationText) {
       m_LocationText = locationText;
@@ -130,6 +131,7 @@ class RDConfigNode
    // Values loaded from config files
    const QString                     m_UniqueID;
    const QString                     m_DisplayName;
+   const QString                     m_DisplayLocation;
    const QString                     m_ImageActive;
    const QString                     m_ImageInactive;
    int                               m_PositionX;
