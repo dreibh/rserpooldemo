@@ -151,8 +151,7 @@ Description: Desktop setup for the RSerPool Demo system
 Package: rserpooldemo-scenario-cfgfiles
 Architecture: all
 Depends: rsplib-fgp-cfgfiles,
-         ${misc:Depends},
-         ${shlibs:Depends}
+         ${misc:Depends}
 Recommends: rsplib-registrar
 Description: Scenario configuration files for the RSerPool Demo system
  This package contains the scenario files for the RSerPoolDemo tool.
