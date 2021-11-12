@@ -1,7 +1,7 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: rserpooldemo
 Upstream-Contact: Thomas Dreibholz <dreibh@iem.uni-due.de>
-Source: https://www.uni-due.de/~be0001/
+Source: https://www.uni-due.de/~be0001/rserpool/download/
 
 Files: *
 Copyright: Copyright 2002-2019 Thomas Dreibholz

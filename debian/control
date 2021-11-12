@@ -2,7 +2,7 @@ Source: rserpooldemo
 Section: net
 Priority: optional
 Maintainer: Thomas Dreibholz <dreibh@iem.uni-due.de>
-Homepage: https://www.uni-due.de/~be0001/
+Homepage: https://www.uni-due.de/~be0001/rserpool/rserpool/
 Build-Depends: cmake (>= 3.3) | cmake3,
                debhelper (>= 9),
                fonts-dejavu,
@@ -79,7 +79,7 @@ Description: Management tools for the RSerPool Demo system
  This metapackage contains basic software for RSerPoolDemo system management.
  The software installed provides a common working environment.
  .
- See https://www.uni-due.de/~be0001/ for details on RSerPool and the
+ See https://www.uni-due.de/~be0001/rserpool/ for details on RSerPool and the
  RSerPoolDemo tool!
 
 Package: rserpooldemo-development
@@ -131,7 +131,7 @@ Description: Development tools for the RSerPool Demo system
  This metapackage contains basic software for RSerPoolDemo development.
  The software installed provides a common working environment.
  .
- See https://www.uni-due.de/~be0001/ for details on RSerPool and the
+ See https://www.uni-due.de/~be0001/rserpool/ for details on RSerPool and the
  RSerPoolDemo tool!
 
 Package: rserpooldemo-desktop
@@ -145,7 +145,7 @@ Depends: firefox | firefox-esr,
 Description: Desktop setup for the RSerPool Demo system
  This package contains the scripts to configure a RSerPoolDemo desktop.
  .
- See https://www.uni-due.de/~be0001/ for details on RSerPool and the
+ See https://www.uni-due.de/~be0001/rserpool/ for details on RSerPool and the
  RSerPoolDemo tool!
 
 Package: rserpooldemo-scenario-cfgfiles
@@ -157,7 +157,7 @@ Recommends: rsplib-registrar
 Description: Scenario configuration files for the RSerPool Demo system
  This package contains the scenario files for the RSerPoolDemo tool.
  .
- See https://www.uni-due.de/~be0001/ for details on RSerPool and the
+ See https://www.uni-due.de/~be0001/rserpool/ for details on RSerPool and the
  RSerPoolDemo tool!
 
 Package: rserpooldemo-tool
@@ -171,5 +171,5 @@ Recommends: fractgen,
 Description: GUI tool for the RSerPool Demo system
  This package contains the RSerPoolDemo tool.
  .
- See https://www.uni-due.de/~be0001/ for details on RSerPool and the
+ See https://www.uni-due.de/~be0001/rserpool/ for details on RSerPool and the
  RSerPoolDemo tool!
