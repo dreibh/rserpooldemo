@@ -1,5 +1,5 @@
 Name: rserpooldemo
-Version: 3.0.6~test1
+Version: 3.0.6~test3
 Release: 1
 Summary: RSerPool Demo Tool
 Group: Applications/Internet
@@ -79,7 +79,6 @@ Requires: net-tools
 Requires: nmap
 Requires: (ntpsec or ntpdate)
 Requires: pxz
-Requires: reiserfs-utils
 Requires: reprepro
 Requires: smartmontools
 Requires: subnetcalc
@@ -92,6 +91,7 @@ Requires: virt-what
 Requires: whois
 Recommends: ipsec-tools
 Recommends: netperfmeter
+Recommends: reiserfs-utils
 Recommends: rsplib-docs
 Recommends: rsplib-services
 Recommends: rsplib-tools
