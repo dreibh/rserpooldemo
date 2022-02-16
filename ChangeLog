@@ -1,3 +1,276 @@
+commit 3379bd8e916f5b566d3df39b7c6d0fcca1916b8c
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Feb 15 16:31:14 2022 +0100
+
+    RPM dependency fix.
+
+commit 3d48bcdaa5fca1eee730ce924a731cec5f7e2f63
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Feb 15 12:53:24 2022 +0100
+
+    Updated script.
+
+commit 224b4fbb64557c65e9a7c6b792b8a605489f26c7
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Feb 15 12:34:25 2022 +0100
+
+    Updated build scripts
+
+commit 06454489cfec442262b25e1b80568e7606a84d54
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Nov 30 15:31:12 2021 +0100
+
+    Updated CI scripts
+
+commit 0dd7912d78deb65dbefc5ba901aad5d9f0a0a397
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Nov 30 15:31:09 2021 +0100
+
+    Travis CI is dead. Removed obsolete Travis CI scripts and configuration.
+
+commit ea5da950b8ee5c2702d458b423f50582a2ef3dd5
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Nov 30 15:30:37 2021 +0100
+
+    Updated build scripts
+
+commit 65313ed4b0f444baf48611d5fcf05481f00d1323
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Nov 30 15:29:31 2021 +0100
+
+    Removed invalid field "Homepage" from debian/upstream/metadata
+
+commit 5862c16d5ae42d798da8c2e623271b1338636f8b
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 12 12:25:05 2021 +0100
+
+    Version update.
+
+commit e3d59e2e17cd64db44d105f2d968a7459f0e7922
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 12 12:24:33 2021 +0100
+
+    Fixed URL.
+
+commit 0bc76eb3257d530c2bca67e5f020f55a4602508a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 12 11:46:14 2021 +0100
+
+    Added ITP.
+
+commit eeddf71bcf46d798afebdf60a8a8b28b1f4c3162
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 12 11:40:49 2021 +0100
+
+    Minor update.
+
+commit 6362220a3daffcf3bf0ead51857bc6d5ebabae02
+Merge: 5b743f3 5ca0108
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 12 10:57:33 2021 +0100
+
+    Merge branch 'dreibh/nornet-mec-scenario'
+
+commit 5ca0108698325d3a73c147a26afec58b49d7cd9f
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 12 10:57:13 2021 +0100
+
+    Minor update.
+
+commit 445ee4e9580bda8a46a3d74045a9af49903b828a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 12 10:25:04 2021 +0100
+
+    URL fix.
+
+commit 4f80420618fd007ae23ec71d2c98a70cbb3d6b4a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 12 09:54:27 2021 +0100
+
+    Updated README.
+
+commit 5b743f3ac938517185734eb833d89b2d6e1ea862
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Nov 8 12:22:50 2021 +0100
+
+    Using dh_installman for the manpages in the Debian/Ubuntu package.
+
+commit b722e1928589daff14629a74ee5a4a863e599b7c
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Nov 8 10:39:40 2021 +0100
+
+    Updated build scripts
+
+commit 603285655b03578868e5ec7a53fb3210ceac260a
+Merge: 142e085 3bebbba
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Nov 7 16:51:23 2021 +0100
+
+    Merge branch 'dreibh/nornet-mec-scenario' of github.com:dreibh/rserpooldemo into dreibh/nornet-mec-scenario
+
+commit 3bebbbaa3f24831e2efe163e589204e1d0ff50fa
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Nov 7 14:27:37 2021 +0100
+
+    Updated build scripts.
+
+commit 142e0855a713dc95b322ff0c5e83944d1d7383bf
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Nov 3 19:58:32 2021 +0100
+
+    Added configuration file.
+
+commit 0487565381debc7b149774bde6c476b069e0b82b
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Nov 3 19:57:15 2021 +0100
+
+    A small fix.
+
+commit 5093e8ac80317efc2b58f8a465a22bd556a75151
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Nov 3 19:57:05 2021 +0100
+
+    Updated example.
+
+commit 37f7cd4c55f4911dcd5561e9b7a6e751019fe853
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Nov 3 18:23:34 2021 +0100
+
+    Updated build scripts
+
+commit 1732966cbebdf439aab5a1fd4c35b2f333098567
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Nov 3 18:19:00 2021 +0100
+
+    Updated build scripts
+
+commit 5ed719047773962e81f90b24ecae562666ae028f
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Oct 19 16:11:57 2021 +0200
+
+    Updated build scripts
+
+commit 2f941b8a3e58508e6e118ebcf7c3b4947f2dfe89
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Sep 22 23:07:19 2021 +0200
+
+    Updated scenario configuration.
+
+commit bfc969b61b093295d699a34a83cf7fba55acba30
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Sep 22 21:13:50 2021 +0200
+
+    Small improvements.
+
+commit bbfcd99f87a7f5990643ada035e89843f47b7e34
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Sep 22 20:58:30 2021 +0200
+
+    Updated scenario.
+
+commit d5305102c11011bc828e00ab48549f2a16547655
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Sep 22 20:57:46 2021 +0200
+
+    Added tag to specify a fixed location for displaying, to avoid long lists of IP addresses.
+
+commit e1405daad75664717b5d9f768e1b8f26ee330ede
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Sep 22 20:35:21 2021 +0200
+
+    Improved configuration.
+
+commit 5f5413a322f4da28b24899d1f56ade20395884a5
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Sep 22 20:20:23 2021 +0200
+
+    Minor update.
+
+commit bcbfc1983b351a48b446cc2becaa0284096066b9
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Sep 22 20:19:36 2021 +0200
+
+    Updated ports.
+
+commit 2a23263e40d7a50e38d5e97b5aa7b99f0d0b6e0c
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Sep 21 22:32:47 2021 +0200
+
+    Fixed typo.
+
+commit 517c5a5386b67b513d2920dc33db218a487e94e7
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Sep 21 16:39:29 2021 +0200
+
+    Improved scenario.
+
+commit 1a1edce18daa4da9989ea7289c9b462343201cc8
+Merge: dec76e7 543ee0e
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Sep 21 16:39:21 2021 +0200
+
+    Merge branch 'dreibh/nornet-mec-scenario' of github.com:dreibh/rserpooldemo into dreibh/nornet-mec-scenario
+
+commit 543ee0e4237ca8a760a3a2b6c6c06a46f19079e6
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Sep 21 16:38:51 2021 +0200
+
+    Silenced useless warning.
+
+commit dec76e766df10bd98808971ea3be8529fc266bef
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Sep 21 16:12:22 2021 +0200
+
+    Updated settings.
+
+commit 9934d25a2b98f852d2fe60745905a6ca6271577b
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Sep 21 14:18:32 2021 +0200
+
+    Further updates.
+
+commit 7d0b2e2004f41286e4922062b4e31773a60ffd4e
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Sep 21 12:22:06 2021 +0200
+
+    Updated scenario.
+
+commit 65861a358f0608cc9ea7197033d10e9572f678ca
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Aug 13 14:40:12 2021 +0200
+
+    Improved scenario.
+
+commit e33af20ea1e72ba1e14ae5311ed495cd7c0a5123
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Aug 13 14:39:26 2021 +0200
+
+    Bugfix: Fixed layout of workload label.
+
+commit d95899605bc3d910be3256660af5d8aee9322818
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Aug 13 12:30:47 2021 +0200
+
+    Updated scenario.
+
+commit 572ab5525d87bed1187ad9fb52ba3c83798728ce
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Aug 13 12:00:27 2021 +0200
+
+    Added new scenario.
+
+commit e7811f83e8ae1aa096c93dca0ef81618e6876651
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Jun 14 12:54:28 2021 +0200
+
+    Updated LSM entry.
+
+commit 143de6c00c874a318a4adf080a5b58ae7413644a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Jun 14 12:43:44 2021 +0200
+
+    New release rserpooldemo-3.0.5.
+
 commit 4e138be2aeacdf89a53538f384369271df044b7e
 Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Mon Jun 14 12:42:21 2021 +0200

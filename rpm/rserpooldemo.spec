@@ -1,5 +1,5 @@
 Name: rserpooldemo
-Version: 3.0.6~test3
+Version: 3.0.6
 Release: 1
 Summary: RSerPool Demo Tool
 Group: Applications/Internet
@@ -225,6 +225,8 @@ See https://www.uni-due.de/~be0001/rserpool/ for details on RSerPool and the RSe
 
 
 %changelog
+* Wed Feb 16 2022 Thomas Dreibholz <dreibh@iem.uni-due.de> - 3.0.6
+- New upstream release.
 * Mon Jun 14 2021 Thomas Dreibholz <dreibh@iem.uni-due.de> - 3.0.5
 - New upstream release.
 * Wed Dec 16 2020 Thomas Dreibholz <dreibh@iem.uni-due.de> - 3.0.4
