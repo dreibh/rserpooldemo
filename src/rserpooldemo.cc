@@ -48,28 +48,31 @@ int main(int argc, char** argv)
 {
    try {
       const QString configFileTag = "-config=";
-      QString configFile = "local-setup.xml";
+      QString configFileName = "local-setup.xml";
       for(int i = 1;i < argc;i++) {
          const QString command = argv[i];
          if(command.indexOf(configFileTag) == 0) {
-            configFile = command.mid(configFileTag.length());
+            configFileName = command.mid(configFileTag.length());
          }
          else if(QFile::exists(command)) {
-            configFile = command;
+            configFileName = command;
          }
       }
 
-      const QFileInfo configFileInfo(configFile);
-      const QString configFileDirectory = QFileInfo(configFile).absoluteDir().absolutePath();
-      configFile = configFileInfo.fileName();
-
+      // Resolve symlink to configuration file (if any), and obtain work directory:
+      const QFileInfo configFileInfo(
+                         QFileInfo(configFileName).isSymLink() ?
+                            QFileInfo(configFileName).symLinkTarget() :
+                            configFileName);
+      const QString   configFileDirectory = configFileInfo.absoluteDir().absolutePath();
+      configFileName = configFileInfo.fileName();
       QDir::setCurrent(configFileDirectory);
 
-      std::cout << "Using configuration \"" << configFile.toLocal8Bit().constData()
+      std::cout << "Using configuration \"" << configFileName.toLocal8Bit().constData()
                 << "\" in \"" << configFileDirectory.toLocal8Bit().constData()
                 << "\" ..." << std::endl;
       QApplication application(argc, argv);
-      RDMainWindow* mainWindow = new RDMainWindow(configFile);
+      RDMainWindow* mainWindow = new RDMainWindow(configFileName);
       Q_CHECK_PTR(mainWindow);
       mainWindow->show();
 
