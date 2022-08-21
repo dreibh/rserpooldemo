@@ -1,3 +1,6 @@
+share/applications/rserpooldemo.desktop
+share/icons/hicolor/512x512/apps/rserpooldemo.png
+share/mime/packages/rserpooldemo.xml
 share/rserpooldemo/background/*
 share/rserpooldemo/desktop/*
 share/rserpooldemo/grub-defaults

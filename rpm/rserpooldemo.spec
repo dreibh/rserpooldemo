@@ -221,6 +221,9 @@ See https://www.uni-due.de/~be0001/rserpool/ for details on RSerPool and the RSe
 
 %files tool
 %{_bindir}/rserpooldemo
+%{_datadir}/applications/rserpooldemo.desktop
+%{_datadir}/icons/hicolor/512x512/apps/rserpooldemo.png
+%{_datadir}/mime/packages/rserpooldemo.xml
 %{_mandir}/man1/rserpooldemo.1.gz
 
 
