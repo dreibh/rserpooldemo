@@ -5,6 +5,7 @@
     <comment>RSerPoolDemo scenario file</comment>
     <comment xml:lang="de">RSerPoolDemo-Szenariodatei</comment>
     <comment xml:lang="nn">RSerPoolDemo-szenariofil</comment>
+    <generic-icon name="rserpooldemo"/>
     <magic priority="80">
       <match type="string" value="&lt;RSerPoolDemoConfigurationRoot&gt;" offset="0:2047"/>
     </magic>
