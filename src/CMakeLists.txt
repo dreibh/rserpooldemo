@@ -56,6 +56,10 @@ INSTALL(TARGETS             rserpooldemo
         BUNDLE DESTINATION  ${CMAKE_INSTALL_BINDIR})
 INSTALL(FILES rserpooldemo.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
 
+INSTALL(FILES rserpooldemo.png     DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/512x512/apps)
+INSTALL(FILES rserpooldemo.desktop DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/applications)
+INSTALL(FILES rserpooldemo.xml     DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/mime/packages)
+
 
 #############################################################################
 # CONFIGURATION FILES
