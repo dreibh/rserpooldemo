@@ -148,7 +148,7 @@ void RDContextMenuConfig::execute()
    m_pProcess->start(command, arguments);
 
    // ====== Wait for finish ================================================
-   if(!m_pProcess->waitForFinished(15000)) {
+   if(!m_pProcess->waitForFinished(30000)) {
       QMessageBox::critical(0, "Error!",
          "Process has not finished, yet:\n" +
          m_CommandLine +
