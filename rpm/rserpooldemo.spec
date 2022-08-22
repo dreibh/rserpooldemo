@@ -89,7 +89,6 @@ Requires: tree
 Requires: vconfig
 Requires: virt-what
 Requires: whois
-Recommends: ipsec-tools
 Recommends: netperfmeter
 Recommends: reiserfs-utils
 Recommends: rsplib-docs

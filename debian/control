@@ -70,7 +70,6 @@ Depends: apt-file,
          ${misc:Depends},
          ${shlibs:Depends}
 Recommends: apport-retrace,
-            ipsec-tools,
             language-pack-de-base,
             language-pack-en-base,
             language-pack-nb-base,
