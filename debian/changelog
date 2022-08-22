@@ -1,10 +1,10 @@
-rserpooldemo (3.1.0~rc1-1ubuntu1) jammy; urgency=medium
+rserpooldemo (3.1.0-1ubuntu1) jammy; urgency=medium
 
   * New upstream release.
   * debian/control: Updated standards version to 4.6.1.
   * Closes: #999549 (ITP).
 
- -- Thomas Dreibholz <dreibh@iem.uni-due.de>  Sun, 21 Aug 2022 16:36:23 +0200
+ -- Thomas Dreibholz <dreibh@iem.uni-due.de>  Mon, 22 Aug 2022 20:28:51 +0200
 
 rserpooldemo (3.0.6-1ubuntu1) jammy; urgency=medium
 

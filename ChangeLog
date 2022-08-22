@@ -1,3 +1,99 @@
+commit cd2c8412d82686b41e9f6250b6d07d8c93af72d7
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Aug 22 13:26:47 2022 +0200
+
+    Minor update.
+
+commit 08472cc2c4e87b96469f4f89e963a0d9796f415d
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Aug 22 12:32:30 2022 +0200
+
+    Updated background text.
+
+commit 354055df3a04c96b9acd66d64144ca3ee979f8c5
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Aug 22 11:58:30 2022 +0200
+
+    Timeout update.
+
+commit e193e8365cf1ee51493fc3395a0a8908a8d52c0d
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Aug 22 11:51:34 2022 +0200
+
+    Improved configuration.
+
+commit 875ac4e8a79850827261f4f82fe9320fbf9cf37d
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Aug 22 11:13:09 2022 +0200
+
+    Dependency update.
+
+commit ce3d123e9af84e8e7a93c8c586f9a10d509ca42f
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Aug 21 16:53:04 2022 +0200
+
+    Further header updates.
+
+commit 795e766b8a96a20d155d89a827b02b07931bf067
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Aug 21 16:51:15 2022 +0200
+
+    Updated headers.
+
+commit 507f424ead7dc0bef947c861d9e7f763187d03a0
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Aug 21 16:34:03 2022 +0200
+
+    Improved symlink handling.
+
+commit ac8910493f311ff44cbaa20d0443ea79b9f12c1b
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Aug 21 14:38:49 2022 +0200
+
+    Updated CI scripts
+
+commit 79514914bd584e6ceb1152ba47fae7010319845d
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Aug 21 14:38:47 2022 +0200
+
+    Updated build scripts
+
+commit c2acb1e5702345c169645115555753f9d9de93f8
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Aug 21 14:08:15 2022 +0200
+
+    Added uninstall target.
+
+commit 3cc4485544b6cf8031cf31379427fe95d1b9aedb
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Aug 21 13:58:40 2022 +0200
+
+    Minor update.
+
+commit 284ac0566c2022ab964de3c86ed61b4a364d3f7a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Aug 21 13:38:23 2022 +0200
+
+    Updated packaging files.
+
+commit ed2e3247b2bf1a7af70eec254684222699655d5d
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Aug 21 13:28:16 2022 +0200
+
+    Added desktop files.
+
+commit 0aa461aa38baccc4c3139e6bf9b833047ee5cd65
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Feb 16 12:12:59 2022 +0100
+
+    Updated LSM entry.
+
+commit 27a7ded333cd656f945dfa8461a1cbd40eb6a6e1
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Feb 16 11:46:46 2022 +0100
+
+    New release rserpooldemo-3.0.6.
+
 commit 3379bd8e916f5b566d3df39b7c6d0fcca1916b8c
 Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Tue Feb 15 16:31:14 2022 +0100
