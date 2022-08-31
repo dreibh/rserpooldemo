@@ -18,8 +18,6 @@ Build-Depends: cmake (>= 3.3) | cmake3,
                qtbase5-dev
 Standards-Version: 4.6.1
 Rules-Requires-Root: no
-Vcs-Git: https://github.com/dreibh/rserpooldemo.git
-Vcs-Browser: https://github.com/dreibh/rserpooldemo
 
 Package: rserpooldemo-management
 Architecture: all
