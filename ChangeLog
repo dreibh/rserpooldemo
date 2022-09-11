@@ -1,3 +1,21 @@
+commit 92e022a10d7f9ee7326804f630d24be95847c9bd
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Aug 31 11:47:32 2022 +0200
+
+    Removed Vcs-* fields from debian/control.
+
+commit 371ed3ab4651c73a5e1bfa3406ae0c5ece32c2f1
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Aug 22 20:32:33 2022 +0200
+
+    Updated LSM entry.
+
+commit 2330322f908204a0c1280eb7c6be26a4759f05a5
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Aug 22 20:28:54 2022 +0200
+
+    New release rserpooldemo-3.1.0.
+
 commit cd2c8412d82686b41e9f6250b6d07d8c93af72d7
 Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Mon Aug 22 13:26:47 2022 +0200
