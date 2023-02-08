@@ -4,8 +4,8 @@ Release: 1
 Summary: RSerPool Demo Tool
 Group: Applications/Internet
 License: GPL-3+
-URL: https://www.uni-due.de/~be0001/rserpool/rserpool/
-Source: https://www.uni-due.de/~be0001/rserpool/rserpool/download/%{name}-%{version}.tar.xz
+URL: https://www.nntb.no/~dreibh/rserpool/rserpool/
+Source: https://www.nntb.no/~dreibh/rserpool/rserpool/download/%{name}-%{version}.tar.xz
 
 AutoReqProv: on
 BuildRequires: cmake
@@ -34,7 +34,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-build
 
 %description
 This package contains the RSerPool Demo Tool
-See https://www.uni-due.de/~be0001/rserpool/ for details on RSerPool and the RSerPoolDemo tool!
+See https://www.nntb.no/~dreibh/rserpool/ for details on RSerPool and the RSerPoolDemo tool!
 
 %prep
 %setup -q
@@ -98,7 +98,7 @@ Recommends: wireshark-cli
 
 %description management
 This metapackage contains basic software for RSerPoolDemo system management.
-See https://www.uni-due.de/~be0001/rserpool/ for details on RSerPool and the RSerPoolDemo tool!
+See https://www.nntb.no/~dreibh/rserpool/ for details on RSerPool and the RSerPoolDemo tool!
 
 %files management
 %{_sysconfdir}/rserpooldemo/rserpooldemo-version
@@ -156,7 +156,7 @@ Requires: valgrind
 
 %description development
 This metapackage contains basic software for RSerPoolDemo development.
-See https://www.uni-due.de/~be0001/rserpool/ for details on RSerPool and the RSerPoolDemo tool!
+See https://www.nntb.no/~dreibh/rserpool/ for details on RSerPool and the RSerPoolDemo tool!
 
 %files development
 
@@ -170,7 +170,7 @@ Recommends: grub2-tools
 
 %description desktop
 This package contains the scripts to configure a RSerPoolDemo desktop.
-See https://www.uni-due.de/~be0001/rserpool/ for details on RSerPool and the RSerPoolDemo tool!
+See https://www.nntb.no/~dreibh/rserpool/ for details on RSerPool and the RSerPoolDemo tool!
 
 %files desktop
 /boot/RSerPoolDemo/Zollverein-*.jpeg
@@ -198,7 +198,7 @@ Recommends: rsplib-fgp-cfgfiles
 
 %description scenario-cfgfiles
 This package contains the scenario files for the RSerPoolDemo tool.
-See https://www.uni-due.de/~be0001/rserpool/ for details on RSerPool and the RSerPoolDemo tool!
+See https://www.nntb.no/~dreibh/rserpool/ for details on RSerPool and the RSerPoolDemo tool!
 
 %files scenario-cfgfiles
 %{_datadir}/rserpooldemo/graphics/*
@@ -216,7 +216,7 @@ Recommends: rsplib-tools
 
 %description tool
 This package contains the RSerPoolDemo tool.
-See https://www.uni-due.de/~be0001/rserpool/ for details on RSerPool and the RSerPoolDemo tool!
+See https://www.nntb.no/~dreibh/rserpool/ for details on RSerPool and the RSerPoolDemo tool!
 
 %files tool
 %{_bindir}/rserpooldemo
