@@ -14,7 +14,7 @@
 *
 * ############# An Efficient RSerPool Prototype Implementation #############
 *
-* Copyright (C) 2002-2022 by Thomas Dreibholz
+* Copyright (C) 2002-2023 by Thomas Dreibholz
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -117,7 +117,7 @@
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>View RSerPool Page</Name>
-         <Command>./RunProgram konqueror https://www.uni-due.de/~be0001/rserpool/</Command>
+         <Command>./RunProgram konqueror https://www.nntb.no/~dreibh/rserpool/</Command>
       </ContextMenuEntry>
    </Node>
 

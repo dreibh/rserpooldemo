@@ -1,12 +1,12 @@
-# Created by: Thomas Dreibholz <dreibh@iem.uni-due.de>
+# Created by: Thomas Dreibholz <thomas.dreibholz@gmail.com>
 # $FreeBSD: head/net/rsplib/Makefile 509199 2019-08-18 10:42:52Z pi $
 
 PORTNAME=	rserpooldemo
 PORTVERSION=	3.1.1
 CATEGORIES=	net
-MASTER_SITES=	https://www.uni-due.de/~be0001/rserpool/download/
+MASTER_SITES=	https://www.nntb.no/~dreibh/rserpool/download/
 
-MAINTAINER=	dreibh@iem.uni-due.de
+MAINTAINER=	thomas.dreibholz@gmail.com
 COMMENT=	RSerPool Demo Tool
 
 LICENSE=	GPLv3+
