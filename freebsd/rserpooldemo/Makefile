@@ -2,7 +2,7 @@
 # $FreeBSD: head/net/rsplib/Makefile 509199 2019-08-18 10:42:52Z pi $
 
 PORTNAME=	rserpooldemo
-PORTVERSION=	3.1.1
+PORTVERSION=	3.1.2
 CATEGORIES=	net
 MASTER_SITES=	https://www.nntb.no/~dreibh/rserpool/download/
 

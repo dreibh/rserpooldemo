@@ -1,3 +1,33 @@
+commit b47a2a11efdca5e73c06fed7f11a6d85ff9f062a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Feb 8 10:52:54 2023 +0100
+
+    RPM spec update.
+
+commit 8808ba02643336d326546a1b22b8534bf6e2ecac
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Feb 8 10:49:51 2023 +0100
+
+    URL change from UDE to NNTB.
+
+commit 59b0939858e40167af2510038b18f0e52fa8d844
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Feb 8 10:45:38 2023 +0100
+
+    Updated CI scripts
+
+commit 3abe41be2765891b82e5e7c9f773482b195e1014
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Feb 8 10:45:33 2023 +0100
+
+    Updated build scripts
+
+commit b82d4c5b3ec1c617ff65863a35c65e03bdb0315c
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Sep 11 13:04:23 2022 +0200
+
+    New release rserpooldemo-3.1.1.
+
 commit 92e022a10d7f9ee7326804f630d24be95847c9bd
 Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Wed Aug 31 11:47:32 2022 +0200
