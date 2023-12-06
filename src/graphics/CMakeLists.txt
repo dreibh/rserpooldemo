@@ -33,7 +33,7 @@
 # Contact: thomas.dreibholz@gmail.com
 
 #############################################################################
-# GRAPHICS FILES
+#### GRAPHICS FILES                                                      ####
 #############################################################################
 
 FILE(GLOB graphics_files "*.[Jj][Pp][Ee][Gg]" "*.[Jj][Pp][Gg]" "*.[Pp][Nn][Gg]")

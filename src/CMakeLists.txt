@@ -35,7 +35,7 @@
 SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 #############################################################################
-# PROGRAMS
+#### PROGRAMS                                                            ####
 #############################################################################
 
 ADD_EXECUTABLE(rserpooldemo
@@ -62,7 +62,7 @@ INSTALL(FILES rserpooldemo.xml     DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/mime
 
 
 #############################################################################
-# CONFIGURATION FILES
+#### CONFIGURATION FILES                                                 ####
 #############################################################################
 
 INSTALL(PROGRAMS system-info.d/30-rsplib DESTINATION ${CMAKE_INSTALL_FULL_SYSCONFDIR}/system-info.d)
@@ -72,7 +72,7 @@ INSTALL(PROGRAMS system-maintenance.d/30-rsplib DESTINATION ${CMAKE_INSTALL_FULL
 
 
 #############################################################################
-# SOURCE DIRECTORIES
+#### SOURCE DIRECTORIES                                                  ####
 #############################################################################
 
 ADD_SUBDIRECTORY(background)
