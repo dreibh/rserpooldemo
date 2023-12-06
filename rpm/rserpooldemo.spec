@@ -22,6 +22,7 @@ BuildRequires: google-noto-serif-fonts
 BuildRequires: GraphicsMagick
 BuildRequires: inkscape
 BuildRequires: perl-Image-ExifTool
+BuildRequires: pygtk2
 BuildRequires: qt5-qtbase-devel
 BuildRequires: texlive-epstopdf-bin
 BuildRequires: urw-base35-fonts
