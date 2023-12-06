@@ -13,9 +13,9 @@
  *
  * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Copyright (C) 2002-2021 by Thomas Dreibholz
+ *   Copyright (C) 2002-2024 by Thomas Dreibholz
  *
- *   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
+ *   Authors: Thomas Dreibholz, thomas.dreibholz@gmail.com
  *            Sebastian Rohde, rohde@iem.uni-due.de
  *
  * This program is free software: you can redistribute it and/or modify
@@ -31,7 +31,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Contact: dreibh@iem.uni-due.de
+ * Contact: thomas.dreibholz@gmail.com
  */
 
 #include <QApplication>
@@ -48,28 +48,31 @@ int main(int argc, char** argv)
 {
    try {
       const QString configFileTag = "-config=";
-      QString configFile = "local-setup.xml";
+      QString configFileName = "local-setup.xml";
       for(int i = 1;i < argc;i++) {
          const QString command = argv[i];
          if(command.indexOf(configFileTag) == 0) {
-            configFile = command.mid(configFileTag.length());
+            configFileName = command.mid(configFileTag.length());
          }
          else if(QFile::exists(command)) {
-            configFile = command;
+            configFileName = command;
          }
       }
 
-      const QFileInfo configFileInfo(configFile);
-      const QString configFileDirectory = QFileInfo(configFile).absoluteDir().absolutePath();
-      configFile = configFileInfo.fileName();
-
+      // Resolve symlink to configuration file (if any), and obtain work directory:
+      const QFileInfo configFileInfo(
+                         QFileInfo(configFileName).isSymLink() ?
+                            QFileInfo(configFileName).symLinkTarget() :
+                            configFileName);
+      const QString   configFileDirectory = configFileInfo.absoluteDir().absolutePath();
+      configFileName = configFileInfo.fileName();
       QDir::setCurrent(configFileDirectory);
 
-      std::cout << "Using configuration \"" << configFile.toLocal8Bit().constData()
+      std::cout << "Using configuration \"" << configFileName.toLocal8Bit().constData()
                 << "\" in \"" << configFileDirectory.toLocal8Bit().constData()
                 << "\" ..." << std::endl;
       QApplication application(argc, argv);
-      RDMainWindow* mainWindow = new RDMainWindow(configFile);
+      RDMainWindow* mainWindow = new RDMainWindow(configFileName);
       Q_CHECK_PTR(mainWindow);
       mainWindow->show();
 

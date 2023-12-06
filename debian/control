@@ -1,10 +1,10 @@
 Source: rserpooldemo
 Section: net
 Priority: optional
-Maintainer: Thomas Dreibholz <dreibh@iem.uni-due.de>
-Homepage: https://www.uni-due.de/~be0001/
-Build-Depends: cmake (>= 3.3) | cmake3,
-               debhelper (>= 9),
+Maintainer: Thomas Dreibholz <thomas.dreibholz@gmail.com>
+Homepage: https://www.nntb.no/~dreibh/rserpool/rserpool/
+Build-Depends: cmake,
+               debhelper (>= 12),
                fonts-dejavu,
                fonts-noto-cjk,
                fonts-noto-hinted,
@@ -13,13 +13,10 @@ Build-Depends: cmake (>= 3.3) | cmake3,
                graphicsmagick,
                gsfonts,
                inkscape,
-               libfile-fcntllock-perl,
                libimage-exiftool-perl,
                qtbase5-dev
-Standards-Version: 4.5.1.0
+Standards-Version: 4.6.2
 Rules-Requires-Root: no
-Vcs-Git: https://bitbucket.org/dreibh/rserpooldemo.git
-Vcs-Browser: https://bitbucket.org/dreibh/rserpooldemo
 
 Package: rserpooldemo-management
 Architecture: all
@@ -42,10 +39,8 @@ Depends: apt-file,
          idn,
          ifupdown,
          joe,
-         libfile-fcntllock-perl,
          lksctp-tools,
-         lsb-base (>= 3.2-14),
-         mlocate,
+         mlocate | plocate,
          net-tools,
          netperfmeter,
          nmap,
@@ -67,10 +62,8 @@ Depends: apt-file,
          vlan,
          whois,
          xz-utils (>= 5.2.0) | pxz,
-         ${misc:Depends},
-         ${shlibs:Depends}
+         ${misc:Depends}
 Recommends: apport-retrace,
-            ipsec-tools,
             language-pack-de-base,
             language-pack-en-base,
             language-pack-nb-base,
@@ -79,7 +72,7 @@ Description: Management tools for the RSerPool Demo system
  This metapackage contains basic software for RSerPoolDemo system management.
  The software installed provides a common working environment.
  .
- See https://www.uni-due.de/~be0001/ for details on RSerPool and the
+ See https://www.nntb.no/~dreibh/rserpool/ for details on RSerPool and the
  RSerPoolDemo tool!
 
 Package: rserpooldemo-development
@@ -89,7 +82,7 @@ Depends: autoconf,
          bc,
          bison,
          clang,
-         cmake (>= 3.3) | cmake3,
+         cmake,
          debhelper,
          devscripts,
          flex,
@@ -99,7 +92,6 @@ Depends: autoconf,
          gdb,
          ghostscript,
          gnupg,
-         gnuplot,
          graphicsmagick,
          gsfonts,
          inkscape,
@@ -124,14 +116,13 @@ Depends: autoconf,
          texlive-extra-utils,
          texlive-font-utils,
          valgrind,
-         ${misc:Depends},
-         ${shlibs:Depends}
+         ${misc:Depends}
 Recommends: ubuntu-dev-tools
 Description: Development tools for the RSerPool Demo system
  This metapackage contains basic software for RSerPoolDemo development.
  The software installed provides a common working environment.
  .
- See https://www.uni-due.de/~be0001/ for details on RSerPool and the
+ See https://www.nntb.no/~dreibh/rserpool/ for details on RSerPool and the
  RSerPoolDemo tool!
 
 Package: rserpooldemo-desktop
@@ -140,24 +131,22 @@ Depends: firefox | firefox-esr,
          kubuntu-desktop | neon-desktop | kde-standard | deepin-desktop-environment | lubuntu-desktop | ubuntu-desktop,
          rserpooldemo-management (= ${binary:Version}),
          sddm | kdm | lightdm | gdm3,
-         ${misc:Depends},
-         ${shlibs:Depends}
+         ${misc:Depends}
 Description: Desktop setup for the RSerPool Demo system
  This package contains the scripts to configure a RSerPoolDemo desktop.
  .
- See https://www.uni-due.de/~be0001/ for details on RSerPool and the
+ See https://www.nntb.no/~dreibh/rserpool/ for details on RSerPool and the
  RSerPoolDemo tool!
 
 Package: rserpooldemo-scenario-cfgfiles
 Architecture: all
 Depends: rsplib-fgp-cfgfiles,
-         ${misc:Depends},
-         ${shlibs:Depends}
+         ${misc:Depends}
 Recommends: rsplib-registrar
 Description: Scenario configuration files for the RSerPool Demo system
  This package contains the scenario files for the RSerPoolDemo tool.
  .
- See https://www.uni-due.de/~be0001/ for details on RSerPool and the
+ See https://www.nntb.no/~dreibh/rserpool/ for details on RSerPool and the
  RSerPoolDemo tool!
 
 Package: rserpooldemo-tool
@@ -171,5 +160,5 @@ Recommends: fractgen,
 Description: GUI tool for the RSerPool Demo system
  This package contains the RSerPoolDemo tool.
  .
- See https://www.uni-due.de/~be0001/ for details on RSerPool and the
+ See https://www.nntb.no/~dreibh/rserpool/ for details on RSerPool and the
  RSerPoolDemo tool!

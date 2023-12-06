@@ -1,2 +1,4 @@
 usr/bin/rserpooldemo
-usr/share/man/man1/rserpooldemo.1
+usr/share/applications/rserpooldemo.desktop
+usr/share/icons/hicolor/512x512/apps/rserpooldemo.png
+usr/share/mime/packages/rserpooldemo.xml

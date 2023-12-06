@@ -12,7 +12,7 @@
 #
 # ############# An Efficient RSerPool Prototype Implementation #############
 #
-# Copyright (C) 2002-2021 by Thomas Dreibholz
+# Copyright (C) 2002-2024 by Thomas Dreibholz
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Contact: dreibh@iem.uni-due.de
+# Contact: thomas.dreibholz@gmail.com
 #
 
 
@@ -81,6 +81,8 @@ SET(TDD_VARIANTS
 
 SET(TDD_JPEG_QUALITY          92.5)
 
+SET(TDD_BUILD_MIRRORED        0)
+
 SET(TDD_BUILD_BOOTSPLASH      1)
 SET(TDD_BOOTSPLASH_RESOLUTIONS
    1024x768    # Standard
@@ -107,17 +109,19 @@ SET(TDD_BUILD_OVERLAY "${CMAKE_CURRENT_SOURCE_DIR}/build-overlay")
 SET(TDD_BUILD_CAPTION "${CMAKE_CURRENT_SOURCE_DIR}/build-caption")
 
 # ------ Outputs ------------------------------------------
-SET(TDD_ADD_DIST_TARGET          0)
-SET(TDD_FLAT_DIRECTORY_STRUCTURE 1)
-SET(TDD_OUTPUT_DIRECTORY         "Output")
-SET(TDD_INSTALL_SUBDIRECTORY     "${CMAKE_PROJECT_NAME}")   # Install under [PREFIX]/share/${TDD_INSTALL_SUBDIRECTORY}
-SET(TDD_INSTALL_ORIGINALS        0)
-SET(TDD_OUTPUT_OVERLAY           "overlay")
-SET(TDD_OUTPUT_ORIGINALS         "originals")
-SET(TDD_OUTPUT_WITHOUT_LOGO      "background")
-SET(TDD_OUTPUT_WITH_LOGO         "desktop")
-SET(TDD_OUTPUT_SPLASH            "splash")
-SET(TDD_OUTPUT_CAPTIONFILE       "rserpooldemo-version")
+SET(TDD_ADD_DIST_TARGET              0)
+SET(TDD_FLAT_DIRECTORY_STRUCTURE     1)
+SET(TDD_OUTPUT_DIRECTORY             "Output")
+SET(TDD_INSTALL_SUBDIRECTORY         "${CMAKE_PROJECT_NAME}")   # Install under [PREFIX]/share/${TDD_INSTALL_SUBDIRECTORY}
+SET(TDD_INSTALL_ORIGINALS            0)
+SET(TDD_OUTPUT_OVERLAY               "overlay")
+SET(TDD_OUTPUT_ORIGINALS             "originals")
+SET(TDD_OUTPUT_WITHOUT_LOGO          "background")
+SET(TDD_OUTPUT_WITH_LOGO             "desktop")
+SET(TDD_OUTPUT_MIRRORED_WITHOUT_LOGO "mirrored-background")
+SET(TDD_OUTPUT_MIRRORED_WITH_LOGO    "mirrored-desktop")
+SET(TDD_OUTPUT_SPLASH                "splash")
+SET(TDD_OUTPUT_CAPTIONFILE           "rserpooldemo-version")
 
 # ------ Programs -----------------------------------------
 SET(TDD_TEST_GIMP       "${CMAKE_CURRENT_SOURCE_DIR}/gimp-scripts/Test-Gimp")

@@ -13,9 +13,9 @@
  *
  * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Copyright (C) 2002-2021 by Thomas Dreibholz
+ *   Copyright (C) 2002-2024 by Thomas Dreibholz
  *
- *   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
+ *   Authors: Thomas Dreibholz, thomas.dreibholz@gmail.com
  *            Sebastian Rohde, rohde@iem.uni-due.de
  *
  * This program is free software: you can redistribute it and/or modify
@@ -31,7 +31,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Contact: dreibh@iem.uni-due.de
+ * Contact: thomas.dreibholz@gmail.com
  */
 
 #include <QDomElement>
@@ -50,8 +50,9 @@ const char g_ProtocolColorIDTag[]      = "ID";
 const char g_ListenPortTag[]           = "ListenPort";
 const char g_NodeTag[]                 = "Node";
 const char g_UIDTag[]                  = "UID";
-const char g_displayNameTag[]          = "DisplayName";
-const char g_refreshTimeoutTag[]       = "RefreshTimeout";
+const char g_DisplayNameTag[]          = "DisplayName";
+const char g_DisplayLocationTag[]      = "DisplayLocation";
+const char g_RefreshTimeoutTag[]       = "RefreshTimeout";
 const char g_ActiveImageURLTag[]       = "ActiveImageURL";
 const char g_InactiveImageURLTag[]     = "InactiveImageURL";
 const char g_ContextMenuEntryTag[]     = "ContextMenuEntry";
@@ -66,7 +67,7 @@ const char g_CaptionTag[]              = "Caption";
 
 // ###### Constructor #######################################################
 RDConfiguration::RDConfiguration(QWidget*       canvasWidget,
-                               const QString& configFile)
+                                 const QString& configFile)
    : m_GraphicsSceneWidget(canvasWidget),
      m_DisplaySizeX(0),
      m_DisplaySizeY(0)
@@ -145,6 +146,7 @@ RDConfigNode* RDConfiguration::createNode(QDomElement element)
    std::list<RDContextMenuConfig*> contextNodes;
    QString                         uniqueID;
    QString                         displayName;
+   QString                         displayLocation;
    QString                         imageActive;
    QString                         imageInactive;
    int                             refreshTimeout = 0;
@@ -157,10 +159,13 @@ RDConfigNode* RDConfiguration::createNode(QDomElement element)
          if(currentNode.toElement().tagName() == QString(g_UIDTag)) {
             uniqueID = currentNode.toElement().text();
          }
-         else if(currentNode.toElement().tagName() == QString(g_displayNameTag)) {
+         else if(currentNode.toElement().tagName() == QString(g_DisplayNameTag)) {
             displayName = currentNode.toElement().text();
          }
-         else if(currentNode.toElement().tagName() == QString(g_refreshTimeoutTag)) {
+         else if(currentNode.toElement().tagName() == QString(g_DisplayLocationTag)) {
+            displayLocation = currentNode.toElement().text();
+         }
+         else if(currentNode.toElement().tagName() == QString(g_RefreshTimeoutTag)) {
             refreshTimeout = currentNode.toElement().text().toInt();
          }
          else if(currentNode.toElement().tagName() == QString(g_ActiveImageURLTag)) {
@@ -195,9 +200,9 @@ RDConfigNode* RDConfiguration::createNode(QDomElement element)
 
       currentNode = currentNode.nextSibling();
    }
-   RDConfigNode* node = new RDConfigNode(uniqueID, displayName,
-                           imageActive, imageInactive,
-                           positionX, positionY, refreshTimeout);
+   RDConfigNode* node = new RDConfigNode(uniqueID, displayName, displayLocation,
+                                         imageActive, imageInactive,
+                                         positionX, positionY, refreshTimeout);
    node->getContextMenuConfig() = contextNodes;
    return node;
 }

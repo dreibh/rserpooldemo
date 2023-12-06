@@ -12,9 +12,9 @@
 #
 # ############# An Efficient RSerPool Prototype Implementation #############
 #
-#   Copyright (C) 2002-2021 by Thomas Dreibholz
+#   Copyright (C) 2002-2024 by Thomas Dreibholz
 #
-#   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
+#   Authors: Thomas Dreibholz, thomas.dreibholz@gmail.com
 #            Sebastian Rohde, rohde@iem.uni-due.de
 #
 # This program is free software: you can redistribute it and/or modify
@@ -30,7 +30,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Contact: dreibh@iem.uni-due.de
+# Contact: thomas.dreibholz@gmail.com
 
 SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -55,6 +55,10 @@ INSTALL(TARGETS             rserpooldemo
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         BUNDLE DESTINATION  ${CMAKE_INSTALL_BINDIR})
 INSTALL(FILES rserpooldemo.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
+
+INSTALL(FILES rserpooldemo.png     DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/512x512/apps)
+INSTALL(FILES rserpooldemo.desktop DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/applications)
+INSTALL(FILES rserpooldemo.xml     DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/mime/packages)
 
 
 #############################################################################

@@ -1,10 +1,9 @@
 Name: RSerPoolDemo
-Homepage: https://www.uni-due.de/~be0001/rserpool/
 Repository: https://github.com/dreibh/rserpooldemo.git
 Repository-Browse: https://github.com/dreibh/rserpooldemo
 Bug-Submit: https://github.com/dreibh/rserpooldemo/issues
-Contact: Thomas Dreibholz <dreibh@iem.uni-due.de>
-Security-Contact: Thomas Dreibholz <dreibh@iem.uni-due.de>
+Contact: Thomas Dreibholz <thomas.dreibholz@gmail.com>
+Security-Contact: Thomas Dreibholz <thomas.dreibholz@gmail.com>
 Reference:
  -
   Author: Thomas Dreibholz
@@ -13,4 +12,4 @@ Reference:
   Title: Reliable Server Pooling -- Evaluation, Optimization and Extension of a Novel IETF Architecture
   Year: 2007
   Type: PhDThesis
-Other-References: https://www.uni-due.de/~be0001/rserpool/#Publications
+Other-References: https://www.nntb.no/~dreibh/rserpool/#Publications

@@ -13,9 +13,9 @@
  *
  * ############# An Efficient RSerPool Prototype Implementation #############
  *
- *   Copyright (C) 2002-2021 by Thomas Dreibholz
+ *   Copyright (C) 2002-2024 by Thomas Dreibholz
  *
- *   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
+ *   Authors: Thomas Dreibholz, thomas.dreibholz@gmail.com
  *            Sebastian Rohde, rohde@iem.uni-due.de
  *
  * This program is free software: you can redistribute it and/or modify
@@ -31,7 +31,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Contact: dreibh@iem.uni-due.de
+ * Contact: thomas.dreibholz@gmail.com
  */
 
 #include "rdconfignode.h"
@@ -41,6 +41,7 @@
 // ###### Constructor #######################################################
 RDConfigNode::RDConfigNode(const QString& uniqueID,
                            const QString& displayName,
+                           const QString& displayLocation,
                            const QString& imageActive,
                            const QString& imageInactive,
                            int            positionX,
@@ -48,6 +49,7 @@ RDConfigNode::RDConfigNode(const QString& uniqueID,
                            int            timeoutMultiplier)
    : m_UniqueID(uniqueID),
      m_DisplayName(displayName),
+     m_DisplayLocation(displayLocation),
      m_ImageActive(imageActive),
      m_ImageInactive(imageInactive),
      m_PositionX(positionX),

@@ -12,9 +12,9 @@
 #
 # ############# An Efficient RSerPool Prototype Implementation #############
 #
-#   Copyright (C) 2002-2021 by Thomas Dreibholz
+#   Copyright (C) 2002-2024 by Thomas Dreibholz
 #
-#   Authors: Thomas Dreibholz, dreibh@iem.uni-due.de
+#   Authors: Thomas Dreibholz, thomas.dreibholz@gmail.com
 #            Sebastian Rohde, rohde@iem.uni-due.de
 #
 # This program is free software: you can redistribute it and/or modify
@@ -30,14 +30,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Contact: dreibh@iem.uni-due.de
+# Contact: thomas.dreibholz@gmail.com
 
-CMAKE_MINIMUM_REQUIRED(VERSION 3.0.2)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.10)
 PROJECT(rserpooldemo LANGUAGES CXX)
 
 SET(BUILD_MAJOR "3")
-SET(BUILD_MINOR "0")
-SET(BUILD_PATCH "5")
+SET(BUILD_MINOR "1")
+SET(BUILD_PATCH "3~rc1")
 SET(BUILD_VERSION ${BUILD_MAJOR}.${BUILD_MINOR}.${BUILD_PATCH})
 
 
@@ -65,6 +65,21 @@ ADD_CUSTOM_TARGET(dist COMMAND ${CMAKE_MAKE_PROGRAM} clean package_source)
 
 INCLUDE(CheckIncludeFile)
 INCLUDE(CheckStructHasMember)
+
+
+#############################################################################
+# UNINSTALL
+#############################################################################
+
+IF(NOT TARGET uninstall)
+   CONFIGURE_FILE(
+      "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
+      "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
+      IMMEDIATE @ONLY)
+
+   ADD_CUSTOM_TARGET(uninstall
+      COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
+ENDIF()
 
 
 #############################################################################

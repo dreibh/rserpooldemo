@@ -1,7 +1,7 @@
-#!/usr/bin/env bash
+#!/bin/bash -e
 #
-# Travis CI Scripts
-# Copyright (C) 2018-2021 by Thomas Dreibholz
+# Thomas Dreibholz's LaTeX Toolchain
+# Copyright (C) 2007-2024 by Thomas Dreibholz
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,12 +16,21 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Contact: dreibh@iem.uni-due.de
+# Contact: thomas.dreibholz@gmail.com
 
-# Bash options:
-set -e
+if [ $# != 2 ] ; then
+   echo "Usage: dia2pdf [Source File] [Destination File]"
+   exit 1
+fi
 
 
-. `dirname $0`/get-container
-sudo docker exec -it ${CONTAINER} env LANG=C.UTF-8 /bin/bash
-exit 1
+echo "Converting $1 to $2 from Dia to PDF ..."
+
+TEMP_EPS=`mktemp /tmp/tmpEPS.XXXXXXXXXX`
+TEMP_PDF=`mktemp /tmp/tmpPDF.XXXXXXXXXX`
+
+dia -n -t eps-pango -e ${TEMP_EPS} $1 >/dev/null
+epstopdf --outfile=${TEMP_PDF} ${TEMP_EPS}
+pdfcrop --hires ${TEMP_PDF} $2
+
+rm -f ${TEMP_PDF} ${TEMP_EPS}

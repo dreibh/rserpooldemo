@@ -1,0 +1,4 @@
+#!/bin/sh
+
+./dia2pdf NorNet-MEC-Scenario.dia NorNet-MEC-Scenario.pdf
+convert -density 250x250 NorNet-MEC-Scenario.pdf NorNet-MEC-Scenario.png

@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# * ##########################################################################
+# *
+# *              //===//   //=====   //===//   //       //   //===//
+# *             //    //  //        //    //  //       //   //    //
+# *            //===//   //=====   //===//   //       //   //===<<
+# *           //   \\         //  //        //       //   //    //
+# *          //     \\  =====//  //        //=====  //   //===//   Version III
+# *
+# *             ###################################################
+# *           ======  D E M O N S T R A T I O N   S Y S T E M  ======
+# *             ###################################################
+# *
+# * ############# An Efficient RSerPool Prototype Implementation #############
+# *
+# * Copyright (C) 2002-2024 by Thomas Dreibholz
+# *
+# * This program is free software: you can redistribute it and/or modify
+# * it under the terms of the GNU General Public License as published by
+# * the Free Software Foundation, either version 3 of the License, or
+# * (at your option) any later version.
+# *
+# * This program is distributed in the hope that it will be useful,
+# * but WITHOUT ANY WARRANTY; without even the implied warranty of
+# * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# * GNU General Public License for more details.
+# *
+# * You should have received a copy of the GNU General Public License
+# * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# *
+# * Contact: dreibh.iem.uni-due.de
+
+# !!! PR #1 sends ASAP announces! !!!
+./ComponentControl                                                ./LocalScenario.config PR 1 start -identifier=0x10000 -asap=[::]:4100 -enrp=[::]:4101 -asapannounce=auto -enrpannounce=off -peer=10.1.1.16:4201 -cspserver=10.1.1.9:2960 &
+./RemoteComponentControl ./MEC-User.config 10.1.1.16              ./LocalScenario.config PR 2 start -identifier=0x10010 -asap=[::]:4200 -enrp=[::]:4201 -asapannounce=off  -enrpannounce=off -cspserver=10.1.1.9:2960 &
+./RemoteComponentControl ./PMC-User.config lerkendal.ntnu.nornet  ./LocalScenario.config PR 3 start -identifier=0x10020 -asap=[::]:4300 -enrp=[::]:4301 -asapannounce=off  -enrpannounce=off -peer=10.1.1.16:4201 -cspserver=10.1.1.9:2960 &
+
+wait
+sleep 2
+
+./ComponentControl                                                ./LocalScenario.config PE 1 start  -identifier=0x100 -policy=PriorityLeastUsed:1.0 -fgpmaxthreads=1 -registrar=127.0.0.1:4100 -registrar=10.1.1.16:4200 -asapannounce=off -cspserver=10.1.1.9:2960 &
+./RemoteComponentControl ./MEC-User.config 10.1.1.76              ./LocalScenario.config PE 2 start  -identifier=0x200 -policy=PriorityLeastUsed:0.1 -registrar=10.1.1.16:4200 -asapannounce=off -cspserver=10.1.1.9:2960 &
+./RemoteComponentControl ./MEC-User.config 10.1.1.75              ./LocalScenario.config PE 3 start  -identifier=0x201 -policy=PriorityLeastUsed:0.1 -registrar=10.1.1.16:4200 -asapannounce=off -cspserver=10.1.1.9:2960 &
+./RemoteComponentControl ./PMC-User.config aunegaarden.uit.nornet ./LocalScenario.config PE 10 start -identifier=0x300 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.16:4200 -asapannounce=off -cspserver=10.1.1.9:2960 &
+./RemoteComponentControl ./PMC-User.config borbeck.ude.nornet     ./LocalScenario.config PE 11 start -identifier=0x301 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.16:4200 -asapannounce=off -cspserver=10.1.1.9:2960 &
+./RemoteComponentControl ./PMC-User.config skreia.hig.nornet      ./LocalScenario.config PE 12 start -identifier=0x302 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.16:4200 -asapannounce=off -cspserver=10.1.1.9:2960 &
+./RemoteComponentControl ./PMC-User.config boao.hu.nornet         ./LocalScenario.config PE 13 start -identifier=0x303 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.16:4200 -asapannounce=off -cspserver=10.1.1.9:2960 &
+
+wait
+sleep 2
+
+# !!! PU listens to ASAP announces! !!!
+./ComponentControl ./LocalScenario.config PU 1 start -identifier=0x1 -caption=PoolUser-1 -registrar=127.0.0.1:4100 -registrar=10.1.1.16:4200 -asapannounce=auto -cspserver=10.1.1.9:2960

@@ -1,11 +1,11 @@
 Name: rserpooldemo
-Version: 3.0.5
+Version: 3.1.3~rc1
 Release: 1
 Summary: RSerPool Demo Tool
 Group: Applications/Internet
 License: GPL-3+
-URL: https://www.uni-due.de/~be0001/rserpool/
-Source: https://www.uni-due.de/~be0001/rserpool/download/%{name}-%{version}.tar.xz
+URL: https://www.nntb.no/~dreibh/rserpool/rserpool/
+Source: https://www.nntb.no/~dreibh/rserpool/rserpool/download/%{name}-%{version}.tar.xz
 
 AutoReqProv: on
 BuildRequires: cmake
@@ -35,7 +35,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-build
 
 %description
 This package contains the RSerPool Demo Tool
-See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
+See https://www.nntb.no/~dreibh/rserpool/ for details on RSerPool and the RSerPoolDemo tool!
 
 %prep
 %setup -q
@@ -80,7 +80,6 @@ Requires: net-tools
 Requires: nmap
 Requires: (ntpsec or ntpdate)
 Requires: pxz
-Requires: reiserfs-utils
 Requires: reprepro
 Requires: smartmontools
 Requires: subnetcalc
@@ -91,8 +90,8 @@ Requires: tree
 Requires: vconfig
 Requires: virt-what
 Requires: whois
-Recommends: ipsec-tools
 Recommends: netperfmeter
+Recommends: reiserfs-utils
 Recommends: rsplib-docs
 Recommends: rsplib-services
 Recommends: rsplib-tools
@@ -100,7 +99,7 @@ Recommends: wireshark-cli
 
 %description management
 This metapackage contains basic software for RSerPoolDemo system management.
-See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
+See https://www.nntb.no/~dreibh/rserpool/ for details on RSerPool and the RSerPoolDemo tool!
 
 %files management
 %{_sysconfdir}/rserpooldemo/rserpooldemo-version
@@ -132,7 +131,6 @@ Requires: ghostscript
 Requires: gimp
 Requires: glib2-devel
 Requires: gnupg
-Requires: gnuplot
 Requires: google-noto-cjk-fonts
 Requires: google-noto-sans-fonts
 Requires: google-noto-serif-fonts
@@ -158,7 +156,7 @@ Requires: valgrind
 
 %description development
 This metapackage contains basic software for RSerPoolDemo development.
-See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
+See https://www.nntb.no/~dreibh/rserpool/ for details on RSerPool and the RSerPoolDemo tool!
 
 %files development
 
@@ -172,7 +170,7 @@ Recommends: grub2-tools
 
 %description desktop
 This package contains the scripts to configure a RSerPoolDemo desktop.
-See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
+See https://www.nntb.no/~dreibh/rserpool/ for details on RSerPool and the RSerPoolDemo tool!
 
 %files desktop
 /boot/RSerPoolDemo/Zollverein-*.jpeg
@@ -200,7 +198,7 @@ Recommends: rsplib-fgp-cfgfiles
 
 %description scenario-cfgfiles
 This package contains the scenario files for the RSerPoolDemo tool.
-See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
+See https://www.nntb.no/~dreibh/rserpool/ for details on RSerPool and the RSerPoolDemo tool!
 
 %files scenario-cfgfiles
 %{_datadir}/rserpooldemo/graphics/*
@@ -218,14 +216,25 @@ Recommends: rsplib-tools
 
 %description tool
 This package contains the RSerPoolDemo tool.
-See https://www.uni-due.de/~be0001/ for details on RSerPool and the RSerPoolDemo tool!
+See https://www.nntb.no/~dreibh/rserpool/ for details on RSerPool and the RSerPoolDemo tool!
 
 %files tool
 %{_bindir}/rserpooldemo
+%{_datadir}/applications/rserpooldemo.desktop
+%{_datadir}/icons/hicolor/512x512/apps/rserpooldemo.png
+%{_datadir}/mime/packages/rserpooldemo.xml
 %{_mandir}/man1/rserpooldemo.1.gz
 
 
 %changelog
+* Wed Feb 08 2023 Thomas Dreibholz <thomas.dreibholz@gmail.com> - 3.1.2
+- New upstream release.
+* Sun Sep 11 2022 Thomas Dreibholz <dreibh@iem.uni-due.de> - 3.1.1
+- New upstream release.
+* Mon Aug 22 2022 Thomas Dreibholz <dreibh@iem.uni-due.de> - 3.1.0
+- New upstream release.
+* Wed Feb 16 2022 Thomas Dreibholz <dreibh@iem.uni-due.de> - 3.0.6
+- New upstream release.
 * Mon Jun 14 2021 Thomas Dreibholz <dreibh@iem.uni-due.de> - 3.0.5
 - New upstream release.
 * Wed Dec 16 2020 Thomas Dreibholz <dreibh@iem.uni-due.de> - 3.0.4

@@ -1,0 +1,19 @@
+[Desktop Entry]
+Exec=rserpooldemo %f
+Icon=rserpooldemo
+MimeType=application/x-rserpooldemo
+Name=RSerPool Demo Tool
+GenericName[de]=RSerPool-Demowerkzeug
+GenericName[nb]=RSerPool-Demoverktøy
+GenericName=RSerPool Demo Tool
+Categories=Network;Math;Graphics;RasterGraphics;Qt
+Keywords=RSerPool;Fractal;Mandelbrot;Math;Graphics
+Keywords[de]=RSerPool
+Keywords[nb]=RSerPool
+StartupNotify=true
+Terminal=false
+Type=Application
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=
