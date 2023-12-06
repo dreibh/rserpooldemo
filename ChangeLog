@@ -1,3 +1,124 @@
+commit 8bb45f7fdc2b44b09035a8879888d1734ccc6b11
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Dec 6 15:09:48 2023 +0100
+
+    Minor updates.
+
+commit eb49fe2cc90d6773d196f8c4ffa97a6db0b901b5
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Dec 6 15:08:37 2023 +0100
+
+    CMake dependency update.
+
+commit 71d0c368405935343cd73d8309818afe40fe3290
+Merge: a73c0b0 7bab1f2
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Dec 6 13:20:50 2023 +0100
+
+    Merge branch 'master' of https://github.com/dreibh/rserpooldemo
+
+commit a73c0b053ee1a827e7001167823c217aac24b143
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Dec 6 13:19:35 2023 +0100
+
+    RPM dependency fix.
+
+commit 7bab1f209c3f67803f429855b5a88b6351665269
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Nov 15 12:04:19 2023 +0100
+
+    Dependency fixes.
+
+commit 262592565a8e988e4feb3b44a29a30ebfc1fb406
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Nov 15 12:03:45 2023 +0100
+
+    Updated .desktop file.
+
+commit 259b234b3adfe806888a71ec9da7e3c5f77efb26
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Nov 15 11:50:04 2023 +0100
+
+    Dependency improvements.
+
+commit e61c527a9fa4b21db63448ea8af67e25d7e29e3d
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Nov 15 11:42:31 2023 +0100
+
+    Dependency improvements.
+
+commit d0f3784c86c02d530d5050be939afea622974756
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Nov 15 10:56:16 2023 +0100
+
+    Packaging clean-ups.
+
+commit f06090f0eeae70f9196db5a05c10442885654b59
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Nov 15 09:52:24 2023 +0100
+
+    Updated build scripts
+
+commit 7f0ca885c2c1345e882cbcee482c199c1ddb57f9
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Nov 15 09:33:05 2023 +0100
+
+    Updated build scripts
+
+commit ae6cebfdeb291b053f5fc5dc7b3195dd3dbccab6
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Nov 11 17:52:39 2023 +0100
+
+    Added workflows.
+
+commit 255875720c65cea077d2220130a3a88059f402f2
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Nov 11 16:36:54 2023 +0100
+
+    Removed obsolete CVS $Id$ tag.
+
+commit 00ceb4df23517b15cafd096ac37025394e94801a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Nov 11 16:35:34 2023 +0100
+
+    Updated script.
+
+commit 46dce37a9402a0343498c416d6846b99723c8b76
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Nov 11 16:25:44 2023 +0100
+
+    Updated script.
+
+commit fb867f211a5cc618407675e1ef636e68e69598ca
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Nov 11 16:22:36 2023 +0100
+
+    Header updates.
+
+commit 076f91ac04affa3d2aab1f65c4c1da3eec3dd33e
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Nov 11 16:16:03 2023 +0100
+
+    Updated CI scripts
+
+commit 1c3adcd50b54c24d0080c3787096885acb8b4616
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Nov 11 16:15:53 2023 +0100
+
+    Updated build scripts
+
+commit 2614308707a46daea4c07a6626447a4be5c04ca1
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Feb 8 11:49:07 2023 +0100
+
+    Updated LSM entry.
+
+commit c69c9a800c0c239f8859c03c65f6a6fa918dde50
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Feb 8 11:45:16 2023 +0100
+
+    New release rserpooldemo-3.1.2.
+
 commit b47a2a11efdca5e73c06fed7f11a6d85ff9f062a
 Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Wed Feb 8 10:52:54 2023 +0100
@@ -378,6 +499,12 @@ Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Tue Sep 21 12:22:06 2021 +0200
 
     Updated scenario.
+
+commit 0bc108ea0db58278d539b00e3423bafc9ce39a26
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Aug 13 14:39:26 2021 +0200
+
+    Bugfix: Fixed layout of workload label.
 
 commit 65861a358f0608cc9ea7197033d10e9572f678ca
 Author: Thomas Dreibholz <dreibh@simula.no>
