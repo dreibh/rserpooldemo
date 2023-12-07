@@ -1,5 +1,2 @@
-This package contains the RSerPool Demo Tool for RSPLIB.
-See https://www.nntb.no/~dreibh/rserpool/ for details on
-Reliable Server Pooling (RSerPool) and the RSerPoolDemo tool!
-
-WWW: https://www.nntb.no/~dreibh/rserpool/
+This package contains the RSerPool Demo Tool for RSPLIB,
+which is a Reliable Server Pooling (RSerPool) implementation.

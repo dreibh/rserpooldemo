@@ -1,5 +1,4 @@
 # Created by: Thomas Dreibholz <thomas.dreibholz@gmail.com>
-# $FreeBSD: head/net/rsplib/Makefile 509199 2019-08-18 10:42:52Z pi $
 
 PORTNAME=	rserpooldemo
 PORTVERSION=	3.1.3
@@ -8,25 +7,22 @@ MASTER_SITES=	https://www.nntb.no/~dreibh/rserpool/download/
 
 MAINTAINER=	thomas.dreibholz@gmail.com
 COMMENT=	RSerPool Demo Tool
+WWW=		https://www.nntb.no/~dreibh/rserpool/
 
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		cmake qt:5 shebangfix tar:xz
-RUN_DEPENDS=    rsplib:net/rsplib \
+BUILD_DEPENDS=	gimp:graphics/gimp-app \
+		gm:graphics/GraphicsMagick \
+		inkscape:graphics/inkscape \
+		exiftool:graphics/p5-Image-ExifTool
+RUN_DEPENDS=    rspserver:net/rsplib \
 		fractgen:graphics/fractgen
 
-BUILD_DEPENDS=  gimp:graphics/gimp-app \
-                gm:graphics/GraphicsMagick \
-                inkscape:graphics/inkscape \
-                exiftool:graphics/p5-Image-ExifTool \
-                libomp.so:devel/llvm-devel
-# Fix for build with FreeBSD 12.0-RELEASE: devel/llvm-devel for libomp required by Gimp!
+USES=		cmake qt:5 shebangfix tar:xz
 
-CMAKE_ARGS+=	-DCMAKE_INSTALL_MANDIR=${PREFIX}/man \
-		-DDOCSDIR="${DOCSDIR}"
+CMAKE_ARGS+=	-DCMAKE_INSTALL_MANDIR=${PREFIX}/share/man
 
-SHEBANG_FILES=	src/scriptingserviceexample
 USE_LDCONFIG=	yes
 USE_QT=		buildtools_build core gui qmake widgets xml
 
