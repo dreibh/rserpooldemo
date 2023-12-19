@@ -1,5 +1,5 @@
 Name: rserpooldemo
-Version: 3.1.3
+Version: 3.1.4~rc0
 Release: 1
 Summary: RSerPool Demo Tool
 Group: Applications/Internet
