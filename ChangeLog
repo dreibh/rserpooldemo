@@ -1,3 +1,45 @@
+commit 90f39e282be37a3560ea8de8912318b3087d3c81
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Dec 19 14:00:30 2023 +0100
+
+    Dependency fix.
+
+commit b853b5e93d51d588de8ff1621e7a95c69e8fca45
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Dec 7 16:15:18 2023 +0100
+
+    Packaging update.
+
+commit 165bf9d37c069aba5e30119d5ef6108983177196
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Dec 7 13:47:27 2023 +0100
+
+    Packaging update.
+
+commit b70cc306372be240676d7a7caa417334ce2723e7
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Dec 7 12:32:29 2023 +0100
+
+    Improved FreeBSD test script.
+
+commit 5bb5e10c41dc2659ff153255fe85dccd7636608f
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Dec 7 10:20:29 2023 +0100
+
+    Updated packaging configuration.
+
+commit 3d609123c1b0bed12afc8c41ea0fc6a22ecdb40a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Dec 6 17:21:43 2023 +0100
+
+    Updated LSM entry.
+
+commit 6cf8427247193590e81d3f304c5fd3813a192582
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Dec 6 16:54:44 2023 +0100
+
+    New release rserpooldemo-3.1.3.
+
 commit 8bb45f7fdc2b44b09035a8879888d1734ccc6b11
 Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Wed Dec 6 15:09:48 2023 +0100
