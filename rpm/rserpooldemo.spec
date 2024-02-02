@@ -74,7 +74,7 @@ Requires: htop
 Requires: joe
 Requires: libidn
 Requires: lksctp-tools
-Requires: mlocate
+Requires: (mlocate or plocate)
 Requires: net-snmp-utils
 Requires: net-tools
 Requires: nmap
