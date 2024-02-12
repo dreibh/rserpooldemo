@@ -2,6 +2,7 @@
 
 PORTNAME=	rserpooldemo
 PORTVERSION=	3.1.4
+PORTREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	https://www.nntb.no/~dreibh/rserpool/download/
 
