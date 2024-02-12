@@ -24,6 +24,7 @@ USES=		cmake qt:5 shebangfix tar:xz
 CMAKE_ARGS+=	-DCMAKE_INSTALL_MANDIR=${PREFIX}/share/man
 
 USE_LDCONFIG=	yes
-USE_QT=		buildtools_build core gui qmake widgets xml
+USE_QT=         core gui widgets xml \
+                buildtools:build qmake:build
 
 .include <bsd.port.mk>
