@@ -20,7 +20,7 @@ BUILD_DEPENDS=	gimp:graphics/gimp-app \
 RUN_DEPENDS=    rspserver:net/rsplib \
 		fractgen:graphics/fractgen
 
-USES=		cmake qt:5 shebangfix tar:xz
+USES=		cmake desktop-file-utils shared-mime-info qt:5 tar:xz
 
 CMAKE_ARGS+=	-DCMAKE_INSTALL_MANDIR=${PREFIX}/share/man
 
