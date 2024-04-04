@@ -45,7 +45,6 @@ HEIGHT="$3"
 DIRECTORY="$4"
 
 GM="gm"
-SCRIPTPATH=`dirname "$0"`   # NOTE: Current directory may be a build directory!
 
 # ------ Proportions --------------------------------------------------------
 titleWidth=0.35      # of Width
@@ -55,60 +54,60 @@ logoIndent=0.025      # of Height
 websiteWidth=0.925    # of Width
 websiteIndent=0.050   # of Height
 
-titleWidthValue=`awk "BEGIN { print ${WIDTH}*${titleWidth} }"`
-subtitleWidthValue=`awk "BEGIN { print ${WIDTH}*${subtitleWidth} }"`
-logoWidthValue=`LC_NUMERIC=C awk "BEGIN { print int(${WIDTH}*${logoWidth}) }"`
-logoIndentValue=`LC_NUMERIC=C awk "BEGIN { print int(${HEIGHT}*${logoIndent}) }"`
-websiteWidthValue=`LC_NUMERIC=C awk "BEGIN { print int(${WIDTH}*${websiteWidth}) }"`
-websiteIndentValue=`LC_NUMERIC=C awk "BEGIN { print int(${HEIGHT}*${websiteIndent}) }"`
+titleWidthValue=$(awk "BEGIN { print ${WIDTH}*${titleWidth} }")
+subtitleWidthValue=$(awk "BEGIN { print ${WIDTH}*${subtitleWidth} }")
+logoWidthValue=$(LC_NUMERIC=C awk "BEGIN { print int(${WIDTH}*${logoWidth}) }")
+logoIndentValue=$(LC_NUMERIC=C awk "BEGIN { print int(${HEIGHT}*${logoIndent}) }")
+websiteWidthValue=$(LC_NUMERIC=C awk "BEGIN { print int(${WIDTH}*${websiteWidth}) }")
+websiteIndentValue=$(LC_NUMERIC=C awk "BEGIN { print int(${HEIGHT}*${websiteIndent}) }")
 
 
-tempDirectory=`mktemp -d rserpooldemo-overlay-${WIDTH}x${HEIGHT}.XXXXXXXXXXXXXXXX`
+tempDirectory=$(mktemp -d rserpooldemo-overlay-"${WIDTH}"x"${HEIGHT}".XXXXXXXXXXXXXXXX)
 
 # ------ Logo for upper-right corner and bottom -----------------------------
-${GM} convert $DIRECTORY/Logo-RSPLIB.png -trim \
-   -resize ${logoWidthValue}x \
-   +compress ${tempDirectory}/logo.tiff
-${GM} convert $DIRECTORY/Website.png -trim \
-   -resize ${websiteWidthValue}x \
-   +compress ${tempDirectory}/website.tiff
+${GM} convert "$DIRECTORY"/Logo-RSPLIB.png -trim \
+   -resize "${logoWidthValue}"x \
+   +compress "${tempDirectory}"/logo.tiff
+${GM} convert "$DIRECTORY"/Website.png -trim \
+   -resize "${websiteWidthValue}"x \
+   +compress "${tempDirectory}"/website.tiff
 
-${GM} composite -size ${WIDTH}x${HEIGHT} \
-   -gravity NorthEast ${tempDirectory}/logo.tiff -geometry +${logoIndentValue}+${logoIndentValue} \
-   xc:none +compress ${tempDirectory}/layer-logo.tiff
-${GM} composite -size ${WIDTH}x${HEIGHT} \
-   -gravity South -geometry +0+${websiteIndentValue} ${tempDirectory}/website.tiff \
-   xc:none +compress ${tempDirectory}/layer-website.tiff
+${GM} composite -size "${WIDTH}"x"${HEIGHT}" \
+   -gravity NorthEast "${tempDirectory}"/logo.tiff -geometry +"${logoIndentValue}"+"${logoIndentValue}" \
+   xc:none +compress "${tempDirectory}"/layer-logo.tiff
+${GM} composite -size "${WIDTH}"x"${HEIGHT}" \
+   -gravity South -geometry +0+"${websiteIndentValue}" "${tempDirectory}"/website.tiff \
+   xc:none +compress "${tempDirectory}"/layer-website.tiff
 
 # ------ Center title over subtitle -----------------------------------------
-${GM} convert $DIRECTORY/Title.png -trim -resize ${titleWidthValue}x \
-   +compress ${tempDirectory}/title.tiff
-${GM} convert $DIRECTORY/Subtitle.png -trim -resize ${subtitleWidthValue}x \
+${GM} convert "$DIRECTORY"/Title.png -trim -resize "${titleWidthValue}"x \
+   +compress "${tempDirectory}"/title.tiff
+${GM} convert "$DIRECTORY"/Subtitle.png -trim -resize "${subtitleWidthValue}"x \
    -bordercolor none \
-   +compress ${tempDirectory}/subtitle.tiff
-th=`gm identify -format "%h" "${tempDirectory}/title.tiff"`
+   +compress "${tempDirectory}"/subtitle.tiff
+th=$(gm identify -format "%h" "${tempDirectory}/title.tiff")
 # Size is ${subtitleWidthValue}x${th}:
-${GM} composite -size ${subtitleWidthValue}x${th} \
-   -gravity Center ${tempDirectory}/title.tiff \
-   xc:none +compress ${tempDirectory}/title-c.tiff
+${GM} composite -size "${subtitleWidthValue}"x"${th}" \
+   -gravity Center "${tempDirectory}"/title.tiff \
+   xc:none +compress "${tempDirectory}"/title-c.tiff
 
 ${GM} convert -background none -append -border 6 -bordercolor transparent \
-   ${tempDirectory}/title-c.tiff \
-   ${tempDirectory}/subtitle.tiff \
-   +compress ${tempDirectory}/center.tiff
+   "${tempDirectory}"/title-c.tiff \
+   "${tempDirectory}"/subtitle.tiff \
+   +compress "${tempDirectory}"/center.tiff
 
-${GM} composite -size ${WIDTH}x${HEIGHT} \
-   -gravity Center ${tempDirectory}/center.tiff \
-   xc:none +compress ${tempDirectory}/layer-center.tiff
+${GM} composite -size "${WIDTH}"x"${HEIGHT}" \
+   -gravity Center "${tempDirectory}"/center.tiff \
+   xc:none +compress "${tempDirectory}"/layer-center.tiff
 
 # ------ Combine everything -------------------------------------------------
-${GM} composite -size ${WIDTH}x${HEIGHT} \
-   ${tempDirectory}/layer-logo.tiff \
-   ${tempDirectory}/layer-website.tiff \
-   ${tempDirectory}/layer-borders.tiff
-${GM} composite -size ${WIDTH}x${HEIGHT} \
-   ${tempDirectory}/layer-borders.tiff \
-   ${tempDirectory}/layer-center.tiff \
+${GM} composite -size "${WIDTH}"x"${HEIGHT}" \
+   "${tempDirectory}"/layer-logo.tiff \
+   "${tempDirectory}"/layer-website.tiff \
+   "${tempDirectory}"/layer-borders.tiff
+${GM} composite -size "${WIDTH}"x"${HEIGHT}" \
+   "${tempDirectory}"/layer-borders.tiff \
+   "${tempDirectory}"/layer-center.tiff \
    "$OUTPUT"
 
-rm -rf ${tempDirectory}
+rm -rf "${tempDirectory}"

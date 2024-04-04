@@ -21,11 +21,11 @@
 # Bash options:
 set -e
 
-RESOLUTION="1024x768"
+RESOLUTION="1920x1080"
 
 make generate_overlayImage-${RESOLUTION}.png
 
-result=`find . -name "Overlay-${RESOLUTION}.png"`
+result=$(find . -name "Overlay-${RESOLUTION}.png")
 if [ -e "${result}" ] ; then
    echo "==> ${result}"
 else
