@@ -1,5 +1,5 @@
 Name: rserpooldemo
-Version: 3.1.4
+Version: 3.1.5~rc1
 Release: 1
 Summary: RSerPool Demo Tool
 Group: Applications/Internet
@@ -20,7 +20,6 @@ BuildRequires: google-noto-cjk-fonts
 BuildRequires: google-noto-sans-fonts
 BuildRequires: google-noto-serif-fonts
 BuildRequires: GraphicsMagick
-BuildRequires: inkscape
 BuildRequires: perl-Image-ExifTool
 BuildRequires: pygtk2
 BuildRequires: qt5-qtbase-devel
@@ -123,6 +122,7 @@ Requires: dejavu-sans-fonts
 Requires: dejavu-sans-mono-fonts
 Requires: dejavu-serif-fonts
 Requires: devscripts
+Requires: dia
 Requires: flex
 Requires: gcc
 Requires: gcc-c++
@@ -135,7 +135,6 @@ Requires: google-noto-cjk-fonts
 Requires: google-noto-sans-fonts
 Requires: google-noto-serif-fonts
 Requires: GraphicsMagick
-Requires: inkscape
 Requires: libcurl-devel
 Requires: libpcap-devel
 Requires: libtool

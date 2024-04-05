@@ -1,7 +1,7 @@
 # Created by: Thomas Dreibholz <thomas.dreibholz@gmail.com>
 
 PORTNAME=	rserpooldemo
-PORTVERSION=	3.1.4
+PORTVERSION=	3.1.5~rc1
 PORTREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	https://www.nntb.no/~dreibh/rserpool/download/
@@ -15,7 +15,6 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 
 BUILD_DEPENDS=	gimp:graphics/gimp-app \
 		gm:graphics/GraphicsMagick \
-		inkscape:graphics/inkscape \
 		exiftool:graphics/p5-Image-ExifTool
 RUN_DEPENDS=    rspserver:net/rsplib \
 		fractgen:graphics/fractgen
