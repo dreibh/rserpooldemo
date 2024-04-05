@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
 #
 # Thomas Dreibholz's LaTeX Toolchain
 # Copyright (C) 2007-2024 by Thomas Dreibholz
@@ -17,6 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Contact: thomas.dreibholz@gmail.com
+
+# Bash options:
+set -e
 
 if [ $# != 2 ] ; then
    echo "Usage: dia2pdf [Source File] [Destination File]"
