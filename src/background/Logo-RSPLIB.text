@@ -36,15 +36,7 @@ set -e
 SCRIPT=`realpath "$0"`
 SCRIPTPATH=`dirname "${SCRIPT}"`   # NOTE: Current directory may be a build directory!
 
-INKSCAPE_VERSION="`env -u DISPLAY inkscape --version 2>/dev/null`"
-if [[ "${INKSCAPE_VERSION}" =~ ^Inkscape.0 ]] ; then
-   echo "Inkscape 0.x"
-   env -u DISPLAY inkscape "${SCRIPTPATH}/Logo-RSPLIB.svg" --export-width=1024 --export-png="${OUTPUT}"
-else
-   echo "Inkscape 1.x"
-   env -u DISPLAY inkscape "${SCRIPTPATH}/Logo-RSPLIB.svg" --export-width=1024 --export-type=png --export-filename="${OUTPUT}" 2>/dev/null
-fi
-
+gm convert ${SCRIPTPATH}/dia/Logo-RSPLIB.pdf -resize 1024x "${OUTPUT}"
 if [ ! -e "${OUTPUT}" ] ; then
    echo >&2 "ERROR: Generating ${OUTPUT} has failed!"
    exit 1

@@ -49,13 +49,6 @@ EXECUTE_PROCESS(COMMAND head -n1 ${CMAKE_SOURCE_DIR}/debian/changelog
                 OUTPUT_VARIABLE this_version OUTPUT_STRIP_TRAILING_WHITESPACE)
 
 
-# ###### Additional Requirements ############################################
-FIND_PROGRAM(INKSCAPE inkscape PATHS /bin /usr/bin /usr/local/bin)
-IF(NOT INKSCAPE)
-   MESSAGE(FATAL_ERROR "inkscape (Ubuntu/Debian: inkscape; Fedora: inkscape) not found!")
-ENDIF()
-
-
 # ###### Settings ###########################################################
 
 # ------ Layouts ------------------------------------------
