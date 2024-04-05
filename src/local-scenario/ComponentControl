@@ -49,16 +49,17 @@ CC_CONFIGMISCARGS=
 # The config file has to store miscellaneous arguments into CC_CONFIGMISCARGS.
 # ComponentControl only expects its own arguments after calling the
 # configuration file!
-. $CC_CONFIGFILE
+# shellcheck disable=SC1090
+. "$CC_CONFIGFILE"
 
 CC_IDENTIFIER=$1
 CC_COMMAND=$2
 shift ; shift
-CC_MISCARGS=$@
+CC_MISCARGS=$*
 
 
 # ====== Check directories and program ======================================
-if [ "x$CC_PROGRAM_DIRECTORY" = "x" ] ; then
+if [ "$CC_PROGRAM_DIRECTORY" = "" ] ; then
    echo >&2 "ERROR: Variable \$CC_PROGRAM_DIRECTORY has to be set to the program directory!"
    exit 1
 fi
@@ -66,7 +67,7 @@ if [ ! -e "$CC_PROGRAM_DIRECTORY" ] ; then
    echo >&2 "ERROR: Program directory $CC_PROGRAM_DIRECTORY does not exist!"
    exit 1
 fi
-if [ "x$CC_PID_DIRECTORY" = "x" ] ; then
+if [ "$CC_PID_DIRECTORY" = "" ] ; then
    echo >&2 "ERROR: Variable \$CC_PID_DIRECTORY has to be set to the PID directory!"
    exit 1
 fi
@@ -74,7 +75,7 @@ if [ ! -e "$CC_PID_DIRECTORY" ] ; then
    echo >&2 "ERROR: PID directory $CC_PID_DIRECTORY does not exist!"
    exit 1
 fi
-if [ "x$CC_OUTPUT_DIRECTORY" = "x" ] ; then
+if [ "$CC_OUTPUT_DIRECTORY" = "" ] ; then
    echo >&2 "ERROR: Variable \$CC_OUTPUT_DIRECTORY has to be set to the output directory!"
    exit 1
 fi
@@ -82,7 +83,7 @@ if [ ! -e "$CC_OUTPUT_DIRECTORY" ] ; then
    echo >&2 "ERROR: Output directory $CC_OUTPUT_DIRECTORY does not exist!"
    exit 1
 fi
-if [ "x$CC_PROGRAM" = "x" ] ; then
+if [ "$CC_PROGRAM" = "" ] ; then
    echo >&2 "ERROR: Variable \$CC_PROGRAM has to be set to the program name!"
    exit 1
 fi
@@ -112,13 +113,13 @@ fi
 #   $3 = SIGNAL
 stop_program_using_pid_file() {
    if [ -e "$2" ] ; then
-      pid=`cat $2`
-      if ps -p $pid | grep $1 1>/dev/null 2>/dev/null ; then
+      pid=$(cat "$2")
+      if ps -p "$pid" | grep "$1" 1>/dev/null 2>/dev/null ; then
          echo "Sending SIG$3 to PID $pid"
-         $CC_PRESTART /bin/kill -$3 $pid
+         $CC_PRESTART /bin/kill -"$3" "$pid"
       else
          echo "$pid is already gone, removing PID file only"
-         rm -f $2
+         rm -f "$2"
       fi
    fi
 }
@@ -126,14 +127,14 @@ stop_program_using_pid_file() {
 
 
 # ====== Execute command ====================================================
-if [ "x$CC_COMMAND" = "xstart" ] ; then
+if [ "$CC_COMMAND" = "start" ] ; then
    if [ -e "$PIDFILE" ] ; then
-      PID=`cat $PIDFILE`
-      if ps -p $PID | grep $CC_PROGRAM 1>/dev/null 2>/dev/null ; then
+      PID=$(cat "$PIDFILE")
+      if ps -p "$PID" | grep "$CC_PROGRAM" 1>/dev/null 2>/dev/null ; then
          echo >&2 "ERROR: Programm is already running, PID is $PID."
          exit 1
       fi
-      rm -f $PIDFILE
+      rm -f "$PIDFILE"
    fi
    echo "Starting:"
    echo "   Prestart    = $CC_PRESTART"
@@ -142,10 +143,10 @@ if [ "x$CC_COMMAND" = "xstart" ] ; then
    echo "   Output File = $OUTFILE"
    echo "   PID File    = $PIDFILE"
    echo "   Log File    = $LOGFILE"
-   $CC_PRESTART $PROGFILE $CC_ARGS >$OUTFILE 2>&1 &
+   $CC_PRESTART "$PROGFILE" "$CC_ARGS" >"$OUTFILE" 2>&1 &
    PID=$!
-   if [ $? = 0 ] ; then
-      echo $PID > $PIDFILE
+   if [ $? -eq 0 ] ; then
+      echo $PID > "$PIDFILE"
       echo "Started, PID is $PID."
    else
       echo "ERROR: Running $PROGFILE failed!"
@@ -154,57 +155,58 @@ if [ "x$CC_COMMAND" = "xstart" ] ; then
 
    sleep 1
 
-elif [ "x$CC_COMMAND" = "xstop" ] ; then
+elif [ "$CC_COMMAND" = "stop" ] ; then
    echo "Stopping $CC_PROGRAM, identifier $CC_IDENTIFIER ..."
-   stop_program_using_pid_file $CC_PROGRAM $PIDFILE INT
+   stop_program_using_pid_file "$CC_PROGRAM" "$PIDFILE" INT
 
-elif [ "x$CC_COMMAND" = "xkill" ] ; then
+elif [ "$CC_COMMAND" = "kill" ] ; then
    echo "Killing $CC_PROGRAM, identifier $CC_IDENTIFIER ..."
-   stop_program_using_pid_file $CC_PROGRAM $PIDFILE KILL
+   stop_program_using_pid_file "$CC_PROGRAM" "$PIDFILE" KILL
 
-elif [ "x$CC_COMMAND" = "xstopall" ] ; then
-   find $CC_PID_DIRECTORY -name "$CC_PROGRAM-*.pid" | (
-      while read pidfile ; do
-         stop_program_using_pid_file $CC_PROGRAM $pidfile INT
+elif [ "$CC_COMMAND" = "stopall" ] ; then
+   find "$CC_PID_DIRECTORY" -name "$CC_PROGRAM-*.pid" | (
+      while read -r pidfile ; do
+         stop_program_using_pid_file "$CC_PROGRAM" "$pidfile" INT
       done
    )
 
-elif [ "x$CC_COMMAND" = "xkillall" ] ; then
+elif [ "$CC_COMMAND" = "killall" ] ; then
    ps axwww|grep "[0-9]:[0-9][0-9] $CC_PROGRAM_DIRECTORY/$CC_PROGRAM" | (
-      while read pid tt stat time command ; do
-         if ps -p $pid | grep $CC_PROGRAM 1>/dev/null 2>/dev/null ; then
-            kill -KILL $pid
+      # shellcheck disable=SC2034
+      while read -r pid tt stat time command ; do
+         if ps -p "$pid" | grep "$CC_PROGRAM" 1>/dev/null 2>/dev/null ; then
+            kill -KILL "$pid"
          fi
       done
    )
    rm -f "$CC_PROGRAM_DIRECTORY/$CC_PROGRAM-*.pid"
 
-elif [ "x$CC_COMMAND" = "xrestart" ] ; then
+elif [ "$CC_COMMAND" = "restart" ] ; then
    # IMPORTANT: ComponentControl expects arguments shifted-away in the
    #            configuration file in CC_CONFIGMISCARGS. They are needed here.
-   $0 $CC_CONFIGFILE $CC_CONFIGMISCARGS $CC_IDENTIFIER stop $CC_MISCARGS
+   $0 "$CC_CONFIGFILE" "$CC_CONFIGMISCARGS" "$CC_IDENTIFIER" stop "$CC_MISCARGS"
    sleep 2
-   $0 $CC_CONFIGFILE $CC_CONFIGMISCARGS $CC_IDENTIFIER start $CC_MISCARGS
+   $0 "$CC_CONFIGFILE" "$CC_CONFIGMISCARGS" "$CC_IDENTIFIER" start "$CC_MISCARGS"
 
-elif [ "x$CC_COMMAND" = "xstatus" ] ; then
+elif [ "$CC_COMMAND" = "status" ] ; then
    echo -n "Status of $CC_PROGRAM, identifier $CC_IDENTIFIER is: "
    if [ ! -e "$PIDFILE" ] ; then
       echo "not running."
    else
-      PID=`cat $PIDFILE`
-      if ps -p $PID | grep $CC_PROGRAM   1> /dev/null 2> /dev/null ; then
+      PID=$(cat "$PIDFILE")
+      if ps -p "$PID" | grep "$CC_PROGRAM"   1> /dev/null 2> /dev/null ; then
          echo "running (PID is $PID)."
       else
          echo "terminated - removing PID file."
-         rm -f $PIDFILE
+         rm -f "$PIDFILE"
       fi
    fi
 
-elif [ "x$CC_COMMAND" = "xlog" ] ; then
-   sh -c "konsole $CC_MISCARGS -e less $LOGFILE &"
+elif [ "$CC_COMMAND" = "log" ] ; then
+   konsole "$CC_MISCARGS" -e less "$LOGFILE" >/dev/null 2>&1 &
 
-elif [ "x$CC_COMMAND" = "xmonitor" ] ; then
-   sh -c "konsole $CC_MISCARGS -e tail -f $LOGFILE &"
+elif [ "$CC_COMMAND" = "monitor" ] ; then
+   konsole "$CC_MISCARGS" -e tail -f "$LOGFILE" >/dev/null 2>&1 &
 
 else
    echo >&2 "ERROR: Invalid command $CC_COMMAND!"

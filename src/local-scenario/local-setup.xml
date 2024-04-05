@@ -345,7 +345,7 @@
       </ContextMenuEntry>
       <ContextMenuEntry>
          <Name>View RSerPool Page</Name>
-         <Command>./RunProgram konqueror https://www.nntb.no/~dreibh/rserpool/</Command>
+         <Command>./RunProgram firefox https://www.nntb.no/~dreibh/rserpool/</Command>
       </ContextMenuEntry>
    </Node>
 
