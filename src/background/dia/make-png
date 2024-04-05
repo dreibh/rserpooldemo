@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+./dia2pdf Logo-RSPLIB.dia Logo-RSPLIB.pdf
+./pdf2png Logo-RSPLIB.pdf Logo-RSPLIB.png
