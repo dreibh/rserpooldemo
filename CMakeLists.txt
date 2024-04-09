@@ -62,7 +62,6 @@ INCLUDE(CPack)
 
 ADD_CUSTOM_TARGET(dist COMMAND ${CMAKE_MAKE_PROGRAM} clean package_source)
 
-
 INCLUDE(CheckIncludeFile)
 INCLUDE(CheckStructHasMember)
 
