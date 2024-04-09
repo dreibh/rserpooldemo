@@ -100,8 +100,8 @@ PIDFILE="${CC_PID_DIRECTORY}/${CC_PROGRAM}-${CC_IDENTIFIER}.pid"
 LOGFILE="${CC_PID_DIRECTORY}/${CC_PROGRAM}-${CC_IDENTIFIER}.log"
 
 CC_ARGS="${CC_ARGS} ${CC_MISCARGS}"
-if [ "x$CC_LOGARGS" != "x" ] ; then
-   CC_ARGS="${CC_ARGS} $CC_LOGARGS${LOGFILE}"
+if [ "${CC_LOGARGS}" != "" ] ; then
+   CC_ARGS="${CC_ARGS} ${CC_LOGARGS}${LOGFILE}"
 fi
 
 
@@ -145,6 +145,7 @@ if [ "${CC_COMMAND}" = "start" ] ; then
    echo "   Output File = ${OUTFILE}"
    echo "   PID File    = ${PIDFILE}"
    echo "   Log File    = ${LOGFILE}"
+   # shellcheck disable=SC2086
    ${CC_PRESTART} "${PROGFILE}" ${CC_ARGS} >"${OUTFILE}" 2>&1 &
    PID=$!
    echo ${PID} > "${PIDFILE}"
