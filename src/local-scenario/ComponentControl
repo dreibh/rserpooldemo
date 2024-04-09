@@ -37,20 +37,20 @@ fi
 
 
 # ====== Get configuration ==================================================
-CC_CONFIGFILE=$1
+CC_CONFIGFILE="$1"
 shift
 
-if [ ! -e "$CC_CONFIGFILE" ] ; then
-   echo >&2 "ERROR: Configuration file $CC_CONFIGFILE does not exist!"
+if [ ! -e "${CC_CONFIGFILE}" ] ; then
+   echo >&2 "ERROR: Configuration file ${CC_CONFIGFILE} does not exist!"
    exit 1
 fi
 
-CC_CONFIGMISCARGS=
+CC_CONFIGMISCARGS=""
 # The config file has to store miscellaneous arguments into CC_CONFIGMISCARGS.
 # ComponentControl only expects its own arguments after calling the
 # configuration file!
 # shellcheck disable=SC1090
-. "$CC_CONFIGFILE"
+. "${CC_CONFIGFILE}"
 
 CC_IDENTIFIER=$1
 CC_COMMAND=$2
@@ -183,9 +183,9 @@ elif [ "${CC_COMMAND}" = "killall" ] ; then
 elif [ "${CC_COMMAND}" = "restart" ] ; then
    # IMPORTANT: ComponentControl expects arguments shifted-away in the
    #            configuration file in CC_CONFIGMISCARGS. They are needed here.
-   $0 "$CC_CONFIGFILE" "$CC_CONFIGMISCARGS" "${CC_IDENTIFIER}" stop "${CC_MISCARGS}"
+   $0 "${CC_CONFIGFILE}" "$CC_CONFIGMISCARGS" "${CC_IDENTIFIER}" stop "${CC_MISCARGS}"
    sleep 2
-   $0 "$CC_CONFIGFILE" "$CC_CONFIGMISCARGS" "${CC_IDENTIFIER}" start "${CC_MISCARGS}"
+   $0 "${CC_CONFIGFILE}" "$CC_CONFIGMISCARGS" "${CC_IDENTIFIER}" start "${CC_MISCARGS}"
 
 elif [ "${CC_COMMAND}" = "status" ] ; then
    echo -n "Status of ${CC_PROGRAM}, identifier ${CC_IDENTIFIER} is: "
