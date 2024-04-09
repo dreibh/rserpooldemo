@@ -202,6 +202,7 @@ See https://www.nntb.no/~dreibh/rserpool/ for details on RSerPool and the RSerPo
 %files scenario-cfgfiles
 %{_datadir}/rserpooldemo/graphics/*
 %{_datadir}/rserpooldemo/local-scenario/*
+%{_datadir}/rserpooldemo/nornet-mec-scenario/*
 
 
 %package tool

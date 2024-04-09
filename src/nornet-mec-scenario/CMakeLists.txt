@@ -46,6 +46,8 @@ LIST(APPEND scenario_programs
    LocalScenario.config
    LocalScenario-StartAll
    LocalScenario-StopAll
+   MEC-User.config
+   PMC-User.config
    RemoteComponentControl
    RemoteScenario-StartAll
    RemoteScenario-StopAll

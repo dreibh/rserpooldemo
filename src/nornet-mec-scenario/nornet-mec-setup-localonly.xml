@@ -56,7 +56,7 @@
    <DiagramResolutionX>1200</DiagramResolutionX>
    <DiagramResolutionY>800</DiagramResolutionY>
    <Caption>Thomas Dreibholz's RSerPool Demonstration Tool</Caption>
-   <BackgroundImage>NorNet-MEC-Scenario.png</BackgroundImage>
+   <BackgroundImage>../graphics/NorNet-MEC-Scenario.png</BackgroundImage>
    <ProtocolColor ID="0">black</ProtocolColor>      <!-- Data -->
    <ProtocolColor ID="11">blue</ProtocolColor>      <!-- ASAP -->
    <ProtocolColor ID="12">red</ProtocolColor>       <!-- ENRP -->
