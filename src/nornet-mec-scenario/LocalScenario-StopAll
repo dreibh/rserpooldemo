@@ -36,9 +36,9 @@ if [ $# -lt 1 ] ; then
 fi
 
 
-if [ "$1" = "stop" ] ; then
+if [ "$1" == "stop" ] ; then
    command=stopall
-elif [ "$1" = "kill" ] ; then
+elif [ "$1" == "kill" ] ; then
    command=killall
 else
    echo >&2 "ERROR: Bad command $1!"
@@ -46,21 +46,21 @@ else
 fi
 
 
-./ComponentControl ./LocalScenario.config PE 1 $command &
-./ComponentControl ./LocalScenario.config PR 1 $command &
+./ComponentControl ./LocalScenario.config PE 1 ${command} &
+./ComponentControl ./LocalScenario.config PR 1 ${command} &
 
-./ComponentControl ./LocalScenario.config PE 2 $command &
-./ComponentControl ./LocalScenario.config PE 3 $command &
+./ComponentControl ./LocalScenario.config PE 2 ${command} &
+./ComponentControl ./LocalScenario.config PE 3 ${command} &
 
-./ComponentControl ./LocalScenario.config PE 10 $command &
-./ComponentControl ./LocalScenario.config PE 11 $command &
-./ComponentControl ./LocalScenario.config PE 12 $command &
-./ComponentControl ./LocalScenario.config PE 13 $command &
+./ComponentControl ./LocalScenario.config PE 10 ${command} &
+./ComponentControl ./LocalScenario.config PE 11 ${command} &
+./ComponentControl ./LocalScenario.config PE 12 ${command} &
+./ComponentControl ./LocalScenario.config PE 13 ${command} &
 
 wait
 
 ./ComponentControl ./LocalScenario.config PU 1 killall &
-./ComponentControl ./LocalScenario.config PR 2 $command &
-./ComponentControl ./LocalScenario.config PR 3 $command &
+./ComponentControl ./LocalScenario.config PR 2 ${command} &
+./ComponentControl ./LocalScenario.config PR 3 ${command} &
 
 wait

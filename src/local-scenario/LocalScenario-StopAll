@@ -36,9 +36,9 @@ if [ $# -lt 1 ] ; then
 fi
 
 
-if [ "$1" = "stop" ] ; then
+if [ "$1" == "stop" ] ; then
    command=stopall
-elif [ "$1" = "kill" ] ; then
+elif [ "$1" == "kill" ] ; then
    command=killall
 else
    echo >&2 "ERROR: Bad command $1!"
@@ -50,7 +50,7 @@ fi
 ./ComponentControl ./LocalScenario.config PE 0 $command
 ./ComponentControl ./LocalScenario.config PR 0 $command
 
-if [ "$command" = "killall" ] ; then
+if [ "$command" == "killall" ] ; then
    rm -f output/*.pid output/*.log || true
    killall -KILL server || true
    killall -KILL lt-server || true
