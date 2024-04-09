@@ -37,16 +37,20 @@
 #############################################################################
 
 LIST(APPEND scenario_files
-   local-setup.xml
+   nornet-mec-setup-localonly.xml
+   nornet-mec-setup.xml
 )
 
 LIST(APPEND scenario_programs
+   ComponentControl
    LocalScenario.config
    LocalScenario-StartAll
    LocalScenario-StopAll
-   ComponentControl
+   RemoteComponentControl
+   RemoteScenario-StartAll
+   RemoteScenario-StopAll
    RunProgram
 )
 
-INSTALL(FILES    ${scenario_files}    DESTINATION ${CMAKE_INSTALL_DATADIR}/rserpooldemo/local-scenario)
-INSTALL(PROGRAMS ${scenario_programs} DESTINATION ${CMAKE_INSTALL_DATADIR}/rserpooldemo/local-scenario)
+INSTALL(FILES    ${scenario_files}    DESTINATION ${CMAKE_INSTALL_DATADIR}/rserpooldemo/nornet-mec-scenario)
+INSTALL(PROGRAMS ${scenario_programs} DESTINATION ${CMAKE_INSTALL_DATADIR}/rserpooldemo/nornet-mec-scenario)

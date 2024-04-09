@@ -78,4 +78,6 @@ INSTALL(PROGRAMS system-maintenance.d/30-rsplib DESTINATION ${CMAKE_INSTALL_FULL
 ADD_SUBDIRECTORY(background)
 ADD_SUBDIRECTORY(graphics)
 ADD_SUBDIRECTORY(grub)
+
 ADD_SUBDIRECTORY(local-scenario)
+ADD_SUBDIRECTORY(nornet-mec-scenario)

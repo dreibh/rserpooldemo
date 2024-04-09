@@ -41,10 +41,10 @@ LIST(APPEND scenario_files
 )
 
 LIST(APPEND scenario_programs
+   ComponentControl
    LocalScenario.config
    LocalScenario-StartAll
    LocalScenario-StopAll
-   ComponentControl
    RunProgram
 )
 
