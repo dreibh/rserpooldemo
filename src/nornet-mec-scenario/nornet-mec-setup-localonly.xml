@@ -484,7 +484,7 @@
       <ActiveImageURL>../graphics/PoolElementActive2.png</ActiveImageURL>
       <InactiveImageURL>../graphics/PoolElementInactive2.png</InactiveImageURL>
       <PositionX>87</PositionX>
-      <PositionY>10</PositionY>
+      <PositionY>5</PositionY>
       <ContextMenuEntry>
          <Name>Start Pool Element (Reliable Mode)</Name>
          <Command>./ComponentControl ./LocalScenario.config PE 1 start -identifier=0x100 -policy=PriorityLeastUsed:1.0 -fgpmaxthreads=1 -registrar=127.0.0.1:4100 -registrar=127.0.0.1:4200 -asapannounce=off -cspserver=127.0.0.1:2960</Command>
@@ -529,8 +529,8 @@
       <RefreshTimeout>5</RefreshTimeout>
       <ActiveImageURL>../graphics/Controller.png</ActiveImageURL>
       <InactiveImageURL>../graphics/Controller.png</InactiveImageURL>
-      <PositionX>2</PositionX>
-      <PositionY>15</PositionY>
+      <PositionX>1</PositionX>
+      <PositionY>10</PositionY>
       <ContextMenuEntry>
          <Name>Start All Components</Name>
          <Command>./LocalScenario-StartAll</Command>

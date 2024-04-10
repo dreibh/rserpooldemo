@@ -37,25 +37,14 @@ fi
 
 
 if [ "$1" == "stop" ] ; then
-   command=stopall
+   command="stopall"
 elif [ "$1" == "kill" ] ; then
-   command=killall
+   command="killall"
 else
    echo >&2 "ERROR: Bad command $1!"
    exit 1
 fi
 
-
 ./ComponentControl ./LocalScenario.config PU 0 killall
-./ComponentControl ./LocalScenario.config PE 0 $command
-./ComponentControl ./LocalScenario.config PR 0 $command
-
-if [ "$command" == "killall" ] ; then
-   rm -f output/*.pid output/*.log || true
-   killall -KILL server || true
-   killall -KILL lt-server || true
-   killall -KILL registrar || true
-   killall -KILL lt-registrar || true
-   killall -KILL fractalpooluser || true
-   killall -KILL lt-fractalpooluser || true
-fi
+./ComponentControl ./LocalScenario.config PE 0 ${command}
+./ComponentControl ./LocalScenario.config PR 0 ${command}

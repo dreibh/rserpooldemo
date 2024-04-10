@@ -117,7 +117,7 @@ stop_program_using_pid_file() {
       # shellcheck disable=SC2009
       if ps -p "${pid}" | grep "$1" >/dev/null 2>&1 ; then
          echo "Sending SIG$3 to PID ${pid}"
-         ${CC_PRESTART} /bin/kill -"$3" "${pid}"
+         ${CC_PRESTART} kill -"$3" "${pid}"
       else
          echo "${pid} is already gone, removing PID file only"
          rm -f "$2"
@@ -169,15 +169,10 @@ elif [ "${CC_COMMAND}" == "stopall" ] ; then
    )
 
 elif [ "${CC_COMMAND}" == "killall" ] ; then
-   # shellcheck disable=SC2009
-   ps axwww | grep "[0-9]:[0-9][0-9] ${CC_PROGRAM_DIRECTORY}/${CC_PROGRAM}" | (
-      # shellcheck disable=SC2034
-      while read -r pid tt stat time command ; do
-         if ps -p "${pid}" | grep "${CC_PROGRAM}" >/dev/null 2>&1 ; then
-            kill -KILL "${pid}"
-         fi
-      done
-   )
+   pgrep "^${CC_PROGRAM}$" | while read -r pid ; do
+      echo "Sending SIGKILL to PID ${pid}"
+      kill -KILL "${pid}"
+   done
    rm -f "${CC_PROGRAM_DIRECTORY}/${CC_PROGRAM}-*.pid"
 
 elif [ "${CC_COMMAND}" == "restart" ] ; then
