@@ -177,13 +177,13 @@ RDConfigNode* RDConfiguration::createNode(QDomElement element)
          else if(currentNode.toElement().tagName() == QString(g_NodePositionXTag)) {
             positionX = currentNode.toElement().text().toInt();
             if((positionX < 0) || (positionX > 100)) {
-               QMessageBox::critical(0, "Error!", "Wrong SizeX: " + QString(positionX));
+               QMessageBox::critical(0, "Error!", "Wrong SizeX: " + QString::number(positionX));
             }
          }
          else if(currentNode.toElement().tagName() == QString(g_NodePositionYTag)) {
             positionY = currentNode.toElement().text().toInt();
             if((positionY < 0) || (positionY > 100)) {
-               QMessageBox::critical(0, "Error!", "Wrong SizeY: " + QString(positionY));
+               QMessageBox::critical(0, "Error!", "Wrong SizeY: " + QString::number(positionY));
             }
          }
          else if(currentNode.toElement().tagName() == QString(g_ContextMenuEntryTag)) {
