@@ -1,3 +1,33 @@
+commit 1f8a48763f4357b42108c7faa7a644c5e064b0e0
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Jun 8 13:57:06 2024 +0200
+
+    Simplified Qt version handling in CMakeLists.txt.
+
+commit 821bfbe833a621ed13f457766199206330a84462
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Jun 8 12:12:21 2024 +0200
+
+    Updated build scripts
+
+commit 19825a04e6dfbcafe4bed1fc23d45ce13b0f7fe7
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Jun 8 12:11:22 2024 +0200
+
+    Updated CMakeLists.txt to also build with Qt6.
+
+commit 5e56fa2122b995da5c0128edb45dc61de03b2de0
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Jun 8 12:11:06 2024 +0200
+
+    Fixed Qt6 build issue.
+
+commit 19bdf3451cd891f22dbb2608027bfef521245b19
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Apr 11 15:01:35 2024 +0200
+
+    New release rserpooldemo-3.1.5.
+
 commit fb99bdc4d2d3ef77e6f8e35f34de773007c4534c
 Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Thu Apr 11 15:00:35 2024 +0200

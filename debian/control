@@ -14,7 +14,7 @@ Build-Depends: cmake,
                gsfonts,
                libimage-exiftool-perl,
                qtbase5-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.0
 Rules-Requires-Root: no
 
 Package: rserpooldemo-management
