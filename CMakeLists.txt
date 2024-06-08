@@ -116,11 +116,13 @@ ENDIF()
 #### REQUIREMENTS                                                        ####
 #############################################################################
 
-# ###### Qt #################################################################
-OPTION(ENABLE_QT "Include Qt programs" 1)
-IF (ENABLE_QT)
-   SET(CMAKE_AUTOMOC ON)
-   FIND_PACKAGE(Qt5 COMPONENTS Core Xml Widgets Network REQUIRED)
+SET(CMAKE_AUTOMOC ON)
+FIND_PACKAGE(Qt6 COMPONENTS Core Network Widgets Xml)
+IF (Qt6_FOUND)
+    MESSAGE(STATUS "Using Qt6")
+ELSE()
+    FIND_PACKAGE(Qt5 COMPONENTS Core Network Widgets Xml REQUIRED)
+    MESSAGE(STATUS "Using Qt5")
 ENDIF()
 
 
@@ -128,16 +130,6 @@ ENDIF()
 #### COMPILER FLAGS                                                      ####
 #############################################################################
 
-SET(CMAKE_CXX_STANDARD 14)
-SET(CMAKE_CXX_STANDARD_REQUIRED ON)
-SET(CMAKE_CXX_EXTENSIONS OFF)
-
-SET(CMAKE_C_STANDARD 11)
-SET(CMAKE_C_STANDARD_REQUIRED ON)
-SET(CMAKE_C_EXTENSIONS OFF)
-
-SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -Wall -Werror")
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror")
 
 
 #############################################################################
