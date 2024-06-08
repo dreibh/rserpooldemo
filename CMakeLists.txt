@@ -37,7 +37,7 @@ PROJECT(rserpooldemo LANGUAGES CXX)
 
 SET(BUILD_MAJOR "3")
 SET(BUILD_MINOR "1")
-SET(BUILD_PATCH "5")
+SET(BUILD_PATCH "6~rc3")
 SET(BUILD_VERSION ${BUILD_MAJOR}.${BUILD_MINOR}.${BUILD_PATCH})
 
 
@@ -117,13 +117,8 @@ ENDIF()
 #############################################################################
 
 SET(CMAKE_AUTOMOC ON)
-FIND_PACKAGE(Qt6 COMPONENTS Core Network Widgets Xml)
-IF (Qt6_FOUND)
-    MESSAGE(STATUS "Using Qt6")
-ELSE()
-    FIND_PACKAGE(Qt5 COMPONENTS Core Network Widgets Xml REQUIRED)
-    MESSAGE(STATUS "Using Qt5")
-ENDIF()
+FIND_PACKAGE(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Network Widgets Xml)
+FIND_PACKAGE(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Network Widgets Xml)
 
 
 #############################################################################

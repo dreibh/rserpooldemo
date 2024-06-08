@@ -50,7 +50,7 @@ ADD_EXECUTABLE(rserpooldemo
    rserpooldemo.cc
 )
 
-TARGET_LINK_LIBRARIES(rserpooldemo Qt::Widgets Qt::Xml Qt::Core Qt::Network)
+TARGET_LINK_LIBRARIES(rserpooldemo Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Xml)
 INSTALL(TARGETS             rserpooldemo
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         BUNDLE DESTINATION  ${CMAKE_INSTALL_BINDIR})
