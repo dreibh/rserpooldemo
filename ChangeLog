@@ -1,3 +1,39 @@
+commit a29f70c48d6df8bc12288a8582843e96dd8b1708
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Aug 7 21:38:20 2024 +0200
+
+    Dependency fix.
+
+commit ac49df7cd73c4af39db172b3470cb8927e23d892
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Jun 8 15:23:08 2024 +0200
+
+    Indentation fix.
+
+commit 297155a669e34cf2adb6b20afd911778b7df5204
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Jun 8 15:19:22 2024 +0200
+
+    FreeBSD packaging update.
+
+commit d40f33a1142b4c783499939f4177402fe095540e
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Jun 8 14:52:02 2024 +0200
+
+    Dependency fix.
+
+commit ea77b22b5489dcf69e5d47143cd6d8894c7380d1
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Jun 8 14:49:03 2024 +0200
+
+    Updated FreeBSD packaging files.
+
+commit 8c795de96eed44f55b0792b1b06c59cfb2a2af39
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Jun 8 13:58:09 2024 +0200
+
+    New release rserpooldemo-3.1.6.
+
 commit 1f8a48763f4357b42108c7faa7a644c5e064b0e0
 Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Sat Jun 8 13:57:06 2024 +0200

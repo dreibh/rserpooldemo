@@ -1,8 +1,14 @@
+rserpooldemo (3.1.7-1ubuntu1) noble; urgency=medium
+
+  * New upstream release.
+  * Closes: #999549 (ITP).
+
+ -- Thomas Dreibholz <thomas.dreibholz@gmail.com>  Wed, 07 Aug 2024 21:38:34 +0200
+
 rserpooldemo (3.1.6-1ubuntu1) noble; urgency=medium
 
   * New upstream release.
   * debian/control: Updated standards version to 4.7.0.
-  * Closes: #999549 (ITP).
 
  -- Thomas Dreibholz <thomas.dreibholz@gmail.com>  Sat, 08 Jun 2024 13:57:26 +0200
 
