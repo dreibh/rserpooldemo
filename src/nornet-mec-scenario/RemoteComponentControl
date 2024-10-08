@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # * ##########################################################################
 # *
 # *              //===//   //=====   //===//   //       //   //===//
@@ -37,60 +37,61 @@ fi
 
 
 # ====== Get configuration ==================================================
-if [ "$1" = "WriteCmdOnly" ] ; then
+if [ "$1" == "WriteCmdOnly" ] ; then
    if [ $# -lt 7 ] ; then
-      echo >&2 "Usage: Too few arguments!"
-      exit
+      echo >&2 "ERROR: Too few arguments!"
+      exit 1
    fi
-   CC_WRITECMD=$2
+   CC_WRITECMD="$2"
    shift ; shift
 else
    CC_WRITECMD=""
 fi
-CC_REMOTECONFIG=$1
-CC_HOST=$2
-CC_CONFIGFILE=$3
-CC_IDENTIFIER=$4
-CC_COMMAND=$5
+CC_REMOTECONFIG="$1"
+CC_HOST="$2"
+CC_CONFIGFILE="$3"
+CC_IDENTIFIER="$4"
+CC_COMMAND="$5"
 shift ; shift ; shift ; shift ; shift
-CC_MISCARGS=$@
+CC_MISCARGS="$*"
 
-if [ ! -e "$CC_REMOTECONFIG" ] ; then
-   echo >&2 "ERROR: Configuration file $CC_REMOTECONFIG does not exist!"
+if [ ! -e "${CC_REMOTECONFIG}" ] ; then
+   echo >&2 "ERROR: Configuration file ${CC_REMOTECONFIG} does not exist!"
    exit 1
 fi
 
-. ./$CC_REMOTECONFIG
-CC_LOCALUSER="`whoami`"
-if [ "x$CC_PATH" = "x" ] ; then
-   CC_PATH="`pwd | sed -e \"s/$CC_LOCALUSER/$CC_REMOTEUSER/g\"`"
+# shellcheck disable=SC1090
+. ./"${CC_REMOTECONFIG}"
+CC_LOCALUSER="$(whoami)"
+if [ "${CC_PATH}" == "" ] ; then
+   CC_PATH="$(pwd | sed -e \"s/"$CC_LOCALUSER"/"${CC_REMOTEUSER}"/g\")"
 fi
 
-eval CC_HOST=$CC_HOST
-if [ "x$CC_HOST" = "x" ] ; then
+eval CC_HOST="${CC_HOST}"
+if [ "${CC_HOST}" == "" ] ; then
    echo >&2 "ERROR: No host name specified! Check evaluation string!"
    exit 1
 fi
 
 
-progCall="$CC_REMOTEPRECOMMAND nohup ./ComponentControl $CC_CONFIGFILE $CC_IDENTIFIER $CC_COMMAND $CC_MISCARGS"
+progCall="${CC_REMOTEPRECOMMAND} nohup ./ComponentControl ${CC_CONFIGFILE} ${CC_IDENTIFIER} ${CC_COMMAND} ${CC_MISCARGS}"
 command="\
-if [ ! -e $CC_PATH ] ; then
-   echo \"ERROR: Directory $CC_PATH does not exist on host $CC_HOST!\"
+if [ ! -e ${CC_PATH} ] ; then
+   echo \"ERROR: Directory ${CC_PATH} does not exist on host ${CC_HOST}!\"
    exit 1
 fi &&
-cd $CC_PATH && \
+cd ${CC_PATH} && \
 if [ ! -e ComponentControl ] ; then
-   echo \"ERROR: ComponentControl not found in directory $CC_PATH of host $CC_HOST!\"
+   echo \"ERROR: ComponentControl not found in directory ${CC_PATH} of host ${CC_HOST}!\"
    exit 1
 fi &&
 echo \"$progCall\" &&
-$progCall >/dev/null 2>/dev/null &"
+$progCall >/dev/null 2>&1 &"
 
 
-if [ "x$CC_WRITECMD" = "x" ] ; then
-   echo "Contacting $CC_REMOTEUSER@$CC_HOST using key $CC_REMOTEKEY in $CC_PATH ..."
-   ssh -i $CC_REMOTEKEY $CC_SSHOPT $CC_REMOTEUSER@$CC_HOST "$command"
+if [ "${CC_WRITECMD}" == "" ] ; then
+   echo "Contacting ${CC_REMOTEUSER}@${CC_HOST} using key ${CC_REMOTEKEY} in ${CC_PATH} ..."
+   ssh -i "${CC_REMOTEKEY}" "${CC_SSHOPT}" "${CC_REMOTEUSER}"@"${CC_HOST}" "${command}"
 else
-   echo "$command" >>$CC_WRITECMD
+   echo "${command}" >>"${CC_WRITECMD}"
 fi

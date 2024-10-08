@@ -36,31 +36,15 @@ if [ $# -lt 1 ] ; then
 fi
 
 
-if [ "x$1" = "xstop" ] ; then
+if [ "$1" == "stop" ] ; then
    command=stopall
-elif [ "x$1" = "xkill" ] ; then
+elif [ "$1" == "kill" ] ; then
    command=killall
 else
    echo >&2 "ERROR: Bad command $1!"
    exit 1
 fi
 
-
-./ComponentControl ./LocalScenario.config PE 1 $command &
-./ComponentControl ./LocalScenario.config PR 1 $command &
-
-./ComponentControl ./LocalScenario.config PE 2 $command &
-./ComponentControl ./LocalScenario.config PE 3 $command &
-
-./ComponentControl ./LocalScenario.config PE 10 $command &
-./ComponentControl ./LocalScenario.config PE 11 $command &
-./ComponentControl ./LocalScenario.config PE 12 $command &
-./ComponentControl ./LocalScenario.config PE 13 $command &
-
-wait
-
-./ComponentControl ./LocalScenario.config PU 1 killall &
-./ComponentControl ./LocalScenario.config PR 2 $command &
-./ComponentControl ./LocalScenario.config PR 3 $command &
-
-wait
+./ComponentControl ./LocalScenario.config PU 0 killall
+./ComponentControl ./LocalScenario.config PE 0 ${command}
+./ComponentControl ./LocalScenario.config PR 0 ${command}

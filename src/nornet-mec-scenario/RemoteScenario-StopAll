@@ -36,9 +36,9 @@ if [ $# -lt 1 ] ; then
 fi
 
 
-if [ "x$1" = "xstop" ] ; then
+if [ "$1" == "stop" ] ; then
    command=stopall
-elif [ "x$1" = "xkill" ] ; then
+elif [ "$1" == "kill" ] ; then
    command=killall
 else
    echo >&2 "ERROR: Bad command $1!"
@@ -46,21 +46,21 @@ else
 fi
 
 
-./ComponentControl ./LocalScenario.config PE 1 $command &
-./ComponentControl ./LocalScenario.config PR 1 $command &
+./ComponentControl ./LocalScenario.config PE 1 ${command} &
+./ComponentControl ./LocalScenario.config PR 1 ${command} &
 
-./RemoteComponentControl ./MEC-User.config 10.1.1.76 ./LocalScenario.config PE 2 $command &
-./RemoteComponentControl ./MEC-User.config 10.1.1.75 ./LocalScenario.config PE 3 $command &
+./RemoteComponentControl ./MEC-User.config 10.1.1.76 ./LocalScenario.config PE 2 ${command} &
+./RemoteComponentControl ./MEC-User.config 10.1.1.75 ./LocalScenario.config PE 3 ${command} &
 
-./RemoteComponentControl ./PMC-User.config aunegaarden.uit.nornet ./LocalScenario.config PE 10 $command &
-./RemoteComponentControl ./PMC-User.config borbeck.ude.nornet ./LocalScenario.config PE 11 $command &
-./RemoteComponentControl ./PMC-User.config skreia.hig.nornet ./LocalScenario.config PE 12 $command &
-./RemoteComponentControl ./PMC-User.config boao.hu.nornet ./LocalScenario.config PE 13 $command &
+./RemoteComponentControl ./PMC-User.config aunegaarden.uit.nornet ./LocalScenario.config PE 10 ${command} &
+./RemoteComponentControl ./PMC-User.config borbeck.ude.nornet ./LocalScenario.config PE 11 ${command} &
+./RemoteComponentControl ./PMC-User.config skreia.hig.nornet ./LocalScenario.config PE 12 ${command} &
+./RemoteComponentControl ./PMC-User.config boao.hu.nornet ./LocalScenario.config PE 13 ${command} &
 
 wait
 
 ./ComponentControl ./LocalScenario.config PU 1 killall &
-./RemoteComponentControl ./MEC-User.config 10.1.1.16 ./LocalScenario.config PR 2 $command &
-./RemoteComponentControl ./PMC-User.config lerkendal.ntnu.nornet ./LocalScenario.config PR 3 $command &
+./RemoteComponentControl ./MEC-User.config 10.1.1.16 ./LocalScenario.config PR 2 ${command} &
+./RemoteComponentControl ./PMC-User.config lerkendal.ntnu.nornet ./LocalScenario.config PR 3 ${command} &
 
 wait

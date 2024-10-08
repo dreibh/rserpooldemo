@@ -31,23 +31,23 @@
 # * Contact: dreibh.iem.uni-due.de
 
 # !!! PR #1 sends ASAP announces! !!!
-./ComponentControl ./LocalScenario.config PR 1 start -identifier=0x10000 -asap=[::]:4100 -enrp=[::]:4101 -asapannounce=auto -enrpannounce=off -peer=10.1.1.9:4201 -cspserver=10.1.1.9:2960 &
-./ComponentControl ./LocalScenario.config PR 2 start -identifier=0x10010 -asap=[::]:4200 -enrp=[::]:4201 -asapannounce=off  -enrpannounce=off -cspserver=10.1.1.9:2960 &
-./ComponentControl ./LocalScenario.config PR 3 start -identifier=0x10020 -asap=[::]:4300 -enrp=[::]:4301 -asapannounce=off  -enrpannounce=off -peer=10.1.1.9:4201 -cspserver=10.1.1.9:2960 &
+./ComponentControl ./LocalScenario.config PR 1 start -identifier=0x10000 -asap="[::]:4100" -enrp="[::]:4101" -asapannounce=auto -enrpannounce=off -peer=127.0.0.1:4201 -cspserver=127.0.0.1:2960 &
+./ComponentControl ./LocalScenario.config PR 2 start -identifier=0x10010 -asap="[::]:4200" -enrp="[::]:4201" -asapannounce=off  -enrpannounce=off -cspserver=127.0.0.1:2960 &
+./ComponentControl ./LocalScenario.config PR 3 start -identifier=0x10020 -asap="[::]:4300" -enrp="[::]:4301" -asapannounce=off  -enrpannounce=off -peer=127.0.0.1:4201 -cspserver=127.0.0.1:2960 &
 
 wait
 sleep 2
 
-./ComponentControl ./LocalScenario.config PE 1 start  -identifier=0x100 -policy=PriorityLeastUsed:1.0 -fgpmaxthreads=1 -registrar=127.0.0.1:4100 -registrar=10.1.1.9:4200 -asapannounce=off -cspserver=10.1.1.9:2960 &
-./ComponentControl ./LocalScenario.config PE 2 start  -identifier=0x200 -policy=PriorityLeastUsed:0.1 -registrar=10.1.1.9:4200 -asapannounce=off -cspserver=10.1.1.9:2960 &
-./ComponentControl ./LocalScenario.config PE 3 start  -identifier=0x201 -policy=PriorityLeastUsed:0.1 -registrar=10.1.1.9:4200 -asapannounce=off -cspserver=10.1.1.9:2960 &
-./ComponentControl ./LocalScenario.config PE 10 start -identifier=0x300 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.9:4200 -registrar=10.1.1.9:4300 -asapannounce=off -cspserver=10.1.1.9:2960 &
-./ComponentControl ./LocalScenario.config PE 11 start -identifier=0x301 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.9:4200 -registrar=10.1.1.9:4300 -asapannounce=off -cspserver=10.1.1.9:2960 &
-./ComponentControl ./LocalScenario.config PE 12 start -identifier=0x302 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.9:4200 -registrar=10.1.1.9:4300 -asapannounce=off -cspserver=10.1.1.9:2960 &
-./ComponentControl ./LocalScenario.config PE 13 start -identifier=0x303 -policy=PriorityLeastUsed:0.5 -registrar=10.1.1.9:4200 -registrar=10.1.1.9:4300 -asapannounce=off -cspserver=10.1.1.9:2960 &
+./ComponentControl ./LocalScenario.config PE 1 start  -identifier=0x100 -policy=PriorityLeastUsed:1.0 -fgpmaxthreads=1 -registrar=127.0.0.1:4100 -registrar=127.0.0.1:4200 -asapannounce=off -cspserver=127.0.0.1:2960 &
+./ComponentControl ./LocalScenario.config PE 2 start  -identifier=0x200 -policy=PriorityLeastUsed:0.1 -registrar=127.0.0.1:4200 -asapannounce=off -cspserver=127.0.0.1:2960 &
+./ComponentControl ./LocalScenario.config PE 3 start  -identifier=0x201 -policy=PriorityLeastUsed:0.1 -registrar=127.0.0.1:4200 -asapannounce=off -cspserver=127.0.0.1:2960 &
+./ComponentControl ./LocalScenario.config PE 10 start -identifier=0x300 -policy=PriorityLeastUsed:0.5 -registrar=127.0.0.1:4200 -registrar=127.0.0.1:4300 -asapannounce=off -cspserver=127.0.0.1:2960 &
+./ComponentControl ./LocalScenario.config PE 11 start -identifier=0x301 -policy=PriorityLeastUsed:0.5 -registrar=127.0.0.1:4200 -registrar=127.0.0.1:4300 -asapannounce=off -cspserver=127.0.0.1:2960 &
+./ComponentControl ./LocalScenario.config PE 12 start -identifier=0x302 -policy=PriorityLeastUsed:0.5 -registrar=127.0.0.1:4200 -registrar=127.0.0.1:4300 -asapannounce=off -cspserver=127.0.0.1:2960 &
+./ComponentControl ./LocalScenario.config PE 13 start -identifier=0x303 -policy=PriorityLeastUsed:0.5 -registrar=127.0.0.1:4200 -registrar=127.0.0.1:4300 -asapannounce=off -cspserver=127.0.0.1:2960 &
 
 wait
 sleep 2
 
 # !!! PU listens to ASAP announces! !!!
-./ComponentControl ./LocalScenario.config PU 1 start -identifier=0x1 -caption=PoolUser-1 -registrar=127.0.0.1:4100 -registrar=10.1.1.9:4200 -asapannounce=auto -cspserver=10.1.1.9:2960
+./ComponentControl ./LocalScenario.config PU 1 start -identifier=0x1 -caption=PoolUser-1 -registrar=127.0.0.1:4100 -registrar=127.0.0.1:4200 -asapannounce=auto -cspserver=127.0.0.1:2960

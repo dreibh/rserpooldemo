@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
 #
 # Thomas Dreibholz's LaTeX Toolchain
 # Copyright (C) 2007-2024 by Thomas Dreibholz
@@ -18,6 +18,9 @@
 #
 # Contact: thomas.dreibholz@gmail.com
 
+# Bash options:
+set -e
+
 if [ $# != 2 ] ; then
    echo "Usage: dia2pdf [Source File] [Destination File]"
    exit 1
@@ -26,11 +29,11 @@ fi
 
 echo "Converting $1 to $2 from Dia to PDF ..."
 
-TEMP_EPS=`mktemp /tmp/tmpEPS.XXXXXXXXXX`
-TEMP_PDF=`mktemp /tmp/tmpPDF.XXXXXXXXXX`
+TEMP_EPS=$(mktemp /tmp/tmpEPS.XXXXXXXXXX)
+TEMP_PDF=$(mktemp /tmp/tmpPDF.XXXXXXXXXX)
 
-dia -n -t eps-pango -e ${TEMP_EPS} $1 >/dev/null
-epstopdf --outfile=${TEMP_PDF} ${TEMP_EPS}
-pdfcrop --hires ${TEMP_PDF} $2
+dia -n -t eps-pango -e "${TEMP_EPS}" "$1" >/dev/null
+epstopdf --outfile="${TEMP_PDF}" "${TEMP_EPS}"
+pdfcrop --hires "${TEMP_PDF}" "$2"
 
-rm -f ${TEMP_PDF} ${TEMP_EPS}
+rm -f "${TEMP_PDF}" "${TEMP_EPS}"

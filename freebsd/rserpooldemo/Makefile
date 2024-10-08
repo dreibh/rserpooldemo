@@ -1,8 +1,7 @@
 # Created by: Thomas Dreibholz <thomas.dreibholz@gmail.com>
 
 PORTNAME=	rserpooldemo
-PORTVERSION=	3.1.5~rc1
-PORTREVISION=	1
+DISTVERSION=	3.1.6
 CATEGORIES=	net
 MASTER_SITES=	https://www.nntb.no/~dreibh/rserpool/download/
 
@@ -16,7 +15,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 BUILD_DEPENDS=	gimp:graphics/gimp-app \
 		gm:graphics/GraphicsMagick \
 		exiftool:graphics/p5-Image-ExifTool
-RUN_DEPENDS=    rspserver:net/rsplib \
+RUN_DEPENDS=	rspserver:net/rsplib \
 		fractgen:graphics/fractgen
 
 USES=		cmake desktop-file-utils shared-mime-info qt:5 tar:xz
@@ -24,7 +23,6 @@ USES=		cmake desktop-file-utils shared-mime-info qt:5 tar:xz
 CMAKE_ARGS+=	-DCMAKE_INSTALL_MANDIR=${PREFIX}/share/man
 
 USE_LDCONFIG=	yes
-USE_QT=         core gui widgets xml \
-                buildtools:build qmake:build
+USE_QT=		buildtools:build core gui network widgets xml
 
 .include <bsd.port.mk>

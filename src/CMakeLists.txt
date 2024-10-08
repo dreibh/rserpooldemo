@@ -50,7 +50,7 @@ ADD_EXECUTABLE(rserpooldemo
    rserpooldemo.cc
 )
 
-TARGET_LINK_LIBRARIES(rserpooldemo Qt5::Widgets Qt5::Xml Qt5::Core Qt5::Network)
+TARGET_LINK_LIBRARIES(rserpooldemo Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Xml)
 INSTALL(TARGETS             rserpooldemo
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         BUNDLE DESTINATION  ${CMAKE_INSTALL_BINDIR})
@@ -78,4 +78,6 @@ INSTALL(PROGRAMS system-maintenance.d/30-rsplib DESTINATION ${CMAKE_INSTALL_FULL
 ADD_SUBDIRECTORY(background)
 ADD_SUBDIRECTORY(graphics)
 ADD_SUBDIRECTORY(grub)
+
 ADD_SUBDIRECTORY(local-scenario)
+ADD_SUBDIRECTORY(nornet-mec-scenario)
