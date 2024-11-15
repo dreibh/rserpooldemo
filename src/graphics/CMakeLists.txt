@@ -12,7 +12,7 @@
 #
 # ############# An Efficient RSerPool Prototype Implementation #############
 #
-#   Copyright (C) 2002-2024 by Thomas Dreibholz
+#   Copyright (C) 2002-2025 by Thomas Dreibholz
 #
 #   Authors: Thomas Dreibholz, thomas.dreibholz@gmail.com
 #            Sebastian Rohde, rohde@iem.uni-due.de
