@@ -3,7 +3,7 @@ Version: 3.1.7
 Release: 1
 Summary: RSerPool Demo Tool
 Group: Applications/Internet
-License: GPL-3+
+License: GPL-3.0-or-later
 URL: https://www.nntb.no/~dreibh/rserpool/rserpool/
 Source: https://www.nntb.no/~dreibh/rserpool/rserpool/download/%{name}-%{version}.tar.xz
 
