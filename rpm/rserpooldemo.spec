@@ -21,15 +21,15 @@ BuildRequires: google-noto-sans-fonts
 BuildRequires: google-noto-serif-fonts
 BuildRequires: GraphicsMagick
 BuildRequires: perl-Image-ExifTool
-BuildRequires: pygtk2
-BuildRequires: (qt6-qtbase-devel or qt5-qtbase-devel)
+BuildRequires: qt6-qtbase-devel
 BuildRequires: texlive-epstopdf-bin
 BuildRequires: urw-base35-fonts
 BuildRoot: %{_tmppath}/%{name}-%{version}-build
 
-
-# TEST ONLY:
-# define _unpackaged_files_terminate_build 0
+Requires: %{name}-tool
+Recommends: %{name}-desktop
+Recommends: %{name}-management
+Suggests: %{name}-development
 
 
 %description
@@ -52,6 +52,8 @@ mv %{buildroot}/usr/share/rserpooldemo/splash/Zollverein-*.jpeg %{buildroot}/boo
 mkdir -p %{buildroot}/etc/rserpooldemo
 mv %{buildroot}/usr/share/rserpooldemo/splash/rserpooldemo-version %{buildroot}/etc/rserpooldemo
 # ===========================================================================
+
+%files
 
 
 %package management
