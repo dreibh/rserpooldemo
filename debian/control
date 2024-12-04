@@ -3,6 +3,8 @@ Section: net
 Priority: optional
 Maintainer: Thomas Dreibholz <thomas.dreibholz@gmail.com>
 Homepage: https://www.nntb.no/~dreibh/rserpool/rserpool/
+Vcs-Git: https://github.com/dreibh/rserpooldemo.git
+Vcs-Browser: https://github.com/dreibh/rserpooldemo
 Build-Depends: cmake,
                debhelper (>= 12),
                fonts-dejavu,
