@@ -31,7 +31,7 @@
 # * Contact: dreibh.iem.uni-due.de
 
 # Bash options:
-set -e
+set -eu
 
 SCRIPT=`realpath "$0"`
 SCRIPTPATH=`dirname "${SCRIPT}"`   # NOTE: Current directory may be a build directory!

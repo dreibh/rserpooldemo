@@ -19,7 +19,7 @@
 # Contact: thomas.dreibholz@gmail.com
 
 # Bash options:
-set -e
+set -eu
 
 RESOLUTION="1920x1080"
 
