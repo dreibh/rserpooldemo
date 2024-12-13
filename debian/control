@@ -14,9 +14,9 @@ Build-Depends: cmake,
                gimp,
                graphicsmagick,
                gsfonts,
+               libgl-dev,
                libimage-exiftool-perl,
-               qt6-base-dev | qtbase5-dev,
-               libgl1-mesa-dev
+               qt6-base-dev | qtbase5-dev
 Standards-Version: 4.7.0
 Rules-Requires-Root: no
 
