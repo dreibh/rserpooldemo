@@ -67,6 +67,8 @@ fi
 # ====== Call GIMP ==========================================================
 rm -f "$OUTPUTFILENAME"
 ( cat <<EOF
+(cond ((not (defined? 'gimp-image-set-active-layer)) (define (gimp-image-set-active-layer image drawable) (gimp-image-set-selected-layers image (vector drawable)))))
+
 (let*
    ((inputFileName    "$INPUTFILENAME")
     (outputFileName   "$OUTPUTFILENAME")
@@ -77,23 +79,31 @@ rm -f "$OUTPUTFILENAME"
     (tileSurface      $TILESURFACE)
     (image (car (gimp-file-load RUN-NONINTERACTIVE inputFileName inputFileName)))
     (drawable (car (gimp-image-get-active-layer image)))
+
    )
    ; ------------------------------------------------------------------------
    ; First, make sure that the image is RGB, not indexed color mode!
-   (if (not (= RGB (car (gimp-image-base-type image))))
-             (gimp-image-convert-rgb image))
+;   (if (not (= RGB (car (gimp-image-base-type image))))
+;             (gimp-image-convert-rgb image))
 
-   (plug-in-mosaic RUN-NONINTERACTIVE image drawable
-       tileSize tileHeight tileSpacing
-       0.65 TRUE 135.0 0.2 TRUE TRUE
-       tileType tileSurface FALSE)
+    (cond((not(defined? 'plug-in-mosaic))
+       (gimp-drawable-merge-new-filter drawable "gegl:mosaic" 0 LAYER-MODE-REPLACE 1.0
+        "tile-type" "squares" "tile-size" tileSize "tile-height" tileHeight "tile-neatness" 1 "color-variation" 0 "color-averaging" TRUE "tile-surface" 0 "tile-allow-split" FALSE "tile-spacing" grid-wire-size "joints-color" '(0 0 0) "light-color" '(1 1 1) "light-dir" 135 "antialiasing" TRUE "seed" 0)
+       )
+    (else
+       (plug-in-mosaic RUN-NONINTERACTIVE image drawable
+        tileSize tileHeight tileSpacing
+        0.65 TRUE 135.0 0.2 TRUE TRUE
+        tileType tileSurface FALSE)
+   ))
    ; ------------------------------------------------------------------------
    (file-png-save2 RUN-NONINTERACTIVE image drawable outputFileName outputFileName TRUE 9 TRUE TRUE FALSE TRUE TRUE FALSE TRUE)
 )
 (gimp-quit TRUE)
 EOF
-) | env LANG=C HOME=/tmp gimp --new-instance --no-interface --no-splash --batch-interpreter plug-in-script-fu-eval --batch - 2>&1 | \
-       ( grep -vE "^ts>|(#t)|^Copyright|^Welcome|GLib-GObject-WARNING|GEGL-gegl-operation.c-WARNING|GEGL-CRITICAL|missing babl fast path|Missing fast-path babl|accelerates GEGL|first occurance of formats|programmatically by bab|GeglBuffers leaked|Failed to parse tag cache|^$" || true )
+) | env LANG=C HOME=/tmp gimp --new-instance --no-interface --no-splash --batch-interpreter plug-in-script-fu-eval --batch -
+# 2>&1 | \
+#        ( grep -vE "^ts>|(#t)|^Copyright|^Welcome|GLib-GObject-WARNING|GEGL-gegl-operation.c-WARNING|GEGL-CRITICAL|missing babl fast path|Missing fast-path babl|accelerates GEGL|first occurance of formats|programmatically by bab|GeglBuffers leaked|Failed to parse tag cache|^$" || true )
 
 if [ ! -e "$OUTPUTFILENAME" ] ; then
    echo >&2 "ERROR: $OUTPUTFILENAME has not been produced. Something went wrong!"
