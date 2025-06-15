@@ -23,8 +23,8 @@ set -eu
 
 
 # Example:
-# Make-Mosaic Image.jpeg Mosaic 24 4 4 hexagons rough
-# Make-Mosaic Image.jpeg Mosaic 32 4 2 octagons smooth
+# Make-Mosaic Image.jpeg Mosaic.png 24 4 4 hexagons rough
+# Make-Mosaic Image.jpeg Mosaic.png 32 4 2 octagons smooth
 
 
 # ====== Handle arguments ===================================================
@@ -37,6 +37,7 @@ OUTPUT_FILENAME="$2"
 TILE_SIZE=$3
 TILE_HEIGHT=$4
 TILE_SPACING=$5
+TILE_NEATNESS=0.65
 TILE_TYPE="6"
 TILE_TYPESTRING="hexagons"
 TILE_SURFACE=0
@@ -78,6 +79,7 @@ rm -f "${OUTPUT_FILENAME}"
     (tileSize         ${TILE_SIZE})
     (tileHeight       ${TILE_HEIGHT})
     (tileSpacing      ${TILE_SPACING})
+    (tileNeatness     ${TILE_NEATNESS})
     (tileSurface      ${TILE_SURFACE})
     (image            (car (gimp-file-load RUN-NONINTERACTIVE inputFileName inputFileName)))
     (layer            (if (not (defined? 'gimp-image-get-active-layer))
@@ -93,31 +95,31 @@ rm -f "${OUTPUT_FILENAME}"
 ;   (if (not (= RGB (car (gimp-image-base-type image))))
 ;             (gimp-image-convert-rgb image))
 
-;    (cond( (not(defined? 'plug-in-mosaic))
-       ; New Gimp 3.0 API:
-       (gimp-drawable-merge-new-filter layer "gegl:mosaic" 0 LAYER-MODE-REPLACE 1.0
-           "tile-size"       tileSize
-           "tile-height"     tileHeight
-           "tile-spacing"    tileSpacing
-           "tile-neatness"   0.65
-           "antialiasing"    TRUE
-           "light-dir"       135
-           "color-variation" 0.2
-           "tile-type"       tileTypeString
-           "tile-surface"    TRUE
-           "seed"            0
-       )
-;    (else
-;       ; Old Gimp 2.x API:
-;       (plug-in-mosaic RUN-NONINTERACTIVE image layer
-;           tileSize tileHeight tileSpacing
-;           0.65 TRUE 135.0 0.2 TRUE TRUE
-;           tileType tileSurface FALSE
-;       )
-;   )))
+   (cond( (not(defined? 'plug-in-mosaic))
+      ; New Gimp 3.0 API:
+      (gimp-drawable-merge-new-filter layer "gegl:mosaic" 0 LAYER-MODE-REPLACE 1.0
+          "tile-size"       tileSize
+          "tile-height"     tileHeight
+          "tile-spacing"    tileSpacing
+          "tile-neatness"   tileNeatness
+          "antialiasing"    TRUE
+          "light-dir"       135
+          "color-variation" 0.2
+          "tile-type"       tileTypeString
+          "tile-surface"    TRUE
+          "seed"            0
+      )
+   )
+   (else
+      ; Old Gimp 2.x API:
+      (plug-in-mosaic RUN-NONINTERACTIVE image layer
+         tileSize tileHeight tileSpacing
+         tileNeatness TRUE 135.0 0.2 TRUE TRUE
+         tileType tileSurface FALSE
+   )))
 
    ; ------ Save result -----------------------------------------------------
-;   (cond( (not(defined? 'file-png-save2))
+   (cond( (not(defined? 'file-png-save2))
       ; New Gimp 3.0 API:
       (file-png-export
          #:run-mode         RUN-NONINTERACTIVE
@@ -131,11 +133,13 @@ rm -f "${OUTPUT_FILENAME}"
          #:phys             TRUE
          #:time             TRUE
          #:save-transparent FALSE
-         #:optimize-palette TRUE)
-;    (else
-;      ; Old Gimp 2.x API:
-;      (file-png-save2 RUN-NONINTERACTIVE image drawable outputFileName outputFileName TRUE 9 TRUE TRUE FALSE TRUE TRUE FALSE TRUE)
-;   )))
+         #:optimize-palette TRUE
+      )
+   )
+   (else
+      ; Old Gimp 2.x API:
+      (file-png-save2 RUN-NONINTERACTIVE image drawable outputFileName outputFileName TRUE 9 TRUE TRUE FALSE TRUE TRUE FALSE TRUE
+   )))
 
    ; Clean up:
    (gimp-image-delete image)
