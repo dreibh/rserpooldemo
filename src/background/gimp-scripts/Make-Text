@@ -34,7 +34,7 @@ if [ $# -lt 3 ] ; then
    echo >&2 "Usage: $0 filename content font_size [border_size [colorscheme [fontname]]]"
    exit 1
 fi
-OUTPUTFILENAME="$1"
+OUTPUT_FILENAME="$1"
 CONTENT="$2"
 FONTSIZE=$3
 BORDERSIZE=5
@@ -53,7 +53,7 @@ fi
 
 
 # ====== Call GIMP ==========================================================
-rm -f "$OUTPUTFILENAME"
+rm -f "${OUTPUT_FILENAME}"
 ( cat <<EOF
 
 ; script-fu-glossy-logo copied from /usr/share/gimp/2.0/scripts/glossy.scm:
@@ -424,7 +424,7 @@ rm -f "$OUTPUTFILENAME"
 
 
 (let*
-   ((fileName    "$OUTPUTFILENAME")
+   ((outputFileName   "${OUTPUT_FILENAME}")
     (logoText    "$CONTENT")
     (fontName    "$FONTNAME")
     (fontSize     $FONTSIZE)
@@ -454,8 +454,8 @@ rm -f "$OUTPUTFILENAME"
 ;;                                s-offset-x
 ;;                                s-offset-y)
 
-    (image (car (script-fu-glossy-300-logo logoText fontSize fontName "Centered" 8 8 colorScheme FALSE colorScheme FALSE borderSize "white" FALSE "Electric Blue" FALSE "Electric Blue" FALSE "Parque #1" TRUE TRUE 8 8)))
-    (drawable (car (gimp-image-get-active-layer image)))
+    (image (car (script-fu-glossy-300-logo logoText fontSize fontName 0 8 8 colorScheme FALSE colorScheme FALSE borderSize "white" FALSE "Electric Blue" FALSE "Electric Blue" FALSE "Parque #1" TRUE TRUE 8 8)))
+    (layer (car (gimp-image-get-active-layer image)))
     (layers (gimp-image-get-layers image))
     (num-layers (car layers))
     (layer-array (cadr layers))
@@ -468,12 +468,14 @@ rm -f "$OUTPUTFILENAME"
    (gimp-displays-flush)
    (gimp-image-merge-visible-layers image EXPAND-AS-NECESSARY)
 
-   (set layer        (if (not (defined? 'gimp-image-get-active-layer))
+   (set! layer        (if (not (defined? 'gimp-image-get-active-layer))
                          ; New Gimp 3.0 API:
                          (car (list (vector-ref (car (gimp-image-get-selected-layers image)) 0)))
                          ; Old Gimp 2.x API:
                          (car (gimp-image-get-active-layer image)))
                      )
+
+;   (set! layer (car (gimp-image-get-active-layer image)))
 
    ; ------ Save result -----------------------------------------------------
    (cond( (not(defined? 'file-png-save2))
@@ -500,10 +502,10 @@ rm -f "$OUTPUTFILENAME"
       (file-png-save2 RUN-NONINTERACTIVE image layer outputFileName outputFileName TRUE 9 TRUE TRUE FALSE TRUE TRUE FALSE TRUE
    )))
 
-   ; Clean up:
+   ; ------ Clean up --------------------------------------------------------
    (gimp-image-delete image)
+   (gimp-quit TRUE)
 )
-(gimp-quit TRUE)
 EOF
 ) | env LANG=C HOME=/tmp gimp --new-instance --no-interface --no-splash --batch-interpreter plug-in-script-fu-eval --batch - 2>&1 | \
 (
