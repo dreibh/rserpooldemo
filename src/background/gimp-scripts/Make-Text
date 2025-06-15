@@ -431,31 +431,8 @@ rm -f "${OUTPUT_FILENAME}"
     (borderSize   $BORDERSIZE)
     (colorScheme "$COLORSCHEME")
 
-;; (define (script-fu-glossy-300-logo text
-;;                                size
-;;                                font
-;; 			       justification
-;; 			       letter-spacing
-;; 		               line-spacing
-;;                                blend-gradient-text
-;;                                blend-gradient-text-reverse
-;;                                blend-gradient-outline
-;;                                blend-gradient-outline-reverse
-;;                                grow-size
-;;                                bg-color
-;;                                use-pattern-text
-;;                                pattern-text
-;;                                use-pattern-outline
-;;                                pattern-outline
-;;                                use-pattern-overlay
-;;                                pattern-overlay
-;;                                noninteractive
-;;                                shadow-toggle
-;;                                s-offset-x
-;;                                s-offset-y)
-
     (image (car (script-fu-glossy-300-logo logoText fontSize fontName 0 8 8 colorScheme FALSE colorScheme FALSE borderSize "white" FALSE "Electric Blue" FALSE "Electric Blue" FALSE "Parque #1" TRUE TRUE 8 8)))
-    (layer (car (gimp-image-get-active-layer image)))
+    (layer)
     (layers (gimp-image-get-layers image))
     (num-layers (car layers))
     (layer-array (cadr layers))
@@ -474,8 +451,6 @@ rm -f "${OUTPUT_FILENAME}"
                          ; Old Gimp 2.x API:
                          (car (gimp-image-get-active-layer image)))
                      )
-
-;   (set! layer (car (gimp-image-get-active-layer image)))
 
    ; ------ Save result -----------------------------------------------------
    (cond( (not(defined? 'file-png-save2))
