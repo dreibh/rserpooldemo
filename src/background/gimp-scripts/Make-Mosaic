@@ -41,6 +41,7 @@ TILE_NEATNESS=0.65
 TILE_TYPE="6"
 TILE_TYPESTRING="hexagons"
 TILE_SURFACE=0
+VERBOSE=0
 if [ $# -gt 5 ] ; then
    TILE_TYPESTRING="$6"
    if [ "${TILE_TYPESTRING}" = "squares" ] ; then
@@ -121,24 +122,26 @@ rm -f "${OUTPUT_FILENAME}"
    ; ------ Save result -----------------------------------------------------
    (cond( (not(defined? 'file-png-save2))
       ; New Gimp 3.0 API:
-      (file-png-export
-         #:run-mode         RUN-NONINTERACTIVE
-         #:image            image
-         #:file             outputFileName
-         #:options          -1
-         #:interlaced       TRUE
-         #:compression      9
-         #:bkgd             TRUE
-         #:offs             FALSE
-         #:phys             TRUE
-         #:time             TRUE
-         #:save-transparent FALSE
-         #:optimize-palette TRUE
-      )
+      ; FIXME: This does not work when running in Gimp 2.x!
+      ; (file-png-export
+      ;    #:run-mode         RUN-NONINTERACTIVE
+      ;    #:image            image
+      ;    #:file             outputFileName
+      ;    #:options          -1
+      ;    #:interlaced       TRUE
+      ;    #:compression      9
+      ;    #:bkgd             TRUE
+      ;    #:offs             FALSE
+      ;    #:phys             TRUE
+      ;    #:time             TRUE
+      ;    #:save-transparent FALSE
+      ;    #:optimize-palette TRUE
+      ; )
+      (file-png-export RUN-NONINTERACTIVE image outputFileName -1 TRUE 9 TRUE FALSE TRUE TRUE FALSE TRUE)
    )
    (else
       ; Old Gimp 2.x API:
-      (file-png-save2 RUN-NONINTERACTIVE image drawable outputFileName outputFileName TRUE 9 TRUE TRUE FALSE TRUE TRUE FALSE TRUE
+      (file-png-save2 RUN-NONINTERACTIVE image layer outputFileName outputFileName TRUE 9 TRUE TRUE FALSE TRUE TRUE FALSE TRUE
    )))
 
    ; Clean up:
@@ -146,9 +149,14 @@ rm -f "${OUTPUT_FILENAME}"
 )
 (gimp-quit TRUE)
 EOF
-) | env LANG=C HOME=/tmp gimp --new-instance --no-interface --no-splash --batch-interpreter plug-in-script-fu-eval --batch -
-# 2>&1 | \
-#        ( grep -vE "^ts>|(#t)|^Copyright|^Welcome|GLib-GObject-WARNING|GEGL-gegl-operation.c-WARNING|GEGL-CRITICAL|missing babl fast path|Missing fast-path babl|accelerates GEGL|first occurance of formats|programmatically by bab|GeglBuffers leaked|Failed to parse tag cache|^$" || true )
+) | env LANG=C HOME=/tmp gimp --new-instance --no-interface --no-splash --batch-interpreter plug-in-script-fu-eval --batch - 2>&1 | \
+(
+   if [ ${VERBOSE} -eq 0 ] ; then
+      cat
+   else
+      grep -vE "^ts>|(#t)|^Copyright|^Welcome|scriptfu-WARNING|^Please use named arguments:|^$" || true
+   fi
+)
 
 if [ ! -e "${OUTPUT_FILENAME}" ] ; then
    echo >&2 "ERROR: ${OUTPUT_FILENAME} has not been produced. Something went wrong!"
