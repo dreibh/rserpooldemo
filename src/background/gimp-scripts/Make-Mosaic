@@ -19,7 +19,7 @@
 # Contact: thomas.dreibholz@gmail.com
 
 # Bash options:
-set -e
+set -eu
 
 
 # Example:
@@ -32,32 +32,34 @@ if [ $# -lt 5 ] ; then
    echo >&2 "Usage: $0 input_filename output_filename tile_size tile_height tile_spacing [squares|hexagons|octagons|triangles [smooth|rough]]"
    exit 1
 fi
-INPUTFILENAME="$1"
-OUTPUTFILENAME="$2"
-TILESIZE=$3
-TILEHEIGHT=$4
-TILESPACING=$5
-TILETYPE="1"
-TILESURFACE=0
+INPUT_FILENAME="$1"
+OUTPUT_FILENAME="$2"
+TILE_SIZE=$3
+TILE_HEIGHT=$4
+TILE_SPACING=$5
+TILE_TYPE="6"
+TILE_TYPESTRING="hexagons"
+TILE_SURFACE=0
 if [ $# -gt 5 ] ; then
-   if [ "$6" = "squares" ] ; then
-      TILETYPE=0
-   elif [ "$6" = "hexagons" ] ; then
-      TILETYPE=1
-   elif [ "$6" = "octagons" ] ; then
-      TILETYPE=2
-   elif [ "$6" = "triangles]" ] ; then
-      TILETYPE=3
+   TILE_TYPESTRING="$6"
+   if [ "${TILE_TYPESTRING}" = "squares" ] ; then
+      TILE_TYPE=0
+   elif [ "${TILE_TYPESTRING}" = "hexagons" ] ; then
+      TILE_TYPE=1
+   elif [ "${TILE_TYPESTRING}" = "octagons" ] ; then
+      TILE_TYPE=2
+   elif [ "${TILE_TYPESTRING}" = "triangles" ] ; then
+      TILE_TYPE=3
    else
-      echo >&2 "Invalid tile type: $6"
+      echo >&2 "Invalid tile type: ${TILE_TYPESTRING}"
       exit 1
    fi
 fi
 if [ $# -gt 6 ] ; then
    if [ "$7" = "smooth" ] ; then
-      TILESURFACE=0
+      TILE_SURFACE=0
    elif [ "$7" = "rough" ] ; then
-      TILESURFACE=1
+      TILE_SURFACE=1
    else
       echo >&2 "Invalid tile surface: $7"
       exit 1
@@ -65,39 +67,78 @@ if [ $# -gt 6 ] ; then
 fi
 
 # ====== Call GIMP ==========================================================
-rm -f "$OUTPUTFILENAME"
+rm -f "${OUTPUT_FILENAME}"
 ( cat <<EOF
-(cond ((not (defined? 'gimp-image-set-active-layer)) (define (gimp-image-set-active-layer image drawable) (gimp-image-set-selected-layers image (vector drawable)))))
-
 (let*
-   ((inputFileName    "$INPUTFILENAME")
-    (outputFileName   "$OUTPUTFILENAME")
-    (tileType         $TILETYPE)
-    (tileSize         $TILESIZE)
-    (tileHeight       $TILEHEIGHT)
-    (tileSpacing      $TILESPACING)
-    (tileSurface      $TILESURFACE)
-    (image (car (gimp-file-load RUN-NONINTERACTIVE inputFileName inputFileName)))
-    (drawable (car (gimp-image-get-active-layer image)))
-
+   ; ------ Initialise and load image ---------------------------------------
+   ((inputFileName    "${INPUT_FILENAME}")
+    (outputFileName   "${OUTPUT_FILENAME}")
+    (tileType         ${TILE_TYPE})
+    (tileTypeString   "${TILE_TYPESTRING}")
+    (tileSize         ${TILE_SIZE})
+    (tileHeight       ${TILE_HEIGHT})
+    (tileSpacing      ${TILE_SPACING})
+    (tileSurface      ${TILE_SURFACE})
+    (image            (car (gimp-file-load RUN-NONINTERACTIVE inputFileName inputFileName)))
+    (layer            (if (not (defined? 'gimp-image-get-active-layer))
+                         ; New Gimp 3.0 API:
+                         (car (list (vector-ref (car (gimp-image-get-selected-layers image)) 0)))
+                         ; Old Gimp 2.x API:
+                         (car (gimp-image-get-active-layer image)))
+                      )
    )
-   ; ------------------------------------------------------------------------
+
+   ; ------ Apply filter ----------------------------------------------------
    ; First, make sure that the image is RGB, not indexed color mode!
 ;   (if (not (= RGB (car (gimp-image-base-type image))))
 ;             (gimp-image-convert-rgb image))
 
-    (cond((not(defined? 'plug-in-mosaic))
-       (gimp-drawable-merge-new-filter drawable "gegl:mosaic" 0 LAYER-MODE-REPLACE 1.0
-        "tile-type" "squares" "tile-size" tileSize "tile-height" tileHeight "tile-neatness" 1 "color-variation" 0 "color-averaging" TRUE "tile-surface" 0 "tile-allow-split" FALSE "tile-spacing" grid-wire-size "joints-color" '(0 0 0) "light-color" '(1 1 1) "light-dir" 135 "antialiasing" TRUE "seed" 0)
+;    (cond( (not(defined? 'plug-in-mosaic))
+       ; New Gimp 3.0 API:
+       (gimp-drawable-merge-new-filter layer "gegl:mosaic" 0 LAYER-MODE-REPLACE 1.0
+           "tile-size"       tileSize
+           "tile-height"     tileHeight
+           "tile-spacing"    tileSpacing
+           "tile-neatness"   0.65
+           "antialiasing"    TRUE
+           "light-dir"       135
+           "color-variation" 0.2
+           "tile-type"       tileTypeString
+           "tile-surface"    TRUE
+           "seed"            0
        )
-    (else
-       (plug-in-mosaic RUN-NONINTERACTIVE image drawable
-        tileSize tileHeight tileSpacing
-        0.65 TRUE 135.0 0.2 TRUE TRUE
-        tileType tileSurface FALSE)
-   ))
-   ; ------------------------------------------------------------------------
-   (file-png-save2 RUN-NONINTERACTIVE image drawable outputFileName outputFileName TRUE 9 TRUE TRUE FALSE TRUE TRUE FALSE TRUE)
+;    (else
+;       ; Old Gimp 2.x API:
+;       (plug-in-mosaic RUN-NONINTERACTIVE image layer
+;           tileSize tileHeight tileSpacing
+;           0.65 TRUE 135.0 0.2 TRUE TRUE
+;           tileType tileSurface FALSE
+;       )
+;   )))
+
+   ; ------ Save result -----------------------------------------------------
+;   (cond( (not(defined? 'file-png-save2))
+      ; New Gimp 3.0 API:
+      (file-png-export
+         #:run-mode         RUN-NONINTERACTIVE
+         #:image            image
+         #:file             outputFileName
+         #:options          -1
+         #:interlaced       TRUE
+         #:compression      9
+         #:bkgd             TRUE
+         #:offs             FALSE
+         #:phys             TRUE
+         #:time             TRUE
+         #:save-transparent FALSE
+         #:optimize-palette TRUE)
+;    (else
+;      ; Old Gimp 2.x API:
+;      (file-png-save2 RUN-NONINTERACTIVE image drawable outputFileName outputFileName TRUE 9 TRUE TRUE FALSE TRUE TRUE FALSE TRUE)
+;   )))
+
+   ; Clean up:
+   (gimp-image-delete image)
 )
 (gimp-quit TRUE)
 EOF
@@ -105,7 +146,7 @@ EOF
 # 2>&1 | \
 #        ( grep -vE "^ts>|(#t)|^Copyright|^Welcome|GLib-GObject-WARNING|GEGL-gegl-operation.c-WARNING|GEGL-CRITICAL|missing babl fast path|Missing fast-path babl|accelerates GEGL|first occurance of formats|programmatically by bab|GeglBuffers leaked|Failed to parse tag cache|^$" || true )
 
-if [ ! -e "$OUTPUTFILENAME" ] ; then
-   echo >&2 "ERROR: $OUTPUTFILENAME has not been produced. Something went wrong!"
+if [ ! -e "${OUTPUT_FILENAME}" ] ; then
+   echo >&2 "ERROR: ${OUTPUT_FILENAME} has not been produced. Something went wrong!"
    exit 1
 fi
