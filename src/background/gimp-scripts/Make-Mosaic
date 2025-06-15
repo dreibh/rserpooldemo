@@ -151,7 +151,7 @@ rm -f "${OUTPUT_FILENAME}"
 EOF
 ) | env LANG=C HOME=/tmp gimp --new-instance --no-interface --no-splash --batch-interpreter plug-in-script-fu-eval --batch - 2>&1 | \
 (
-   if [ ${VERBOSE} -eq 0 ] ; then
+   if [ ${VERBOSE} -ne 0 ] ; then
       cat
    else
       grep -vE "^ts>|(#t)|^Copyright|^Welcome|scriptfu-WARNING|^Please use named arguments:|^$" || true
