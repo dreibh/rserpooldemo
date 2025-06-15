@@ -119,7 +119,7 @@ IF(NOT EXIFTOOL)
            " Cannot find ExifTool! Try:\n"
            " * Ubuntu/Debian: sudo apt install -y libimage-exiftool-perl\n"
            " * Fedora:        sudo dnf install -y perl-Image-ExifTool\n"
-           " * FreeBSD:       sudo pkg install -y inkscape")
+           " * FreeBSD:       sudo pkg install -y p5-Image-ExifTool")
 ENDIF()
 
 # ------ Required scripts ---------------------------------------------------
