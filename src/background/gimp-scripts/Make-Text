@@ -426,14 +426,20 @@ rm -f "${OUTPUT_FILENAME}"
 (let*
    ((outputFileName   "${OUTPUT_FILENAME}")
     (logoText    "$CONTENT")
-    (fontName    "$FONTNAME")
+    (font)
     (fontSize     $FONTSIZE)
     (borderSize   $BORDERSIZE)
-    (colorScheme (car (gimp-gradient-get-by-name "$COLORSCHEME")))
-    (font (car (gimp-font-get-by-name "$FONTNAME")))
-    (patternText (car (gimp-pattern-get-by-name "Electric Blue")))
-    (patternOutline (car (gimp-pattern-get-by-name "Electric Blue")))
-    (patternOverlay (car (gimp-pattern-get-by-name "Parque #1")))
+    (colorScheme "$COLORSCHEME")
+
+;    (colorScheme (car (gimp-gradient-get-by-name "$COLORSCHEME")))
+;    (font (car (gimp-font-get-by-name "$FONTNAME")))
+;    (patternText (car (gimp-pattern-get-by-name "Electric Blue")))
+;    (patternOutline (car (gimp-pattern-get-by-name "Electric Blue")))
+;    (patternOverlay (car (gimp-pattern-get-by-name "Parque #1")))
+
+    (patternText    "Electric Blue")
+    (patternOutline "Electric Blue")
+    (patternOverlay "Parque #1")
     (image)
     (layer)
     (layers)
@@ -444,35 +450,39 @@ rm -f "${OUTPUT_FILENAME}"
     (bg-layer)
    )
 
+   (if (not (defined? 'gimp-image-get-active-layer))
+      (set! font (car (gimp-font-get-by-name "$FONTNAME")))
+      (set! font "$FONTNAME"))
+
    (display "xxxxxxx") (newline)
    (display "COLORSCHEME=") (display colorScheme) (newline)
    (display "FONT=") (display font) (newline)
 
+   (set! image (car (script-fu-glossy-300-logo logoText fontSize font 0 8 8 colorScheme FALSE colorScheme FALSE borderSize "white" FALSE patternText FALSE patternOutline FALSE patternOverlay TRUE TRUE 8 8)))
+   (display "image=") (display image) (newline)
 
-    (set! image (car (script-fu-glossy-300-logo logoText fontSize font 0 8 8 colorScheme FALSE colorScheme FALSE borderSize "white" FALSE patternText FALSE patternOutline FALSE patternOverlay TRUE TRUE 8 8)))
+   (set! layers (if (not (defined? 'gimp-image-get-active-layer))
+                    ; New Gimp 3.0 API:
+                    (set! layers (car (gimp-image-get-layers image)))
+                    ; Old Gimp 2.x API:
+                    (set! layers (car (cdr (gimp-image-get-layers image))))
+                ))
 
-(display "IMAGE=") (display image) (newline)
-    (set! layers (gimp-image-get-layers image))
+   ;(set! layers (car (gimp-image-get-layers image)))
+   ;(set! layers (car (cdr (gimp-image-get-layers image))))
+   (display "layers=") (display layers) (newline)
 
-(display "layers=") (display layers) (newline)
-    (set! num-layers (car layers))
-    ; (set! num-layers 4)
+   (set! num-layers (vector-length layers))
+   (display "num-layers=") (display num-layers) (newline)
 
-(display "TEST=") (display layers) (newline)
-(display "TEST=") (display (car layers)) (newline)
-(display "TEST=") (display (vector-ref (car layers) 3)) (newline)
-(display "TEST=") (display (vector-length (car layers))) (newline)
+; (display "TEST=") (display layers) (newline)
+; (display "TEST=") (display (car layers)) (newline)
+; (display "TEST=") (display (vector-ref (car layers) 3)) (newline)
+; (display "TEST=") (display (vector-length (car layers))) (newline)
 
 
-(display "num-layers=") (display num-layers) (newline)
-;    (set! layer-array (cadr layers))
-;(display "layer-array=") (display layer-array) (newline)
-;     (set! l1 (aref layer-array 0))
-; (display "l1=") (display l1) (newline)
-;     (set! l2 (aref layer-array 1))
-; (display "l1=") (display l1) (newline)
-    ;(set! bg-layer (aref layer-array (- num-layers 1)))
-    (set! bg-layer 3)
+   (set! bg-layer (vector-ref layers (- num-layers 1)))
+;    (set! bg-layer 3)
 (display "bg-layer=") (display bg-layer) (newline)
 
    ;(gimp-layer-set-visible bg-layer FALSE)
@@ -481,12 +491,12 @@ rm -f "${OUTPUT_FILENAME}"
    (gimp-displays-flush)
    (gimp-image-merge-visible-layers image EXPAND-AS-NECESSARY)
 
-   (set! layer        (if (not (defined? 'gimp-image-get-active-layer))
-                         ; New Gimp 3.0 API:
-                         (car (list (vector-ref (car (gimp-image-get-selected-layers image)) 0)))
-                         ; Old Gimp 2.x API:
-                         (car (gimp-image-get-active-layer image)))
-                     )
+   (set! layer (if (not (defined? 'gimp-image-get-active-layer))
+                   ; New Gimp 3.0 API:
+                   (car (list (vector-ref (car (gimp-image-get-selected-layers image)) 0)))
+                   ; Old Gimp 2.x API:
+                   (car (gimp-image-get-active-layer image)))
+                  )
 
    ; ------ Save result -----------------------------------------------------
    (cond( (not(defined? 'file-png-save2))
