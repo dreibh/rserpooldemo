@@ -304,35 +304,35 @@ rm -f "${OUTPUT_FILENAME}"
 )
 
 
-;; (script-fu-register "script-fu-glossy-300-logo-alpha"
-;;   _"Glo_ssy 300 ALPHA..."
-;;   _"Add gradients, patterns, shadows, and bump maps to the selected region (or alpha)"
-;;   "Hrvoje Horvat (hhorvat@open.hr)"
-;;   "Hrvoje Horvat"
-;;   "14/04/1998"
-;;   "RGBA"
-;;   SF-IMAGE      "Image"                     0
-;;   SF-DRAWABLE   "Drawable"                  0
-;;   SF-GRADIENT   _"Blend gradient (text) Shadows 2"    "Shadows 2"
-;;   SF-TOGGLE     _"Text gradient reverse"    FALSE
-;;   SF-GRADIENT   _"Blend gradient (outline) Shadows 2" "Shadows 2"
-;;   SF-TOGGLE     _"Outline gradient reverse" FALSE
-;;   SF-ADJUSTMENT _"Outline size"             '(5 2 250 1 10 0 0)
-;;   SF-COLOR      _"Background color"         "white"
-;;   SF-TOGGLE     _"Use pattern for text instead of gradient" FALSE
-;;   SF-PATTERN    _"Pattern (text) Electric Blue"           "Electric Blue"
-;;   SF-TOGGLE     _"Use pattern for outline instead of gradient" FALSE
-;;   SF-PATTERN    _"Pattern (outline) Electric Blue"        "Electric Blue"
-;;   SF-TOGGLE     _"Use pattern overlay"      FALSE
-;;   SF-PATTERN    _"Pattern (overlay) Parque #1"        "Parque #1"
-;;   SF-TOGGLE     _"Default bumpmap settings" TRUE
-;;   SF-TOGGLE     _"Shadow"                   TRUE
-;;   SF-ADJUSTMENT _"Shadow X offset"          '(8 0 100 1 10 0 0)
-;;   SF-ADJUSTMENT _"Shadow Y offset"          '(8 0 100 1 10 0 0)
-;; )
-;;
-;; (script-fu-menu-register "script-fu-glossy-300-logo-alpha"
-;;                          "<Image>/Filters/Alpha to Logo")
+(script-fu-register "script-fu-glossy-300-logo-alpha"
+  _"Glo_ssy 300 ALPHA..."
+  _"Add gradients, patterns, shadows, and bump maps to the selected region (or alpha)"
+  "Hrvoje Horvat (hhorvat@open.hr)"
+  "Hrvoje Horvat"
+  "14/04/1998"
+  "RGBA"
+  SF-IMAGE      "Image"                     0
+  SF-DRAWABLE   "Drawable"                  0
+  SF-GRADIENT   _"Blend gradient (text) Shadows 2"    "Shadows 2"
+  SF-TOGGLE     _"Text gradient reverse"    FALSE
+  SF-GRADIENT   _"Blend gradient (outline) Shadows 2" "Shadows 2"
+  SF-TOGGLE     _"Outline gradient reverse" FALSE
+  SF-ADJUSTMENT _"Outline size"             '(5 2 250 1 10 0 0)
+  SF-COLOR      _"Background color"         "white"
+  SF-TOGGLE     _"Use pattern for text instead of gradient" FALSE
+  SF-PATTERN    _"Pattern (text) Electric Blue"           "Electric Blue"
+  SF-TOGGLE     _"Use pattern for outline instead of gradient" FALSE
+  SF-PATTERN    _"Pattern (outline) Electric Blue"        "Electric Blue"
+  SF-TOGGLE     _"Use pattern overlay"      FALSE
+  SF-PATTERN    _"Pattern (overlay) Parque #1"        "Parque #1"
+  SF-TOGGLE     _"Default bumpmap settings" TRUE
+  SF-TOGGLE     _"Shadow"                   TRUE
+  SF-ADJUSTMENT _"Shadow X offset"          '(8 0 100 1 10 0 0)
+  SF-ADJUSTMENT _"Shadow Y offset"          '(8 0 100 1 10 0 0)
+)
+
+(script-fu-menu-register "script-fu-glossy-300-logo-alpha"
+                         "<Image>/Filters/Alpha to Logo")
 
 
 (define (script-fu-glossy-300-logo text
@@ -388,39 +388,39 @@ rm -f "${OUTPUT_FILENAME}"
   )
 )
 
-;; (script-fu-register "script-fu-glossy-300-logo"
-;;   _"Glo_ssy 300 LOGO..."
-;;   _"Create a logo with gradients, patterns, shadows, and bump maps"
-;;   "Hrvoje Horvat (hhorvat@open.hr)"
-;;   "Hrvoje Horvat"
-;;   "14/04/1998"
-;;   ""
-;;   SF-TEXT     _"Text"                     "Glossy"
-;;   SF-ADJUSTMENT _"Font size (pixels)"       '(100 2 1000 1 10 0 1)
-;;   SF-FONT       _"Font"                     "QTEraType Medium"
-;;   SF-OPTION     _"Text Justification"    '("Centered" "Left" "Right" "Fill")
-;;   SF-ADJUSTMENT  "Letter Spacing"        '(0 -50 50 1 5 0 0)
-;;   SF-ADJUSTMENT  "Line Spacing"          '(-5 -300 300 1 10 0 0)
-;;   SF-GRADIENT   _"Blend gradient (text) Shadows 2"    "Shadows 2"
-;;   SF-TOGGLE     _"Text gradient reverse"    FALSE
-;;   SF-GRADIENT   _"Blend gradient (outline) Shadows 2" "Shadows 2"
-;;   SF-TOGGLE     _"Outline gradient reverse" FALSE
-;;   SF-ADJUSTMENT _"Outline size"             '(5 2 250 1 10 0 0)
-;;   SF-COLOR      _"Background color"         "white"
-;;   SF-TOGGLE     _"Use pattern for text instead of gradient" FALSE
-;;   SF-PATTERN    _"Pattern (text) Electric Blue"           "Electric Blue"
-;;   SF-TOGGLE     _"Use pattern for outline instead of gradient" FALSE
-;;   SF-PATTERN    _"Pattern (outline) Electric Blue"        "Electric Blue"
-;;   SF-TOGGLE     _"Use pattern overlay"      FALSE
-;;   SF-PATTERN    _"Pattern (overlay) Parque #1"        "Parque #1"
-;;   SF-TOGGLE     _"Default bumpmap settings" TRUE
-;;   SF-TOGGLE     _"Shadow"                   TRUE
-;;   SF-ADJUSTMENT _"Shadow X offset"          '(8 0 100 1 10 0 0)
-;;   SF-ADJUSTMENT _"Shadow Y offset"          '(8 0 100 1 10 0 0)
-;; )
-;;
-;; (script-fu-menu-register "script-fu-glossy-300-logo"
-;;                          "<Image>/File/Create/Logos")
+(script-fu-register "script-fu-glossy-300-logo"
+  _"Glo_ssy 300 LOGO..."
+  _"Create a logo with gradients, patterns, shadows, and bump maps"
+  "Hrvoje Horvat (hhorvat@open.hr)"
+  "Hrvoje Horvat"
+  "14/04/1998"
+  ""
+  SF-TEXT     _"Text"                     "Glossy"
+  SF-ADJUSTMENT _"Font size (pixels)"       '(100 2 1000 1 10 0 1)
+  SF-FONT       _"Font"                     "QTEraType Medium"
+  SF-OPTION     _"Text Justification"    '("Centered" "Left" "Right" "Fill")
+  SF-ADJUSTMENT  "Letter Spacing"        '(0 -50 50 1 5 0 0)
+  SF-ADJUSTMENT  "Line Spacing"          '(-5 -300 300 1 10 0 0)
+  SF-GRADIENT   _"Blend gradient (text) Shadows 2"    "Shadows 2"
+  SF-TOGGLE     _"Text gradient reverse"    FALSE
+  SF-GRADIENT   _"Blend gradient (outline) Shadows 2" "Shadows 2"
+  SF-TOGGLE     _"Outline gradient reverse" FALSE
+  SF-ADJUSTMENT _"Outline size"             '(5 2 250 1 10 0 0)
+  SF-COLOR      _"Background color"         "white"
+  SF-TOGGLE     _"Use pattern for text instead of gradient" FALSE
+  SF-PATTERN    _"Pattern (text) Electric Blue"           "Electric Blue"
+  SF-TOGGLE     _"Use pattern for outline instead of gradient" FALSE
+  SF-PATTERN    _"Pattern (outline) Electric Blue"        "Electric Blue"
+  SF-TOGGLE     _"Use pattern overlay"      FALSE
+  SF-PATTERN    _"Pattern (overlay) Parque #1"        "Parque #1"
+  SF-TOGGLE     _"Default bumpmap settings" TRUE
+  SF-TOGGLE     _"Shadow"                   TRUE
+  SF-ADJUSTMENT _"Shadow X offset"          '(8 0 100 1 10 0 0)
+  SF-ADJUSTMENT _"Shadow Y offset"          '(8 0 100 1 10 0 0)
+)
+
+(script-fu-menu-register "script-fu-glossy-300-logo"
+                         "<Image>/File/Create/Logos")
 
 
 (let*
@@ -429,19 +429,47 @@ rm -f "${OUTPUT_FILENAME}"
     (fontName    "$FONTNAME")
     (fontSize     $FONTSIZE)
     (borderSize   $BORDERSIZE)
-    (colorScheme "$COLORSCHEME")
-
-    (image (car (script-fu-glossy-300-logo logoText fontSize fontName 0 8 8 colorScheme FALSE colorScheme FALSE borderSize "white" FALSE "Electric Blue" FALSE "Electric Blue" FALSE "Parque #1" TRUE TRUE 8 8)))
+    (colorScheme (car (gimp-gradient-get-by-name "$COLORSCHEME")))
+    (font (car (gimp-font-get-by-name "$FONTNAME")))
+    (patternText (car (gimp-pattern-get-by-name "Electric Blue")))
+    (patternOutline (car (gimp-pattern-get-by-name "Electric Blue")))
+    (patternOverlay (car (gimp-pattern-get-by-name "Parque #1")))
+    (image)
     (layer)
-    (layers (gimp-image-get-layers image))
-    (num-layers (car layers))
-    (layer-array (cadr layers))
-    (l1 (aref layer-array 0))
-    (l2 (aref layer-array 1))
-    (bg-layer (aref layer-array (- num-layers 1)))
+    (layers)
+    (num-layers)
+    (layer-array)
+    (l1)
+    (l2)
+    (bg-layer)
    )
 
-   (gimp-layer-set-visible bg-layer FALSE)
+   (display "xxxxxxx") (newline)
+   (display "COLORSCHEME=") (display colorScheme) (newline)
+   (display "FONT=") (display font) (newline)
+
+
+    (set! image (car (script-fu-glossy-300-logo logoText fontSize font 0 8 8 colorScheme FALSE colorScheme FALSE borderSize "white" FALSE patternText FALSE patternOutline FALSE patternOverlay TRUE TRUE 8 8)))
+
+(display "IMAGE=") (display image) (newline)
+    (set! layers (gimp-image-get-layers image))
+(display "layers=") (display layers) (newline)
+    ; (set! num-layers (car layers))
+    (set! num-layers 4)
+(display "num-layers=") (display num-layers) (newline)
+;    (set! layer-array (cadr layers))
+;(display "layer-array=") (display layer-array) (newline)
+;     (set! l1 (aref layer-array 0))
+; (display "l1=") (display l1) (newline)
+;     (set! l2 (aref layer-array 1))
+; (display "l1=") (display l1) (newline)
+    ;(set! bg-layer (aref layer-array (- num-layers 1)))
+    (set! bg-layer 3)
+(display "bg-layer=") (display bg-layer) (newline)
+
+   ;(gimp-layer-set-visible bg-layer FALSE)
+   (gimp-item-set-visible bg-layer FALSE)
+
    (gimp-displays-flush)
    (gimp-image-merge-visible-layers image EXPAND-AS-NECESSARY)
 
