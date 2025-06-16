@@ -54,7 +54,7 @@ shift 5
 
 GETOPT="$(PATH=/usr/local/bin:$PATH which getopt)"
 # shellcheck disable=SC2068
-options="$(${GETOPT} -o t:s:n:l:c:vqh --long type,surface,neatness,lightdirection,colorvariation,verbose,quiet,help -a -- $@)"
+options="$(${GETOPT} -o t:s:n:l:c:vqh --long type:,surface:,neatness:,lightdirection:,colorvariation:,verbose,quiet,help -a -- $@)"
 # shellcheck disable=SC2181
 if [[ $? -ne 0 ]] ; then
    usage 1
@@ -152,7 +152,6 @@ if [[ ! "${LIGHT_DIRECTION}" =~ ^[0-9]*$ ]] ; then
    exit 1
 fi
 
-
 # ====== Call GIMP ==========================================================
 rm -f "${OUTPUT_FILENAME}"
 ( cat <<EOF
@@ -220,7 +219,7 @@ rm -f "${OUTPUT_FILENAME}"
       ;    #:file             outputFileName
       ;    #:options          -1
       ;    #:interlaced       TRUE
-      ;    #:compression      9
+      ;    #:compression      6
       ;    #:bkgd             TRUE
       ;    #:offs             FALSE
       ;    #:phys             TRUE
@@ -232,7 +231,7 @@ rm -f "${OUTPUT_FILENAME}"
    )
    (else
       ; Old Gimp 2.x API:
-      (file-png-save2 RUN-NONINTERACTIVE image layer outputFileName outputFileName TRUE 9 TRUE TRUE FALSE TRUE TRUE FALSE TRUE
+      (file-png-save2 RUN-NONINTERACTIVE image layer outputFileName outputFileName TRUE 6 TRUE TRUE FALSE TRUE TRUE FALSE TRUE
    )))
 
    ; ------ Clean up --------------------------------------------------------
