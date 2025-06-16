@@ -453,9 +453,17 @@ rm -f "${OUTPUT_FILENAME}"
 
 (display "IMAGE=") (display image) (newline)
     (set! layers (gimp-image-get-layers image))
+
 (display "layers=") (display layers) (newline)
-    ; (set! num-layers (car layers))
-    (set! num-layers 4)
+    (set! num-layers (car layers))
+    ; (set! num-layers 4)
+
+(display "TEST=") (display layers) (newline)
+(display "TEST=") (display (car layers)) (newline)
+(display "TEST=") (display (vector-ref (car layers) 3)) (newline)
+(display "TEST=") (display (vector-length (car layers))) (newline)
+
+
 (display "num-layers=") (display num-layers) (newline)
 ;    (set! layer-array (cadr layers))
 ;(display "layer-array=") (display layer-array) (newline)
