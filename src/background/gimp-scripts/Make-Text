@@ -25,7 +25,7 @@ set -e
 
 
 # Examples:
-# Make-Text NorNet1.png "NorNet Testbed" 128 5 "Golden" "Eras"
+# Make-Text NorNet1.png "NorNet Testbed" 128 5 "Golden" "Noto Sans Regular"
 # Make-Text NorNet2.png "NorNet Testbed" 128 5 "Brushed Aluminium" "Comic Sans MS"
 
 
@@ -39,7 +39,7 @@ CONTENT="$2"
 FONTSIZE=$3
 BORDERSIZE=5
 COLORSCHEME="Golden"
-FONTNAME="Eras"
+FONTNAME="Noto Sans Regular"
 VERBOSE=1
 if [ $# -gt 3 ] ; then
    BORDERSIZE="$4"
@@ -429,34 +429,41 @@ rm -f "${OUTPUT_FILENAME}"
     (font)
     (fontSize     $FONTSIZE)
     (borderSize   $BORDERSIZE)
-    (colorScheme "$COLORSCHEME")
-
-;    (colorScheme (car (gimp-gradient-get-by-name "$COLORSCHEME")))
-;    (font (car (gimp-font-get-by-name "$FONTNAME")))
-;    (patternText (car (gimp-pattern-get-by-name "Electric Blue")))
-;    (patternOutline (car (gimp-pattern-get-by-name "Electric Blue")))
-;    (patternOverlay (car (gimp-pattern-get-by-name "Parque #1")))
-
-    (patternText    "Electric Blue")
-    (patternOutline "Electric Blue")
-    (patternOverlay "Parque #1")
+    (colorScheme)
+    (patternText)
+    (patternOutline)
+    (patternOverlay)
     (image)
-    (layer)
     (layers)
     (num-layers)
-    (layer-array)
-    (l1)
-    (l2)
     (bg-layer)
+    (layer)
    )
 
    (if (not (defined? 'gimp-image-get-active-layer))
       (set! font (car (gimp-font-get-by-name "$FONTNAME")))
       (set! font "$FONTNAME"))
+   (display "font=") (display font) (newline)
 
-   (display "xxxxxxx") (newline)
-   (display "COLORSCHEME=") (display colorScheme) (newline)
-   (display "FONT=") (display font) (newline)
+   (if (not (defined? 'gimp-image-get-active-layer))
+      (set! colorScheme (car (gimp-gradient-get-by-name "$COLORSCHEME")))
+      (set! colorScheme "$COLORSCHEME"))
+   (display "colorScheme=") (display colorScheme) (newline)
+
+   (if (not (defined? 'gimp-image-get-active-layer))
+      (set! patternText (car (gimp-pattern-get-by-name "Electric Blue")))
+      (set! patternText "Electric Blue"))
+   (display "patternText=") (display patternText) (newline)
+
+   (if (not (defined? 'gimp-image-get-active-layer))
+      (set! patternOutline (car (gimp-pattern-get-by-name "Electric Blue")))
+      (set! patternOutline "Electric Blue"))
+   (display "patternOutline=") (display patternOutline) (newline)
+
+   (if (not (defined? 'gimp-image-get-active-layer))
+      (set! patternOverlay (car (gimp-pattern-get-by-name "Parque #1")))
+      (set! patternOverlay "Parque #1"))
+   (display "patternOverlay=") (display patternOverlay) (newline)
 
    (set! image (car (script-fu-glossy-300-logo logoText fontSize font 0 8 8 colorScheme FALSE colorScheme FALSE borderSize "white" FALSE patternText FALSE patternOutline FALSE patternOverlay TRUE TRUE 8 8)))
    (display "image=") (display image) (newline)
@@ -467,27 +474,13 @@ rm -f "${OUTPUT_FILENAME}"
                     ; Old Gimp 2.x API:
                     (set! layers (car (cdr (gimp-image-get-layers image))))
                 ))
-
-   ;(set! layers (car (gimp-image-get-layers image)))
-   ;(set! layers (car (cdr (gimp-image-get-layers image))))
    (display "layers=") (display layers) (newline)
-
    (set! num-layers (vector-length layers))
    (display "num-layers=") (display num-layers) (newline)
-
-; (display "TEST=") (display layers) (newline)
-; (display "TEST=") (display (car layers)) (newline)
-; (display "TEST=") (display (vector-ref (car layers) 3)) (newline)
-; (display "TEST=") (display (vector-length (car layers))) (newline)
-
-
    (set! bg-layer (vector-ref layers (- num-layers 1)))
-;    (set! bg-layer 3)
-(display "bg-layer=") (display bg-layer) (newline)
+   (display "bg-layer=") (display bg-layer) (newline)
 
-   ;(gimp-layer-set-visible bg-layer FALSE)
    (gimp-item-set-visible bg-layer FALSE)
-
    (gimp-displays-flush)
    (gimp-image-merge-visible-layers image EXPAND-AS-NECESSARY)
 
