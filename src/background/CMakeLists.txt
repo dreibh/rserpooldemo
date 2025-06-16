@@ -463,7 +463,7 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
             # MESSAGE("Mosaic: ${width} ${height} -> ${tileSize} ${tileHeight}")
             ADD_CUSTOM_COMMAND(OUTPUT  ${imageWithoutLogo}
                                COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_CROPPED} ${image} ${imageTemp2} ${aspectRatio} ${width}
-                               COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_MOSAIC}  ${imageTemp2} ${imageTemp1} ${tileSize} ${tileHeight} ${tileHeight} hexagons rough
+                               COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} ${MAKE_MOSAIC}  ${imageTemp2} ${imageTemp1} ${tileSize} ${tileHeight} ${tileHeight} --type hexagons --surface rough
                                COMMAND ${GM} convert ${imageTemp1} -interlace line ${imageWithoutLogo}
                                COMMAND ${EXIFTOOL} -m -q -overwrite_original -Copyright="${TDD_COPYRIGHT}" ${imageWithoutLogo} || true
                                COMMAND ${RM} -f ${imageTemp1} ${imageTemp2}
