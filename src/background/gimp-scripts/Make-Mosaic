@@ -164,6 +164,12 @@ rm -f "${OUTPUT_FILENAME}"
     (lightDirection   ${LIGHT_DIRECTION})
     (colorVariation   ${COLOR_VARIATION})
     (image            (car (gimp-file-load RUN-NONINTERACTIVE inputFileName inputFileName)))
+    (imageType        (if (not (defined? 'gimp-image-get-active-layer))
+                         ; New Gimp 3.0 API:
+                         (car (gimp-image-get-base-type image))
+                         ; Old Gimp 2.x API:
+                         (car (gimp-image-base-type image)))
+                      )
     (layer            (if (not (defined? 'gimp-image-get-active-layer))
                          ; New Gimp 3.0 API:
                          (car (list (vector-ref (car (gimp-image-get-selected-layers image)) 0)))
@@ -174,8 +180,8 @@ rm -f "${OUTPUT_FILENAME}"
 
    ; ------ Apply filter ----------------------------------------------------
    ; First, make sure that the image is RGB, not indexed color mode!
-;   (if (not (= RGB (car (gimp-image-base-type image))))
-;             (gimp-image-convert-rgb image))
+   (if (not (= RGB imageType))
+      (gimp-image-convert-rgb image))
 
    ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    ; GEGL Mosaic options: https://gegl.org/operations/gegl-mosaic.html
