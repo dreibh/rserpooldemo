@@ -35,23 +35,10 @@ usage () {
    exit "${exitCode}"
 }
 
-if [ $# -lt 5 ] ; then
-   usage 1
-fi
-INPUT_FILENAME="$1"
-OUTPUT_FILENAME="$2"
-TILE_SIZE=$3
-TILE_HEIGHT=$4
-TILE_SPACING=$5
-shift 5
-
 GETOPT="$(PATH=/usr/local/bin:$PATH which getopt)"
 # shellcheck disable=SC2068
-options="$(${GETOPT} -o t:s:n:l:c:vqh --long type:,surface:,neatness:,lightdirection:,colorvariation:,verbose,quiet,help -a -- $@)"
-# shellcheck disable=SC2181
-if [[ $? -ne 0 ]] ; then
-   usage 1
-fi
+options="$(${GETOPT} -o t:s:n:l:c:vqh --long type:,surface:,neatness:,lightdirection:,colorvariation:,verbose,quiet,help -a -- "$@")"
+eval set -- "${options}"
 
 TILE_NEATNESS=0.65
 TILE_TYPESTRING="hexagons"
@@ -60,7 +47,6 @@ TILE_SURFACE=0
 LIGHT_DIRECTION=135
 COLOR_VARIATION=0.2
 VERBOSE=0
-eval set -- "${options}"
 while [ $# -gt 0 ] ; do
    case "$1" in
       -t | --type)
@@ -110,6 +96,15 @@ while [ $# -gt 0 ] ; do
          ;;
   esac
 done
+
+if [ $# -lt 5 ] ; then
+   usage 1
+fi
+INPUT_FILENAME="$1"
+OUTPUT_FILENAME="$2"
+TILE_SIZE=$3
+TILE_HEIGHT=$4
+TILE_SPACING=$5
 
 if [ ! -f "${INPUT_FILENAME}" ] ; then
    echo >&2 "ERROR: Input file ${INPUT_FILENAME} does not exist!"

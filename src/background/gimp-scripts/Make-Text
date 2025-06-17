@@ -39,27 +39,15 @@ usage () {
    exit "${exitCode}"
 }
 
-if [ $# -lt 3 ] ; then
-   usage 1
-fi
-OUTPUT_FILENAME="$1"
-CONTENT="$2"
-FONTSIZE=$3
-shift 3
-
 GETOPT="$(PATH=/usr/local/bin:$PATH which getopt)"
 # shellcheck disable=SC2068
-options="$(${GETOPT} -o b:c:f:vqh --long bordersize:,colorscheme:,font:,verbose,quiet,help -a -- $@)"
-# shellcheck disable=SC2181
-if [[ $? -ne 0 ]] ; then
-   usage 1
-fi
+options="$(${GETOPT} -o b:c:f:vqh --long bordersize:,colorscheme:,font:,verbose,quiet,help -a -- "$@")"
+eval set -- "${options}"
 
 BORDERSIZE=5
 COLORSCHEME="Golden"
 FONTNAME="Noto Sans Regular"
 VERBOSE=1
-eval set -- "${options}"
 while [ $# -gt 0 ] ; do
    case "$1" in
       -b | --bordersize)
@@ -94,6 +82,13 @@ while [ $# -gt 0 ] ; do
          ;;
   esac
 done
+
+if [ $# -lt 3 ] ; then
+   usage 1
+fi
+OUTPUT_FILENAME="$1"
+CONTENT="$2"
+FONTSIZE=$3
 
 if [[ ! "${FONTSIZE}" =~ ^[0-9]*$ ]] ; then
    echo >&2 "ERROR: Invalid font size ${FONTSIZE}!"
