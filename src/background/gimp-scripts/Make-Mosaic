@@ -30,26 +30,19 @@ set -eu
 # ====== Handle arguments ===================================================
 usage () {
    local exitCode="$1"
-   echo >&2 "Usage: $0 input_filename output_filename tile_size tile_height tile_spacing [-t|--type squares|hexagons|octagons|triangles] [-s|--surface smooth|rough] [-n|--neatness neatness] [-l|--lightdirection direction] [-c|--colorvariation variation] [--verbose|-v] [--quiet|-q]"
+   echo >&2 "Usage: $0 input_filename output_filename tile_size tile_height tile_spacing [--type|-t squares|hexagons|octagons|triangles] [--surface|-s smooth|rough] [--neatness|-n neatness] [--lightdirection|-l direction] [-c|--colorvariation variation] [--verbose|-v] [--quiet|-q] [--help|-h]"
    echo >&2 "Example: $0 Image.jpeg Mosaic.png 24 4 4 --type hexagons --surface rough"
    exit "${exitCode}"
 }
 
 if [ $# -lt 5 ] ; then
-   usage
+   usage 1
 fi
 INPUT_FILENAME="$1"
 OUTPUT_FILENAME="$2"
 TILE_SIZE=$3
 TILE_HEIGHT=$4
 TILE_SPACING=$5
-TILE_NEATNESS=0.65
-TILE_TYPESTRING="hexagons"
-TILE_TYPE="6"
-TILE_SURFACE=0
-LIGHT_DIRECTION=135
-COLOR_VARIATION=0.2
-VERBOSE=0
 shift 5
 
 GETOPT="$(PATH=/usr/local/bin:$PATH which getopt)"
@@ -60,6 +53,13 @@ if [[ $? -ne 0 ]] ; then
    usage 1
 fi
 
+TILE_NEATNESS=0.65
+TILE_TYPESTRING="hexagons"
+TILE_TYPE="6"
+TILE_SURFACE=0
+LIGHT_DIRECTION=135
+COLOR_VARIATION=0.2
+VERBOSE=0
 eval set -- "${options}"
 while [ $# -gt 0 ] ; do
    case "$1" in
@@ -110,11 +110,11 @@ while [ $# -gt 0 ] ; do
          ;;
   esac
 done
-if [ $# -gt 0 ] ; then
-   usage 1
+
+if [ ! -f "${INPUT_FILENAME}" ] ; then
+   echo >&2 "ERROR: Input file ${INPUT_FILENAME} does not exist!"
+   exit 1
 fi
-
-
 if [[ ! "${TILE_SIZE}" =~ ^[0-9]*$ ]] ; then
    echo >&2 "ERROR: Invalid tile size!"
    exit 1
@@ -244,7 +244,7 @@ EOF
    if [ ${VERBOSE} -ne 0 ] ; then
       cat
    else
-      grep -vE "^ts>|(#t)|^Copyright|^Welcome|scriptfu-WARNING|LibGimp-WARNING|^Please use named arguments:|^$" || true
+      grep -vE "^ts>|(#t)|^Copyright|^Welcome|^using gegl copy|scriptfu-WARNING|LibGimp-WARNING|^Please use named arguments:|^$" || true
    fi
 )
 

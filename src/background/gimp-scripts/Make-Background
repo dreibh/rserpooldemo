@@ -19,7 +19,7 @@
 # Contact: thomas.dreibholz@gmail.com
 
 # Bash options:
-set -e
+set -eu
 
 
 # Example:
@@ -27,49 +27,131 @@ set -e
 
 
 # ====== Handle arguments ===================================================
+usage () {
+   local exitCode="$1"
+   echo >&2 "Usage: $0 input_filename output_filename [--verbose|-v] [--quiet|-q] [--help|-h]"
+   echo >&2 "Example: $0 Demo-Fractal-8192x6144.png Background1.png"
+   exit "${exitCode}"
+}
+
+GETOPT="$(PATH=/usr/local/bin:$PATH which getopt)"
+# shellcheck disable=SC2068
+options="$(${GETOPT} -o vqh --long verbose,quiet,help -a -- $@)"
+# shellcheck disable=SC2181
+if [[ $? -ne 0 ]] ; then
+   usage 1
+fi
+
+VERBOSE=0
+eval set -- "${options}"
+while [ $# -gt 0 ] ; do
+   case "$1" in
+      -v | --verbose)
+         VERBOSE=1
+         shift
+         ;;
+      -q | --quiet)
+         VERBOSE=0
+         shift
+         ;;
+      -h | --help)
+         usage 0
+         ;;
+      --)
+         shift
+         break
+         ;;
+      *)
+         usage 1
+         ;;
+  esac
+done
+
 if [ $# -lt 2 ] ; then
-   echo >&2 "Usage: $0 input_filename output_filename"
+   usage 1
+fi
+INPUT_FILENAME="$1"
+OUTPUT_FILENAME="$2"
+
+if [ ! -f "${INPUT_FILENAME}" ] ; then
+   echo >&2 "ERROR: Input file ${INPUT_FILENAME} does not exist!"
    exit 1
 fi
-INPUTFILENAME="$1"
-OUTPUTFILENAME="$2"
-# if [ $# -gt 3 ] ; then
-#    COLORSCHEME="$4"
-# fi
 
 
 # ====== Call GIMP ==========================================================
-rm -f "$OUTPUTFILENAME"
+rm -f "${OUTPUT_FILENAME}"
 ( cat <<EOF
 (let*
-   ((inputFileName    "$INPUTFILENAME")
-    (outputFileName   "$OUTPUTFILENAME")
-    (image (car (gimp-file-load RUN-NONINTERACTIVE inputFileName inputFileName)))
-    (drawable (car (gimp-image-get-active-layer image)))
+   ; ------ Initialise and load image ---------------------------------------
+   ((inputFileName    "${INPUT_FILENAME}")
+    (outputFileName   "${OUTPUT_FILENAME}")
+    (image            (car (gimp-file-load RUN-NONINTERACTIVE inputFileName inputFileName)))
+    (layer            (if (not (defined? 'gimp-image-get-active-layer))
+                         ; New Gimp 3.0 API:
+                         (car (list (vector-ref (car (gimp-image-get-selected-layers image)) 0)))
+                         ; Old Gimp 2.x API:
+                         (car (gimp-image-get-active-layer image)))
+                      )
    )
-   ; ------------------------------------------------------------------------
+
+   ; ------ Apply filter ----------------------------------------------------
    ; First, make sure that the image is RGB, not indexed color mode!
    (if (not (= RGB (car (gimp-image-base-type image))))
              (gimp-image-convert-rgb image))
 
    ; Change colours
-   (gimp-hue-saturation drawable ALL-HUES 120 0 0)
+   (gimp-hue-saturation layer ALL-HUES 120 0 0)
    ; Bump Map
-   (plug-in-bump-map RUN-NONINTERACTIVE image drawable drawable
+   (plug-in-bump-map RUN-NONINTERACTIVE image layer layer
       30.0 45.0 20
       0 0 0 0
       TRUE FALSE 0)
    ; Darken it a little bit
-   (gimp-hue-saturation drawable ALL-HUES 0 -15 0)
-   ; ------------------------------------------------------------------------
-   (file-png-save2 RUN-NONINTERACTIVE image drawable outputFileName outputFileName TRUE 9 TRUE TRUE FALSE TRUE TRUE FALSE TRUE)
+   (gimp-hue-saturation layer ALL-HUES 0 -15 0)
+
+   ; ------ Save result -----------------------------------------------------
+   (cond( (not(defined? 'file-png-save2))
+      ; New Gimp 3.0 API:
+      ; FIXME: This does not work when running in Gimp 2.x!
+      ; (file-png-export
+      ;    #:run-mode         RUN-NONINTERACTIVE
+      ;    #:image            image
+      ;    #:file             outputFileName
+      ;    #:options          -1
+      ;    #:interlaced       TRUE
+      ;    #:compression      6
+      ;    #:bkgd             TRUE
+      ;    #:offs             FALSE
+      ;    #:phys             TRUE
+      ;    #:time             TRUE
+      ;    #:save-transparent FALSE
+      ;    #:optimize-palette TRUE
+      ; )
+      (file-png-export RUN-NONINTERACTIVE image outputFileName -1 TRUE 9 TRUE FALSE TRUE TRUE FALSE TRUE)
+   )
+   (else
+      ; Old Gimp 2.x API:
+      (file-png-save2 RUN-NONINTERACTIVE image layer outputFileName outputFileName TRUE 6 TRUE TRUE FALSE TRUE TRUE FALSE TRUE
+   )))
+
+   ; ------ Clean up --------------------------------------------------------
+   (gimp-image-delete image)
+   (gimp-quit TRUE)
 )
-(gimp-quit TRUE)
 EOF
 ) | env LANG=C HOME=/tmp gimp --new-instance --no-interface --no-splash --batch-interpreter plug-in-script-fu-eval --batch - 2>&1 | \
-       ( grep -vE "^ts>|(#t)|^Copyright|^Welcome|GLib-GObject-WARNING|GEGL-CRITICAL|missing babl fast path|Missing fast-path babl|accelerates GEGL|first occurance of formats|programmatically by bab|GeglBuffers leaked|Failed to parse tag cache|^$" || true )
+(
+   if [ ${VERBOSE} -ne 0 ] ; then
+      cat
+   else
+      grep -vE "^ts>|(#t)|^Copyright|^Welcome|^using gegl copy|scriptfu-WARNING|LibGimp-WARNING|^Please use named arguments:|^$" || true
+   fi
+)
 
-if [ ! -e "$OUTPUTFILENAME" ] ; then
-   echo >&2 "ERROR: $OUTPUTFILENAME has not been produced. Something went wrong!"
+
+# ====== Check result =======================================================
+if [ ! -e "${OUTPUT_FILENAME}" ] ; then
+   echo >&2 "ERROR: ${OUTPUT_FILENAME} has not been produced. Something went wrong!"
    exit 1
 fi
