@@ -23,8 +23,8 @@ set -e
 
 
 # Example:
-# Make-Caption Caption.png Caption.input 1024 42 "Noto Sans Bold" 60
-# Make-Caption Caption.png Caption.input 1024 42 "Noto Sans Bold" 60 "#02266b" "#ffd700" 26
+# Make-Caption Caption.png "Caption Text" 1024 42 "Noto Sans Bold" 60
+# Make-Caption Caption.png "Caption Text" 1024 42 "Noto Sans Bold" 60 "#02266b" "#ffd700" 26
 
 
 # ====== Handle arguments ===================================================
@@ -32,11 +32,12 @@ if [ $# -lt 6 ] ; then
    echo >&2 "Usage: $0 output_filename caption_text caption_width caption_height font font_size_percent [foreground [background [transparency]]]"
    exit 1
 fi
-OUTPUTFILENAME="$1"
+VERBOSE=1
+OUTPUT_FILENAME="$1"
 CAPTION_TEXT="$2"
 CAPTION_WIDTH=$3
 CAPTION_HEIGHT=$4
-FONT="$5"
+FONT_NAME="$5"
 FONT_SIZE=$6
 
 COLOR_FOREGROUND="#02266b"   # Dark Blue
@@ -54,18 +55,18 @@ fi
 
 
 # ====== Call GIMP ==========================================================
-rm -f "$OUTPUTFILENAME"
+rm -f "${OUTPUT_FILENAME}"
 ( cat <<EOF
 (let*
-   ((outputFileName   "$OUTPUTFILENAME")
-    (captionText      "$CAPTION_TEXT")
-    (captionWidth     $CAPTION_WIDTH)
-    (captionHeight    $CAPTION_HEIGHT)
-    (captionFont      "$FONT")
-    (captionFontSize  (/ (* $FONT_SIZE captionHeight) 100))
-    (captionOpacity   (- 100 $TRANSPARENCY))
-    (captionFGColor   "$COLOR_FOREGROUND")
-    (captionBGColor   "$COLOR_BACKGROUND")
+   ((outputFileName   "${OUTPUT_FILENAME}")
+    (captionText      "${CAPTION_TEXT}")
+    (captionWidth     ${CAPTION_WIDTH})
+    (captionHeight    ${CAPTION_HEIGHT})
+    (captionFont      "${FONT_NAME}")
+    (captionFontSize  (/ (* ${FONT_SIZE} captionHeight) 100))
+    (captionOpacity   (- 100 ${TRANSPARENCY}))
+    (captionFGColor   "${COLOR_FOREGROUND}")
+    (captionBGColor   "${COLOR_BACKGROUND}")
     (theText)
     (drawable)
     (image (car (gimp-image-new captionWidth captionHeight RGB)))
@@ -93,10 +94,18 @@ rm -f "$OUTPUTFILENAME"
 )
 (gimp-quit TRUE)
 EOF
-) | env LANG=C HOME=/tmp gimp --new-instance --no-interface --no-splash --batch-interpreter plug-in-script-fu-eval --batch - 2>&1 | \
-       ( grep -vE "^ts>|(#t)|^Copyright|^Welcome|GLib-GObject-WARNING|GEGL-gegl-operation.c-WARNING|GEGL-CRITICAL|missing babl fast path|Missing fast-path babl|accelerates GEGL|first occurance of formats|programmatically by bab|GeglBuffers leaked|Failed to parse tag cache|^$" || true )
+) | env LANG=C HOME=/tmp gimp --quit --new-instance --no-interface --no-splash --batch-interpreter plug-in-script-fu-eval --batch - 2>&1 | \
+(
+   if [ ${VERBOSE} -ne 0 ] ; then
+      cat
+   else
+      grep -vE "^ts>|(#t)|^Copyright|^Welcome|^using gegl copy|scriptfu-WARNING|LibGimp-WARNING|^Please use named arguments:|^script quit with code:|^$" || true
+   fi
+)
 
-if [ ! -e "$OUTPUTFILENAME" ] ; then
-   echo >&2 "ERROR: $OUTPUTFILENAME has not been produced. Something went wrong!"
+
+# ====== Check result =======================================================
+if [ ! -e "${OUTPUT_FILENAME}" ] ; then
+   echo >&2 "ERROR: ${OUTPUT_FILENAME} has not been produced. Something went wrong!"
    exit 1
 fi
