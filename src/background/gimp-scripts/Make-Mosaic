@@ -110,15 +110,15 @@ if [ ! -f "${INPUT_FILENAME}" ] ; then
    echo >&2 "ERROR: Input file ${INPUT_FILENAME} does not exist!"
    exit 1
 fi
-if [[ ! "${TILE_SIZE}" =~ ^[0-9]*$ ]] ; then
+if [[ ! "${TILE_SIZE}" =~ ^[0-9]+$ ]] ; then
    echo >&2 "ERROR: Invalid tile size!"
    exit 1
 fi
-if [[ ! "${TILE_HEIGHT}" =~ ^[0-9]*$ ]] ; then
+if [[ ! "${TILE_HEIGHT}" =~ ^[0-9]+$ ]] ; then
    echo >&2 "ERROR: Invalid tile height!"
    exit 1
 fi
-if [[ ! "${TILE_SPACING}" =~ ^[0-9]*$ ]] ; then
+if [[ ! "${TILE_SPACING}" =~ ^[0-9]+$ ]] ; then
    echo >&2 "ERROR: Invalid tile spacing!"
    exit 1
 fi
@@ -142,7 +142,7 @@ if [[ ! "${COLOR_VARIATION}" =~ ^[0-9]+(\.[0-9]*|)$ ]] ; then
    echo >&2 "ERROR: Invalid color variation!"
    exit 1
 fi
-if [[ ! "${LIGHT_DIRECTION}" =~ ^[0-9]*$ ]] ; then
+if [[ ! "${LIGHT_DIRECTION}" =~ ^[0-9]+$ ]] ; then
    echo >&2 "ERROR: Invalid light direction!"
    exit 1
 fi

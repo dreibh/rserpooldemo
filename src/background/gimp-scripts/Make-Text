@@ -106,11 +106,11 @@ OUTPUT_FILENAME="$1"
 CONTENT="$2"
 FONT_SIZE=$3
 
-if [[ ! "${FONT_SIZE}" =~ ^[0-9]*$ ]] ; then
+if [[ ! "${FONT_SIZE}" =~ ^[0-9]+$ ]] ; then
    echo >&2 "ERROR: Invalid font size ${FONT_SIZE}!"
    exit 1
 fi
-if [[ ! "${BORDER_SIZE}" =~ ^[0-9]*$ ]] ; then
+if [[ ! "${BORDER_SIZE}" =~ ^[0-9]+$ ]] ; then
    echo >&2 "ERROR: Invalid border size ${BORDER_SIZE}!"
    exit 1
 fi
