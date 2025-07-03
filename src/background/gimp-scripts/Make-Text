@@ -506,10 +506,10 @@ rm -f "${OUTPUT_FILENAME}"
 (let*
    ; ------ Initialise ------------------------------------------------------
    ((outputFileName   "${OUTPUT_FILENAME}")
-    (logoText    "$CONTENT")
+    (logoText    "${CONTENT}")
     (font)
-    (fontSize     $FONT_SIZE)
-    (borderSize   $BORDER_SIZE)
+    (fontSize     ${FONT_SIZE})
+    (borderSize   ${BORDER_SIZE})
     (colorScheme)
     (patternText)
     (patternOutline)
@@ -522,10 +522,14 @@ rm -f "${OUTPUT_FILENAME}"
    )
 
    (if (not (defined? 'gimp-image-get-active-layer))
-      (set! font (car (gimp-font-get-by-name "$FONT_NAME")))
-      (set! font "$FONT_NAME"))
+      ( (set! font (car (gimp-font-get-by-name "${FONT_NAME}")))
+        (if (= font -1) (
+           (gimp-message "ERROR: Font \"${FONT_NAME}\" is not available! Check installed fonts with fc-list!")
+           (quit FALSE) )
+        )
+      )
+      (set! font "${FONT_NAME}"))
    (display "font=") (display font) (newline)
-   (if (= font -1) ( (gimp-message "ERROR: Font \"$FONT_NAME\" is not available! Check installed fonts with fc-list!") (quit FALSE) ))
 
    (if (not (defined? 'gimp-image-get-active-layer))
       (set! colorScheme (car (gimp-gradient-get-by-name "${COLORSCHEME}")))
