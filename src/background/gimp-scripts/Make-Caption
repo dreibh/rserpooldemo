@@ -160,14 +160,18 @@ rm -f "${OUTPUT_FILENAME}"
    ))
 
    ; ------ Generate caption ------------------------------------------------
-   (gimp-image-insert-layer image layer1 0)
-   (gimp-image-insert-layer image layer2 0)
+   (gimp-image-insert-layer image layer1 -1 0)
+   (gimp-image-insert-layer image layer2 -1 0)
    (gimp-context-set-background captionBGColor)
    (gimp-context-set-foreground captionFGColor)
    (gimp-drawable-fill layer1 FILL-BACKGROUND)
 
-   ; (set! theText (car (gimp-text-fontname image layer2 0 0 captionText 0 TRUE captionFontSize PIXELS captionFont) ) )
-   (set! theText (car (gimp-text-font image layer2 0 0 captionText 0 TRUE captionFontSize captionFont) ) )
+   (if (not (defined? 'gimp-image-get-active-layer))
+      ; New Gimp 3.0 API:
+      (set! theText (car (gimp-text-font image layer2 0 0 captionText 0 TRUE captionFontSize captionFont) ))
+      ; Old Gimp 2.x API:
+      (set! theText (car (gimp-text-fontname image layer2 0 0 captionText 0 TRUE captionFontSize PIXELS captionFont) ) )
+   )
    (gimp-layer-set-offsets
       theText
       (/ (- captionWidth  (car (gimp-drawable-width  theText))) 2)
