@@ -172,10 +172,18 @@ rm -f "${OUTPUT_FILENAME}"
       ; Old Gimp 2.x API:
       (set! theText (car (gimp-text-fontname image layer2 0 0 captionText 0 TRUE captionFontSize PIXELS captionFont) ) )
    )
-   (gimp-layer-set-offsets
-      theText
-      (/ (- captionWidth  (car (gimp-drawable-width  theText))) 2)
-      (/ (- captionHeight (car (gimp-drawable-height theText))) 2))
+   (if (not (defined? 'gimp-image-get-active-layer))
+      ; New Gimp 3.0 API:
+      (gimp-layer-set-offsets
+         theText
+         (/ (- captionWidth  (car (gimp-drawable-get-width  theText))) 2)
+         (/ (- captionHeight (car (gimp-drawable-get-height theText))) 2))
+      ; Old Gimp 2.x API:
+      (gimp-layer-set-offsets
+         theText
+         (/ (- captionWidth  (car (gimp-drawable-width  theText))) 2)
+         (/ (- captionHeight (car (gimp-drawable-height theText))) 2))
+   )
 
    (gimp-image-merge-visible-layers image CLIP-TO-IMAGE)
    ; (gimp-display-new image)
