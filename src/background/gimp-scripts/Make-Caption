@@ -215,8 +215,8 @@ rm -f "${OUTPUT_FILENAME}"
 
    ; ------ Clean up --------------------------------------------------------
    (gimp-image-delete image)
-   (gimp-quit TRUE)
 )
+(gimp-quit TRUE)
 EOF
 ) | env LANG=C HOME=/tmp gimp ${GIMP_OPTIONS} 2>&1 | \
 (
