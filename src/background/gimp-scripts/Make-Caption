@@ -134,8 +134,20 @@ rm -f "${OUTPUT_FILENAME}"
     (captionBGColor   "${COLOR_BACKGROUND}")
     (theText)
     (image (car (gimp-image-new captionWidth captionHeight RGB)))
-    (layer1 (car (gimp-layer-new image captionWidth captionHeight RGBA-IMAGE "Layer 1" captionOpacity NORMAL-MODE)))
-    (layer2 (car (gimp-layer-new image captionWidth captionHeight RGBA-IMAGE "Layer 2" 100 NORMAL-MODE)))
+    ; (layer1 (car (gimp-layer-new image captionWidth captionHeight RGBA-IMAGE "Layer 1" captionOpacity LAYER-MODE-NORMAL-LEGACY)))
+    (layer1           (if (not (defined? 'gimp-image-get-active-layer))
+                         ; New Gimp 3.0 API:
+                         (car (gimp-layer-new image "Layer 1" captionWidth captionHeight RGBA-IMAGE captionOpacity LAYER-MODE-NORMAL-LEGACY))
+                         ; Old Gimp 2.x API:
+                         (car (gimp-layer-new image captionWidth captionHeight RGBA-IMAGE "Layer 1" captionOpacity LAYER-MODE-NORMAL-LEGACY))
+                      ))
+    ; (layer2 (car (gimp-layer-new image captionWidth captionHeight RGBA-IMAGE "Layer 2" 100 LAYER-MODE-NORMAL-LEGACY)))
+    (layer2           (if (not (defined? 'gimp-image-get-active-layer))
+                         ; New Gimp 3.0 API:
+                         (car (gimp-layer-new image "Layer 2" captionWidth captionHeight RGBA-IMAGE 100 LAYER-MODE-NORMAL-LEGACY))
+                         ; Old Gimp 2.x API:
+                         (car (gimp-layer-new image captionWidth captionHeight RGBA-IMAGE "Layer 2" 100 LAYER-MODE-NORMAL-LEGACY))
+                      ))
    )
 
    ; ------ Generate caption ------------------------------------------------
@@ -143,7 +155,7 @@ rm -f "${OUTPUT_FILENAME}"
    (gimp-image-add-layer image layer2 0)
    (gimp-context-set-background captionBGColor)
    (gimp-context-set-foreground captionFGColor)
-   (gimp-drawable-fill layer1 BACKGROUND-FILL)
+   (gimp-drawable-fill layer1 FILL-BACKGROUND)
 
    (set! theText (car (gimp-text-fontname image layer2 0 0 captionText 0 TRUE captionFontSize PIXELS captionFont) ) )
    (gimp-layer-set-offsets
