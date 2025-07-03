@@ -15,11 +15,11 @@ INPUT1="../Input/Zollverein.jpeg"
 
 
 # ------ Make-Caption -------------------------------------------------------
-./Make-Caption Caption1.png "Caption Text $(LANG=C date)" 1024 42 "Noto Sans Bold" 60 "#02266b" "#ffd700" 26
+# ./Make-Caption Caption1.png "Caption Text $(LANG=C date)" 1024 42 "Noto Sans Bold" 60 "#02266b" "#ffd700" 26
 
 
 # ------ Make-<Conversion> Scripts ------------------------------------------
-# ./Resize-with-Cropping "${INPUT1}" Image1.webp 16:9 1024
-#
-# ./Make-Mosaic Image1.webp Mosaic1-H.webp 24 4 4 --type hexagons --surface rough
-# ./Make-Mosaic Image1.webp Mosaic1-O.webp 24 4 4 --type octagons --surface smooth --neatness 1.0
+./Resize-with-Cropping "${INPUT1}" Image1.webp 16:9 1024
+
+./Make-Mosaic Image1.webp Mosaic1-H.webp 24 4 4 --type hexagons --surface rough
+./Make-Mosaic Image1.webp Mosaic1-O.webp 24 4 4 --type octagons --surface smooth --neatness 1.0

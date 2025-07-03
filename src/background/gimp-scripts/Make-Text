@@ -504,6 +504,7 @@ rm -f "${OUTPUT_FILENAME}"
 
 
 (let*
+   ; ------ Initialise ------------------------------------------------------
    ((outputFileName   "${OUTPUT_FILENAME}")
     (logoText    "$CONTENT")
     (font)
@@ -550,6 +551,7 @@ rm -f "${OUTPUT_FILENAME}"
    (display "patternOverlay=") (display patternOverlay) (newline)
    (if (= patternOverlay -1) ( (gimp-message "ERROR: Pattern \"${PATTERN_OVERLAY}\" is not available!") (quit FALSE) ))
 
+   ; ------ Generate text ---------------------------------------------------
    (set! image (car (script-fu-glossy-300-logo logoText fontSize font 0 8 8 colorScheme FALSE colorScheme FALSE borderSize "white" FALSE patternText FALSE patternOutline FALSE patternOverlay TRUE TRUE 8 8)))
    (display "image=") (display image) (newline)
 
