@@ -240,12 +240,12 @@ rm -f "${OUTPUT_FILENAME}"
    (gimp-quit TRUE)
 )
 EOF
-) | env LANG=C HOME=/tmp gimp --new-instance --no-interface --no-splash --batch-interpreter plug-in-script-fu-eval --batch - 2>&1 | \
+) | env LANG=C HOME=/tmp gimp --quit --new-instance --no-interface --no-splash --batch-interpreter plug-in-script-fu-eval --batch - 2>&1 | \
 (
    if [ ${VERBOSE} -ne 0 ] ; then
       cat
    else
-      grep -vE "^ts>|(#t)|^Copyright|^Welcome|^using gegl copy|scriptfu-WARNING|LibGimp-WARNING|^Please use named arguments:|^$" || true
+      grep -vE "^ts>|(#t)|^Copyright|^Welcome|^using gegl copy|scriptfu-WARNING|LibGimp-WARNING|^Please use named arguments:|^script quit with code:|^$" || true
    fi
 )
 
