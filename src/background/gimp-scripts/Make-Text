@@ -615,7 +615,7 @@ rm -f "${OUTPUT_FILENAME}"
    )
    (else
       ; Old Gimp 2.x API:
-      (file-png-save2 RUN-NONINTERACTIVE image layer outputFileName outputFileName TRUE 9 TRUE TRUE FALSE TRUE TRUE FALSE TRUE
+      (file-png-save2 RUN-NONINTERACTIVE image (car (gimp-image-get-active-layer image)) outputFileName outputFileName TRUE 9 TRUE TRUE FALSE TRUE TRUE FALSE TRUE
    )))
 
    ; ------ Clean up --------------------------------------------------------

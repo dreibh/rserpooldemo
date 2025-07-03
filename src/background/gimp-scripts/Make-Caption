@@ -133,7 +133,6 @@ rm -f "${OUTPUT_FILENAME}"
     (captionFGColor   "${COLOR_FOREGROUND}")
     (captionBGColor   "${COLOR_BACKGROUND}")
     (theText)
-    (drawable)
     (image (car (gimp-image-new captionWidth captionHeight RGB)))
     (layer1 (car (gimp-layer-new image captionWidth captionHeight RGBA-IMAGE "Layer 1" captionOpacity NORMAL-MODE)))
     (layer2 (car (gimp-layer-new image captionWidth captionHeight RGBA-IMAGE "Layer 2" 100 NORMAL-MODE)))
@@ -177,7 +176,7 @@ rm -f "${OUTPUT_FILENAME}"
    )
    (else
       ; Old Gimp 2.x API:
-      (file-png-save2 RUN-NONINTERACTIVE image layer outputFileName outputFileName TRUE 6 TRUE TRUE FALSE TRUE TRUE FALSE TRUE
+      (file-png-save2 RUN-NONINTERACTIVE image (car (gimp-image-get-active-layer image)) outputFileName outputFileName TRUE 6 TRUE TRUE FALSE TRUE TRUE FALSE TRUE
    )))
 
    ; ------ Clean up --------------------------------------------------------
