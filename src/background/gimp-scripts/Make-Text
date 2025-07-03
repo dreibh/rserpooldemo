@@ -524,35 +524,47 @@ rm -f "${OUTPUT_FILENAME}"
    (if (not (defined? 'gimp-image-get-active-layer))
       (set! font (car (gimp-font-get-by-name "${FONT_NAME}")))
       (set! font "${FONT_NAME}"))
-   (display "font=") (display font) (newline)
+   (newline) (display "font=") (display font) (newline)
    (if (and (not (defined? 'gimp-image-get-active-layer)) (= font -1)) (
-       (gimp-message "ERROR: Font \"${FONT_NAME}\" is not available! Check installed fonts with fc-list!")
-       (quit FALSE)
+      (gimp-message "ERROR: Font \"${FONT_NAME}\" is not available! Check installed fonts with fc-list!")
+      (quit FALSE)
    ))
 
    (if (not (defined? 'gimp-image-get-active-layer))
       (set! colorScheme (car (gimp-gradient-get-by-name "${COLORSCHEME}")))
       (set! colorScheme "${COLORSCHEME}"))
    (display "colorScheme=") (display colorScheme) (newline)
-   (if (= colorScheme -1) ( (gimp-message "ERROR: Color scheme \"${COLORSCHEME}\" is not available!") (quit FALSE) ))
+   (if (and (not (defined? 'gimp-image-get-active-layer)) (= colorScheme -1)) (
+      (gimp-message "ERROR: Color scheme \"${COLORSCHEME}\" is not available!")
+      (quit FALSE)
+   ))
 
    (if (not (defined? 'gimp-image-get-active-layer))
       (set! patternText (car (gimp-pattern-get-by-name "${PATTERN_TEXT}")))
       (set! patternText "${PATTERN_TEXT}"))
    (display "patternText=") (display patternText) (newline)
-   (if (= patternText -1) ( (gimp-message "ERROR: Pattern \"${PATTERN_TEXT}\" is not available!") (quit FALSE) ))
+   (if (and (not (defined? 'gimp-image-get-active-layer)) (= patternText -1)) (
+      (gimp-message "ERROR: Pattern \"${PATTERN_TEXT}\" is not available!")
+      (quit FALSE)
+   ))
 
    (if (not (defined? 'gimp-image-get-active-layer))
       (set! patternOutline (car (gimp-pattern-get-by-name "${PATTERN_OUTLINE}")))
       (set! patternOutline "${PATTERN_OUTLINE}"))
    (display "patternOutline=") (display patternOutline) (newline)
-   (if (= patternOutline -1) ( (gimp-message "ERROR: Pattern \"${PATTERN_OUTLINE}\" is not available!") (quit FALSE) ))
+   (if (and (not (defined? 'gimp-image-get-active-layer)) (= patternOutline -1)) (
+      (gimp-message "ERROR: Pattern \"${PATTERN_OUTLINE}\" is not available!")
+      (quit FALSE)
+   ))
 
    (if (not (defined? 'gimp-image-get-active-layer))
       (set! patternOverlay (car (gimp-pattern-get-by-name "${PATTERN_OVERLAY}")))
       (set! patternOverlay "${PATTERN_OVERLAY}"))
    (display "patternOverlay=") (display patternOverlay) (newline)
-   (if (= patternOverlay -1) ( (gimp-message "ERROR: Pattern \"${PATTERN_OVERLAY}\" is not available!") (quit FALSE) ))
+   (if (and (not (defined? 'gimp-image-get-active-layer)) (= patternOverlay -1)) (
+      (gimp-message "ERROR: Pattern \"${PATTERN_OVERLAY}\" is not available!")
+      (quit FALSE)
+   ))
 
    ; ------ Generate text ---------------------------------------------------
    (set! image (car (script-fu-glossy-300-logo logoText fontSize font 0 8 8 colorScheme FALSE colorScheme FALSE borderSize "white" FALSE patternText FALSE patternOutline FALSE patternOverlay TRUE TRUE 8 8)))
