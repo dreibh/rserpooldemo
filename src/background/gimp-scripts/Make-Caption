@@ -43,7 +43,7 @@ eval set -- "${options}"
 COLOR_FOREGROUND="#02266b"   # Dark Blue
 COLOR_BACKGROUND="#ffd700"   # Gold
 TRANSPARENCY=25              # %
-VERBOSE=1
+VERBOSE=0
 while [ $# -gt 0 ] ; do
    case "$1" in
       -f | --foreground)

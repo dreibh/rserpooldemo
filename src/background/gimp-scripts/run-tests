@@ -26,3 +26,6 @@ INPUT1="../Input/Zollverein.jpeg"
 
 ./Make-Mosaic Image1.webp Mosaic1-H.webp 24 4 4 --type hexagons --surface rough
 ./Make-Mosaic Image1.webp Mosaic1-O.webp 24 4 4 --type octagons --surface smooth --neatness 1.0
+
+
+./Make-OldPhoto Image1.webp OldPhoto1.webp --bordersize 20
