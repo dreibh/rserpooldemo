@@ -127,7 +127,7 @@ rm -f "${OUTPUT_FILENAME}"
     (captionText      "${CAPTION_TEXT}")
     (captionWidth     ${CAPTION_WIDTH})
     (captionHeight    ${CAPTION_HEIGHT})
-    (captionFont      "${FONT_NAME}")
+    (captionFont)
     (captionFontSize  (/ (* ${FONT_SIZE} captionHeight) 100))
     (captionOpacity   (- 100 ${TRANSPARENCY}))
     (captionFGColor   "${COLOR_FOREGROUND}")
@@ -150,14 +150,24 @@ rm -f "${OUTPUT_FILENAME}"
                       ))
    )
 
+   (if (not (defined? 'gimp-image-get-active-layer))
+      (set! captionFont (car (gimp-font-get-by-name "${FONT_NAME}")))
+      (set! captionFont "${FONT_NAME}"))
+   (newline) (display "captionFont=") (display captionFont) (newline)
+   (if (and (not (defined? 'gimp-image-get-active-layer)) (= captionFont -1)) (
+      (gimp-message "ERROR: Font \"${FONT_NAME}\" is not available! Check installed fonts with fc-list!")
+      (quit FALSE)
+   ))
+
    ; ------ Generate caption ------------------------------------------------
-   (gimp-image-add-layer image layer1 0)
-   (gimp-image-add-layer image layer2 0)
+   (gimp-image-insert-layer image layer1 0)
+   (gimp-image-insert-layer image layer2 0)
    (gimp-context-set-background captionBGColor)
    (gimp-context-set-foreground captionFGColor)
    (gimp-drawable-fill layer1 FILL-BACKGROUND)
 
-   (set! theText (car (gimp-text-fontname image layer2 0 0 captionText 0 TRUE captionFontSize PIXELS captionFont) ) )
+   ; (set! theText (car (gimp-text-fontname image layer2 0 0 captionText 0 TRUE captionFontSize PIXELS captionFont) ) )
+   (set! theText (car (gimp-text-font image layer2 0 0 captionText 0 TRUE captionFontSize captionFont) ) )
    (gimp-layer-set-offsets
       theText
       (/ (- captionWidth  (car (gimp-drawable-width  theText))) 2)
