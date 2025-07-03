@@ -6,7 +6,7 @@ INPUT1="../Input/Zollverein.jpeg"
 
 
 # ------ Make-Text ----------------------------------------------------------
-./Make-Text NorNet1.png "NorNet Testbed" 1024 42 "Noto Sans Bold" 60
+./Make-Text NorNet1.png "NorNet Testbed" 128
 
 # Requires:
 # ttf-mscorefonts-installer fonts-lobster
@@ -15,7 +15,7 @@ INPUT1="../Input/Zollverein.jpeg"
 
 
 # ------ Make-Caption -------------------------------------------------------
-# ./Make-Caption Caption1.png "Caption Text $(LANG=C date)" 1024 42 "Noto Sans Bold" 60 "#02266b" "#ffd700" 26
+./Make-Caption Caption1.png "Caption Text $(LANG=C date)" 1024 42 "Noto Sans Bold" 60 "#02266b" "#ffd700" 26
 
 
 # ------ Make-<Conversion> Scripts ------------------------------------------

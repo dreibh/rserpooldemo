@@ -99,7 +99,7 @@ while [ $# -gt 0 ] ; do
   esac
 done
 
-if [ $# -lt 3 ] ; then
+if [ $# -ne 3 ] ; then
    usage 1
 fi
 OUTPUT_FILENAME="$1"
@@ -522,14 +522,13 @@ rm -f "${OUTPUT_FILENAME}"
    )
 
    (if (not (defined? 'gimp-image-get-active-layer))
-      ( (set! font (car (gimp-font-get-by-name "${FONT_NAME}")))
-        (if (= font -1) (
-           (gimp-message "ERROR: Font \"${FONT_NAME}\" is not available! Check installed fonts with fc-list!")
-           (quit FALSE) )
-        )
-      )
+      (set! font (car (gimp-font-get-by-name "${FONT_NAME}")))
       (set! font "${FONT_NAME}"))
    (display "font=") (display font) (newline)
+   (if (and (not (defined? 'gimp-image-get-active-layer)) (= font -1)) (
+       (gimp-message "ERROR: Font \"${FONT_NAME}\" is not available! Check installed fonts with fc-list!")
+       (quit FALSE)
+   ))
 
    (if (not (defined? 'gimp-image-get-active-layer))
       (set! colorScheme (car (gimp-gradient-get-by-name "${COLORSCHEME}")))
