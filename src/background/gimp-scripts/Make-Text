@@ -23,7 +23,7 @@
 # Contact: thomas.dreibholz@gmail.com
 
 # Bash options:
-set -e
+set -eu
 
 
 # Examples:

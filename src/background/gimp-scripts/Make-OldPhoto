@@ -19,19 +19,19 @@
 # Contact: thomas.dreibholz@gmail.com
 
 # Bash options:
-set -e
+set -eu
 
 
 # Examples:
-# Make-OldPhoto Image.jpeg OldPhoto1.png
-# Make-OldPhoto Image.jpeg OldPhoto2.png --bordersize 20
+# Make-OldPhoto Image1.jpeg OldPhoto1.png
+# Make-OldPhoto Image1.jpeg OldPhoto2.png --bordersize 20
 
 
 # ====== Handle arguments ===================================================
 usage () {
    local exitCode="$1"
    echo >&2 "Usage: $0 input_filename output_filename [--bordersize|-b size] [--verbose|-v] [--quiet|-q] [--help|-h]"
-   echo >&2 "Example: $0 Image.jpeg OldPhoto2.png --bordersize 20"
+   echo >&2 "Example: $0 Image.jpeg OldPhoto.png --bordersize 20"
    exit "${exitCode}"
 }
 
@@ -40,7 +40,7 @@ GETOPT="$(PATH=/usr/local/bin:$PATH which getopt)"
 options="$(${GETOPT} -o b:vqh --long bordersize:,verbose,quiet,help -a -- "$@")"
 eval set -- "${options}"
 
-BORDER_SIZE=20
+BORDER_SIZE=10
 VERBOSE=0
 while [ $# -gt 0 ] ; do
    case "$1" in

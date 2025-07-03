@@ -23,8 +23,8 @@ set -eu
 
 
 # Example:
-# Make-Mosaic Image.jpeg Mosaic.png 24 4 4 --type hexagons --surface rough
-# Make-Mosaic Image.jpeg Mosaic.png 32 4 2 --type octagons --surface smooth
+# Make-Mosaic Image1.jpeg Mosaic1.png 24 4 4 --type hexagons --surface rough
+# Make-Mosaic Image1.jpeg Mosaic2.png 32 4 2 --type octagons --surface smooth
 
 
 # ====== Handle arguments ===================================================

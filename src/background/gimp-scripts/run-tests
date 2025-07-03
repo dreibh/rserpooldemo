@@ -24,8 +24,17 @@ INPUT1="../Input/Zollverein.jpeg"
 # ------ Make-<Conversion> Scripts ------------------------------------------
 ./Resize-with-Cropping "${INPUT1}" Image1.webp 16:9 1024
 
+
 ./Make-Mosaic Image1.webp Mosaic1-H.webp 24 4 4 --type hexagons --surface rough
 ./Make-Mosaic Image1.webp Mosaic1-O.webp 24 4 4 --type octagons --surface smooth --neatness 1.0
 
 
-./Make-OldPhoto Image1.webp OldPhoto1.webp --bordersize 20
+./Make-OldPhoto Image1.webp OldPhoto1.png
+./Make-OldPhoto Image1.webp OldPhoto2.png --bordersize 20
+
+
+./Make-Cloth Image1.webp Cloth1.png
+./Make-Cloth Image1.webp Cloth2.png --depth 8
+
+
+./Make-Painting Image1.webp Painting1.png --masksize 8
