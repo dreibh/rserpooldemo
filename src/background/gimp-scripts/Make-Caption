@@ -102,6 +102,7 @@ if [[ ! "${CAPTION_HEIGHT}" =~ ^[0-9]+$ ]] ; then
    exit 1
 fi
 
+
 # ====== Obtain GIMP call options ===========================================
 if ! whereis gimp >/dev/null ; then
    echo >&2 "ERROR: Gimp is not available!"
@@ -115,6 +116,7 @@ else
    # Gimp 3.x:
    GIMP_OPTIONS="--quit --new-instance --no-interface --no-splash --batch-interpreter plug-in-script-fu-eval --batch -"
 fi
+
 
 # ====== Call GIMP ==========================================================
 rm -f "${OUTPUT_FILENAME}"

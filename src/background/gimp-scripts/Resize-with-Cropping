@@ -20,7 +20,7 @@
 #
 
 # Bash options:
-set -e
+set -eu
 
 
 # ###### Handle arguments ###################################################
