@@ -24,7 +24,7 @@ set -e
 
 # Example:
 # Make-Caption Caption.png "Caption Text" 1024 42 "Noto Sans Bold" 60
-# Make-Caption Caption.png "Caption Text" 1024 42 "Noto Sans Bold" 60 "#02266b" "#ffd700" 26
+# Make-Caption Caption.png "Caption Text" 1024 42 "Noto Sans Bold" 60 --foreground "#02266b" --background "#ffd700" --transparency 26
 
 
 # ====== Handle arguments ===================================================
@@ -79,7 +79,7 @@ while [ $# -gt 0 ] ; do
   esac
 done
 
-if [ $# -lt 6 ] ; then
+if [ $# -ne 6 ] ; then
    usage 1
 fi
 OUTPUT_FILENAME="$1"

@@ -97,7 +97,7 @@ while [ $# -gt 0 ] ; do
   esac
 done
 
-if [ $# -lt 5 ] ; then
+if [ $# -ne 5 ] ; then
    usage 1
 fi
 INPUT_FILENAME="$1"

@@ -10,12 +10,15 @@ INPUT1="../Input/Zollverein.jpeg"
 
 # Requires:
 # ttf-mscorefonts-installer fonts-lobster
-./Make-Text NorNet2.png "NorNet Testbed" 128 --bordersize 5 --colorscheme "Brushed Aluminium" --font "Comic Sans MS Bold"
-./Make-Text NorNet3.png "NorNet Testbed" 128 --bordersize 5 --colorscheme "Golden" --font "Lobster Two Bold Italic"
+./Make-Text NorNet2.png "NorNet Testbed" 128 --bordersize 5 \
+   --colorscheme "Brushed Aluminium" --font "Comic Sans MS Bold"
+./Make-Text NorNet3.png "NorNet Testbed" 128 --bordersize 5 \
+   --colorscheme "Golden" --font "Lobster Two Bold Italic"
 
 
 # ------ Make-Caption -------------------------------------------------------
-./Make-Caption Caption1.png "Caption Text $(LANG=C date)" 1024 42 "Noto Sans Bold" 60 "#02266b" "#ffd700" 26
+./Make-Caption Caption1.png "Caption Text $(LANG=C date)" 1024 42 "Noto Sans Bold" 60 \
+   --foreground "#02266b" --background "#ffd700" --transparency 26
 
 
 # ------ Make-<Conversion> Scripts ------------------------------------------
