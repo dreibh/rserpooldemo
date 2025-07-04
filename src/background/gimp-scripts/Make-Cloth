@@ -128,7 +128,14 @@ rm -f "${OUTPUT_FILENAME}"
    (if (not (= RGB imageType))
       (gimp-image-convert-rgb image))
 
-   (script-fu-clothify image layer 1 1 135.0 45.0 depth)
+   (cond( (not(defined? 'plug-in-bump-map))
+      ; New Gimp 3.0 API:
+      (script-fu-clothify image (vector layer) 1 1 135.0 45.0 depth)
+   )
+   (else
+      ; Old Gimp 2.x API:
+      (script-fu-clothify image layer 1 1 135.0 45.0 depth)
+   ))
 
    ; ------ Save result -----------------------------------------------------
    (cond( (not(defined? 'file-png-save2))
