@@ -117,10 +117,10 @@ rm -f "${OUTPUT_FILENAME}"
    (if (not (= RGB imageType))
       (gimp-image-convert-rgb image))
 
-   ; Change colours
+   ; Step 1: Change hue
    (gimp-drawable-hue-saturation layer HUE-RANGE-ALL 120.0 0 0 0)
 
-   ; Bump Map
+   ; Step 2: Apply Bump Map effect
    (cond( (not(defined? 'plug-in-bump-map))
       ; New Gimp 3.0 API:
       (gimp-drawable-merge-new-filter layer "gegl:bump-map" 0 LAYER-MODE-REPLACE 1.0
@@ -128,12 +128,12 @@ rm -f "${OUTPUT_FILENAME}"
           "elevation"       45.0
           "depth"           20.0
           "offset-x"        0
-          "offset-y" 0
-          "waterlevel" 0.0
-          "ambient" 0.0
-          "compensate" TRUE
-          "invert" FALSE
-          "type" "linear"
+          "offset-y"        0
+          "waterlevel"      0.0
+          "ambient"         0.0
+          "compensate"      TRUE
+          "invert"          FALSE
+          "type"            "linear"
       )
    )
    (else
@@ -144,7 +144,7 @@ rm -f "${OUTPUT_FILENAME}"
          TRUE FALSE 0)
    ))
 
-   ; Darken it a little bit
+   ; Step 3: Darken the result a little bit
    (gimp-drawable-hue-saturation layer HUE-RANGE-ALL 0 -15 0 0)
 
    ; ------ Save result -----------------------------------------------------
