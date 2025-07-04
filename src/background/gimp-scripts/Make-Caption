@@ -89,26 +89,26 @@ CAPTION_HEIGHT=$4
 FONT_NAME="$5"
 FONT_SIZE=$6
 
-if [[ ! "${TRANSPARENCY}" =~ ^[0-9]+$ ]] || [ ${TRANSPARENCY} -lt 0 ] || [ ${TRANSPARENCY} -gt 100 ] ; then
+if [[ ! "${TRANSPARENCY}" =~ ^([0-9]+)$ ]] || [ ${TRANSPARENCY} -lt 0 ] || [ ${TRANSPARENCY} -gt 100 ] ; then
    echo >&2 "ERROR: Invalid transparency value!"
    exit 1
 fi
-if [[ ! "${CAPTION_WIDTH}" =~ ^[0-9]+$ ]] ; then
+if [[ ! "${CAPTION_WIDTH}" =~ ^([0-9]+)$ ]] ; then
    echo >&2 "ERROR: Invalid caption width!"
    exit 1
 fi
-if [[ ! "${CAPTION_HEIGHT}" =~ ^[0-9]+$ ]] ; then
+if [[ ! "${CAPTION_HEIGHT}" =~ ^([0-9]+)$ ]] ; then
    echo >&2 "ERROR: Invalid caption height!"
    exit 1
 fi
 
 
 # ====== Obtain GIMP call options ===========================================
-if ! whereis gimp >/dev/null ; then
+if ! whereis gimp-console >/dev/null ; then
    echo >&2 "ERROR: Gimp is not available!"
    exit 1
 fi
-GIMP_VERSION="$(LANG=C gimp --version | sed -e 's/GNU Image Manipulation Program version //')"
+GIMP_VERSION="$(LANG=C gimp-console --version | sed -e 's/GNU Image Manipulation Program version //')"
 if [[ "${GIMP_VERSION}" =~ ^[012] ]] ; then
    # Gimp 2.x:
    GIMP_OPTIONS="--new-instance --no-interface --no-splash --batch-interpreter plug-in-script-fu-eval --batch -"
@@ -156,7 +156,7 @@ rm -f "${OUTPUT_FILENAME}"
    (if (not (defined? 'gimp-image-get-active-layer))
       (set! captionFont (car (gimp-font-get-by-name "${FONT_NAME}")))
       (set! captionFont "${FONT_NAME}"))
-   (newline) (display "captionFont=") (display captionFont) (newline)
+   ; (newline) (display "captionFont=") (display captionFont) (newline)
    (if (and (not (defined? 'gimp-image-get-active-layer)) (= captionFont -1)) (
       (gimp-message "ERROR: Font \"${FONT_NAME}\" is not available! Check installed fonts with fc-list!")
       (quit FALSE)
@@ -221,12 +221,12 @@ rm -f "${OUTPUT_FILENAME}"
 )
 (gimp-quit TRUE)
 EOF
-) | env LANG=C HOME=/tmp gimp ${GIMP_OPTIONS} 2>&1 | \
+) | env LANG=C HOME=/tmp gimp-console ${GIMP_OPTIONS} 2>&1 | \
 (
    if [ ${VERBOSE} -ne 0 ] ; then
       cat
    else
-      grep -vE "^ts>|(#t)|^Copyright|^Welcome|^using gegl copy|scriptfu-WARNING|LibGimp-WARNING|^Please use named arguments:|^script quit with code:|^$" || true
+      grep -vE "^ts>|(#t)|^Copyright|Welcome to (GIMP|TinyScheme)|^using gegl copy|scriptfu-WARNING|-WARNING|^Please use named arguments:|^script quit with code:|^$" || true
    fi
 )
 

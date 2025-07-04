@@ -9,12 +9,11 @@ INPUT2="../Input/Background.png"
 # ------ Make-Text ----------------------------------------------------------
 ./Make-Text NorNet1.png "NorNet Testbed" 128
 
-# Requires:
-# ttf-mscorefonts-installer fonts-lobster
+# Requires: fonts-lobster
 ./Make-Text NorNet2.png "NorNet Testbed" 128 --bordersize 5 \
-   --colorscheme "Brushed Aluminium" --font "Comic Sans MS Bold"
+   --colorscheme "Brushed Aluminium" --font "Noto Sans Bold"
 ./Make-Text NorNet3.png "NorNet Testbed" 128 --bordersize 5 \
-   --colorscheme "Golden" --font "Lobster Two Bold Italic"
+   --colorscheme "Golden" --font "Lobster Two Bold Italic" || true
 
 
 # ------ Make-Caption -------------------------------------------------------

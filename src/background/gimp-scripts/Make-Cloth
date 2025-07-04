@@ -79,18 +79,18 @@ if [ ! -f "${INPUT_FILENAME}" ] ; then
    echo >&2 "ERROR: Input file ${INPUT_FILENAME} does not exist!"
    exit 1
 fi
-if [[ ! "${DEPTH}" =~ ^[0-9]+$ ]] ; then
-   echo >&2 "ERROR: Invalid depth!"
+if [[ ! "${DEPTH}" =~ ^([0-9]+)$ ]] ; then
+   echo >&2 "ERROR: Invalid depth ${DEPTH}!"
    exit 1
 fi
 
 
 # ====== Obtain GIMP call options ===========================================
-if ! whereis gimp >/dev/null ; then
+if ! whereis gimp-console >/dev/null ; then
    echo >&2 "ERROR: Gimp is not available!"
    exit 1
 fi
-GIMP_VERSION="$(LANG=C gimp --version | sed -e 's/GNU Image Manipulation Program version //')"
+GIMP_VERSION="$(LANG=C gimp-console --version | sed -e 's/GNU Image Manipulation Program version //')"
 if [[ "${GIMP_VERSION}" =~ ^[012] ]] ; then
    # Gimp 2.x:
    GIMP_OPTIONS="--new-instance --no-interface --no-splash --batch-interpreter plug-in-script-fu-eval --batch -"
@@ -170,12 +170,12 @@ rm -f "${OUTPUT_FILENAME}"
 )
 (gimp-quit TRUE)
 EOF
-) | env LANG=C HOME=/tmp gimp ${GIMP_OPTIONS} 2>&1 | \
+) | env LANG=C HOME=/tmp gimp-console ${GIMP_OPTIONS} 2>&1 | \
 (
    if [ ${VERBOSE} -ne 0 ] ; then
       cat
    else
-      grep -vE "^ts>|(#t)|^Copyright|^Welcome|^using gegl copy|scriptfu-WARNING|LibGimp-WARNING|^Please use named arguments:|^script quit with code:|^$" || true
+      grep -vE "^ts>|(#t)|^Copyright|Welcome to (GIMP|TinyScheme)|^using gegl copy|scriptfu-WARNING|-WARNING|^Please use named arguments:|^script quit with code:|^$" || true
    fi
 )
 

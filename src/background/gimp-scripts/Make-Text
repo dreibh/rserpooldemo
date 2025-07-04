@@ -106,22 +106,22 @@ OUTPUT_FILENAME="$1"
 CONTENT="$2"
 FONT_SIZE=$3
 
-if [[ ! "${FONT_SIZE}" =~ ^[0-9]+$ ]] ; then
+if [[ ! "${FONT_SIZE}" =~ ^([0-9]+)$ ]] ; then
    echo >&2 "ERROR: Invalid font size ${FONT_SIZE}!"
    exit 1
 fi
-if [[ ! "${BORDER_SIZE}" =~ ^[0-9]+$ ]] ; then
+if [[ ! "${BORDER_SIZE}" =~ ^([0-9]+)$ ]] ; then
    echo >&2 "ERROR: Invalid border size ${BORDER_SIZE}!"
    exit 1
 fi
 
 
 # ====== Obtain GIMP call options ===========================================
-if ! whereis gimp >/dev/null ; then
+if ! whereis gimp-console >/dev/null ; then
    echo >&2 "ERROR: Gimp is not available!"
    exit 1
 fi
-GIMP_VERSION="$(LANG=C gimp --version | sed -e 's/GNU Image Manipulation Program version //')"
+GIMP_VERSION="$(LANG=C gimp-console --version | sed -e 's/GNU Image Manipulation Program version //')"
 if [[ "${GIMP_VERSION}" =~ ^[012] ]] ; then
    # Gimp 2.x:
    GIMP_OPTIONS="--new-instance --no-interface --no-splash --batch-interpreter plug-in-script-fu-eval --batch -"
@@ -165,7 +165,7 @@ rm -f "${OUTPUT_FILENAME}"
 ; You should have received a copy of the GNU General Public License
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-; Fix code for gimp 2.99.6 working in 2.10
+; Fix code for gimp-console 2.99.6 working in 2.10
 (cond ((not (defined? 'gimp-drawable-get-width)) (define gimp-drawable-get-width gimp-drawable-width)))
 (cond ((not (defined? 'gimp-drawable-get-height)) (define gimp-drawable-get-height gimp-drawable-height)))
 (cond ((not (defined? 'gimp-drawable-get-offsets)) (define gimp-drawable-get-offsets gimp-drawable-offsets)))
@@ -524,7 +524,7 @@ rm -f "${OUTPUT_FILENAME}"
    (if (not (defined? 'gimp-image-get-active-layer))
       (set! font (car (gimp-font-get-by-name "${FONT_NAME}")))
       (set! font "${FONT_NAME}"))
-   (newline) (display "font=") (display font) (newline)
+   ; (newline) (display "font=") (display font) (newline)
    (if (and (not (defined? 'gimp-image-get-active-layer)) (= font -1)) (
       (gimp-message "ERROR: Font \"${FONT_NAME}\" is not available! Check installed fonts with fc-list!")
       (quit FALSE)
@@ -533,7 +533,7 @@ rm -f "${OUTPUT_FILENAME}"
    (if (not (defined? 'gimp-image-get-active-layer))
       (set! colorScheme (car (gimp-gradient-get-by-name "${COLORSCHEME}")))
       (set! colorScheme "${COLORSCHEME}"))
-   (display "colorScheme=") (display colorScheme) (newline)
+   ; (display "colorScheme=") (display colorScheme) (newline)
    (if (and (not (defined? 'gimp-image-get-active-layer)) (= colorScheme -1)) (
       (gimp-message "ERROR: Color scheme \"${COLORSCHEME}\" is not available!")
       (quit FALSE)
@@ -542,7 +542,7 @@ rm -f "${OUTPUT_FILENAME}"
    (if (not (defined? 'gimp-image-get-active-layer))
       (set! patternText (car (gimp-pattern-get-by-name "${PATTERN_TEXT}")))
       (set! patternText "${PATTERN_TEXT}"))
-   (display "patternText=") (display patternText) (newline)
+   ; (display "patternText=") (display patternText) (newline)
    (if (and (not (defined? 'gimp-image-get-active-layer)) (= patternText -1)) (
       (gimp-message "ERROR: Pattern \"${PATTERN_TEXT}\" is not available!")
       (quit FALSE)
@@ -551,7 +551,7 @@ rm -f "${OUTPUT_FILENAME}"
    (if (not (defined? 'gimp-image-get-active-layer))
       (set! patternOutline (car (gimp-pattern-get-by-name "${PATTERN_OUTLINE}")))
       (set! patternOutline "${PATTERN_OUTLINE}"))
-   (display "patternOutline=") (display patternOutline) (newline)
+   ; (display "patternOutline=") (display patternOutline) (newline)
    (if (and (not (defined? 'gimp-image-get-active-layer)) (= patternOutline -1)) (
       (gimp-message "ERROR: Pattern \"${PATTERN_OUTLINE}\" is not available!")
       (quit FALSE)
@@ -560,7 +560,7 @@ rm -f "${OUTPUT_FILENAME}"
    (if (not (defined? 'gimp-image-get-active-layer))
       (set! patternOverlay (car (gimp-pattern-get-by-name "${PATTERN_OVERLAY}")))
       (set! patternOverlay "${PATTERN_OVERLAY}"))
-   (display "patternOverlay=") (display patternOverlay) (newline)
+   ; (display "patternOverlay=") (display patternOverlay) (newline)
    (if (and (not (defined? 'gimp-image-get-active-layer)) (= patternOverlay -1)) (
       (gimp-message "ERROR: Pattern \"${PATTERN_OVERLAY}\" is not available!")
       (quit FALSE)
@@ -568,7 +568,7 @@ rm -f "${OUTPUT_FILENAME}"
 
    ; ------ Generate text ---------------------------------------------------
    (set! image (car (script-fu-glossy-300-logo logoText fontSize font 0 8 8 colorScheme FALSE colorScheme FALSE borderSize "white" FALSE patternText FALSE patternOutline FALSE patternOverlay TRUE TRUE 8 8)))
-   (display "image=") (display image) (newline)
+   ; (display "image=") (display image) (newline)
 
    (set! layers (if (not (defined? 'gimp-image-get-active-layer))
                     ; New Gimp 3.0 API:
@@ -576,11 +576,11 @@ rm -f "${OUTPUT_FILENAME}"
                     ; Old Gimp 2.x API:
                     (set! layers (car (cdr (gimp-image-get-layers image))))
                 ))
-   (display "layers=") (display layers) (newline)
+   ; (display "layers=") (display layers) (newline)
    (set! num-layers (vector-length layers))
-   (display "num-layers=") (display num-layers) (newline)
+   ; (display "num-layers=") (display num-layers) (newline)
    (set! bg-layer (vector-ref layers (- num-layers 1)))
-   (display "bg-layer=") (display bg-layer) (newline)
+   ; (display "bg-layer=") (display bg-layer) (newline)
 
    (gimp-item-set-visible bg-layer FALSE)
    (gimp-displays-flush)
@@ -623,12 +623,12 @@ rm -f "${OUTPUT_FILENAME}"
 )
 (gimp-quit TRUE)
 EOF
-) | env LANG=C HOME=/tmp gimp ${GIMP_OPTIONS} 2>&1 | \
+) | env LANG=C HOME=/tmp gimp-console ${GIMP_OPTIONS} 2>&1 | \
 (
    if [ ${VERBOSE} -ne 0 ] ; then
       cat
    else
-      grep -vE "^ts>|(#t)|^Copyright|^Welcome|^using gegl copy|scriptfu-WARNING|LibGimp-WARNING|^Please use named arguments:|^script quit with code:|^$" || true
+      grep -vE "^ts>|(#t)|^Copyright|Welcome to (GIMP|TinyScheme)|^using gegl copy|scriptfu-WARNING|-WARNING|^Please use named arguments:|^script quit with code:|^$" || true
    fi
 )
 
