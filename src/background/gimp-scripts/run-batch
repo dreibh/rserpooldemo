@@ -1,0 +1,3 @@
+#!/bin/sh
+
+gimp -idf --batch-interpreter python-fu-eval -b "import sys;sys.path=['.']+sys.path;import batch;" --quit

@@ -67,47 +67,47 @@ tempDirectory=$(mktemp -d rserpooldemo-overlay-"${WIDTH}"x"${HEIGHT}".XXXXXXXXXX
 # ------ Logo for upper-right corner and bottom -----------------------------
 ${GM} convert "$DIRECTORY"/Logo-RSPLIB.png -trim \
    -resize "${logoWidthValue}"x \
-   +compress "${tempDirectory}"/logo.tiff
+   +compress "${tempDirectory}"/logo.png
 ${GM} convert "$DIRECTORY"/Website.png -trim \
    -resize "${websiteWidthValue}"x \
-   +compress "${tempDirectory}"/website.tiff
+   +compress "${tempDirectory}"/website.png
 
 ${GM} composite -size "${WIDTH}"x"${HEIGHT}" \
-   -gravity NorthEast "${tempDirectory}"/logo.tiff -geometry +"${logoIndentValue}"+"${logoIndentValue}" \
-   xc:none +compress "${tempDirectory}"/layer-logo.tiff
+   -gravity NorthEast "${tempDirectory}"/logo.png -geometry +"${logoIndentValue}"+"${logoIndentValue}" \
+   xc:none +compress "${tempDirectory}"/layer-logo.png
 ${GM} composite -size "${WIDTH}"x"${HEIGHT}" \
-   -gravity South -geometry +0+"${websiteIndentValue}" "${tempDirectory}"/website.tiff \
-   xc:none +compress "${tempDirectory}"/layer-website.tiff
+   -gravity South -geometry +0+"${websiteIndentValue}" "${tempDirectory}"/website.png \
+   xc:none +compress "${tempDirectory}"/layer-website.png
 
 # ------ Center title over subtitle -----------------------------------------
 ${GM} convert "$DIRECTORY"/Title.png -trim -resize "${titleWidthValue}"x \
-   +compress "${tempDirectory}"/title.tiff
+   +compress "${tempDirectory}"/title.png
 ${GM} convert "$DIRECTORY"/Subtitle.png -trim -resize "${subtitleWidthValue}"x \
    -bordercolor none \
-   +compress "${tempDirectory}"/subtitle.tiff
-th=$(gm identify -format "%h" "${tempDirectory}/title.tiff")
+   +compress "${tempDirectory}"/subtitle.png
+th=$(gm identify -format "%h" "${tempDirectory}/title.png")
 # Size is ${subtitleWidthValue}x${th}:
 ${GM} composite -size "${subtitleWidthValue}"x"${th}" \
-   -gravity Center "${tempDirectory}"/title.tiff \
-   xc:none +compress "${tempDirectory}"/title-c.tiff
+   -gravity Center "${tempDirectory}"/title.png \
+   xc:none +compress "${tempDirectory}"/title-c.png
 
 ${GM} convert -background none -append -border 6 -bordercolor transparent \
-   "${tempDirectory}"/title-c.tiff \
-   "${tempDirectory}"/subtitle.tiff \
-   +compress "${tempDirectory}"/center.tiff
+   "${tempDirectory}"/title-c.png \
+   "${tempDirectory}"/subtitle.png \
+   +compress "${tempDirectory}"/center.png
 
 ${GM} composite -size "${WIDTH}"x"${HEIGHT}" \
-   -gravity Center "${tempDirectory}"/center.tiff \
-   xc:none +compress "${tempDirectory}"/layer-center.tiff
+   -gravity Center "${tempDirectory}"/center.png \
+   xc:none +compress "${tempDirectory}"/layer-center.png
 
 # ------ Combine everything -------------------------------------------------
 ${GM} composite -size "${WIDTH}"x"${HEIGHT}" \
-   "${tempDirectory}"/layer-logo.tiff \
-   "${tempDirectory}"/layer-website.tiff \
-   "${tempDirectory}"/layer-borders.tiff
+   "${tempDirectory}"/layer-logo.png \
+   "${tempDirectory}"/layer-website.png \
+   "${tempDirectory}"/layer-borders.png
 ${GM} composite -size "${WIDTH}"x"${HEIGHT}" \
-   "${tempDirectory}"/layer-borders.tiff \
-   "${tempDirectory}"/layer-center.tiff \
+   "${tempDirectory}"/layer-borders.png \
+   "${tempDirectory}"/layer-center.png \
    "$OUTPUT"
 
 rm -rf "${tempDirectory}"
