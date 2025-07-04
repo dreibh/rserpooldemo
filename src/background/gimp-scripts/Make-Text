@@ -174,6 +174,9 @@ rm -f "${OUTPUT_FILENAME}"
 
 (cond ((not (defined? 'gimp-text-fontname)) (define (gimp-text-fontname fn1 fn2 fn3 fn4 fn5 fn6 fn7 fn8 PIXELS fn9) (gimp-text-font fn1 fn2 fn3 fn4 fn5 fn6 fn7 fn8 fn9))))
 
+; Gimp 2.8 compatibility:
+(cond ((not (defined? 'LAYER-MODE-NORMAL-LEGACY)) (define LAYER-MODE-NORMAL-LEGACY NORMAL-MODE)))
+
 		(define  (apply-drop-shadow img fond x y blur color opacity number) (begin
 				(gimp-image-select-item img 2 fond)
 				(gimp-selection-translate img x y)
@@ -227,12 +230,27 @@ rm -f "${OUTPUT_FILENAME}"
     (script-fu-util-image-resize-from-layer img logo-layer)
     (script-fu-util-image-add-layers img grow-me bg-layer)
     (gimp-item-set-name grow-me "Grow-me")
-    (gimp-item-transform-translate grow-me posx posy)
+    (cond( (not(defined? 'gimp-layer-translate))
+       ; New Gimp >= 2.8 API:
+       (gimp-item-transform-translate grow-me posx posy)
+    )
+    (else
+       ; Old Gimp <= 2.6 API:
+       (gimp-layer-translate grow-me posx posy)
+    ))
 
     (gimp-context-set-background bg-color)
     (gimp-selection-all img)
     ;(gimp-drawable-edit-bucket-fill bg-layer FILL-BACKGROUND  100 0 )
-    (gimp-drawable-edit-fill bg-layer FILL-BACKGROUND)
+
+    (cond( (not(defined? 'gimp-edit-bucket-fill))
+       ; New Gimp >= 2.8 API:
+       (gimp-drawable-edit-fill bg-layer FILL-BACKGROUND)
+    )
+    (else
+       ; Old Gimp <= 2.6 API:
+       (gimp-edit-bucket-fill bg-layer BG-BUCKET-FILL NORMAL-MODE 100 0 FALSE 0 0)
+    ))
 
     (gimp-selection-none img)
 
@@ -245,8 +263,14 @@ rm -f "${OUTPUT_FILENAME}"
     (if (= use-pattern-text TRUE)
       (begin
         (gimp-context-set-pattern pattern-text)
-       ; (gimp-drawable-edit-bucket-fill logo-layer BUCKET-FILL-PATTERN  100 0 )
+        (cond( (not(defined? 'gimp-edit-bucket-fill))
+           ; New Gimp >= 2.8 API:
            (gimp-drawable-edit-fill logo-layer FILL-PATTERN)
+        )
+        (else
+           ; Old Gimp <= 2.6 API:
+           (gimp-drawable-edit-bucket-fill logo-layer BUCKET-FILL-PATTERN  100 0 )
+        ))
       )
     )
 
