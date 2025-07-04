@@ -24,7 +24,7 @@ INPUT2="../Input/Background.png"
 
 # ------ Make-<Conversion> Scripts ------------------------------------------
 ./Resize-with-Cropping "${INPUT1}" Image1.webp 16:9 1024
-./Resize-with-Cropping "${INPUT2}" Image2.webp 16:9 1024
+./Resize-with-Cropping "${INPUT2}" Image2.png 16:9 1024
 
 
 ./Make-Mosaic Image1.webp Mosaic1-H.webp 24 4 4 --type hexagons --surface rough
@@ -39,5 +39,5 @@ INPUT2="../Input/Background.png"
 ./Make-Painting Image1.webp Painting1.png --masksize 8 --mode intensity
 ./Make-Painting Image1.webp Painting2.png --masksize 8 --mode rgb
 
-./Make-Background Image2.webp Background1.png
+./Make-Background Image2.png Background1.png
 ./Make-Mosaic Background1.png Background2.png 18 4 4 --type hexagons --surface smooth --neatness 0.5
