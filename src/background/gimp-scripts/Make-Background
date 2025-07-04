@@ -121,7 +121,14 @@ rm -f "${OUTPUT_FILENAME}"
       (gimp-image-convert-rgb image))
 
    ; Step 1: Change hue
-   (gimp-drawable-hue-saturation layer HUE-RANGE-ALL 120.0 0 0 0)
+   (cond( (not(defined? 'gimp-hue-saturation))
+      ; New Gimp > 2.8 API:
+      (gimp-drawable-hue-saturation layer HUE-RANGE-ALL 120.0 0 0 0)
+   )
+   (else
+      ; Old Gimp <= 2.8 API:
+      (gimp-hue-saturation layer ALL-HUES 120.0 0 0)
+   ))
 
    ; Step 2: Apply Bump Map effect
    (cond( (not(defined? 'plug-in-bump-map))
@@ -148,7 +155,14 @@ rm -f "${OUTPUT_FILENAME}"
    ))
 
    ; Step 3: Darken the result a little bit
-   (gimp-drawable-hue-saturation layer HUE-RANGE-ALL 0 -15 0 0)
+   (cond( (not(defined? 'gimp-hue-saturation))
+      ; New Gimp > 2.8 API:
+      (gimp-drawable-hue-saturation layer HUE-RANGE-ALL 0 -15 0 0)
+   )
+   (else
+      ; Old Gimp <= 2.8 API:
+      (gimp-hue-saturation layer ALL-HUES 0 -15 0)
+   ))
 
    ; ------ Save result -----------------------------------------------------
    (cond( (not(defined? 'file-png-save2))

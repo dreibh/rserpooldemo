@@ -232,11 +232,11 @@ rm -f "${OUTPUT_FILENAME}"
     (script-fu-util-image-add-layers img grow-me bg-layer)
     (gimp-item-set-name grow-me "Grow-me")
     (cond( (not(defined? 'gimp-layer-translate))
-       ; New Gimp >= 2.8 API:
+       ; New Gimp > 2.8 API:
        (gimp-item-transform-translate grow-me posx posy)
     )
     (else
-       ; Old Gimp <= 2.6 API:
+       ; Old Gimp <= 2.8 API:
        (gimp-layer-translate grow-me posx posy)
     ))
 
@@ -245,11 +245,11 @@ rm -f "${OUTPUT_FILENAME}"
     ;(gimp-drawable-edit-bucket-fill bg-layer FILL-BACKGROUND  100 0 )
 
     (cond( (not(defined? 'gimp-edit-bucket-fill))
-       ; New Gimp >= 2.8 API:
+       ; New Gimp > 2.8 API:
        (gimp-drawable-edit-fill bg-layer FILL-BACKGROUND)
     )
     (else
-       ; Old Gimp <= 2.6 API:
+       ; Old Gimp <= 2.8 API:
        (gimp-edit-bucket-fill bg-layer BG-BUCKET-FILL NORMAL-MODE 100 0 FALSE 0 0)
     ))
 
@@ -265,7 +265,7 @@ rm -f "${OUTPUT_FILENAME}"
       (begin
         (gimp-context-set-pattern pattern-text)
         (cond( (not(defined? 'gimp-edit-bucket-fill))
-           ; New Gimp >= 2.8 API:
+           ; New Gimp > 2.8 API:
            (gimp-drawable-edit-fill logo-layer FILL-PATTERN)
         )
         (else
