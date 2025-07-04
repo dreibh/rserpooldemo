@@ -40,3 +40,4 @@ INPUT2="../Input/Background.png"
 ./Make-Painting Image1.webp Painting2.png --masksize 8 --mode rgb
 
 ./Make-Background Image2.webp Background1.png
+./Make-Mosaic Background1.png Background2.png 18 4 4 --type hexagons --surface smooth --neatness 0.5
