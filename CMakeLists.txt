@@ -32,7 +32,7 @@
 #
 # Contact: thomas.dreibholz@gmail.com
 
-CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.10)
 PROJECT(rserpooldemo LANGUAGES CXX)
 
 SET(BUILD_MAJOR "3")
