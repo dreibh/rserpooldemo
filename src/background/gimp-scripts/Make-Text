@@ -176,6 +176,7 @@ rm -f "${OUTPUT_FILENAME}"
 
 ; Gimp 2.8 compatibility:
 (cond ((not (defined? 'LAYER-MODE-NORMAL-LEGACY)) (define LAYER-MODE-NORMAL-LEGACY NORMAL-MODE)))
+(cond ((not (defined? 'LAYER-MODE-SCREEN-LEGACY)) (define LAYER-MODE-SCREEN-LEGACY SCREEN-MODE)))
 
 		(define  (apply-drop-shadow img fond x y blur color opacity number) (begin
 				(gimp-image-select-item img 2 fond)
@@ -278,9 +279,21 @@ rm -f "${OUTPUT_FILENAME}"
       (begin
         (gimp-context-set-gradient blend-gradient-text)
 
-       ; (gimp-edit-blend logo-layer BLEND-CUSTOM LAYER-MODE-NORMAL-LEGACY GRADIENT-LINEAR 100 0 REPEAT-NONE blend-gradient-text-reverse FALSE 0 0 TRUE 0 0 0 (+ height 5))
-			(gimp-context-set-gradient-reverse blend-gradient-text-reverse)
-		      (gimp-drawable-edit-gradient-fill logo-layer GRADIENT-LINEAR 0 0 1 0 0 0 0 0 (+ height 5)) ; Fill with gradient
+        (cond( (not(defined? 'gimp-edit-bucket-fill))
+           ; New Gimp > 2.8 API:
+           (
+              (gimp-context-set-gradient-reverse blend-gradient-text-reverse)
+              (gimp-drawable-edit-gradient-fill logo-layer GRADIENT-LINEAR 0 0 1 0 0 0 0 0 (+ height 5)) ; Fill with gradient
+           )
+        )
+        (else
+           ; Old Gimp <= 2.8 API:
+          (gimp-edit-blend logo-layer CUSTOM-MODE NORMAL-MODE
+                                      GRADIENT-LINEAR 100 0 REPEAT-NONE
+                                      blend-gradient-text-reverse
+                                      FALSE 0 0 TRUE
+                                      0 0 0 (+ height 5))
+        ))
 
       )
     )
@@ -309,9 +322,21 @@ rm -f "${OUTPUT_FILENAME}"
       (begin
         (gimp-context-set-gradient blend-gradient-outline)
 
-        ;(gimp-edit-blend grow-me BLEND-CUSTOM LAYER-MODE-NORMAL-LEGACY GRADIENT-LINEAR 100 0 REPEAT-NONE blend-gradient-outline-reverse FALSE 0 0 TRUE 0 0 0 (+ height 5))
-				(gimp-context-set-gradient-reverse blend-gradient-outline-reverse)
-		      (gimp-drawable-edit-gradient-fill grow-me GRADIENT-LINEAR 0 0 1 0 0 0 0 0 (+ height 5)) ; Fill with gradient
+        (cond( (not(defined? 'gimp-edit-bucket-fill))
+           ; New Gimp > 2.8 API:
+           (
+              (gimp-context-set-gradient-reverse blend-gradient-outline-reverse)
+              (gimp-drawable-edit-gradient-fill grow-me GRADIENT-LINEAR 0 0 1 0 0 0 0 0 (+ height 5)) ; Fill with gradient
+           )
+        )
+        (else
+           ; Old Gimp <= 2.8 API:
+           (gimp-edit-blend grow-me CUSTOM-MODE NORMAL-MODE
+                                    GRADIENT-LINEAR 100 0 REPEAT-NONE
+                                    blend-gradient-outline-reverse
+                                    FALSE 0 0 TRUE
+                                    0 0 0 (+ height 5))
+        ))
       )
     )
 
