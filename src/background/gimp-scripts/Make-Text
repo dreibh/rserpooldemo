@@ -231,27 +231,29 @@ rm -f "${OUTPUT_FILENAME}"
     (script-fu-util-image-resize-from-layer img logo-layer)
     (script-fu-util-image-add-layers img grow-me bg-layer)
     (gimp-item-set-name grow-me "Grow-me")
-    (cond( (not(defined? 'gimp-layer-translate))
-       ; New Gimp > 2.8 API:
-       (gimp-item-transform-translate grow-me posx posy)
+    (if (defined? 'gimp-item-transform-translate)
+      (begin  ; New Gimp > 2.8 API:
+        ; New Gimp > 2.8 API:
+        (gimp-item-transform-translate grow-me posx posy)
+      )
+      (begin  ; Old Gimp <= 2.8 API:
+        (gimp-layer-translate grow-me posx posy)
+      )
     )
-    (else
-       ; Old Gimp <= 2.8 API:
-       (gimp-layer-translate grow-me posx posy)
-    ))
 
     (gimp-context-set-background bg-color)
     (gimp-selection-all img)
     ;(gimp-drawable-edit-bucket-fill bg-layer FILL-BACKGROUND  100 0 )
 
-    (cond( (not(defined? 'gimp-edit-bucket-fill))
-       ; New Gimp > 2.8 API:
-       (gimp-drawable-edit-fill bg-layer FILL-BACKGROUND)
+    (if (defined? 'gimp-drawable-edit-fill)
+      (begin  ; New Gimp > 2.8 API:
+        ; New Gimp > 2.8 API:
+        (gimp-drawable-edit-fill bg-layer FILL-BACKGROUND)
+      )
+      (begin  ; Old Gimp <= 2.8 API:
+        (gimp-edit-bucket-fill bg-layer BG-BUCKET-FILL NORMAL-MODE 100 0 FALSE 0 0)
+      )
     )
-    (else
-       ; Old Gimp <= 2.8 API:
-       (gimp-edit-bucket-fill bg-layer BG-BUCKET-FILL NORMAL-MODE 100 0 FALSE 0 0)
-    ))
 
     (gimp-selection-none img)
 
@@ -264,37 +266,34 @@ rm -f "${OUTPUT_FILENAME}"
     (if (= use-pattern-text TRUE)
       (begin
         (gimp-context-set-pattern pattern-text)
-        (cond( (not(defined? 'gimp-edit-bucket-fill))
-           ; New Gimp > 2.8 API:
-           (gimp-drawable-edit-fill logo-layer FILL-PATTERN)
+        (if (defined? 'gimp-drawable-edit-fill)
+          (begin  ; New Gimp > 2.8 API:
+            ; New Gimp > 2.8 API:
+            (gimp-drawable-edit-fill logo-layer FILL-PATTERN)
+          )
+          (begin  ; Old Gimp <= 2.8 API:
+            (gimp-drawable-edit-bucket-fill logo-layer BUCKET-FILL-PATTERN  100 0 )
+          )
         )
-        (else
-           ; Old Gimp <= 2.6 API:
-           (gimp-drawable-edit-bucket-fill logo-layer BUCKET-FILL-PATTERN  100 0 )
-        ))
       )
     )
 
     (if (= use-pattern-text FALSE)
       (begin
         (gimp-context-set-gradient blend-gradient-text)
-
-        (cond( (not(defined? 'gimp-edit-bucket-fill))
-           ; New Gimp > 2.8 API:
-           (
-              (gimp-context-set-gradient-reverse blend-gradient-text-reverse)
-              (gimp-drawable-edit-gradient-fill logo-layer GRADIENT-LINEAR 0 0 1 0 0 0 0 0 (+ height 5)) ; Fill with gradient
-           )
+        (if (defined? 'gimp-drawable-edit-gradient-fill)
+          (begin  ; New Gimp > 2.8 API:
+             (gimp-context-set-gradient-reverse blend-gradient-text-reverse)
+             (gimp-drawable-edit-gradient-fill logo-layer GRADIENT-LINEAR 0 0 1 0 0 0 0 0 (+ height 5)) ; Fill with gradient
+          )
+          (begin  ; Old Gimp <= 2.8 API:
+            (gimp-edit-blend logo-layer CUSTOM-MODE NORMAL-MODE
+                                        GRADIENT-LINEAR 100 0 REPEAT-NONE
+                                        blend-gradient-text-reverse
+                                        FALSE 0 0 TRUE
+                                        0 0 0 (+ height 5))
+          )
         )
-        (else
-           ; Old Gimp <= 2.8 API:
-          (gimp-edit-blend logo-layer CUSTOM-MODE NORMAL-MODE
-                                      GRADIENT-LINEAR 100 0 REPEAT-NONE
-                                      blend-gradient-text-reverse
-                                      FALSE 0 0 TRUE
-                                      0 0 0 (+ height 5))
-        ))
-
       )
     )
 
@@ -322,21 +321,19 @@ rm -f "${OUTPUT_FILENAME}"
       (begin
         (gimp-context-set-gradient blend-gradient-outline)
 
-        (cond( (not(defined? 'gimp-edit-bucket-fill))
-           ; New Gimp > 2.8 API:
-           (
-              (gimp-context-set-gradient-reverse blend-gradient-outline-reverse)
-              (gimp-drawable-edit-gradient-fill grow-me GRADIENT-LINEAR 0 0 1 0 0 0 0 0 (+ height 5)) ; Fill with gradient
-           )
+        (if (defined? 'gimp-drawable-edit-gradient-fill)
+          (begin  ; New Gimp > 2.8 API:
+             (gimp-context-set-gradient-reverse blend-gradient-outline-reverse)
+             (gimp-drawable-edit-gradient-fill grow-me GRADIENT-LINEAR 0 0 1 0 0 0 0 0 (+ height 5)) ; Fill with gradient
+          )
+          (begin  ; Old Gimp <= 2.8 API:
+            (gimp-edit-blend grow-me CUSTOM-MODE NORMAL-MODE
+                                     GRADIENT-LINEAR 100 0 REPEAT-NONE
+                                     blend-gradient-outline-reverse
+                                     FALSE 0 0 TRUE
+                                     0 0 0 (+ height 5))
+          )
         )
-        (else
-           ; Old Gimp <= 2.8 API:
-           (gimp-edit-blend grow-me CUSTOM-MODE NORMAL-MODE
-                                    GRADIENT-LINEAR 100 0 REPEAT-NONE
-                                    blend-gradient-outline-reverse
-                                    FALSE 0 0 TRUE
-                                    0 0 0 (+ height 5))
-        ))
       )
     )
 

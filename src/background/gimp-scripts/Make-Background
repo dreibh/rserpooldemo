@@ -117,52 +117,51 @@ rm -f "${OUTPUT_FILENAME}"
 
    ; ------ Apply filter ----------------------------------------------------
    ; First, make sure that the image is RGB, not indexed color mode!
-   (if (not (= RGB imageType))
-      (gimp-image-convert-rgb image))
-
-   ; Step 1: Change hue
-   (cond( (not(defined? 'gimp-hue-saturation))
-      ; New Gimp > 2.8 API:
-      (gimp-drawable-hue-saturation layer HUE-RANGE-ALL 120.0 0 0 0)
-   )
-   (else
-      ; Old Gimp <= 2.8 API:
-      (gimp-hue-saturation layer ALL-HUES 120.0 0 0)
-   ))
-
-   ; Step 2: Apply Bump Map effect
-   (cond( (not(defined? 'plug-in-bump-map))
-      ; New Gimp 3.0 API:
-      (gimp-drawable-merge-new-filter layer "gegl:bump-map" 0 LAYER-MODE-REPLACE 1.0
-          "azimuth"         30.0
-          "elevation"       45.0
-          "depth"           20.0
-          "offset-x"        0
-          "offset-y"        0
-          "waterlevel"      0.0
-          "ambient"         0.0
-          "compensate"      TRUE
-          "invert"          FALSE
-          "type"            "linear"
+   (if (defined? 'gimp-drawable-hue-saturation)
+      (begin  ; New Gimp > 2.8 API:
+         ; New Gimp > 2.8 API:
+         (gimp-drawable-hue-saturation layer HUE-RANGE-ALL 120.0 0 0 0)
+      )
+      (begin  ; Old Gimp <= 2.8 API:
+         (gimp-hue-saturation layer ALL-HUES 120.0 0 0)
       )
    )
-   (else
-      ; Old Gimp 2.x API:
-      (plug-in-bump-map RUN-NONINTERACTIVE image layer layer
-         30.0 45.0 20
-         0 0 0 0
-         TRUE FALSE 0)
-   ))
+
+   ; Step 2: Apply Bump Map effect
+   (if (defined? 'gimp-drawable-merge-new-filter)
+      (begin  ; New Gimp >= 3.0 API:
+        (gimp-drawable-merge-new-filter layer "gegl:bump-map" 0 LAYER-MODE-REPLACE 1.0
+            "azimuth"         30.0
+            "elevation"       45.0
+            "depth"           20.0
+            "offset-x"        0
+            "offset-y"        0
+            "waterlevel"      0.0
+            "ambient"         0.0
+            "compensate"      TRUE
+            "invert"          FALSE
+            "type"            "linear"
+        )
+      )
+      (begin  ; Old Gimp < 3.0 API:
+         (plug-in-bump-map RUN-NONINTERACTIVE image layer layer
+           30.0 45.0 20
+           0 0 0 0
+           TRUE FALSE 0)
+      )
+   )
 
    ; Step 3: Darken the result a little bit
-   (cond( (not(defined? 'gimp-hue-saturation))
-      ; New Gimp > 2.8 API:
-      (gimp-drawable-hue-saturation layer HUE-RANGE-ALL 0 -15 0 0)
+   (if (defined? 'gimp-drawable-hue-saturation)
+      (begin  ; New Gimp > 2.8 API:
+         ; New Gimp > 2.8 API:
+         (gimp-drawable-hue-saturation layer HUE-RANGE-ALL 0 -15 0 0)
+      )
+      (begin  ; Old Gimp <= 2.8 API:
+         (gimp-hue-saturation layer ALL-HUES 0 -15 0)
+      )
    )
-   (else
-      ; Old Gimp <= 2.8 API:
-      (gimp-hue-saturation layer ALL-HUES 0 -15 0)
-   ))
+
 
    ; ------ Save result -----------------------------------------------------
    (cond( (not(defined? 'file-png-save2))
