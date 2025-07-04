@@ -133,6 +133,7 @@ fi
 
 # ====== Call GIMP ==========================================================
 rm -f "${OUTPUT_FILENAME}"
+# shellcheck disable=SC2086
 ( cat <<EOF
 
 ; This is the glossy-300.scm from https://github.com/vitforlinux-gimp/scm.

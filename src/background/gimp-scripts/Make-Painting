@@ -117,6 +117,7 @@ GIMP_OPTIONS="${GIMP_OPTIONS} --no-fonts --no-data"
 
 # ====== Call GIMP ==========================================================
 rm -f "${OUTPUT_FILENAME}"
+# shellcheck disable=SC2086
 ( cat <<EOF
 (let*
    ; ------ Initialise and load image ---------------------------------------

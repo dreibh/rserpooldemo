@@ -89,7 +89,7 @@ CAPTION_HEIGHT=$4
 FONT_NAME="$5"
 FONT_SIZE=$6
 
-if [[ ! "${TRANSPARENCY}" =~ ^([0-9]+)$ ]] || [ ${TRANSPARENCY} -lt 0 ] || [ ${TRANSPARENCY} -gt 100 ] ; then
+if [[ ! "${TRANSPARENCY}" =~ ^([0-9]+)$ ]] || [ "${TRANSPARENCY}" -lt 0 ] || [ "${TRANSPARENCY}" -gt 100 ] ; then
    echo >&2 "ERROR: Invalid transparency value!"
    exit 1
 fi
@@ -123,6 +123,7 @@ GIMP_OPTIONS="${GIMP_OPTIONS} --no-data"
 
 # ====== Call GIMP ==========================================================
 rm -f "${OUTPUT_FILENAME}"
+# shellcheck disable=SC2086
 ( cat <<EOF
 
 ; Gimp 2.8 compatibility:
