@@ -118,14 +118,34 @@ rm -f "${OUTPUT_FILENAME}"
       (gimp-image-convert-rgb image))
 
    ; Change colours
-   (gimp-drawable-hue-saturation layer ALL-HUES 120.0 0 0 0)
+   (gimp-drawable-hue-saturation layer HUE-RANGE-ALL 120.0 0 0 0)
+
    ; Bump Map
-   (plug-in-bump-map RUN-NONINTERACTIVE image layer layer
-      30.0 45.0 20
-      0 0 0 0
-      TRUE FALSE 0)
+   (cond( (not(defined? 'plug-in-bump-map))
+      ; New Gimp 3.0 API:
+      (gimp-drawable-merge-new-filter layer "gegl:bump-map" 0 LAYER-MODE-REPLACE 1.0
+          "azimuth"         30.0
+          "elevation"       45.0
+          "depth"           20.0
+          "offset-x"        0
+          "offset-y" 0
+          "waterlevel" 0.0
+          "ambient" 0.0
+          "compensate" TRUE
+          "invert" FALSE
+          "type" "linear"
+      )
+   )
+   (else
+      ; Old Gimp 2.x API:
+      (plug-in-bump-map RUN-NONINTERACTIVE image layer layer
+         30.0 45.0 20
+         0 0 0 0
+         TRUE FALSE 0)
+   ))
+
    ; Darken it a little bit
-   (gimp-drawable-hue-saturation layer ALL-HUES 0 -15 0 0)
+   (gimp-drawable-hue-saturation layer HUE-RANGE-ALL 0 -15 0 0)
 
    ; ------ Save result -----------------------------------------------------
    (cond( (not(defined? 'file-png-save2))
