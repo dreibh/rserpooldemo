@@ -148,7 +148,7 @@ rm -f "${OUTPUT_FILENAME}"
    (cond( (not(defined? 'plug-in-mosaic))
       ; New Gimp 3.0 API:
       (gimp-drawable-merge-new-filter layer "gegl:oilify" 0 LAYER-MODE-REPLACE 1.0
-          "mask-radius" (max 1 (/ mask-size 2))
+          "mask-radius" (max 1 (/ maskSize 2))
           "use-inten"   mode
       )
    )

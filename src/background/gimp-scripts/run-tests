@@ -3,6 +3,7 @@
 set -eux
 
 INPUT1="../Input/Zollverein.jpeg"
+INPUT2="../Input/Background.png"
 
 
 # ------ Make-Text ----------------------------------------------------------
@@ -23,6 +24,7 @@ INPUT1="../Input/Zollverein.jpeg"
 
 # ------ Make-<Conversion> Scripts ------------------------------------------
 ./Resize-with-Cropping "${INPUT1}" Image1.webp 16:9 1024
+./Resize-with-Cropping "${INPUT2}" Image2.webp 16:9 1024
 
 
 ./Make-Mosaic Image1.webp Mosaic1-H.webp 24 4 4 --type hexagons --surface rough
