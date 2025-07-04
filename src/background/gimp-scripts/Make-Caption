@@ -174,52 +174,55 @@ rm -f "${OUTPUT_FILENAME}"
    (gimp-context-set-foreground captionFGColor)
    (gimp-drawable-fill layer1 FILL-BACKGROUND)
 
-   (if (not (defined? 'gimp-image-get-active-layer))
-      ; New Gimp 3.0 API:
-      (set! theText (car (gimp-text-font image layer2 0 0 captionText 0 TRUE captionFontSize captionFont) ))
-      ; Old Gimp 2.x API:
-      (set! theText (car (gimp-text-fontname image layer2 0 0 captionText 0 TRUE captionFontSize PIXELS captionFont) ) )
-   )
-   (if (not (defined? 'gimp-image-get-active-layer))
-      ; New Gimp 3.0 API:
-      (gimp-layer-set-offsets
-         theText
-         (/ (- captionWidth  (car (gimp-drawable-get-width  theText))) 2)
-         (/ (- captionHeight (car (gimp-drawable-get-height theText))) 2))
-      ; Old Gimp 2.x API:
-      (gimp-layer-set-offsets
-         theText
-         (/ (- captionWidth  (car (gimp-drawable-width  theText))) 2)
-         (/ (- captionHeight (car (gimp-drawable-height theText))) 2))
+   (if (defined? 'gimp-drawable-merge-new-filter)
+      (begin  ; New Gimp >= 3.0 API:
+         (set! theText (car (gimp-text-font image layer2 0 0 captionText 0 TRUE captionFontSize captionFont) ))
+         (gimp-layer-set-offsets
+            theText
+            (/ (- captionWidth  (car (gimp-drawable-get-width  theText))) 2)
+            (/ (- captionHeight (car (gimp-drawable-get-height theText))) 2))
+      )
+      (begin  ; Old Gimp < 3.0 API:
+         (set! theText (car (gimp-text-fontname image layer2 0 0 captionText 0 TRUE captionFontSize PIXELS captionFont) ) )
+         (gimp-layer-set-offsets
+           theText
+           (/ (- captionWidth  (car (gimp-drawable-width  theText))) 2)
+           (/ (- captionHeight (car (gimp-drawable-height theText))) 2))
+      )
    )
 
    (gimp-image-merge-visible-layers image CLIP-TO-IMAGE)
    ; (gimp-display-new image)
 
    ; ------ Save result -----------------------------------------------------
-   (cond( (not(defined? 'file-png-save2))
-      ; New Gimp 3.0 API:
-      ; FIXME: This does not work when running in Gimp 2.x!
-      ; (file-png-export
-      ;    #:run-mode         RUN-NONINTERACTIVE
-      ;    #:image            image
-      ;    #:file             outputFileName
-      ;    #:options          -1
-      ;    #:interlaced       TRUE
-      ;    #:compression      6
-      ;    #:bkgd             TRUE
-      ;    #:offs             FALSE
-      ;    #:phys             TRUE
-      ;    #:time             TRUE
-      ;    #:save-transparent FALSE
-      ;    #:optimize-palette TRUE
-      ; )
-      (file-png-export RUN-NONINTERACTIVE image outputFileName -1 TRUE 9 TRUE FALSE TRUE TRUE FALSE TRUE)
+   (if (defined? 'gimp-drawable-merge-new-filter)
+      (begin  ; New Gimp >= 3.0 API:
+         ; FIXME: This does not work when running in Gimp 2.x!
+         ; (file-png-export
+         ;    #:run-mode         RUN-NONINTERACTIVE
+         ;    #:image            image
+         ;    #:file             outputFileName
+         ;    #:options          -1
+         ;    #:interlaced       TRUE
+         ;    #:compression      6
+         ;    #:bkgd             TRUE
+         ;    #:offs             FALSE
+         ;    #:phys             TRUE
+         ;    #:time             TRUE
+         ;    #:save-transparent FALSE
+         ;    #:optimize-palette TRUE
+         ; )
+         (file-png-export RUN-NONINTERACTIVE image
+            outputFileName -1
+            TRUE 6 TRUE FALSE TRUE TRUE FALSE TRUE)
+      )
+      (begin  ; Old Gimp < 3.0 API:
+         (file-png-save2 RUN-NONINTERACTIVE image
+            (car (gimp-image-get-active-layer image))
+            outputFileName outputFileName
+            TRUE 6 TRUE TRUE FALSE TRUE TRUE FALSE TRUE)
+      )
    )
-   (else
-      ; Old Gimp 2.x API:
-      (file-png-save2 RUN-NONINTERACTIVE image (car (gimp-image-get-active-layer image)) outputFileName outputFileName TRUE 6 TRUE TRUE FALSE TRUE TRUE FALSE TRUE
-   )))
 
    ; ------ Clean up --------------------------------------------------------
    (gimp-image-delete image)
