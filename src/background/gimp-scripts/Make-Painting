@@ -30,22 +30,34 @@ set -e
 # ====== Handle arguments ===================================================
 usage () {
    local exitCode="$1"
-   echo >&2 "Usage: $0 input_filename output_filename [--masksize|-m masksize] [--verbose|-v] [--quiet|-q] [--help|-h]"
+   echo >&2 "Usage: $0 input_filename output_filename [--masksize|-s masksize] [--mode|-m rgb|intensity] [--verbose|-v] [--quiet|-q] [--help|-h]"
    echo >&2 "Example: $0 Image.jpeg Cloth.png --masksize 5"
    exit "${exitCode}"
 }
 
 GETOPT="$(PATH=/usr/local/bin:$PATH which getopt)"
 # shellcheck disable=SC2068
-options="$(${GETOPT} -o d:vqh --long masksize:,verbose,quiet,help -a -- "$@")"
+options="$(${GETOPT} -o s:m:vqh --long masksize:,mode:,verbose,quiet,help -a -- "$@")"
 eval set -- "${options}"
 
 MASKSIZE=8
+MODE=1
 VERBOSE=0
 while [ $# -gt 0 ] ; do
    case "$1" in
-      -m | --masksize)
+      -s | --masksize)
          MASKSIZE="$2"
+         shift 2
+         ;;
+      -m | --mode)
+         if [ "$2" == "rgb" ] ; then
+            MODE=0
+         elif [ "$2" == "intensity" ] ; then
+            MODE=1
+         else
+            echo >&2 "ERROR: Invalid mode!"
+            exit 1
+         fi
          shift 2
          ;;
       -v | --verbose)
@@ -108,6 +120,7 @@ rm -f "${OUTPUT_FILENAME}"
    ((inputFileName    "${INPUT_FILENAME}")
     (outputFileName   "${OUTPUT_FILENAME}")
     (maskSize         ${MASKSIZE})
+    (mode             ${MODE})
     (image            (car (gimp-file-load RUN-NONINTERACTIVE inputFileName inputFileName)))
     (imageType        (if (not (defined? 'gimp-image-get-active-layer))
                          ; New Gimp 3.0 API:
@@ -136,13 +149,13 @@ rm -f "${OUTPUT_FILENAME}"
       ; New Gimp 3.0 API:
       (gimp-drawable-merge-new-filter layer "gegl:oilify" 0 LAYER-MODE-REPLACE 1.0
           "mask-radius" (max 1 (/ mask-size 2))
-          "use-inten"   TRUE
+          "use-inten"   mode
       )
    )
    (else
       ; Old Gimp 2.x API:
       (display maskSize) (newline)
-      (plug-in-oilify RUN-NONINTERACTIVE image layer maskSize 1)
+      (plug-in-oilify RUN-NONINTERACTIVE image layer maskSize mode)
    ))
 
    ; ------ Save result -----------------------------------------------------
