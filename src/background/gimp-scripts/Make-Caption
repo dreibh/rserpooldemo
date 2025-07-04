@@ -124,6 +124,11 @@ GIMP_OPTIONS="${GIMP_OPTIONS} --no-data"
 # ====== Call GIMP ==========================================================
 rm -f "${OUTPUT_FILENAME}"
 ( cat <<EOF
+
+; Gimp 2.8 compatibility:
+(cond ((not (defined? 'LAYER-MODE-NORMAL-LEGACY)) (define LAYER-MODE-NORMAL-LEGACY NORMAL-MODE)))
+(cond ((not (defined? 'FILL-BACKGROUND)) (define FILL-BACKGROUND BACKGROUND-FILL)))
+
 (let*
    ; ------ Initialise ------------------------------------------------------
    ((outputFileName   "${OUTPUT_FILENAME}")
