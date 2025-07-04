@@ -38,3 +38,5 @@ INPUT2="../Input/Background.png"
 
 ./Make-Painting Image1.webp Painting1.png --masksize 8 --mode intensity
 ./Make-Painting Image1.webp Painting2.png --masksize 8 --mode rgb
+
+./Make-Background Image2.webp Background1.png
