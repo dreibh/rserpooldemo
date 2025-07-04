@@ -134,24 +134,15 @@ rm -f "${OUTPUT_FILENAME}"
 
    (cond( (not(defined? 'plug-in-mosaic))
       ; New Gimp 3.0 API:
-      (gimp-drawable-merge-new-filter layer "gegl:mosaic" 0 LAYER-MODE-REPLACE 1.0
-          "tile-size"       tileSize
-          "tile-height"     tileHeight
-          "tile-spacing"    tileSpacing
-          "tile-neatness"   tileNeatness
-          "antialiasing"    TRUE
-          "light-dir"       lightDirection
-          "color-variation" colorVariation
-          "tile-type"       tileTypeString
-          "tile-surface"    tileSurface
-          "seed"            0
+      (gimp-drawable-merge-new-filter layer "gegl:oilify" 0 LAYER-MODE-REPLACE 1.0
+          "mask-radius" (max 1 (/ mask-size 2))
+          "use-inten"   TRUE
       )
    )
    (else
       ; Old Gimp 2.x API:
       (display maskSize) (newline)
-      (plug-in-oilify-enhanced RUN-NONINTERACTIVE image layer
-                               1 maskSize layer maskSize layer)
+      (plug-in-oilify RUN-NONINTERACTIVE image layer maskSize 1)
    ))
 
    ; ------ Save result -----------------------------------------------------
