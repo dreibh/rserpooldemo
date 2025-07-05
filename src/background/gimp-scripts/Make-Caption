@@ -89,15 +89,15 @@ CAPTION_HEIGHT=$4
 FONT_NAME="$5"
 FONT_SIZE=$6
 
-if [[ ! "${TRANSPARENCY}" =~ ^[0-9]+$ ]] || [ ${TRANSPARENCY} -lt 0 ] || [ ${TRANSPARENCY} -gt 100 ] ; then
+if [[ ! "${TRANSPARENCY}" =~ ^([0-9]+)$ ]] || [ "${TRANSPARENCY}" -lt 0 ] || [ "${TRANSPARENCY}" -gt 100 ] ; then
    echo >&2 "ERROR: Invalid transparency value!"
    exit 1
 fi
-if [[ ! "${CAPTION_WIDTH}" =~ ^[0-9]+$ ]] ; then
+if [[ ! "${CAPTION_WIDTH}" =~ ^([0-9]+)$ ]] ; then
    echo >&2 "ERROR: Invalid caption width!"
    exit 1
 fi
-if [[ ! "${CAPTION_HEIGHT}" =~ ^[0-9]+$ ]] ; then
+if [[ ! "${CAPTION_HEIGHT}" =~ ^([0-9]+)$ ]] ; then
    echo >&2 "ERROR: Invalid caption height!"
    exit 1
 fi
@@ -123,7 +123,13 @@ GIMP_OPTIONS="${GIMP_OPTIONS} --no-data"
 
 # ====== Call GIMP ==========================================================
 rm -f "${OUTPUT_FILENAME}"
+# shellcheck disable=SC2086
 ( cat <<EOF
+
+; Gimp 2.8 compatibility:
+(cond ((not (defined? 'LAYER-MODE-NORMAL-LEGACY)) (define LAYER-MODE-NORMAL-LEGACY NORMAL-MODE)))
+(cond ((not (defined? 'FILL-BACKGROUND)) (define FILL-BACKGROUND BACKGROUND-FILL)))
+
 (let*
    ; ------ Initialise ------------------------------------------------------
    ((outputFileName   "${OUTPUT_FILENAME}")
@@ -156,7 +162,7 @@ rm -f "${OUTPUT_FILENAME}"
    (if (not (defined? 'gimp-image-get-active-layer))
       (set! captionFont (car (gimp-font-get-by-name "${FONT_NAME}")))
       (set! captionFont "${FONT_NAME}"))
-   (newline) (display "captionFont=") (display captionFont) (newline)
+   ; (newline) (display "captionFont=") (display captionFont) (newline)
    (if (and (not (defined? 'gimp-image-get-active-layer)) (= captionFont -1)) (
       (gimp-message "ERROR: Font \"${FONT_NAME}\" is not available! Check installed fonts with fc-list!")
       (quit FALSE)
@@ -169,52 +175,55 @@ rm -f "${OUTPUT_FILENAME}"
    (gimp-context-set-foreground captionFGColor)
    (gimp-drawable-fill layer1 FILL-BACKGROUND)
 
-   (if (not (defined? 'gimp-image-get-active-layer))
-      ; New Gimp 3.0 API:
-      (set! theText (car (gimp-text-font image layer2 0 0 captionText 0 TRUE captionFontSize captionFont) ))
-      ; Old Gimp 2.x API:
-      (set! theText (car (gimp-text-fontname image layer2 0 0 captionText 0 TRUE captionFontSize PIXELS captionFont) ) )
-   )
-   (if (not (defined? 'gimp-image-get-active-layer))
-      ; New Gimp 3.0 API:
-      (gimp-layer-set-offsets
-         theText
-         (/ (- captionWidth  (car (gimp-drawable-get-width  theText))) 2)
-         (/ (- captionHeight (car (gimp-drawable-get-height theText))) 2))
-      ; Old Gimp 2.x API:
-      (gimp-layer-set-offsets
-         theText
-         (/ (- captionWidth  (car (gimp-drawable-width  theText))) 2)
-         (/ (- captionHeight (car (gimp-drawable-height theText))) 2))
+   (if (defined? 'gimp-drawable-merge-new-filter)
+      (begin  ; New Gimp >= 3.0 API:
+         (set! theText (car (gimp-text-font image layer2 0 0 captionText 0 TRUE captionFontSize captionFont) ))
+         (gimp-layer-set-offsets
+            theText
+            (/ (- captionWidth  (car (gimp-drawable-get-width  theText))) 2)
+            (/ (- captionHeight (car (gimp-drawable-get-height theText))) 2))
+      )
+      (begin  ; Old Gimp < 3.0 API:
+         (set! theText (car (gimp-text-fontname image layer2 0 0 captionText 0 TRUE captionFontSize PIXELS captionFont) ) )
+         (gimp-layer-set-offsets
+           theText
+           (/ (- captionWidth  (car (gimp-drawable-width  theText))) 2)
+           (/ (- captionHeight (car (gimp-drawable-height theText))) 2))
+      )
    )
 
    (gimp-image-merge-visible-layers image CLIP-TO-IMAGE)
    ; (gimp-display-new image)
 
    ; ------ Save result -----------------------------------------------------
-   (cond( (not(defined? 'file-png-save2))
-      ; New Gimp 3.0 API:
-      ; FIXME: This does not work when running in Gimp 2.x!
-      ; (file-png-export
-      ;    #:run-mode         RUN-NONINTERACTIVE
-      ;    #:image            image
-      ;    #:file             outputFileName
-      ;    #:options          -1
-      ;    #:interlaced       TRUE
-      ;    #:compression      6
-      ;    #:bkgd             TRUE
-      ;    #:offs             FALSE
-      ;    #:phys             TRUE
-      ;    #:time             TRUE
-      ;    #:save-transparent FALSE
-      ;    #:optimize-palette TRUE
-      ; )
-      (file-png-export RUN-NONINTERACTIVE image outputFileName -1 TRUE 9 TRUE FALSE TRUE TRUE FALSE TRUE)
+   (if (defined? 'gimp-drawable-merge-new-filter)
+      (begin  ; New Gimp >= 3.0 API:
+         ; FIXME: This does not work when running in Gimp 2.x!
+         ; (file-png-export
+         ;    #:run-mode         RUN-NONINTERACTIVE
+         ;    #:image            image
+         ;    #:file             outputFileName
+         ;    #:options          -1
+         ;    #:interlaced       TRUE
+         ;    #:compression      6
+         ;    #:bkgd             TRUE
+         ;    #:offs             FALSE
+         ;    #:phys             TRUE
+         ;    #:time             TRUE
+         ;    #:save-transparent FALSE
+         ;    #:optimize-palette TRUE
+         ; )
+         (file-png-export RUN-NONINTERACTIVE image
+            outputFileName -1
+            TRUE 6 TRUE FALSE TRUE TRUE FALSE TRUE)
+      )
+      (begin  ; Old Gimp < 3.0 API:
+         (file-png-save2 RUN-NONINTERACTIVE image
+            (car (gimp-image-get-active-layer image))
+            outputFileName outputFileName
+            TRUE 6 TRUE TRUE FALSE TRUE TRUE FALSE TRUE)
+      )
    )
-   (else
-      ; Old Gimp 2.x API:
-      (file-png-save2 RUN-NONINTERACTIVE image (car (gimp-image-get-active-layer image)) outputFileName outputFileName TRUE 6 TRUE TRUE FALSE TRUE TRUE FALSE TRUE
-   )))
 
    ; ------ Clean up --------------------------------------------------------
    (gimp-image-delete image)
@@ -226,7 +235,7 @@ EOF
    if [ ${VERBOSE} -ne 0 ] ; then
       cat
    else
-      grep -vE "^ts>|(#t)|^Copyright|^Welcome|^using gegl copy|scriptfu-WARNING|LibGimp-WARNING|^Please use named arguments:|^script quit with code:|^$" || true
+      grep -vE "^ts>|(#t)|^Copyright|Welcome to (GIMP|TinyScheme)|^using gegl copy|scriptfu-WARNING|-WARNING|^Please use named arguments:|^script quit with code:|^$" || true
    fi
 )
 

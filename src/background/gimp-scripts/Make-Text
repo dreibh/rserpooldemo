@@ -106,11 +106,11 @@ OUTPUT_FILENAME="$1"
 CONTENT="$2"
 FONT_SIZE=$3
 
-if [[ ! "${FONT_SIZE}" =~ ^[0-9]+$ ]] ; then
+if [[ ! "${FONT_SIZE}" =~ ^([0-9]+)$ ]] ; then
    echo >&2 "ERROR: Invalid font size ${FONT_SIZE}!"
    exit 1
 fi
-if [[ ! "${BORDER_SIZE}" =~ ^[0-9]+$ ]] ; then
+if [[ ! "${BORDER_SIZE}" =~ ^([0-9]+)$ ]] ; then
    echo >&2 "ERROR: Invalid border size ${BORDER_SIZE}!"
    exit 1
 fi
@@ -133,6 +133,7 @@ fi
 
 # ====== Call GIMP ==========================================================
 rm -f "${OUTPUT_FILENAME}"
+# shellcheck disable=SC2086
 ( cat <<EOF
 
 ; This is the glossy-300.scm from https://github.com/vitforlinux-gimp/scm.
@@ -165,7 +166,7 @@ rm -f "${OUTPUT_FILENAME}"
 ; You should have received a copy of the GNU General Public License
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-; Fix code for gimp 2.99.6 working in 2.10
+; Fix code for gimp-console 2.99.6 working in 2.10
 (cond ((not (defined? 'gimp-drawable-get-width)) (define gimp-drawable-get-width gimp-drawable-width)))
 (cond ((not (defined? 'gimp-drawable-get-height)) (define gimp-drawable-get-height gimp-drawable-height)))
 (cond ((not (defined? 'gimp-drawable-get-offsets)) (define gimp-drawable-get-offsets gimp-drawable-offsets)))
@@ -173,6 +174,10 @@ rm -f "${OUTPUT_FILENAME}"
 (cond ((not (defined? 'gimp-image-get-height)) (define gimp-image-get-height gimp-image-height)))
 
 (cond ((not (defined? 'gimp-text-fontname)) (define (gimp-text-fontname fn1 fn2 fn3 fn4 fn5 fn6 fn7 fn8 PIXELS fn9) (gimp-text-font fn1 fn2 fn3 fn4 fn5 fn6 fn7 fn8 fn9))))
+
+; Gimp 2.8 compatibility:
+(cond ((not (defined? 'LAYER-MODE-NORMAL-LEGACY)) (define LAYER-MODE-NORMAL-LEGACY NORMAL-MODE)))
+(cond ((not (defined? 'LAYER-MODE-SCREEN-LEGACY)) (define LAYER-MODE-SCREEN-LEGACY SCREEN-MODE)))
 
 		(define  (apply-drop-shadow img fond x y blur color opacity number) (begin
 				(gimp-image-select-item img 2 fond)
@@ -227,12 +232,29 @@ rm -f "${OUTPUT_FILENAME}"
     (script-fu-util-image-resize-from-layer img logo-layer)
     (script-fu-util-image-add-layers img grow-me bg-layer)
     (gimp-item-set-name grow-me "Grow-me")
-    (gimp-item-transform-translate grow-me posx posy)
+    (if (defined? 'gimp-item-transform-translate)
+      (begin  ; New Gimp > 2.8 API:
+        ; New Gimp > 2.8 API:
+        (gimp-item-transform-translate grow-me posx posy)
+      )
+      (begin  ; Old Gimp <= 2.8 API:
+        (gimp-layer-translate grow-me posx posy)
+      )
+    )
 
     (gimp-context-set-background bg-color)
     (gimp-selection-all img)
     ;(gimp-drawable-edit-bucket-fill bg-layer FILL-BACKGROUND  100 0 )
-    (gimp-drawable-edit-fill bg-layer FILL-BACKGROUND)
+
+    (if (defined? 'gimp-drawable-edit-fill)
+      (begin  ; New Gimp > 2.8 API:
+        ; New Gimp > 2.8 API:
+        (gimp-drawable-edit-fill bg-layer FILL-BACKGROUND)
+      )
+      (begin  ; Old Gimp <= 2.8 API:
+        (gimp-edit-bucket-fill bg-layer BG-BUCKET-FILL NORMAL-MODE 100 0 FALSE 0 0)
+      )
+    )
 
     (gimp-selection-none img)
 
@@ -245,19 +267,34 @@ rm -f "${OUTPUT_FILENAME}"
     (if (= use-pattern-text TRUE)
       (begin
         (gimp-context-set-pattern pattern-text)
-       ; (gimp-drawable-edit-bucket-fill logo-layer BUCKET-FILL-PATTERN  100 0 )
-           (gimp-drawable-edit-fill logo-layer FILL-PATTERN)
+        (if (defined? 'gimp-drawable-edit-fill)
+          (begin  ; New Gimp > 2.8 API:
+            ; New Gimp > 2.8 API:
+            (gimp-drawable-edit-fill logo-layer FILL-PATTERN)
+          )
+          (begin  ; Old Gimp <= 2.8 API:
+            (gimp-drawable-edit-bucket-fill logo-layer BUCKET-FILL-PATTERN  100 0 )
+          )
+        )
       )
     )
 
     (if (= use-pattern-text FALSE)
       (begin
         (gimp-context-set-gradient blend-gradient-text)
-
-       ; (gimp-edit-blend logo-layer BLEND-CUSTOM LAYER-MODE-NORMAL-LEGACY GRADIENT-LINEAR 100 0 REPEAT-NONE blend-gradient-text-reverse FALSE 0 0 TRUE 0 0 0 (+ height 5))
-			(gimp-context-set-gradient-reverse blend-gradient-text-reverse)
-		      (gimp-drawable-edit-gradient-fill logo-layer GRADIENT-LINEAR 0 0 1 0 0 0 0 0 (+ height 5)) ; Fill with gradient
-
+        (if (defined? 'gimp-drawable-edit-gradient-fill)
+          (begin  ; New Gimp > 2.8 API:
+             (gimp-context-set-gradient-reverse blend-gradient-text-reverse)
+             (gimp-drawable-edit-gradient-fill logo-layer GRADIENT-LINEAR 0 0 1 0 0 0 0 0 (+ height 5)) ; Fill with gradient
+          )
+          (begin  ; Old Gimp <= 2.8 API:
+            (gimp-edit-blend logo-layer CUSTOM-MODE NORMAL-MODE
+                                        GRADIENT-LINEAR 100 0 REPEAT-NONE
+                                        blend-gradient-text-reverse
+                                        FALSE 0 0 TRUE
+                                        0 0 0 (+ height 5))
+          )
+        )
       )
     )
 
@@ -285,9 +322,19 @@ rm -f "${OUTPUT_FILENAME}"
       (begin
         (gimp-context-set-gradient blend-gradient-outline)
 
-        ;(gimp-edit-blend grow-me BLEND-CUSTOM LAYER-MODE-NORMAL-LEGACY GRADIENT-LINEAR 100 0 REPEAT-NONE blend-gradient-outline-reverse FALSE 0 0 TRUE 0 0 0 (+ height 5))
-				(gimp-context-set-gradient-reverse blend-gradient-outline-reverse)
-		      (gimp-drawable-edit-gradient-fill grow-me GRADIENT-LINEAR 0 0 1 0 0 0 0 0 (+ height 5)) ; Fill with gradient
+        (if (defined? 'gimp-drawable-edit-gradient-fill)
+          (begin  ; New Gimp > 2.8 API:
+             (gimp-context-set-gradient-reverse blend-gradient-outline-reverse)
+             (gimp-drawable-edit-gradient-fill grow-me GRADIENT-LINEAR 0 0 1 0 0 0 0 0 (+ height 5)) ; Fill with gradient
+          )
+          (begin  ; Old Gimp <= 2.8 API:
+            (gimp-edit-blend grow-me CUSTOM-MODE NORMAL-MODE
+                                     GRADIENT-LINEAR 100 0 REPEAT-NONE
+                                     blend-gradient-outline-reverse
+                                     FALSE 0 0 TRUE
+                                     0 0 0 (+ height 5))
+          )
+        )
       )
     )
 
@@ -524,7 +571,7 @@ rm -f "${OUTPUT_FILENAME}"
    (if (not (defined? 'gimp-image-get-active-layer))
       (set! font (car (gimp-font-get-by-name "${FONT_NAME}")))
       (set! font "${FONT_NAME}"))
-   (newline) (display "font=") (display font) (newline)
+   ; (newline) (display "font=") (display font) (newline)
    (if (and (not (defined? 'gimp-image-get-active-layer)) (= font -1)) (
       (gimp-message "ERROR: Font \"${FONT_NAME}\" is not available! Check installed fonts with fc-list!")
       (quit FALSE)
@@ -533,7 +580,7 @@ rm -f "${OUTPUT_FILENAME}"
    (if (not (defined? 'gimp-image-get-active-layer))
       (set! colorScheme (car (gimp-gradient-get-by-name "${COLORSCHEME}")))
       (set! colorScheme "${COLORSCHEME}"))
-   (display "colorScheme=") (display colorScheme) (newline)
+   ; (display "colorScheme=") (display colorScheme) (newline)
    (if (and (not (defined? 'gimp-image-get-active-layer)) (= colorScheme -1)) (
       (gimp-message "ERROR: Color scheme \"${COLORSCHEME}\" is not available!")
       (quit FALSE)
@@ -542,7 +589,7 @@ rm -f "${OUTPUT_FILENAME}"
    (if (not (defined? 'gimp-image-get-active-layer))
       (set! patternText (car (gimp-pattern-get-by-name "${PATTERN_TEXT}")))
       (set! patternText "${PATTERN_TEXT}"))
-   (display "patternText=") (display patternText) (newline)
+   ; (display "patternText=") (display patternText) (newline)
    (if (and (not (defined? 'gimp-image-get-active-layer)) (= patternText -1)) (
       (gimp-message "ERROR: Pattern \"${PATTERN_TEXT}\" is not available!")
       (quit FALSE)
@@ -551,7 +598,7 @@ rm -f "${OUTPUT_FILENAME}"
    (if (not (defined? 'gimp-image-get-active-layer))
       (set! patternOutline (car (gimp-pattern-get-by-name "${PATTERN_OUTLINE}")))
       (set! patternOutline "${PATTERN_OUTLINE}"))
-   (display "patternOutline=") (display patternOutline) (newline)
+   ; (display "patternOutline=") (display patternOutline) (newline)
    (if (and (not (defined? 'gimp-image-get-active-layer)) (= patternOutline -1)) (
       (gimp-message "ERROR: Pattern \"${PATTERN_OUTLINE}\" is not available!")
       (quit FALSE)
@@ -560,7 +607,7 @@ rm -f "${OUTPUT_FILENAME}"
    (if (not (defined? 'gimp-image-get-active-layer))
       (set! patternOverlay (car (gimp-pattern-get-by-name "${PATTERN_OVERLAY}")))
       (set! patternOverlay "${PATTERN_OVERLAY}"))
-   (display "patternOverlay=") (display patternOverlay) (newline)
+   ; (display "patternOverlay=") (display patternOverlay) (newline)
    (if (and (not (defined? 'gimp-image-get-active-layer)) (= patternOverlay -1)) (
       (gimp-message "ERROR: Pattern \"${PATTERN_OVERLAY}\" is not available!")
       (quit FALSE)
@@ -568,7 +615,7 @@ rm -f "${OUTPUT_FILENAME}"
 
    ; ------ Generate text ---------------------------------------------------
    (set! image (car (script-fu-glossy-300-logo logoText fontSize font 0 8 8 colorScheme FALSE colorScheme FALSE borderSize "white" FALSE patternText FALSE patternOutline FALSE patternOverlay TRUE TRUE 8 8)))
-   (display "image=") (display image) (newline)
+   ; (display "image=") (display image) (newline)
 
    (set! layers (if (not (defined? 'gimp-image-get-active-layer))
                     ; New Gimp 3.0 API:
@@ -576,11 +623,11 @@ rm -f "${OUTPUT_FILENAME}"
                     ; Old Gimp 2.x API:
                     (set! layers (car (cdr (gimp-image-get-layers image))))
                 ))
-   (display "layers=") (display layers) (newline)
+   ; (display "layers=") (display layers) (newline)
    (set! num-layers (vector-length layers))
-   (display "num-layers=") (display num-layers) (newline)
+   ; (display "num-layers=") (display num-layers) (newline)
    (set! bg-layer (vector-ref layers (- num-layers 1)))
-   (display "bg-layer=") (display bg-layer) (newline)
+   ; (display "bg-layer=") (display bg-layer) (newline)
 
    (gimp-item-set-visible bg-layer FALSE)
    (gimp-displays-flush)
@@ -594,29 +641,34 @@ rm -f "${OUTPUT_FILENAME}"
                   )
 
    ; ------ Save result -----------------------------------------------------
-   (cond( (not(defined? 'file-png-save2))
-      ; New Gimp 3.0 API:
-      ; FIXME: This does not work when running in Gimp 2.x!
-      ; (file-png-export
-      ;    #:run-mode         RUN-NONINTERACTIVE
-      ;    #:image            image
-      ;    #:file             outputFileName
-      ;    #:options          -1
-      ;    #:interlaced       TRUE
-      ;    #:compression      9
-      ;    #:bkgd             TRUE
-      ;    #:offs             FALSE
-      ;    #:phys             TRUE
-      ;    #:time             TRUE
-      ;    #:save-transparent FALSE
-      ;    #:optimize-palette TRUE
-      ; )
-      (file-png-export RUN-NONINTERACTIVE image outputFileName -1 TRUE 9 TRUE FALSE TRUE TRUE FALSE TRUE)
+   (if (defined? 'gimp-drawable-merge-new-filter)
+      (begin  ; New Gimp >= 3.0 API:
+         ; FIXME: This does not work when running in Gimp 2.x!
+         ; (file-png-export
+         ;    #:run-mode         RUN-NONINTERACTIVE
+         ;    #:image            image
+         ;    #:file             outputFileName
+         ;    #:options          -1
+         ;    #:interlaced       TRUE
+         ;    #:compression      6
+         ;    #:bkgd             TRUE
+         ;    #:offs             FALSE
+         ;    #:phys             TRUE
+         ;    #:time             TRUE
+         ;    #:save-transparent FALSE
+         ;    #:optimize-palette TRUE
+         ; )
+         (file-png-export RUN-NONINTERACTIVE image
+            outputFileName -1
+            TRUE 6 TRUE FALSE TRUE TRUE FALSE TRUE)
+      )
+      (begin  ; Old Gimp < 3.0 API:
+         (file-png-save2 RUN-NONINTERACTIVE image
+            (car (gimp-image-get-active-layer image))
+            outputFileName outputFileName
+            TRUE 6 TRUE TRUE FALSE TRUE TRUE FALSE TRUE)
+      )
    )
-   (else
-      ; Old Gimp 2.x API:
-      (file-png-save2 RUN-NONINTERACTIVE image (car (gimp-image-get-active-layer image)) outputFileName outputFileName TRUE 9 TRUE TRUE FALSE TRUE TRUE FALSE TRUE
-   )))
 
    ; ------ Clean up --------------------------------------------------------
    (gimp-image-delete image)
@@ -628,7 +680,7 @@ EOF
    if [ ${VERBOSE} -ne 0 ] ; then
       cat
    else
-      grep -vE "^ts>|(#t)|^Copyright|^Welcome|^using gegl copy|scriptfu-WARNING|LibGimp-WARNING|^Please use named arguments:|^script quit with code:|^$" || true
+      grep -vE "^ts>|(#t)|^Copyright|Welcome to (GIMP|TinyScheme)|^using gegl copy|scriptfu-WARNING|-WARNING|^Please use named arguments:|^script quit with code:|^$" || true
    fi
 )
 

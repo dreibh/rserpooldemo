@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # SuNILab Desktop Background Script
-# Copyright (C) 2017-2025 by Thomas Dreibholz
+# Copyright (C) 2017-2024 by Thomas Dreibholz
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 # Contact: thomas.dreibholz@gmail.com
 
 # Bash options:
-set -eu
+set -e
 
-if [ $# -lt 4 ] ; then
-   echo >&2 "Usage: $0 output_file caption width height"
+if [ $# -lt 3 ] ; then
+   echo >&2 "Usage: $0 output_file caption width"
    exit 1
 fi
 

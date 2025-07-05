@@ -79,8 +79,8 @@ if [ ! -f "${INPUT_FILENAME}" ] ; then
    echo >&2 "ERROR: Input file ${INPUT_FILENAME} does not exist!"
    exit 1
 fi
-if [[ ! "${DEPTH}" =~ ^[0-9]+$ ]] ; then
-   echo >&2 "ERROR: Invalid depth!"
+if [[ ! "${DEPTH}" =~ ^([0-9]+)$ ]] ; then
+   echo >&2 "ERROR: Invalid depth ${DEPTH}!"
    exit 1
 fi
 
@@ -105,6 +105,7 @@ GIMP_OPTIONS="${GIMP_OPTIONS} --no-fonts --no-data"
 
 # ====== Call GIMP ==========================================================
 rm -f "${OUTPUT_FILENAME}"
+# shellcheck disable=SC2086
 ( cat <<EOF
 (let*
    ; ------ Initialise and load image ---------------------------------------
@@ -141,29 +142,34 @@ rm -f "${OUTPUT_FILENAME}"
    ))
 
    ; ------ Save result -----------------------------------------------------
-   (cond( (not(defined? 'file-png-save2))
-      ; New Gimp 3.0 API:
-      ; FIXME: This does not work when running in Gimp 2.x!
-      ; (file-png-export
-      ;    #:run-mode         RUN-NONINTERACTIVE
-      ;    #:image            image
-      ;    #:file             outputFileName
-      ;    #:options          -1
-      ;    #:interlaced       TRUE
-      ;    #:compression      6
-      ;    #:bkgd             TRUE
-      ;    #:offs             FALSE
-      ;    #:phys             TRUE
-      ;    #:time             TRUE
-      ;    #:save-transparent FALSE
-      ;    #:optimize-palette TRUE
-      ; )
-      (file-png-export RUN-NONINTERACTIVE image outputFileName -1 TRUE 9 TRUE FALSE TRUE TRUE FALSE TRUE)
+   (if (defined? 'gimp-drawable-merge-new-filter)
+      (begin  ; New Gimp >= 3.0 API:
+         ; FIXME: This does not work when running in Gimp 2.x!
+         ; (file-png-export
+         ;    #:run-mode         RUN-NONINTERACTIVE
+         ;    #:image            image
+         ;    #:file             outputFileName
+         ;    #:options          -1
+         ;    #:interlaced       TRUE
+         ;    #:compression      6
+         ;    #:bkgd             TRUE
+         ;    #:offs             FALSE
+         ;    #:phys             TRUE
+         ;    #:time             TRUE
+         ;    #:save-transparent FALSE
+         ;    #:optimize-palette TRUE
+         ; )
+         (file-png-export RUN-NONINTERACTIVE image
+            outputFileName -1
+            TRUE 6 TRUE FALSE TRUE TRUE FALSE TRUE)
+      )
+      (begin  ; Old Gimp < 3.0 API:
+         (file-png-save2 RUN-NONINTERACTIVE image
+            (car (gimp-image-get-active-layer image))
+            outputFileName outputFileName
+            TRUE 6 TRUE TRUE FALSE TRUE TRUE FALSE TRUE)
+      )
    )
-   (else
-      ; Old Gimp 2.x API:
-      (file-png-save2 RUN-NONINTERACTIVE image (car (gimp-image-get-active-layer image)) outputFileName outputFileName TRUE 6 TRUE TRUE FALSE TRUE TRUE FALSE TRUE
-   )))
 
    ; ------ Clean up --------------------------------------------------------
    (gimp-image-delete image)
@@ -175,7 +181,7 @@ EOF
    if [ ${VERBOSE} -ne 0 ] ; then
       cat
    else
-      grep -vE "^ts>|(#t)|^Copyright|^Welcome|^using gegl copy|scriptfu-WARNING|LibGimp-WARNING|^Please use named arguments:|^script quit with code:|^$" || true
+      grep -vE "^ts>|(#t)|^Copyright|Welcome to (GIMP|TinyScheme)|^using gegl copy|scriptfu-WARNING|-WARNING|^Please use named arguments:|^script quit with code:|^$" || true
    fi
 )
 
