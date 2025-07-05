@@ -63,7 +63,7 @@ while [ $# -gt 0 ] ; do
   esac
 done
 
-if [ $# -lt 2 ] ; then
+if [ $# -ne 2 ] ; then
    usage 1
 fi
 INPUT_FILENAME="$1"
