@@ -1,3 +1,27 @@
+commit 8bb32bcb4087fd05a6369c94bcbee999ed5d8edf
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Jul 8 13:54:45 2025 +0200
+
+    FreeBSD fix.
+
+commit 1fcd83f27bc27cc9d290ba436bf0d973159e484d
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Jul 5 20:59:28 2025 +0200
+
+    Updated FreeBSD port.
+
+commit c7ce66d2a4ad2381f9c8dcaa31b334d2514090ea
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Jul 5 20:43:38 2025 +0200
+
+    Fixed shebang for FreeBSD compatibility.
+
+commit 8baf71af6ef479d3bf5751d19ef28684ba471a72
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Jul 5 16:40:48 2025 +0200
+
+    New release rserpooldemo-3.2.1.
+
 commit da9b13c4c1f23851e751bb61b09c71be079f047a
 Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Sat Jul 5 16:33:01 2025 +0200

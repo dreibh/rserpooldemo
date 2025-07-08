@@ -1,8 +1,14 @@
+rserpooldemo (3.2.2-1ubuntu1) oracular; urgency=medium
+
+  * New upstream release.
+  * Closes: #999549 (ITP).
+
+ -- Thomas Dreibholz <thomas.dreibholz@gmail.com>  Tue, 08 Jul 2025 23:09:59 +0200
+
 rserpooldemo (3.2.1-1ubuntu1) oracular; urgency=medium
 
   * New upstream release.
   * debian/control: Updated standards version to 4.7.2.
-  * Closes: #999549 (ITP).
 
  -- Thomas Dreibholz <thomas.dreibholz@gmail.com>  Sat, 05 Jul 2025 16:40:36 +0200
 

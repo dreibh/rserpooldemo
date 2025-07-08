@@ -1,5 +1,5 @@
 Name: rserpooldemo
-Version: 3.2.1
+Version: 3.2.2
 Release: 1
 Summary: RSerPool Demo Tool
 Group: Applications/Internet
@@ -235,6 +235,8 @@ RSerPoolDemo tool!
 
 
 %changelog
+* Tue Jul 08 2025 Thomas Dreibholz <thomas.dreibholz@gmail.com> - 3.2.2
+- New upstream release.
 * Sat Jul 05 2025 Thomas Dreibholz <thomas.dreibholz@gmail.com> - 3.2.1
 - New upstream release.
 * Fri Dec 13 2024 Thomas Dreibholz <thomas.dreibholz@gmail.com> - 3.2.0
