@@ -91,7 +91,7 @@ ${GM} composite -size "${subtitleWidthValue}"x"${th}" \
    -gravity Center "${tempDirectory}"/title.png \
    xc:none +compress "${tempDirectory}"/title-c.png
 
-${GM} convert -background none -append -border 6 -bordercolor transparent \
+${GM} convert -background none -append -border 25 -bordercolor transparent \
    "${tempDirectory}"/title-c.png \
    "${tempDirectory}"/subtitle.png \
    +compress "${tempDirectory}"/center.png
