@@ -1,7 +1,7 @@
 # Created by: Thomas Dreibholz <thomas.dreibholz@gmail.com>
 
 PORTNAME=	rserpooldemo
-DISTVERSION=	3.2.1~beta1
+DISTVERSION=	3.2.2
 CATEGORIES=	net
 MASTER_SITES=	https://www.nntb.no/~dreibh/rserpool/download/
 
@@ -12,20 +12,24 @@ WWW=		https://www.nntb.no/~dreibh/rserpool/
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	gimp:graphics/gimp3-app \
+BUILD_DEPENDS=	bash:shells/bash \
+		gimp:graphics/gimp3-app \
 		gm:graphics/GraphicsMagick \
-		exiftool:graphics/p5-Image-ExifTool
-RUN_DEPENDS=	rspserver:net/rsplib \
-		fractgen:graphics/fractgen
+		exiftool:graphics/p5-Image-ExifTool \
+		getopt>=0:misc/getopt \
+		noto-sans>=0:x11-fonts/noto-sans
+RUN_DEPENDS=	getopt>=0:misc/getopt \
+		fractgen:graphics/fractgen \
+		rspserver:net/rsplib
 
-USES=		cmake desktop-file-utils gl qt:6 \
+USES=		cmake desktop-file-utils gl shebangfix qt:6 \
 		shared-mime-info tar:xz
-USE_GL=         gl opengl
-USE_QT=         base tools:build
+USE_GL=		gl opengl
+USE_QT=         base
+
+SHEBANG_FILES=	src/nornet-mec-scenario/MEC-User.config \
+		src/nornet-mec-scenario/PMC-User.config
 
 CMAKE_ARGS+=	-DCMAKE_INSTALL_MANDIR=${PREFIX}/share/man
-
-USE_LDCONFIG=	yes
-USE_QT=		buildtools:build core gui network widgets xml
 
 .include <bsd.port.mk>

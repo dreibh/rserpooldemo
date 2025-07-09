@@ -53,11 +53,11 @@ class ELoadFileException
 class EXMLSyntaxException
 {
    public:
-   EXMLSyntaxException(QString message, int line)
+   EXMLSyntaxException(const QString& message, unsigned int line)
       : m_Message(message), m_Line(line) {}
 
    QString m_Message;
-   int     m_Line;
+   unsigned int m_Line;
 };
 
 

@@ -78,12 +78,20 @@ RDConfiguration::RDConfiguration(QWidget*       canvasWidget,
       throw ELoadFileException();
    }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+   QDomDocument::ParseResult result = doc.setContent(&file);
+   if(!result.errorMessage.isEmpty()) {
+      file.close();
+      throw EXMLSyntaxException(result.errorMessage, result.errorLine);
+   }
+#else
    QString errorMessage;
    int errorLine;
    if(!doc.setContent(&file , true , &errorMessage, &errorLine)) {
       file.close();
       throw EXMLSyntaxException(errorMessage, errorLine);
    }
+#endif
    file.close();
 
    QDomNode currentNode = doc.documentElement().firstChild();

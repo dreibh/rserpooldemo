@@ -42,16 +42,17 @@
 
 
 // ###### Constructor #######################################################
-CSPListener::CSPListener(int                    listenPort,
-                                   QMap<QString, RDConfigNode*>& nodesMap)
+CSPListener::CSPListener(int                           listenPort,
+                         QMap<QString, RDConfigNode*>& nodesMap)
    : m_ListenPort(listenPort),
      m_NodesMap(nodesMap),
      m_SocketDevice(0)
 {
    m_SocketDevice = new QUdpSocket;
    Q_CHECK_PTR(m_SocketDevice);
-   if(m_SocketDevice->bind(QHostAddress(), m_ListenPort, QUdpSocket::ReuseAddressHint) == false) {
+   if(m_SocketDevice->bind(QHostAddress::Any, m_ListenPort, QUdpSocket::ReuseAddressHint) == false) {
       QMessageBox::critical(0, "Error!", "Error binding CSP socket!");
+      ::exit(1);
    }
 }
 

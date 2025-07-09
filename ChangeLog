@@ -1,3 +1,537 @@
+commit 8bb32bcb4087fd05a6369c94bcbee999ed5d8edf
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Jul 8 13:54:45 2025 +0200
+
+    FreeBSD fix.
+
+commit 1fcd83f27bc27cc9d290ba436bf0d973159e484d
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Jul 5 20:59:28 2025 +0200
+
+    Updated FreeBSD port.
+
+commit c7ce66d2a4ad2381f9c8dcaa31b334d2514090ea
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Jul 5 20:43:38 2025 +0200
+
+    Fixed shebang for FreeBSD compatibility.
+
+commit 8baf71af6ef479d3bf5751d19ef28684ba471a72
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Jul 5 16:40:48 2025 +0200
+
+    New release rserpooldemo-3.2.1.
+
+commit da9b13c4c1f23851e751bb61b09c71be079f047a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Jul 5 16:33:01 2025 +0200
+
+    Minor fix.
+
+commit e40b4608fc6544db7012390c62f8f2eb827a7f39
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Jul 5 14:44:12 2025 +0200
+
+    RPM spec update.
+
+commit 8173a8dbc39b025b17d73d018718c2f305038340
+Merge: 06388b7 ef71ab1
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Jul 5 10:34:36 2025 +0200
+
+    Merge branch 'master' into dreibh/gimp-updates
+
+commit 06388b75e10b47218c3c42d9b2b60a7c8846e0cd
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Jul 5 10:33:15 2025 +0200
+
+    Replaced deprecated QDomDocument::setContent() usage.
+
+commit ef71ab103d38b31fc6d73b41df516385ef907c84
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 18:23:22 2025 +0200
+
+    ShellCheck clean-ups.
+
+commit 192e83a9f4346785da02707ef2014862477e37af
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 18:19:39 2025 +0200
+
+    Improved FreeBSD handling.
+
+commit 44990a92a3fd76ce11ef16d7520b1b610300217f
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 16:54:38 2025 +0200
+
+    Updated the other scripts as well.
+
+commit ed25a0aa40cc0e4fa929a0994ad5275f5a00f04b
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 16:46:25 2025 +0200
+
+    Further compatibility improvements.
+
+commit 095b46cb08756f49425feeadd55a7d1c21f52c0a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 16:33:07 2025 +0200
+
+    Clean-ups and compatibility fixes.
+
+commit 2bdb48f82274404ac8f042c912b51f90f53d9ca4
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 15:55:03 2025 +0200
+
+    Improved test script.
+
+commit c4f329432bb8fcd621f0237c4b29913c0292d739
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 15:53:16 2025 +0200
+
+    Further compatibility improvements.
+
+commit c25d058c646688d53b8d57dc7ab149fcca27d45f
+Merge: b3f8785 f463f5b
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 15:39:42 2025 +0200
+
+    Merge branch 'master' of github.com:dreibh/rserpooldemo
+
+commit b3f87855f7ccbea93e1eb76d2041901780a08e1f
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 15:39:15 2025 +0200
+
+    Some more testing.
+
+commit f463f5bebca8397a51b05d22d9b754e76ce0b927
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 15:23:48 2025 +0200
+
+    Improved compatibility.
+
+commit 3016767d10bf08a66944ec3e6888ebad9be2c981
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 15:13:06 2025 +0200
+
+    Some testing.
+
+commit fc0e1679f749e28dcaac872e8a2ae2d6fc460e55
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 14:23:42 2025 +0200
+
+    Improved scripts to work under FreeBSD.
+
+commit 16c0780ebef7ce5936e02b3240a51ab4017ffdcb
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 13:36:15 2025 +0200
+
+    Reverted change.
+
+commit 7966e8c7a4b062a3c36a90857e33a986e7c35c2f
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 13:23:23 2025 +0200
+
+    Version bump.
+
+commit 7c21955d5e60385606fb3ae0cb773f0a163a9ef4
+Merge: 7d01ca0 fccd553
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 13:20:06 2025 +0200
+
+    Merge branch 'dreibh/gimp-updates'
+
+commit fccd553b454aab6571a43d8375ee9dc628f285a9
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 13:18:44 2025 +0200
+
+    Packaging update.
+
+commit 01cf955e7f20c905efa028ea8d99a17f09ea20fd
+Merge: b4afdf1 e8ae66b
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 13:15:15 2025 +0200
+
+    Merge branch 'dreibh/gimp-updates' of github.com:dreibh/rserpooldemo into dreibh/gimp-updates
+
+commit b4afdf1bb5774059a75a0fc92d86cca759375b6e
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 13:15:00 2025 +0200
+
+    Further improvements.
+
+commit e8ae66b0f26ae3fc10fc1cd4443cb0938fbcf727
+Merge: 9a16759 30f9ebc
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 13:00:03 2025 +0200
+
+    Merge branch 'dreibh/gimp-updates' of https://github.com/dreibh/rserpooldemo into dreibh/gimp-updates
+
+commit 9a167598b076e15f3e708be2ecffa25c1981d4ab
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 12:59:58 2025 +0200
+
+    Minor update.
+
+commit 30f9ebc843c8e0dbb338a8a4843fc8aeac9e1810
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 12:59:36 2025 +0200
+
+    Improved CMakeLists.txt to handle GIMP 3.
+
+commit ddcb693c5531b43019666b20016af8432d9993f8
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 12:49:01 2025 +0200
+
+    Improved options.
+
+commit 6534662e30c27865fe0b5a367b40f3d798f20291
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 12:44:23 2025 +0200
+
+    A fix.
+
+commit b2739fe6d739bad3898185010d62ee2ed0c090b1
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 12:05:24 2025 +0200
+
+    Minor update.
+
+commit e7ff31722bebb8bd2cdbda0b034e66e0eb2f898d
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 12:04:51 2025 +0200
+
+    Some clean-ups.
+
+commit d726bbd9b06f22e53a80bbbe2a3c5d15a469cbd8
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 12:00:49 2025 +0200
+
+    Another try.
+
+commit 6c8118bade9a22c0e23be5d9f8d674105eb62ad3
+Merge: bfd6ff6 e87efd8
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 11:52:35 2025 +0200
+
+    Merge branch 'dreibh/gimp-updates' of github.com:dreibh/rserpooldemo into dreibh/gimp-updates
+
+commit bfd6ff698dd35b2883e11f6667507c22ab758a89
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 11:52:18 2025 +0200
+
+    Some progress.
+
+commit e87efd89a5ef5c07535f64188b6a8d003848e6ff
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 11:23:09 2025 +0200
+
+    Minor fix.
+
+commit a80beaa212c9881498ffad59bfc9a75d91b6b53b
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 11:09:11 2025 +0200
+
+    Minor update.
+
+commit 77094df2138fe93bd9764d800f265f5eb99ebbcc
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 11:05:52 2025 +0200
+
+    Minor clean-ups.
+
+commit f3e99b442f0086405bd41ce10e85c5ec73f15ed1
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 10:55:25 2025 +0200
+
+    Updated scripts.
+
+commit b7a5eb463d70377faa2d9c69ab1ee18a2f51a9f4
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 10:50:40 2025 +0200
+
+    Minor update.
+
+commit f2f5d17f81c7d125564dc2c5425c3763aa0a85d9
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 10:36:58 2025 +0200
+
+    Improved script.
+
+commit 6186a5a29451da87dcbcfe535739ff61275ad194
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jul 4 10:29:36 2025 +0200
+
+    Updated script.
+
+commit 440522dddd83db117c3eae30069a044f9d4c5c61
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jul 3 17:08:15 2025 +0200
+
+    Further improvements.
+
+commit 7d681face80b9286d28f293b7fd6fa35ae3c11b9
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jul 3 16:34:11 2025 +0200
+
+    Improved scripts.
+
+commit 2c84b55c2f98966bbb0307a6e43656e7e97b4f88
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jul 3 15:59:00 2025 +0200
+
+    Some progress.
+
+commit 084fb4afdd2fe648869c6537cd13526ec2714f5d
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jul 3 15:48:30 2025 +0200
+
+    Some progress.
+
+commit 567d187e28ff3d06be66c7566aa06f7f2e17b1c1
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jul 3 15:44:02 2025 +0200
+
+    Another update.
+
+commit e7fce062258174154ecd78e2c35080ccd1bc14ec
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jul 3 15:39:15 2025 +0200
+
+    Some more testing.
+
+commit 2a064d2dec174f0da7a9e1c8300c7c2e043d15a1
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jul 3 15:18:34 2025 +0200
+
+    Some progress.
+
+commit 9118a2b209241f9060871ef6eadf0a02caa4f208
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jul 3 15:07:33 2025 +0200
+
+    Further clean-ups.
+
+commit 500133209584383a59159ad58498756d3d14ba24
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jul 3 15:01:42 2025 +0200
+
+    Some clean-ups.
+
+commit d274ade6db1a4581b9b228f01e08d44566e1be4a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jul 3 14:53:53 2025 +0200
+
+    Improved script.
+
+commit 0fe11575925eef749d5f57b9ebbaa25cc6194b5a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jul 3 14:48:34 2025 +0200
+
+    Some updates.
+
+commit 5821ad4061ce6f7a717d92ab6abef6fa30be4325
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jul 3 14:15:20 2025 +0200
+
+    Some testing.
+
+commit 6a8feabfe3e6c1203f43cf6f94c32f7f3c6c3ee0
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jul 3 14:08:47 2025 +0200
+
+    Improved scripts.
+
+commit ff301bc4a485d910209c8f6df73aaf119382c8c7
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jul 3 13:56:28 2025 +0200
+
+    Improved scripts.
+
+commit 095408986178ab42bf33fcaa5f1480822f0ee9e2
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jul 3 13:56:21 2025 +0200
+
+    Added test script.
+
+commit c69ce8e9dc779ecf0e59bac71d839e3742b02a34
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jul 3 13:34:51 2025 +0200
+
+    Improved scripts.
+
+commit 59f0a032c3f0e8f4ecd071aea4219bc3b70c49b3
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jul 3 13:12:52 2025 +0200
+
+    Some updates.
+
+commit 7fc77bb3775414bdf7308641823fda9b6af213cc
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jul 3 12:59:29 2025 +0200
+
+    Improved scripts.
+
+commit 5493fd9b49519bb7f8e37cb0efb7096af4ca9abe
+Author: NorNet Praesum Presum <nornetpp@dbtest.hipercontracer.nornet>
+Date:   Tue Jun 17 22:14:31 2025 +0200
+
+    Some updates.
+
+commit 2c6f188abcf555ba16b17e5492910c64b5fbe934
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Jun 17 21:47:59 2025 +0200
+
+    Minor update.
+
+commit fd1875bc6be31510e83ee1a3e044565d2c175a3a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Jun 17 21:42:03 2025 +0200
+
+    Improved scripts.
+
+commit 7d90cf108adcd4cd321a6734fa297c4b51949e22
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Jun 17 21:19:29 2025 +0200
+
+    Improved scripts.
+
+commit 342f54502cd004d288f983ba8a55857d387dbb0b
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Jun 16 23:15:51 2025 +0200
+
+    Updated CMakeLists.txt.
+
+commit 8f89172154a3f02a832b6ad8c1b91735fa9b666e
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Jun 16 23:14:07 2025 +0200
+
+    A fix.
+
+commit a4639e231aa74cdaf457190d2413559c5b6bb48c
+Author: NorNet Praesum Presum <nornetpp@dbtest.hipercontracer.nornet>
+Date:   Mon Jun 16 22:56:46 2025 +0200
+
+    Some clean-ups.
+
+commit 07cb3a690ffce850cbe485afcfc4b0b64d8f897e
+Author: NorNet Praesum Presum <nornetpp@dbtest.hipercontracer.nornet>
+Date:   Mon Jun 16 22:46:37 2025 +0200
+
+    Some progress.
+
+commit f45357665982ed60605d74ec8011534cccf77f5b
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Jun 16 22:25:14 2025 +0200
+
+    Some more debugging.
+
+commit aa1cdc1f7093d5651d38490c2802f9b540385dda
+Author: NorNet Praesum Presum <nornetpp@dbtest.hipercontracer.nornet>
+Date:   Mon Jun 16 22:09:15 2025 +0200
+
+    Some more debugging.
+
+commit b682889103bafe87fd70563c8588aa778210b640
+Author: NorNet Praesum Presum <nornetpp@dbtest.hipercontracer.nornet>
+Date:   Mon Jun 16 21:31:40 2025 +0200
+
+    Debugging.
+
+commit 8bf4300f08472d99ce0cf67c220e78f7349c2975
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Jun 15 17:09:52 2025 +0200
+
+    Another update.
+
+commit 3d52cd45e167edc1230bc1bf02a682934921880a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Jun 15 17:04:06 2025 +0200
+
+    Some more testing.
+
+commit 9c428ecd34386b098043d4e56f3d884242facf3d
+Author: NorNet Praesum Presum <nornetpp@dbtest.hipercontracer.nornet>
+Date:   Sun Jun 15 16:42:17 2025 +0200
+
+    Some testing.
+
+commit 279326d840e51df7537b275942dbad5bacf03636
+Author: NorNet Praesum Presum <nornetpp@dbtest.hipercontracer.nornet>
+Date:   Sun Jun 15 16:11:42 2025 +0200
+
+    Improved script.
+
+commit 53b1ff555af8c96ae4d3eafb49777bee44ae1acf
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Jun 15 16:09:51 2025 +0200
+
+    Improved script.
+
+commit c90bd5a186e9eff2fda4394b18051fef3a5ae718
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Jun 15 14:24:11 2025 +0200
+
+    Options fix.
+
+commit acbd4341c39d37917e433e32fbe2087fa2956f10
+Author: NorNet Praesum Presum <nornetpp@dbtest.hipercontracer.nornet>
+Date:   Sun Jun 15 14:22:12 2025 +0200
+
+    Improved script.
+
+commit f7b23c37608afbcb7cdcffe6b088e549c90b12a8
+Author: NorNet Praesum Presum <nornetpp@dbtest.hipercontracer.nornet>
+Date:   Sun Jun 15 14:06:04 2025 +0200
+
+    Some testing.
+
+commit 2af3eaf4ebc4d01b0b14a6658d3586936dba5523
+Author: NorNet Praesum Presum <nornetpp@dbtest.hipercontracer.nornet>
+Date:   Sun Jun 15 13:55:18 2025 +0200
+
+    Some progress.
+
+commit 50f320e176af3d0af29748c28dd526e350041711
+Author: NorNet Praesum Presum <nornetpp@dbtest.hipercontracer.nornet>
+Date:   Sun Jun 15 12:40:32 2025 +0200
+
+    Some clean-ups.
+
+commit c696a3a612fe029432b021bea32cd6af7b10ddb9
+Author: NorNet Praesum Presum <nornetpp@dbtest.hipercontracer.nornet>
+Date:   Sun Jun 15 12:14:17 2025 +0200
+
+    Some progress.
+
+commit 6997ff4f106c8682f106f77f580027e511825757
+Author: NorNet Praesum Presum <nornetpp@dbtest.hipercontracer.nornet>
+Date:   Sun Jun 15 11:26:22 2025 +0200
+
+    Some testing.
+
+commit 7d01ca0352e14f834b9105c13305fff5e07ab4d2
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Jun 15 09:50:11 2025 +0200
+
+    Another script update.
+
+commit 12eec904608234d77b38ad249a6de8183389fc6b
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Jun 15 09:49:23 2025 +0200
+
+    Minor script updates.
+
+commit 056dc4a216e3c8de73f2ac2a70d24f2e98c4ac2f
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Jun 15 09:47:51 2025 +0200
+
+    Updated scripts.
+
+commit 752c903e7e0489f2e33700ad3f5a10cb12729c97
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Dec 13 21:30:31 2024 +0100
+
+    New release rserpooldemo-3.2.0.
+
 commit e65bfe30a883ffafad4cff0e1eb75b9f3d74b022
 Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Fri Dec 13 20:53:27 2024 +0100
