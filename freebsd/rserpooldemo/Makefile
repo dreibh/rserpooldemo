@@ -22,13 +22,10 @@ RUN_DEPENDS=	getopt>=0:misc/getopt \
 		fractgen:graphics/fractgen \
 		rspserver:net/rsplib
 
-USES=		cmake desktop-file-utils gl shebangfix qt:6 \
+USES=		cmake desktop-file-utils gl qt:6 \
 		shared-mime-info tar:xz
 USE_GL=		gl opengl
 USE_QT=         base
-
-SHEBANG_FILES=	src/nornet-mec-scenario/MEC-User.config \
-		src/nornet-mec-scenario/PMC-User.config
 
 CMAKE_ARGS+=	-DCMAKE_INSTALL_MANDIR=${PREFIX}/share/man
 
