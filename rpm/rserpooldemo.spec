@@ -149,7 +149,7 @@ Requires: openssl-devel
 Requires: pbuilder
 Requires: perl-Image-ExifTool
 Requires: pkg-config
-Requires: qt5-qtbase-devel
+Requires: qt6-qtbase-devel
 Requires: quilt
 Requires: R-base
 Requires: rpm
