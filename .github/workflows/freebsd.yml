@@ -1,5 +1,5 @@
 # GitHub Actions Scripts
-# Copyright (C) 2021-2024 by Thomas Dreibholz
+# Copyright (C) 2021-2025 by Thomas Dreibholz
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,9 +33,9 @@ jobs:
       matrix:
         include:
 
-          # ====== FreeBSD 14.1 =============================================
-          - label: "FreeBSD 14.1: Clang/x86_64"
-            release: 14.1
+          # ====== FreeBSD 14.3 =============================================
+          - label: "FreeBSD 14.3: Clang/x86_64"
+            release: 14.3
             cc: clang
             cxx: clang++
 
