@@ -154,10 +154,13 @@ Package: rserpooldemo-tool
 Architecture: any
 Depends: rserpooldemo-management (>= ${source:Version}),
          rserpooldemo-scenario-cfgfiles (>= ${source:Version}),
+         rsplib-fractalpooluser,
+         rsplib-registrar,
+         rsplib-services,
+         rsplib-tools,
          ${misc:Depends},
          ${shlibs:Depends}
-Recommends: fractgen,
-            rsplib-registrar
+Recommends: fractgen
 Description: GUI tool for the RSerPool Demo system
  This package contains the RSerPoolDemo tool.
  .
