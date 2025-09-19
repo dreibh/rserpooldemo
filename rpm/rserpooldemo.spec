@@ -218,8 +218,11 @@ Group: Applications/Internet
 Requires: %{name}-desktop = %{version}-%{release}
 Requires: %{name}-management = %{version}-%{release}
 Requires: %{name}-scenario-cfgfiles = %{version}-%{release}
-Recommends: rsplib-registrar
-Recommends: rsplib-tools
+Requires: rsplib-fractalpooluser
+Requires: rsplib-registrar
+Requires: rsplib-services
+Requires: rsplib-tools
+Recommends: fractgen
 
 %description tool
 This package contains the RSerPoolDemo tool.
