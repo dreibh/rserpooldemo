@@ -100,7 +100,7 @@ RSerPool Demo Tool/RSPLIB and related BibTeX entries can be found in [AllReferen
 
 * 🇧🇦 [Bosnian](https://bs.wikipedia.org/wiki/Reliable_Server_Pooling) (thanks to Nihad Cosić)
 * 🇨🇳 [Chinese](https://zh.wikipedia.org/wiki/Reliable_Server_Pooling) (thanks to Xing Zhou)
-* 🇭🇷 [Croatian](https://hr.wikipedia.org/wiki/Reliable_Server_Pooling) (thanks to Nihad Cosić)
+* 🇭🇷 [Croatian](https://web.archive.org/web/20230709054321/https://hr.wikipedia.org/wiki/Reliable_server_Pooling) (thanks to Nihad Cosić)
 * 🇬🇧 [English](https://en.wikipedia.org/wiki/Reliable_server_pooling)
 * 🇫🇷 [French](https://fr.wikipedia.org/wiki/Reliable_Server_Pooling)
 * 🇩🇪 [German](https://de.wikipedia.org/wiki/Reliable_Server_Pooling) (thanks to Jobin Pulinthanath)
