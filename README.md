@@ -1,6 +1,6 @@
 <h1 align="center">
  RSerPool Demo Tool<br />
- <span style="font-size: 30%">The Reliable Server Pooling Implementation</span><br />
+ <span style="font-size: 30%">The Reliable Server Pooling Demonstration Tool</span><br />
  <a href="https://www.nntb.no/~dreibh/rserpool/">
   <img alt="RSPLIB Project Logo" src="src/logo/rsplib.svg" width="25%" /><br />
   <span style="font-size: 30%;">https://www.nntb.no/~dreibh/rserpool</span>
