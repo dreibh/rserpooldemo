@@ -1,7 +1,7 @@
 # Created by: Thomas Dreibholz <thomas.dreibholz@gmail.com>
 
 PORTNAME=	rserpooldemo
-DISTVERSION=	3.2.2
+DISTVERSION=	3.2.3
 CATEGORIES=	net
 MASTER_SITES=	https://www.nntb.no/~dreibh/rserpool/download/
 
