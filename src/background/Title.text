@@ -1,1 +1,1 @@
-${MAKE_TEXT} ${OUTPUT}   "RSPLIB"   1024   --bordersize 30 --colorscheme "Golden" --font "Noto Sans Bold"
+${MAKE_GLOSSYTEXT} ${OUTPUT}   "RSPLIB"   1024   --bordersize 30 --colorscheme "Golden" --font "Noto Sans Bold"
