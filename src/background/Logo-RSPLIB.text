@@ -33,10 +33,10 @@
 # Bash options:
 set -eu
 
-SCRIPT=`realpath "$0"`
-SCRIPTPATH=`dirname "${SCRIPT}"`   # NOTE: Current directory may be a build directory!
+SCRIPT=$(realpath "$0")
+SCRIPTPATH=$(dirname "${SCRIPT}")   # NOTE: Current directory may be a build directory!
 
-cp ${SCRIPTPATH}/dia/Logo-RSPLIB.png "${OUTPUT}"
+cp "${SCRIPTPATH}"/dia/Logo-RSPLIB.png "${OUTPUT}"
 if [ ! -e "${OUTPUT}" ] ; then
    echo >&2 "ERROR: Generating ${OUTPUT} has failed!"
    exit 1
