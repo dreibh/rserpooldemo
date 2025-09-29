@@ -33,8 +33,13 @@
 # Bash options:
 set -eu
 
-${MAKE_GLOSSYTEXT} "${OUTPUT}"                \
-   "23 Years of RSerPool — 2002-2025"   256   \
-   --bordersize 30                            \
-   --colorscheme "Golden"                     \
+# This year:
+THIS_YEAR=2025
+
+BASE_YEAR=2002
+years=$((THIS_YEAR-BASE_YEAR))
+${MAKE_GLOSSYTEXT} "${OUTPUT}"                                      \
+   "${years} Years of RSerPool — ${BASE_YEAR}–${THIS_YEAR}"   256   \
+   --bordersize 30                                                  \
+   --colorscheme "Golden"                                           \
    --font "Noto Sans Regular"

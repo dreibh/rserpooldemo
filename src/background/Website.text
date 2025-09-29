@@ -35,6 +35,6 @@ set -eu
 
 ${MAKE_GLOSSYTEXT} "${OUTPUT}"   \
    "Thomas Dreibholz's RSerPool Page — https://www.nntb.no/~dreibh/rserpool"   128   \
-   --bordersize 10      \
-   --colorscheme Golden \
-   --font "Noto Sans Bold"
+   --bordersize 10        \
+   --colorscheme Golden   \
+   --font "Noto Sans SemiBold"
