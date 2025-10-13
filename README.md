@@ -51,12 +51,11 @@ Please use the issue tracker at [https://github.com/dreibh/rserpooldemo/issues](
 
 The Git repository of the RSerPool Demo Tool sources can be found at [https://github.com/dreibh/rserpooldemo](https://github.com/dreibh/rserpooldemo):
 
-```bash
-git clone https://github.com/dreibh/rserpooldemo
-cd rserpooldemo
-cmake .
-make
-```
+<pre><code><span class="fu">git</span> clone <a href="https://github.com/dreibh/rserpooldemo">https://github.com/dreibh/rserpooldemo</a>
+<span class="bu">cd</span> rserpooldemo
+<span class="fu">cmake</span> .
+<span class="fu">make</span>
+</code></pre>
 
 Contributions:
 
