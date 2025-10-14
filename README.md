@@ -10,7 +10,7 @@
 
 # 💡 What is the RSerPool Demo Tool?
 
-[Reliable Server Pooling&nbsp;(RSerPool)](#what-is-reliable-server-pooling-rserpool) is the new IETF framework for server pool management and session failover handling. In particular, it can be used for realising highly available services and load distribution. RSPLIB is the reference implementation of RSerPool, and RSerPool Demo Tool is a demo tool to showcase RSPLIB based on a Fractal Generator Service example. The demo tool provides an interactive GUI to start, stop, and configure RSPLIB examples, as well as to observe the status of components and their communication associations.
+[Reliable Server Pooling&nbsp;(RSerPool)](https://www.nntb.no/~dreibh/rserpool/#what-is-reliable-server-pooling-rserpool) is the new IETF framework for server pool management and session failover handling. In particular, it can be used for realising highly available services and load distribution. RSPLIB is the reference implementation of RSerPool, and RSerPool Demo Tool is a demo tool to showcase RSPLIB based on a Fractal Generator Service example. The demo tool provides an interactive GUI to start, stop, and configure RSPLIB examples, as well as to observe the status of components and their communication associations.
 
 
 # 📦 Binary Package Installation
