@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
-# Print installed NorNet packages
+# Print installed RSPLIB packages
 # Copyright (C) 2013-2025 by Thomas Dreibholz
 #
 # This program is free software: you can redistribute it and/or modify
@@ -33,7 +33,7 @@ fi
 fullPackageList="$1"
 
 echo "====== Installed RSPLIB Software ============================================="
-grep "^rsplib-" ${fullPackageList}
-grep "^rserpooldemo-" ${fullPackageList}
+grep "^rsplib-" "${fullPackageList}"
+grep "^rserpooldemo-" "${fullPackageList}"
 
 exit 0
