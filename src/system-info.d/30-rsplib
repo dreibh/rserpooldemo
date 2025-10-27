@@ -1,6 +1,19 @@
 #!/usr/bin/env bash
+# ##########################################################################
 #
-# Print system information
+#              //===//   //=====   //===//   //       //   //===//
+#             //    //  //        //    //  //       //   //    //
+#            //===//   //=====   //===//   //       //   //===<<
+#           //   \\         //  //        //       //   //    //
+#          //     \\  =====//  //        //=====  //   //===//   Version III
+#
+#             ###################################################
+#           ======  D E M O N S T R A T I O N   S Y S T E M  ======
+#             ###################################################
+#
+# ############# An Efficient RSerPool Prototype Implementation #############
+#
+# RSPLIB System-Info system-info.d Script
 # Copyright (C) 2013-2025 by Thomas Dreibholz
 #
 # This program is free software: you can redistribute it and/or modify
@@ -18,65 +31,38 @@
 #
 # Contact: thomas.dreibholz@gmail.com
 
+# Bash options:
+set -eu
 
-# ###### Center text in console #############################################
-center ()
-{
-   local text="$1"
-   local length=${#text}
-   local width=`tput cols`   # Console width
-
-   let indent=(${width} - ${length})/2
-   if [ ${indent} -lt 0 ] ; then
-      indent=0
-   fi
-   printf "%${indent}s%s\n" "" "${text}"
-}
-
-
-# ###### Print centered separator in console ################################
-separator ()
-{
-   local separatorCharacter="="
-   local separator=""
-   local width=`tput cols`   # Console width
-   local separatorWidth
-
-   let separatorWidth=${width}-4
-   local i=0
-   while [ $i -lt ${separatorWidth} ] ; do
-      separator="${separator}${separatorCharacter}"
-      let i=$i+1
-   done
-   center "${separator}"
-}
+# Helper function library -> just return when it is not available.
+# Exit code 0 will let System-Info continue with the next script!
+# shellcheck disable=SC1091
+. "$(dirname "$0")/banner-helper" || exit 0
 
 
 # ====== Print banner =======================================================
 
 RSERPOOLDEMO_VERSION=""
 if [ -e /etc/simulamet/rserpooldemo-version ] ; then
-   RSERPOOLDEMO_VERSION=`cat /etc/simulamet/rserpooldemo-version`
+   RSERPOOLDEMO_VERSION="$(cat /etc/simulamet/rserpooldemo-version)"
 fi
 
 echo -en "\x1b[1;34m"
-separator
+separator "  " "═" "  "
 echo -en "\x1b[1;31m"
-center "######   #####  ######  #         ###   ###### "
-center "#     # #     # #     # #          #    #     #"
-center "#     # #       #     # #          #    #     #"
-center "######   #####  ######  #          #    ###### "
-center "#   #         # #       #          #    #     #"
-center "#    #  #     # #       #          #    #     #"
-center "#     #  #####  #       #######   ###   ###### "
+center " ____  ____  ____  _     ___ ____  "
+center "|  _ \/ ___||  _ \| |   |_ _| __ ) "
+center "| |_) \___ \| |_) | |    | ||  _ \ "
+center "|  _ < ___) |  __/| |___ | || |_) |"
+center "|_| \_\____/|_|   |_____|___|____/ "
 echo ""
-center "-- RSPLIB Project at the University of Duisburg-Essen --"
+center "◀◀◀ RSPLIB Project at the University of Duisburg-Essen ▶▶▶"
 echo -en "\x1b[1;34m"
 if [ "${RSERPOOLDEMO_VERSION}" != "" ] ; then
    echo ""
    center "${RSERPOOLDEMO_VERSION}"
 fi
-separator
+separator "  " "═" "  "
 echo -e "\x1b[0m"
 
 
