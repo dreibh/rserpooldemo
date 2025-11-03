@@ -59,7 +59,7 @@ cmake .
 make
 ```
 
-Note: The script [`ci/get-dependencies`](https://github.com/dreibh/rserpooldemo/blob/master/ci/get-dependencies) automatically  installs the build dependencies under Debian/Ubuntu Linux, Fedora Linux, and FreeBSD. For manual handling of the build dependencies, see the packaging configuration in [debian/control](https://github.com/dreibh/rserpooldemo/blob/master/debian/control) (Debian/Ubuntu Linux), [rserpooldemo.spec](https://github.com/dreibh/rserpooldemo/blob/master/rpm/rserpooldemo.spec) (Fedora Linux), and [Makefile](https://github.com/dreibh/rserpooldemo/blob/master/freebsd/rserpooldemo/Makefile) FreeBSD.
+Note: The script [`ci/get-dependencies`](https://github.com/dreibh/rserpooldemo/blob/master/ci/get-dependencies) automatically  installs the build dependencies under Debian/Ubuntu Linux, Fedora Linux, and FreeBSD. For manual handling of the build dependencies, see the packaging configuration in [`debian/control`](https://github.com/dreibh/rserpooldemo/blob/master/debian/control) (Debian/Ubuntu Linux), [`rserpooldemo.spec`](https://github.com/dreibh/rserpooldemo/blob/master/rpm/rserpooldemo.spec) (Fedora Linux), and [`Makefile`](https://github.com/dreibh/rserpooldemo/blob/master/freebsd/rserpooldemo/Makefile) FreeBSD.
 
 Contributions:
 
