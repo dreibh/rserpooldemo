@@ -84,7 +84,6 @@ Requires: (mlocate or plocate)
 Requires: net-snmp-utils
 Requires: net-tools
 Requires: nmap
-Requires: (ntpsec or ntpdate)
 Requires: pxz
 Requires: reprepro
 Requires: smartmontools
@@ -97,7 +96,6 @@ Requires: vconfig
 Requires: virt-what
 Requires: whois
 Recommends: netperfmeter
-Recommends: reiserfs-utils
 Recommends: rsplib-docs
 Recommends: rsplib-services
 Recommends: rsplib-tools
