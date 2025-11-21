@@ -1,9 +1,9 @@
-rserpooldemo (3.2.4~test0-1ubuntu1) oracular; urgency=medium
+rserpooldemo (3.2.4-1ubuntu1) oracular; urgency=medium
 
   * New upstream release.
   * Closes: #999549 (ITP).
 
- -- Thomas Dreibholz <thomas.dreibholz@gmail.com>  Thu, 09 Oct 2025 23:46:53 +0200
+ -- Thomas Dreibholz <thomas.dreibholz@gmail.com>  Fri, 21 Nov 2025 11:56:53 +0100
 
 rserpooldemo (3.2.3-1ubuntu1) oracular; urgency=medium
 

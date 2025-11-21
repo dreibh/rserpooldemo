@@ -1,3 +1,126 @@
+commit bc66a8b15420d9aeb74d7f1c9bf1795321d456b1
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Nov 20 13:25:25 2025 +0100
+
+    Dependency fixes.
+
+commit 8c0b36e1fff378e0b326445ee20c0f59506a30a7
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Nov 3 13:03:53 2025 +0100
+
+    Yet another documentation update.
+
+commit 66a41c96dffada9963a357c065a14873c8aa8ddf
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Nov 3 12:52:37 2025 +0100
+
+    Improved documentation.
+
+commit 6df0b3404e57e667cfebb7802b50e820b118111a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Oct 27 14:00:49 2025 +0100
+
+    Improved script.
+
+commit c5eba58ad6c2bd3f36125d06da5e6ddcdcbe326c
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Oct 27 13:51:47 2025 +0100
+
+    Another script update.
+
+commit 2174821f1b8a68603bc7c83c6c1ebe0f8d7f945d
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Oct 27 13:51:24 2025 +0100
+
+    Improved script.
+
+commit d3bac3caa31e2604cee4d8895d5b6db921c82a16
+Merge: f28d2c5 ffe2f98
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Oct 27 13:48:51 2025 +0100
+
+    Merge branch 'master' of github.com:dreibh/rserpooldemo
+
+commit f28d2c508f00000f0fcb7613273aa99b6732b14c
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Oct 27 13:47:48 2025 +0100
+
+    Improved script.
+
+commit ffe2f98e5d016658b35d00eca1b2d5acea4b3934
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Oct 14 20:25:40 2025 +0200
+
+    Minor update.
+
+commit 1be143998dc2a8131c322f4aff11649f929dc949
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Oct 13 21:43:48 2025 +0200
+
+    Minor documentation update.
+
+commit 3d766a5c20574b4732d38a1c6b84781f93552fe1
+Merge: 0615935 cc69c44
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Oct 13 20:40:00 2025 +0200
+
+    Merge branch 'master' of github.com:dreibh/rserpooldemo
+
+commit 061593504795f3f8faac5af724c31785b3841111
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Oct 13 20:18:29 2025 +0200
+
+    Improved documentation.
+
+commit cc69c44f9c50d35faefc59cc3f7c6c4f89d0315d
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Oct 10 11:59:14 2025 +0200
+
+    Dependency fix.
+
+commit 5803cf6a82ee07087d079bf1d1efeb76bba0b372
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Sep 29 15:03:27 2025 +0200
+
+    Improved scripts.
+
+commit 247359a1011bdd7fa682c3dced2c74923b95df6e
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Sep 29 14:50:51 2025 +0200
+
+    ShellCheck clean-ups.
+
+commit f95644bc8881b8cb4389d47581b89fae7ff17859
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Sep 28 16:12:06 2025 +0200
+
+    Updated background scripts.
+
+commit e379a94d82a23a32c6f064f36bff36ece68a92cb
+Merge: 98a9bbb 30c8cd9
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Sep 28 15:35:29 2025 +0200
+
+    Merge branch 'master' of github.com:dreibh/rserpooldemo
+
+commit 98a9bbbfeff374dc2b5c34ceae172bf01e5d0718
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Sep 28 15:33:49 2025 +0200
+
+    RPM spec update: S390x fails due to missing dependency Gimp. Excluding S390x until Gimp becomes available.
+
+commit 30c8cd97ca5631e2c9bfd5bdb976b797031931f3
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Sep 25 17:14:58 2025 +0200
+
+    FreeBSD packaging update.
+
+commit 921f85f7175ecd9be8f923e6b42550e9664fc35a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sun Sep 21 17:45:33 2025 +0200
+
+    New release rserpooldemo-3.2.3.
+
 commit 8e578336a85ca445140f8f1eb192dd19b9e9489b
 Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Sun Sep 21 14:59:01 2025 +0200
