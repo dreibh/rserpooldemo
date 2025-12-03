@@ -6,7 +6,7 @@ Homepage: https://www.nntb.no/~dreibh/rserpool/rserpool/
 Vcs-Git: https://github.com/dreibh/rserpooldemo.git
 Vcs-Browser: https://github.com/dreibh/rserpooldemo
 Build-Depends: cmake,
-               debhelper (>= 12),
+               debhelper-compat (= 13),
                fonts-dejavu,
                fonts-noto-cjk,
                fonts-noto-extra,
