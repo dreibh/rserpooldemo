@@ -12,7 +12,7 @@
 #
 # ############# An Efficient RSerPool Prototype Implementation #############
 #
-#   Copyright (C) 2002-2025 by Thomas Dreibholz
+#   Copyright (C) 2002-2026 by Thomas Dreibholz
 #
 #   Authors: Thomas Dreibholz, thomas.dreibholz@gmail.com
 #            Sebastian Rohde, rohde@iem.uni-due.de
@@ -37,7 +37,7 @@ PROJECT(rserpooldemo LANGUAGES CXX)
 
 SET(BUILD_MAJOR "3")
 SET(BUILD_MINOR "2")
-SET(BUILD_PATCH "5~rc1.1")
+SET(BUILD_PATCH "5~rc1.2")
 SET(BUILD_VERSION ${BUILD_MAJOR}.${BUILD_MINOR}.${BUILD_PATCH})
 
 

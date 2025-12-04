@@ -1,9 +1,9 @@
-rserpooldemo (3.2.5~rc1.1-1ubuntu1) resolute; urgency=medium
+rserpooldemo (3.2.5~rc1.2-1ubuntu1) resolute; urgency=medium
 
   * New upstream release.
   * Closes: #999549 (ITP).
 
- -- Thomas Dreibholz <thomas.dreibholz@gmail.com>  Fri, 28 Nov 2025 10:25:19 +0100
+ -- Thomas Dreibholz <thomas.dreibholz@gmail.com>  Fri, 28 Nov 2025 15:59:20 +0100
 
 rserpooldemo (3.2.4-1ubuntu1) oracular; urgency=medium
 
