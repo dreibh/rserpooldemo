@@ -28,6 +28,7 @@ BuildRequires: perl-Image-ExifTool
 BuildRequires: qt6-qtbase-devel
 BuildRequires: texlive-epstopdf-bin
 BuildRequires: urw-base35-fonts
+BuildRequires: util-linux
 BuildRoot: %{_tmppath}/%{name}-%{version}-build
 
 Requires: %{name}-tool
