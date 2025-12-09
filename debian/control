@@ -170,7 +170,8 @@ Description: Scenario configuration files for the RSerPool Demo system
  RSerPoolDemo tool!
 
 Package: rserpooldemo-tool
-Architecture: any
+# Gimp is not available for S390X:
+Architecture: amd64 arm64 armhf ppc64el riscv64
 Depends: rserpooldemo-management (>= ${source:Version}),
          rserpooldemo-scenario-cfgfiles (>= ${source:Version}),
          rsplib-fractalpooluser,
