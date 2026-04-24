@@ -33,8 +33,10 @@
 # Bash options:
 set -eu
 
-${MAKE_GLOSSYTEXT} "${OUTPUT}"   \
-   "RSPLIB"   1024               \
-   --bordersize 30               \
-   --colorscheme "Golden"        \
-   --font "Noto Sans Bold"
+${GS_GLOSSYTEXT} "${OUTPUT}"                  \
+   "RSPLIB"                                   \
+   --font-name              "Noto Sans Bold"  \
+   --font-size              1024              \
+   --outline-size           30                \
+   --blend-gradient-text    "Golden"          \
+   --blend-gradient-outline "Golden"

@@ -34,12 +34,15 @@
 set -eu
 
 # This year:
-THIS_YEAR=2025
+THIS_YEAR=2026   # "$(date +"%Y")"
 
 BASE_YEAR=2002
 years=$((THIS_YEAR-BASE_YEAR))
-${MAKE_GLOSSYTEXT} "${OUTPUT}"                                      \
-   "${years} Years of RSerPool — ${BASE_YEAR}–${THIS_YEAR}"   256   \
-   --bordersize 30                                                  \
-   --colorscheme "Golden"                                           \
-   --font "Noto Sans Regular"
+
+${GS_GLOSSYTEXT} "${OUTPUT}"                                \
+   "${years} Years of RSerPool — ${BASE_YEAR}–${THIS_YEAR}" \
+   --font-name              "Noto Sans Regular"             \
+   --font-size              256                             \
+   --outline-size           30                              \
+   --blend-gradient-text    "Golden"                        \
+   --blend-gradient-outline "Golden"

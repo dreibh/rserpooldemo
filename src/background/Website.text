@@ -33,8 +33,10 @@
 # Bash options:
 set -eu
 
-${MAKE_GLOSSYTEXT} "${OUTPUT}"   \
-   "Thomas Dreibholz's RSerPool Page — https://www.nntb.no/~dreibh/rserpool"   128   \
-   --bordersize 10        \
-   --colorscheme Golden   \
-   --font "Noto Sans SemiBold"
+${GS_GLOSSYTEXT} "${OUTPUT}"                                                 \
+   "Thomas Dreibholz's RSerPool Page — https://www.nntb.no/~dreibh/rserpool" \
+   --font-name             "Noto Sans SemiBold"                              \
+   --font-size              128                                              \
+   --outline-size           10                                               \
+   --blend-gradient-text    "Golden"                                         \
+   --blend-gradient-outline "Golden"
