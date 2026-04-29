@@ -1,3 +1,83 @@
+commit 767aacbbc4234a01d16eb80eab3b380f70044f8d
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Apr 29 08:54:18 2026 +0200
+
+    Updated CI configuration
+
+commit 4b0aa4925e7ff705bcd42c17f6e90af2d2c7a9e1
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Apr 29 08:54:06 2026 +0200
+
+    Set pipefail option in scripts.
+
+commit 1181b8024f0443cd41e5976de5c966346242a8fd
+Merge: d7160fe 7bb2b8f
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Apr 27 12:04:45 2026 +0200
+
+    Merge branch 'master' of github.com:dreibh/rserpooldemo
+
+commit 7bb2b8f93835b6ecbaf73ab545010e0eeeddb851
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Apr 25 20:10:14 2026 +0200
+
+    Updated GIMP scripts.
+
+commit 72cabd6e605469de0be9ef1be895dc11dedc6483
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Apr 25 20:08:01 2026 +0200
+
+    Updated build script.
+
+commit d3fcb68730e21fe1ae6e8e845bf66a23e9881bdd
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Apr 25 20:06:51 2026 +0200
+
+    Updated CI scripts
+
+commit d7160fe4761086e3f48fd98516aa94563e95be3c
+Merge: c71ef0e 4f786c4
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Apr 24 11:55:46 2026 +0200
+
+    Merge branch 'master' of github.com:dreibh/rserpooldemo
+
+commit 4f786c4ac075db1d0a8541f1082336d5e66a7f0a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Apr 23 19:56:36 2026 +0200
+
+    Updated background image scripts and build system.
+
+commit f652dad88fae9cd4af84a946d7247f6c4495e6ef
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Apr 23 19:39:50 2026 +0200
+
+    Updated CI scripts
+
+commit c71ef0e96162d0a4a0f3b70372ec3ea1675001df
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Mar 12 11:13:14 2026 +0100
+
+    Updated URLs.
+
+commit 364cd90ed33cc374289a84982896e998b2124d5e
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Dec 12 18:55:32 2025 +0100
+
+    Updated documentation.
+
+commit 802e01baf9776306a9066fcd01a502c08f0b7844
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Dec 10 09:40:51 2025 +0100
+
+    Updated FreeBSD port.
+
+commit 04f89535f32707d78f2e3592a35134bc74823f3e
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Dec 9 16:47:27 2025 +0100
+
+    New release rserpooldemo-3.2.5.
+
 commit 62bb10dbc26afa29495520dab624981381510d50
 Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Tue Dec 9 16:37:14 2025 +0100

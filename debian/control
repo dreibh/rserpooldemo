@@ -18,7 +18,7 @@ Build-Depends: cmake,
                libgl-dev,
                libimage-exiftool-perl,
                qt6-base-dev | qtbase5-dev
-Standards-Version: 4.7.2
+Standards-Version: 4.7.4
 Rules-Requires-Root: no
 
 Package: rserpooldemo-management
