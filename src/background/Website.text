@@ -31,7 +31,7 @@
 # * Contact: dreibh.iem.uni-due.de
 
 # Bash options:
-set -eu
+set -euo pipefail
 
 ${GS_GLOSSYTEXT} "${OUTPUT}"                                                 \
    "Thomas Dreibholz's RSerPool Page — https://www.nntb.no/~dreibh/rserpool" \

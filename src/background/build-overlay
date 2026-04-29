@@ -32,7 +32,7 @@
 #
 
 # Bash options:
-set -eu
+set -euo pipefail
 
 
 if [ $# -lt 4 ] ; then
