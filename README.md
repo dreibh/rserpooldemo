@@ -105,19 +105,6 @@ RSerPool Demo Tool/RSPLIB and related BibTeX entries can be found in [AllReferen
 
 # 🔗 Useful Links
 
-## RSerPool Introductions on Wikipedia in Different Languages
-
-* 🇧🇦 [Bosnian](https://bs.wikipedia.org/wiki/Reliable_Server_Pooling) (thanks to Nihad Cosić)
-* 🇨🇳 [Chinese](https://zh.wikipedia.org/wiki/Reliable_Server_Pooling) (thanks to Xing Zhou)
-* 🇭🇷 [Croatian](https://web.archive.org/web/20230709054321/https://hr.wikipedia.org/wiki/Reliable_server_Pooling) (thanks to Nihad Cosić)
-* 🇬🇧 [English](https://en.wikipedia.org/wiki/Reliable_server_pooling)
-* 🇫🇷 [French](https://fr.wikipedia.org/wiki/Reliable_Server_Pooling)
-* 🇩🇪 [German](https://de.wikipedia.org/wiki/Reliable_Server_Pooling) (thanks to Jobin Pulinthanath)
-* 🇮🇹 [Italian](https://it.wikipedia.org/wiki/Reliable_server_pooling)
-* 🇳🇴 [Norwegian (bokmål)](https://no.wikipedia.org/wiki/Reliable_Server_Pooling)
-
-What about helping Wikipedia by adding an article in your language?
-
 ## Networking and System Management Software
 
 * [Thomas Dreibholz's Reliable Server Pooling (RSerPool) Page](https://www.nntb.no/~dreibh/rserpool/)
