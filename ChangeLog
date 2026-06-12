@@ -1,3 +1,45 @@
+commit 0174811db000d1665236796f16a8ea947dc1c5fc
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jun 11 18:28:29 2026 +0200
+
+    Updated build helper script.
+
+commit da6bcab6f13efdea44d96f2be43664700d62ef71
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jun 11 18:28:21 2026 +0200
+
+    Updated CI configuration
+
+commit a32cd6f6269c98efa02158a2e96d1e296e7e9a2f
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jun 11 18:28:20 2026 +0200
+
+    Updated CI scripts
+
+commit 00992bc361081c582e965e08604954b3791f4674
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jun 11 13:19:40 2026 +0200
+
+    Improved documentation.
+
+commit 0f7c4bd9a2c651cab169355c666edc666dec3b7f
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jun 11 11:32:12 2026 +0200
+
+    Improved CMakeLists.txt.
+
+commit 03ba8785fa2b8de28e09c4d95a210f08d3592f6c
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Apr 29 17:37:49 2026 +0200
+
+    Updated workflow.
+
+commit f1e5ddeae49325faaf9e4319fca67ab957f4adfc
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Apr 29 14:34:29 2026 +0200
+
+    New release rserpooldemo-3.2.6.
+
 commit 767aacbbc4234a01d16eb80eab3b380f70044f8d
 Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Wed Apr 29 08:54:18 2026 +0200
