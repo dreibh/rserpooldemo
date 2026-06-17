@@ -25,11 +25,10 @@ BuildRequires: google-noto-sans-fonts
 BuildRequires: google-noto-serif-fonts
 BuildRequires: GraphicsMagick
 BuildRequires: perl-Image-ExifTool
-BuildRequires: qt6-qtbase-devel
+BuildRequires: (qt6-qtbase-devel or qt6-base-devel)
 BuildRequires: texlive-epstopdf-bin
 BuildRequires: urw-base35-fonts
 BuildRequires: util-linux
-BuildRoot: %{_tmppath}/%{name}-%{version}-build
 
 Requires: %{name}-tool
 Recommends: %{name}-desktop
@@ -238,6 +237,7 @@ See https://www.nntb.no/~dreibh/rserpool/ for details on RSerPool and the
 RSerPoolDemo tool!
 
 %files scenario-cfgfiles
+%dir %attr(0755, root, root) %{_datadir}/rserpooldemo
 %{_datadir}/rserpooldemo/graphics/*
 %{_datadir}/rserpooldemo/local-scenario/*
 %{_datadir}/rserpooldemo/nornet-mec-scenario/*
