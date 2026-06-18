@@ -35,14 +35,14 @@ set -euo pipefail
 # ###### Usage ##############################################################
 usage () {
    local exitCode="$1"
-   echo >&2 "Usage: $0 input_filename output_filename [-X|--blur-x value] [-Y|--blur-y value] [-A|--azimut bearing] [-E|--elevation bearing] [-D|--depth depth] [-w|--verbose] [-q|--quiet] [-h|--help] [-v|--version]"
+   echo >&2 "Usage: $0 input_filename output_filename [-X|--blur-x value] [-Y|--blur-y value] [-A|--azimuth bearing] [-E|--elevation bearing] [-D|--depth depth] [-w|--verbose] [-q|--quiet] [-h|--help] [-v|--version]"
    exit "${exitCode}"
 }
 
 
 # ###### Version ############################################################
 version () {
-   echo "gs-clothify @BUILD_MAJOR@.@BUILD_MINOR@.@BUILD_PATCH@"
+   echo "gs-clothify 2.7.5~rc0"
    exit 0
 }
 
@@ -51,9 +51,33 @@ version () {
 # ###### Main program #######################################################
 
 # ====== Handle arguments ===================================================
-GETOPT="$(PATH=/usr/local/bin:$PATH which getopt)"
-# shellcheck disable=SC2068
-options="$(${GETOPT} -o X:Y:A:E:D:wqhv --long blur-x:,blur-y:,azimut:,elevation:,depth:,verbose,quiet,help,version -a -- "$@")"
+if (( BASH_VERSINFO[0] < 4 )) || (( (BASH_VERSINFO[0] == 4) && (BASH_VERSINFO[1] < 2) )) ; then
+   echo "ERROR: Bash 4.2 or higher is required, but Bash ${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]} is installed!"
+   exit 1
+fi
+UNAME="$(uname)"
+case "${UNAME}" in
+   FreeBSD)
+      GETOPT="$(PATH="/usr/local/bin:${PATH}" command -v getopt)"
+      ;;
+   NetBSD)
+      GETOPT="$(PATH="/usr/pkg/bin:${PATH}" command -v getopt)"
+      ;;
+   OpenBSD)
+      GETOPT="$(command -v gnugetopt)"
+      ;;
+   Darwin)
+      GETOPT="$(env PATH="/opt/homebrew/opt/gnu-getopt/bin:${PATH}" command -v getopt)"
+      ;;
+   *)
+      GETOPT="$(command -v getopt)"
+      ;;
+esac
+if "${GETOPT}" -T >/dev/null 2>&1 || [[ $? -ne 4 ]]; then
+   echo >&2 "ERROR: Enhanced/GNU getopt is required!"
+   exit 1
+fi
+options="$(${GETOPT} -o X:Y:A:E:D:wqhv --long blur-x:,blur-y:,azimuth:,elevation:,depth:,verbose,quiet,help,version -a -- "$@")"
 # shellcheck disable=SC2181
 if [[ $? -ne 0 ]]; then
    usage 1
@@ -62,7 +86,7 @@ eval set -- "${options}"
 
 BLUR_X=3
 BLUR_Y=3
-AZIMUT=135.0
+AZIMUTH=135.0
 ELEVATION=45.0
 DEPTH=5
 VERBOSE=0
@@ -70,68 +94,69 @@ while [ $# -gt 0 ] ; do
    case "$1" in
       -X | --blur-x)
          BLUR_X="$2"
+         shift
          if [[ ! "${BLUR_X}" =~ ^[0-9]+$ ]] || [ "${BLUR_X}" -lt 3 ] || [ "${BLUR_X}" -gt 100 ] ; then
             echo >&2 "ERROR: Invalid value ${BLUR_X} for -X|--blur-x!"
             exit 1
          fi
-         shift 2
          ;;
       -Y | --blur-y)
          BLUR_Y="$2"
+         shift
          if [[ ! "${BLUR_Y}" =~ ^[0-9]+$ ]] || [ "${BLUR_Y}" -lt 3 ] || [ "${BLUR_Y}" -gt 100 ] ; then
             echo >&2 "ERROR: Invalid value ${BLUR_Y} for -Y|--blur-y!"
             exit 1
          fi
-         shift 2
          ;;
-      -A | --azimut)
-         AZIMUT="$2"
-         if [[ ! "${AZIMUT}" =~ ^([-]{0,1})([0-9]+|[0-9]*\.[0-9]+|[0-9]+\.[0-9]*)$  ]] || \
-            awk "BEGIN { exit ( ($AZIMUT < 0.0) || ($AZIMUT > 360.0) ? 0 : 1) }" ; then
-            echo >&2 "ERROR: Invalid value ${AZIMUT} for -A|--azimut!"
+      -A | --azimuth)
+         AZIMUTH="$2"
+         shift
+         if [[ ! "${AZIMUTH}" =~ ^([-]{0,1})([0-9]+|[0-9]*\.[0-9]+|[0-9]+\.[0-9]*)$  ]] || \
+            awk "BEGIN { exit ( ($AZIMUTH < 0.0) || ($AZIMUTH > 360.0) ? 0 : 1) }" ; then
+            echo >&2 "ERROR: Invalid value ${AZIMUTH} for -A|--azimuth!"
             exit 1
          fi
-         shift 2
          ;;
       -E | --elevation)
          ELEVATION="$2"
+         shift
          if [[ ! "${ELEVATION}" =~ ^([-]{0,1})([0-9]+|[0-9]*\.[0-9]+|[0-9]+\.[0-9]*)$  ]] || \
             awk "BEGIN { exit ( ($ELEVATION < 0.5) || ($ELEVATION > 90.0) ? 0 : 1) }" ; then
             echo >&2 "ERROR: Invalid value ${ELEVATION} for -E|--elevation!"
             exit 1
          fi
-         shift 2
          ;;
       -D | --depth)
+         DEPTH="$2"
+         shift
          if [[ ! "${DEPTH}" =~ ^[0-9]+$ ]] || [ "${DEPTH}" -lt 1 ] || [ "${DEPTH}" -gt 65 ] ; then
             echo >&2 "ERROR: Invalid value ${DEPTH} for -D|--depth!"
             exit 1
          fi
-         shift 2
          ;;
       -w | --verbose)
          VERBOSE=1
-         shift
          ;;
       -q | --quiet)
          VERBOSE=0
-         shift
          ;;
       -h | --help)
          usage 0
          ;;
       -v | --version)
          version
-         # shift
          ;;
       --)
          shift
          break
          ;;
       *)
-         usage 1
+         # This should not happen: wrong getopt parameters, or missing case?
+         echo >&2 "INTERNAL ERROR: Unhandled option $1!"
+         exit 1
          ;;
   esac
+  shift
 done
 
 if [ $# -ne 2 ] ; then
@@ -147,14 +172,17 @@ fi
 
 
 # ====== Detect GIMP, and determine version-specific call options ===========
-GIMP_CONSOLE="$(which gimp-console 2>/dev/null || true)"
+GIMP_CONSOLE="$(command -v gimp-console || command -v /Applications/GIMP.app/Contents/MacOS/gimp-console-3 || true)"
 if [ "${GIMP_CONSOLE}" == "" ] ; then
-   echo >&2 "ERROR: GIMP is not installed!"
-   echo >&2 "* Ubuntu:  sudo apt install -y gimp"
-   echo >&2 "* Fedora:  sudo dnf install -y gimp"
-   echo >&2 "* SuSE     sudo zypper install -y gimp"
-   echo >&2 "* Alpine:  sudo apk add gimp"
-   echo >&2 "* FreeBSD: sudo pkg install -y gimp3-app"
+   echo >&2 "ERROR: GIMP is not installed! Try:"
+   echo >&2 " * Ubuntu/Debian: sudo apt install -y gimp"
+   echo >&2 " * Fedora:        sudo dnf install -y gimp"
+   echo >&2 " * SuSE           sudo zypper install -y gimp"
+   echo >&2 " * Alpine:        sudo apk add gimp"
+   echo >&2 " * FreeBSD:       sudo pkg install -y gimp3-app"
+   echo >&2 " * NetBSD:        sudo pkgin -y install gimp"
+   echo >&2 " * OpenBSD:       sudo pkg_add gimp"
+   echo >&2 " * Apple:         brew install gimp"
    exit 1
 fi
 GIMP_VERSION="$(LC_ALL=C.UTF-8 "${GIMP_CONSOLE}" --version | sed -e 's/GNU Image Manipulation Program version //')"
@@ -167,7 +195,7 @@ else
 fi
 
 # This script does not use fonts, or gradients/palettes/brushes:
-GIMP_OPTIONS="${GIMP_OPTIONS} --no-fonts --no-data"
+GIMP_OPTIONS="${GIMP_OPTIONS} --no-fonts"
 
 
 # ====== Call GIMP ==========================================================
@@ -176,26 +204,26 @@ rm -f "${OUTPUT_FILENAME}"
 ( cat <<EOF
 (let*
    ; ------ Initialise and load image ---------------------------------------
-   ((inputFileName    "${INPUT_FILENAME}")
-    (outputFileName   "${OUTPUT_FILENAME}")
-    (blurX            ${BLUR_X})
-    (blurY            ${BLUR_Y})
-    (azimut           ${AZIMUT})
-    (elevation        ${ELEVATION})
-    (depth            ${DEPTH})
-    (image            (car (gimp-file-load RUN-NONINTERACTIVE inputFileName inputFileName)))
-    (imageType        (if (not (defined? 'gimp-image-get-active-layer))
-                         ; New GIMP 3.0 API:
-                         (car (gimp-image-get-base-type image))
-                         ; Old GIMP 2.x API:
-                         (car (gimp-image-base-type image)))
-                      )
-    (layer            (if (not (defined? 'gimp-image-get-active-layer))
-                         ; New GIMP 3.0 API:
-                         (car (list (vector-ref (car (gimp-image-get-selected-layers image)) 0)))
-                         ; Old GIMP 2.x API:
-                         (car (gimp-image-get-active-layer image)))
-                      )
+   ((inputFileName  "${INPUT_FILENAME}")
+    (outputFileName "${OUTPUT_FILENAME}")
+    (blurX          ${BLUR_X})
+    (blurY          ${BLUR_Y})
+    (azimuth        ${AZIMUTH})
+    (elevation      ${ELEVATION})
+    (depth          ${DEPTH})
+    (image          (car (gimp-file-load RUN-NONINTERACTIVE inputFileName inputFileName)))
+    (imageType      (if (not (defined? 'gimp-image-get-active-layer))
+                       ; New GIMP 3.0 API:
+                       (car (gimp-image-get-base-type image))
+                       ; Old GIMP 2.x API:
+                       (car (gimp-image-base-type image)))
+                    )
+    (layer          (if (not (defined? 'gimp-image-get-active-layer))
+                       ; New GIMP 3.0 API:
+                       (car (list (vector-ref (car (gimp-image-get-selected-layers image)) 0)))
+                       ; Old GIMP 2.x API:
+                       (car (gimp-image-get-active-layer image)))
+                    )
    )
 
    ; ------ Apply filter ----------------------------------------------------
@@ -205,11 +233,11 @@ rm -f "${OUTPUT_FILENAME}"
 
    (cond( (not(defined? 'plug-in-bump-map))
       ; New GIMP 3.0 API:
-      (script-fu-clothify image (vector layer) blurX blurY azimut elevation depth)
+      (script-fu-clothify image (vector layer) blurX blurY azimuth elevation depth)
    )
    (else
       ; Old GIMP 2.x API:
-      (script-fu-clothify image layer blurX blurY azimut elevation depth)
+      (script-fu-clothify image layer blurX blurY azimuth elevation depth)
    ))
 
    ; ------ Save result -----------------------------------------------------
@@ -252,7 +280,7 @@ EOF
    if [ ${VERBOSE} -ne 0 ] ; then
       cat
    else
-      grep -vE "^ts>|(#t)|^Copyright|Welcome to (GIMP|TinyScheme)|^using gegl copy|^gimp_color_transform_new: using babl|scriptfu-WARNING|-WARNING|^Please use named arguments:|^script quit with code:|^$" || true
+      grep -vE "^ts>|(#t)|^Copyright|Welcome to (GIMP|TinyScheme)|^using gegl copy|^gimp_color_transform_new: using babl|scriptfu-WARNING|-WARNING|^Warning: Unknown input_id|^Failed to parse tag cache|^Please use named arguments:|^script quit with code:|^$" || true
    fi
 )
 

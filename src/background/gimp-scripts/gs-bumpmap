@@ -35,14 +35,14 @@ set -euo pipefail
 # ###### Usage ##############################################################
 usage () {
    local exitCode="$1"
-   echo >&2 "Usage: $0 input_filename output_filename [-C|--compensate-darkening on|off] [-I|--invert on|off] [-T|--tiled on|off] [-A|--azimut bearing] [-E|--elevation bearing] [-D|--depth depth] [-X|--offset-x value] [-Y|--offset-y value] [-W|--waterlevel level] [-B|--ambient factor] [-H|--hue-range all|red|yellow|green|cyan|blue|magenta] [-O|--hue-offset degrees] [-L|--lightness adjustment] [-S|--saturation adjustment] [-V|--overlap overlap] [-w|--verbose] [-q|--quiet] [-h|--help] [-v|--version]"
+   echo >&2 "Usage: $0 input_filename output_filename [-C|--compensate-darkening on|off] [-I|--invert on|off] [-T|--tiled on|off] [-A|--azimuth bearing] [-E|--elevation bearing] [-D|--depth depth] [-X|--offset-x value] [-Y|--offset-y value] [-W|--waterlevel level] [-B|--ambient factor] [-H|--hue-range all|red|yellow|green|cyan|blue|magenta] [-O|--hue-offset degrees] [-L|--lightness adjustment] [-S|--saturation adjustment] [-V|--overlap overlap] [-w|--verbose] [-q|--quiet] [-h|--help] [-v|--version]"
    exit "${exitCode}"
 }
 
 
 # ###### Version ############################################################
 version () {
-   echo "gs-bumpmap @BUILD_MAJOR@.@BUILD_MINOR@.@BUILD_PATCH@"
+   echo "gs-bumpmap 2.7.5~rc0"
    exit 0
 }
 
@@ -51,9 +51,33 @@ version () {
 # ###### Main program #######################################################
 
 # ====== Handle arguments ===================================================
-GETOPT="$(PATH=/usr/local/bin:$PATH which getopt)"
-# shellcheck disable=SC2068
-options="$(${GETOPT} -o C:I:T:A:E:D:X:Y:W:B:H:O:L:S:V:wqhv --long compensate-darkening:,invert:,tiled:,azimut:,elevation:,depth:,offset-x:,offset-y:,waterlevel:,ambient:,hue-range:,hue-offset:,lightness:,saturation:,overlap:,verbose,quiet,help,version -a -- "$@")"
+if (( BASH_VERSINFO[0] < 4 )) || (( (BASH_VERSINFO[0] == 4) && (BASH_VERSINFO[1] < 2) )) ; then
+   echo "ERROR: Bash 4.2 or higher is required, but Bash ${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]} is installed!"
+   exit 1
+fi
+UNAME="$(uname)"
+case "${UNAME}" in
+   FreeBSD)
+      GETOPT="$(PATH="/usr/local/bin:${PATH}" command -v getopt)"
+      ;;
+   NetBSD)
+      GETOPT="$(PATH="/usr/pkg/bin:${PATH}" command -v getopt)"
+      ;;
+   OpenBSD)
+      GETOPT="$(command -v gnugetopt)"
+      ;;
+   Darwin)
+      GETOPT="$(env PATH="/opt/homebrew/opt/gnu-getopt/bin:${PATH}" command -v getopt)"
+      ;;
+   *)
+      GETOPT="$(command -v getopt)"
+      ;;
+esac
+if "${GETOPT}" -T >/dev/null 2>&1 || [[ $? -ne 4 ]]; then
+   echo >&2 "ERROR: Enhanced/GNU getopt is required!"
+   exit 1
+fi
+options="$(${GETOPT} -o C:I:T:A:E:D:X:Y:W:B:H:O:L:S:V:wqhv --long compensate-darkening:,invert:,tiled:,azimuth:,elevation:,depth:,offset-x:,offset-y:,waterlevel:,ambient:,hue-range:,hue-offset:,lightness:,saturation:,overlap:,verbose,quiet,help,version -a -- "$@")"
 # shellcheck disable=SC2181
 if [[ $? -ne 0 ]]; then
    usage 1
@@ -73,7 +97,7 @@ declare -A hueRanges=(
 COMPENSATE="TRUE"
 INVERT="FALSE"
 TILED="FALSE"
-AZIMUT=135.0
+AZIMUTH=135.0
 ELEVATION=45.0
 DEPTH=20
 OFFSET_X=0
@@ -89,166 +113,171 @@ VERBOSE=0
 while [ $# -gt 0 ] ; do
    case "$1" in
       -C | --compensate-darkening)
-         if [[ "$2" =~ ^(on|ON|true|TRUE|yes|YES|1)$ ]] ; then
+         COMPENSATE="$2"
+         shift
+         if [[ "${COMPENSATE}" =~ ^(on|ON|true|TRUE|yes|YES|1)$ ]] ; then
             COMPENSATE="TRUE"
-         elif [[ "$2" =~ ^(off|OFF|false|FALSE|no|NO|0)$ ]] ; then
+         elif [[ "${COMPENSATE}" =~ ^(off|OFF|false|FALSE|no|NO|0)$ ]] ; then
             COMPENSATE="FALSE"
          else
-            echo >&2 "ERROR: Invalid value $2 for -C|--compensate-darkening!"
+            echo >&2 "ERROR: Invalid value ${COMPENSATE} for -C|--compensate-darkening!"
             exit 1
          fi
-         shift 2
          ;;
       -I | --invert)
-         if [[ "$2" =~ ^(on|ON|true|TRUE|yes|YES|1)$ ]] ; then
-            TILED="TRUE"
-         elif [[ "$2" =~ ^(off|OFF|false|FALSE|no|NO|0)$ ]] ; then
-            TILED="FALSE"
+         INVERT="$2"
+         shift
+         if [[ "${INVERT}" =~ ^(on|ON|true|TRUE|yes|YES|1)$ ]] ; then
+            INVERT="TRUE"
+         elif [[ "${INVERT}" =~ ^(off|OFF|false|FALSE|no|NO|0)$ ]] ; then
+            INVERT="FALSE"
          else
-            echo >&2 "ERROR: Invalid value $2 for -I|--invert!"
+            echo >&2 "ERROR: Invalid value ${INVERT} for -I|--invert!"
             exit 1
          fi
-         shift 2
          ;;
       -T | --tiled)
-         if [[ "$2" =~ ^(on|ON|true|TRUE|yes|YES|1)$ ]] ; then
+         TILED="$2"
+         shift
+         if [[ "${TILED}" =~ ^(on|ON|true|TRUE|yes|YES|1)$ ]] ; then
             TILED="TRUE"
-         elif [[ "$2" =~ ^(off|OFF|false|FALSE|no|NO|0)$ ]] ; then
+         elif [[ "${TILED}" =~ ^(off|OFF|false|FALSE|no|NO|0)$ ]] ; then
             TILED="FALSE"
          else
-            echo >&2 "ERROR: Invalid value $2 for -T|--tiled!"
+            echo >&2 "ERROR: Invalid value ${TILED} for -T|--tiled!"
             exit 1
          fi
-         shift 2
          ;;
-      -A | --azimut)
-         AZIMUT="$2"
-         if [[ ! "${AZIMUT}" =~ ^([-]{0,1})([0-9]+|[0-9]*\.[0-9]+|[0-9]+\.[0-9]*)$ ]] || \
-            awk "BEGIN { exit ( ($AZIMUT < 0.0) || ($AZIMUT > 360.0) ? 0 : 1) }" ; then
-            echo >&2 "ERROR: Invalid value ${AZIMUT} for -A|--azimut!"
+      -A | --azimuth)
+         AZIMUTH="$2"
+         shift
+         if [[ ! "${AZIMUTH}" =~ ^([-]{0,1})([0-9]+|[0-9]*\.[0-9]+|[0-9]+\.[0-9]*)$ ]] || \
+            awk "BEGIN { exit ( ($AZIMUTH < 0.0) || ($AZIMUTH > 360.0) ? 0 : 1) }" ; then
+            echo >&2 "ERROR: Invalid value ${AZIMUTH} for -A|--azimuth!"
             exit 1
          fi
-         shift 2
          ;;
       -E | --elevation)
          ELEVATION="$2"
+         shift
          if [[ ! "${ELEVATION}" =~ ^([-]{0,1})([0-9]+|[0-9]*\.[0-9]+|[0-9]+\.[0-9]*)$  ]] || \
             awk "BEGIN { exit ( ($ELEVATION < 0.5) || ($ELEVATION > 90.0) ? 0 : 1) }" ; then
             echo >&2 "ERROR: Invalid value ${ELEVATION} for -E|--elevation!"
             exit 1
          fi
-         shift 2
          ;;
       -D | --depth)
+         DEPTH="$2"
+         shift
          if [[ ! "${DEPTH}" =~ ^[0-9]+$ ]] || [ "${DEPTH}" -lt 1 ] || [ "${DEPTH}" -gt 65 ] ; then
             echo >&2 "ERROR: Invalid value ${DEPTH} for -D|--depth!"
             exit 1
          fi
-         shift 2
          ;;
       -X | --offset-x)
          OFFSET_X="$2"
+         shift
          if [[ ! "${OFFSET_X}" =~ ^[0-9]+$ ]] || [ "${OFFSET_X}" -lt -20000 ] || [ "${OFFSET_X}" -gt 20000 ] ; then
             echo >&2 "ERROR: Invalid value ${OFFSET_X} for -X|--offset-x!"
             exit 1
          fi
-         shift 2
          ;;
       -Y | --offset-y)
          OFFSET_Y="$2"
+         shift
          if [[ ! "${OFFSET_Y}" =~ ^[0-9]+$ ]] || [ "${OFFSET_Y}" -lt -20000 ] || [ "${OFFSET_Y}" -gt 20000 ] ; then
             echo >&2 "ERROR: Invalid value ${OFFSET_Y} for -Y|--offset-y!"
             exit 1
          fi
-         shift 2
          ;;
       -W | --waterlevel)
          WATERLEVEL="$2"
+         shift
          if [[ ! "${WATERLEVEL}" =~ ^([-]{0,1})([0-9]+|[0-9]*\.[0-9]+|[0-9]+\.[0-9]*)$  ]] || \
             awk "BEGIN { exit ( ($WATERLEVEL < 0.0) || ($WATERLEVEL > 1.0) ? 0 : 1) }" ; then
             echo >&2 "ERROR: Invalid value ${WATERLEVEL} for -W|--waterlevel!"
             exit 1
          fi
-         shift 2
          ;;
       -B | --ambient)
          AMBIENT="$2"
+         shift
          if [[ ! "${AMBIENT}" =~ ^([-]{0,1})([0-9]+|[0-9]*\.[0-9]+|[0-9]+\.[0-9]*)$  ]] || \
             awk "BEGIN { exit ( ($AMBIENT < 0.0) || ($AMBIENT > 1.0) ? 0 : 1) }" ; then
             echo >&2 "ERROR: Invalid value ${AMBIENT} for -B|--ambient!"
             exit 1
          fi
-         shift 2
          ;;
 
       -H | --hue-range)
-         if [[ ! -v hueRanges["$2"] ]] ; then
-            echo >&2 "ERROR: Invalid value $2 for -H|--hue-range!"
+         HUE_RANGE="$2"
+         shift
+         if [[ ! -v hueRanges["${HUE_RANGE}"] ]] ; then
+            echo >&2 "ERROR: Invalid value ${HUE_RANGE} for -H|--hue-range!"
             exit 1
          fi
-         HUE_RANGE="${hueRanges[$2]}"
-         shift 2
+         HUE_RANGE="${hueRanges["${HUE_RANGE}"]}"
          ;;
       -O | --hue-offset)
          HUE_OFFSET="$2"
+         shift
          if [[ ! "${HUE_OFFSET}" =~ ^([-]{0,1})([0-9]+|[0-9]*\.[0-9]+|[0-9]+\.[0-9]*)$  ]] || \
             awk "BEGIN { exit ( ($HUE_OFFSET < -180.0) || ($HUE_OFFSET > 180.0) ? 0 : 1) }" ; then
             echo >&2 "ERROR: Invalid value ${HUE_OFFSET} for -O|--hue-offset!"
             exit 1
          fi
-         shift 2
          ;;
       -L | --lightness)
          LIGHTNESS="$2"
+         shift
          if [[ ! "${LIGHTNESS}" =~ ^([-]{0,1})([0-9]+|[0-9]*\.[0-9]+|[0-9]+\.[0-9]*)$  ]] || \
             awk "BEGIN { exit ( ($LIGHTNESS < -100.0) || ($LIGHTNESS > 100.0) ? 0 : 1) }" ; then
             echo >&2 "ERROR: Invalid value ${LIGHTNESS} for -L|--lightness!"
             exit 1
          fi
-         shift 2
          ;;
       -S | --saturation)
          SATURATION="$2"
+         shift
          if [[ ! "${SATURATION}" =~ ^([-]{0,1})([0-9]+|[0-9]*\.[0-9]+|[0-9]+\.[0-9]*)$  ]] || \
             awk "BEGIN { exit ( ($SATURATION < -100.0) || ($SATURATION > 100.0) ? 0 : 1) }" ; then
             echo >&2 "ERROR: Invalid value ${SATURATION} for -S|--saturation!"
             exit 1
          fi
-         shift 2
          ;;
       -V | --overlap)
          OVERLAP="$2"
+         shift
          if [[ ! "${OVERLAP}" =~ ^([-]{0,1})([0-9]+|[0-9]*\.[0-9]+|[0-9]+\.[0-9]*)$  ]] || \
             awk "BEGIN { exit ( ($OVERLAP < 0.0) || ($OVERLAP > 100.0) ? 0 : 1) }" ; then
             echo >&2 "ERROR: Invalid value ${OVERLAP} for -V|--overlap!"
             exit 1
          fi
-         shift 2
          ;;
 
       -w | --verbose)
          VERBOSE=1
-         shift
          ;;
       -q | --quiet)
          VERBOSE=0
-         shift
          ;;
       -h | --help)
          usage 0
          ;;
       -v | --version)
          version
-         # shift
          ;;
       --)
          shift
          break
          ;;
       *)
-         usage 1
+         # This should not happen: wrong getopt parameters, or missing case?
+         echo >&2 "INTERNAL ERROR: Unhandled option $1!"
+         exit 1
          ;;
   esac
+  shift
 done
 
 if [ $# -ne 2 ] ; then
@@ -264,14 +293,17 @@ fi
 
 
 # ====== Detect GIMP, and determine version-specific call options ===========
-GIMP_CONSOLE="$(which gimp-console 2>/dev/null || true)"
+GIMP_CONSOLE="$(command -v gimp-console || command -v /Applications/GIMP.app/Contents/MacOS/gimp-console-3 || true)"
 if [ "${GIMP_CONSOLE}" == "" ] ; then
-   echo >&2 "ERROR: GIMP is not installed!"
-   echo >&2 "* Ubuntu:  sudo apt install -y gimp"
-   echo >&2 "* Fedora:  sudo dnf install -y gimp"
-   echo >&2 "* SuSE     sudo zypper install -y gimp"
-   echo >&2 "* Alpine:  sudo apk add gimp"
-   echo >&2 "* FreeBSD: sudo pkg install -y gimp3-app"
+   echo >&2 "ERROR: GIMP is not installed! Try:"
+   echo >&2 " * Ubuntu/Debian: sudo apt install -y gimp"
+   echo >&2 " * Fedora:        sudo dnf install -y gimp"
+   echo >&2 " * SuSE           sudo zypper install -y gimp"
+   echo >&2 " * Alpine:        sudo apk add gimp"
+   echo >&2 " * FreeBSD:       sudo pkg install -y gimp3-app"
+   echo >&2 " * NetBSD:        sudo pkgin -y install gimp"
+   echo >&2 " * OpenBSD:       sudo pkg_add gimp"
+   echo >&2 " * Apple:         brew install gimp"
    exit 1
 fi
 GIMP_VERSION="$(LC_ALL=C.UTF-8 "${GIMP_CONSOLE}" --version | sed -e 's/GNU Image Manipulation Program version //')"
@@ -284,7 +316,7 @@ else
 fi
 
 # This script does not use fonts, or gradients/palettes/brushes:
-GIMP_OPTIONS="${GIMP_OPTIONS} --no-fonts --no-data"
+GIMP_OPTIONS="${GIMP_OPTIONS} --no-fonts"
 
 
 # ====== Call GIMP ==========================================================
@@ -293,36 +325,36 @@ rm -f "${OUTPUT_FILENAME}"
 ( cat <<EOF
 (let*
    ; ------ Initialise and load image ---------------------------------------
-   ((inputFileName    "${INPUT_FILENAME}")
-    (outputFileName   "${OUTPUT_FILENAME}")
-    (azimut           ${AZIMUT})
-    (elevation        ${ELEVATION})
-    (depth            ${DEPTH})
-    (offsetX          ${OFFSET_X})
-    (offsetY          ${OFFSET_Y})
-    (waterlevel       ${WATERLEVEL})
-    (ambient          ${AMBIENT})
-    (compensate       ${COMPENSATE})
-    (invert           ${INVERT})
-    (tiled            ${TILED})
-    (hueRange         ${HUE_RANGE})
-    (hueOffset        ${HUE_OFFSET})
-    (lightness        ${LIGHTNESS})
-    (saturation       ${SATURATION})
-    (overlap          ${OVERLAP})
-    (image            (car (gimp-file-load RUN-NONINTERACTIVE inputFileName inputFileName)))
-    (imageType        (if (not (defined? 'gimp-image-get-active-layer))
-                         ; New GIMP 3.0 API:
-                         (car (gimp-image-get-base-type image))
-                         ; Old GIMP 2.x API:
-                         (car (gimp-image-base-type image)))
-                      )
-    (layer            (if (not (defined? 'gimp-image-get-active-layer))
-                         ; New GIMP 3.0 API:
-                         (car (list (vector-ref (car (gimp-image-get-selected-layers image)) 0)))
-                         ; Old GIMP 2.x API:
-                         (car (gimp-image-get-active-layer image)))
-                      )
+   ((inputFileName  "${INPUT_FILENAME}")
+    (outputFileName "${OUTPUT_FILENAME}")
+    (azimuth        ${AZIMUTH})
+    (elevation      ${ELEVATION})
+    (depth          ${DEPTH})
+    (offsetX        ${OFFSET_X})
+    (offsetY        ${OFFSET_Y})
+    (waterlevel     ${WATERLEVEL})
+    (ambient        ${AMBIENT})
+    (compensate     ${COMPENSATE})
+    (invert         ${INVERT})
+    (tiled          ${TILED})
+    (hueRange       ${HUE_RANGE})
+    (hueOffset      ${HUE_OFFSET})
+    (lightness      ${LIGHTNESS})
+    (saturation     ${SATURATION})
+    (overlap        ${OVERLAP})
+    (image          (car (gimp-file-load RUN-NONINTERACTIVE inputFileName inputFileName)))
+    (imageType      (if (not (defined? 'gimp-image-get-active-layer))
+                       ; New GIMP 3.0 API:
+                       (car (gimp-image-get-base-type image))
+                       ; Old GIMP 2.x API:
+                       (car (gimp-image-base-type image)))
+                    )
+    (layer          (if (not (defined? 'gimp-image-get-active-layer))
+                       ; New GIMP 3.0 API:
+                       (car (list (vector-ref (car (gimp-image-get-selected-layers image)) 0)))
+                       ; Old GIMP 2.x API:
+                       (car (gimp-image-get-active-layer image)))
+                    )
    )
 
    ; ------ Apply filter ----------------------------------------------------
@@ -341,7 +373,7 @@ rm -f "${OUTPUT_FILENAME}"
    (if (defined? 'gimp-drawable-merge-new-filter)
       (begin  ; New GIMP >= 3.0 API:
         (gimp-drawable-merge-new-filter layer "gegl:bump-map" 0 LAYER-MODE-REPLACE 1.0
-            "azimuth"    azimut
+            "azimuth"    azimuth
             "elevation"  elevation
             "depth"      depth
             "offset-x"   offsetX
@@ -356,7 +388,7 @@ rm -f "${OUTPUT_FILENAME}"
       )
       (begin  ; Old GIMP < 3.0 API:
          (plug-in-bump-map RUN-NONINTERACTIVE image layer layer
-           azimut elevation depth
+           azimuth elevation depth
            offsetX offsetY waterlevel ambient
            compensate invert tiled)
       )
@@ -414,7 +446,7 @@ EOF
    if [ ${VERBOSE} -ne 0 ] ; then
       cat
    else
-      grep -vE "^ts>|(#t)|^Copyright|Welcome to (GIMP|TinyScheme)|^using gegl copy|^gimp_color_transform_new: using babl|scriptfu-WARNING|-WARNING|^Please use named arguments:|^script quit with code:|^$" || true
+      grep -vE "^ts>|(#t)|^Copyright|Welcome to (GIMP|TinyScheme)|^using gegl copy|^gimp_color_transform_new: using babl|scriptfu-WARNING|-WARNING|^Warning: Unknown input_id|^Failed to parse tag cache|^Please use named arguments:|^script quit with code:|^$" || true
    fi
 )
 

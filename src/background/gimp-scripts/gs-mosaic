@@ -42,7 +42,7 @@ usage () {
 
 # ###### Version ############################################################
 version () {
-   echo "gs-mosaic @BUILD_MAJOR@.@BUILD_MINOR@.@BUILD_PATCH@"
+   echo "gs-mosaic 2.7.5~rc0"
    exit 0
 }
 
@@ -51,8 +51,32 @@ version () {
 # ###### Main program #######################################################
 
 # ====== Handle arguments ===================================================
-GETOPT="$(PATH=/usr/local/bin:$PATH which getopt)"
-# shellcheck disable=SC2068
+if (( BASH_VERSINFO[0] < 4 )) || (( (BASH_VERSINFO[0] == 4) && (BASH_VERSINFO[1] < 2) )) ; then
+   echo "ERROR: Bash 4.2 or higher is required, but Bash ${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]} is installed!"
+   exit 1
+fi
+UNAME="$(uname)"
+case "${UNAME}" in
+   FreeBSD)
+      GETOPT="$(PATH="/usr/local/bin:${PATH}" command -v getopt)"
+      ;;
+   NetBSD)
+      GETOPT="$(PATH="/usr/pkg/bin:${PATH}" command -v getopt)"
+      ;;
+   OpenBSD)
+      GETOPT="$(command -v gnugetopt)"
+      ;;
+   Darwin)
+      GETOPT="$(env PATH="/opt/homebrew/opt/gnu-getopt/bin:${PATH}" command -v getopt)"
+      ;;
+   *)
+      GETOPT="$(command -v getopt)"
+      ;;
+esac
+if "${GETOPT}" -T >/dev/null 2>&1 || [[ $? -ne 4 ]]; then
+   echo >&2 "ERROR: Enhanced/GNU getopt is required!"
+   exit 1
+fi
 options="$(${GETOPT} -o T:S:H:N:F:X:I:C:G:A:L:wqhv --long tile-type:,tile-size:,tile-height:,tile-neatness:,tile-surface:,tile-spacing:,tile-allow-split:,color-variation:,color-averaging:,antialiasing:,light-direction:,verbose,quiet,help,version -a -- "$@")"
 # shellcheck disable=SC2181
 if [[ $? -ne 0 ]]; then
@@ -77,6 +101,7 @@ while [ $# -gt 0 ] ; do
    case "$1" in
       -T | --tile-type)
          TILE_TYPESTRING="$2"
+         shift
          if [ "${TILE_TYPESTRING}" = "squares" ] ; then
             TILE_TYPE=0
          elif [ "${TILE_TYPESTRING}" = "hexagons" ] ; then
@@ -89,129 +114,132 @@ while [ $# -gt 0 ] ; do
             echo >&2 "ERROR: Invalid value ${TILE_TYPESTRING} for -T|--tile-type!"
             exit 1
          fi
-         shift 2
          ;;
       -S | --tile-size)
          TILE_SIZE="$2"
+         shift
          if [[ ! "${TILE_SIZE}" =~ ^([-]{0,1})([0-9]+|[0-9]*\.[0-9]+|[0-9]+\.[0-9]*)$  ]] || \
             awk "BEGIN { exit ( ($TILE_SIZE < 1.0) || ($TILE_SIZE > 1000.0) ? 0 : 1) }" ; then
             echo >&2 "ERROR: Invalid value ${TILE_SIZE} for -S|--tile-size!"
             exit 1
          fi
-         shift 2
          ;;
       -H | --tile-height)
          TILE_HEIGHT="$2"
+         shift
          if [[ ! "${TILE_HEIGHT}" =~ ^([-]{0,1})([0-9]+|[0-9]*\.[0-9]+|[0-9]+\.[0-9]*)$  ]] || \
             awk "BEGIN { exit ( ($TILE_HEIGHT < 1.0) || ($TILE_HEIGHT > 1000.0) ? 0 : 1) }" ; then
             echo >&2 "ERROR: Invalid value ${TILE_HEIGHT} for -H|--tile-height!"
             exit 1
          fi
-         shift 2
          ;;
       -N | --tile-neatness)
          TILE_NEATNESS="$2"
+         shift
          if [[ ! "${TILE_NEATNESS}" =~ ^([-]{0,1})([0-9]+|[0-9]*\.[0-9]+|[0-9]+\.[0-9]*)$  ]] || \
             awk "BEGIN { exit ( ($TILE_NEATNESS < 0.0) || ($TILE_NEATNESS > 1.0) ? 0 : 1) }" ; then
             echo >&2 "ERROR: Invalid value ${TILE_NEATNESS} for -N|--tile-neatness!"
             exit 1
          fi
-         shift 2
          ;;
       -F | --tile-surface)
-         if [ "$2" == "smooth" ] ; then
+         TILE_SURFACE="$2"
+         shift
+         if [ "${TILE_SURFACE}" == "smooth" ] ; then
             TILE_SURFACE="FALSE"
-         elif [ "$2" == "rough" ] ; then
+         elif [ "${TILE_SURFACE}" == "rough" ] ; then
             TILE_SURFACE="TRUE"
          else
             echo >&2 "ERROR: Invalid value ${TILE_SURFACE} for -F|--tile-surface!"
             exit 1
          fi
-         shift 2
          ;;
       -I | --tile-allow-split)
-         if [[ "$2" =~ ^(on|ON|true|TRUE|yes|YES|1)$ ]] ; then
+         TILE_ALLOW_SPLIT="$2"
+         shift
+         if [[ "${TILE_ALLOW_SPLIT}" =~ ^(on|ON|true|TRUE|yes|YES|1)$ ]] ; then
             TILE_ALLOW_SPLIT="TRUE"
-         elif [[ "$2" =~ ^(off|OFF|false|FALSE|no|NO|0)$ ]] ; then
+         elif [[ "${TILE_ALLOW_SPLIT}" =~ ^(off|OFF|false|FALSE|no|NO|0)$ ]] ; then
             TILE_ALLOW_SPLIT="FALSE"
          else
-            echo >&2 "ERROR: Invalid value $2 for -I|--tile-allow-split!"
+            echo >&2 "ERROR: Invalid value ${TILE_ALLOW_SPLIT} for -I|--tile-allow-split!"
             exit 1
          fi
-         shift 2
          ;;
       -X | --tile-spacing)
          TILE_SPACING="$2"
+         shift
          if [[ ! "${TILE_SPACING}" =~ ^([-]{0,1})([0-9]+|[0-9]*\.[0-9]+|[0-9]+\.[0-9]*)$  ]] || \
             awk "BEGIN { exit ( ($TILE_SPACING < 0.0) || ($TILE_SPACING > 1000.0) ? 0 : 1) }" ; then
             echo >&2 "ERROR: Invalid value ${TILE_SPACING} for -X|--tile-spacing!"
             exit 1
          fi
-         shift 2
          ;;
       -C | --color-variation)
          COLOR_VARIATION="$2"
+         shift
          if [[ ! "${COLOR_VARIATION}" =~ ^([-]{0,1})([0-9]+|[0-9]*\.[0-9]+|[0-9]+\.[0-9]*)$  ]] || \
             awk "BEGIN { exit ( ($COLOR_VARIATION < 0.0) || ($COLOR_VARIATION > 1.0) ? 0 : 1) }" ; then
             echo >&2 "ERROR: Invalid value ${COLOR_VARIATION} for -C|--color-variation!"
             exit 1
          fi
-         shift 2
          ;;
       -G | --color-averaging)
-         if [[ "$2" =~ ^(on|ON|true|TRUE|yes|YES|1)$ ]] ; then
+         COLOR_AVERAGING="$2"
+         shift
+         if [[ "${COLOR_AVERAGING}" =~ ^(on|ON|true|TRUE|yes|YES|1)$ ]] ; then
             COLOR_AVERAGING="TRUE"
-         elif [[ "$2" =~ ^(off|OFF|false|FALSE|no|NO|0)$ ]] ; then
+         elif [[ "${COLOR_AVERAGING}" =~ ^(off|OFF|false|FALSE|no|NO|0)$ ]] ; then
             COLOR_AVERAGING="FALSE"
          else
-            echo >&2 "ERROR: Invalid value $2 for -g|--color-averaging!"
+            echo >&2 "ERROR: Invalid value ${COLOR_AVERAGING} for -G|--color-averaging!"
             exit 1
          fi
-         shift 2
          ;;
       -A | --antialiasing)
-         if [[ "$2" =~ ^(on|ON|true|TRUE|yes|YES|1)$ ]] ; then
+         ANTIALIASING="$2"
+         shift
+         if [[ "${ANTIALIASING}" =~ ^(on|ON|true|TRUE|yes|YES|1)$ ]] ; then
             ANTIALIASING="TRUE"
-         elif [[ "$2" =~ ^(off|OFF|false|FALSE|no|NO|0)$ ]] ; then
+         elif [[ "${ANTIALIASING}" =~ ^(off|OFF|false|FALSE|no|NO|0)$ ]] ; then
             ANTIALIASING="FALSE"
          else
-            echo >&2 "ERROR: Invalid value $2 for -A|--antialiasing!"
+            echo >&2 "ERROR: Invalid value ${ANTIALIASING} for -A|--antialiasing!"
             exit 1
          fi
-         shift 2
          ;;
       -L | --light-direction)
          LIGHT_DIRECTION="$2"
+         shift
          if [[ ! "${LIGHT_DIRECTION}" =~ ^([-]{0,1})([0-9]+|[0-9]*\.[0-9]+|[0-9]+\.[0-9]*)$  ]] || \
             awk "BEGIN { exit ( ($LIGHT_DIRECTION < 0.0) || ($LIGHT_DIRECTION > 360.0) ? 0 : 1) }" ; then
-            echo >&2 "ERROR: Invalid value ${LIGHT_DIRECTION} for -C|--light-direction!"
+            echo >&2 "ERROR: Invalid value ${LIGHT_DIRECTION} for -L|--light-direction!"
             exit 1
          fi
-         shift 2
          ;;
       -w | --verbose)
          VERBOSE=1
-         shift
          ;;
       -q | --quiet)
          VERBOSE=0
-         shift
          ;;
       -h | --help)
          usage 0
          ;;
       -v | --version)
          version
-         # shift
          ;;
       --)
          shift
          break
          ;;
       *)
-         usage 1
+         # This should not happen: wrong getopt parameters, or missing case?
+         echo >&2 "INTERNAL ERROR: Unhandled option $1!"
+         exit 1
          ;;
   esac
+  shift
 done
 
 if [ $# -ne 2 ] ; then
@@ -227,14 +255,17 @@ fi
 
 
 # ====== Detect GIMP, and determine version-specific call options ===========
-GIMP_CONSOLE="$(which gimp-console 2>/dev/null || true)"
+GIMP_CONSOLE="$(command -v gimp-console || command -v /Applications/GIMP.app/Contents/MacOS/gimp-console-3 || true)"
 if [ "${GIMP_CONSOLE}" == "" ] ; then
-   echo >&2 "ERROR: GIMP is not installed!"
-   echo >&2 "* Ubuntu:  sudo apt install -y gimp"
-   echo >&2 "* Fedora:  sudo dnf install -y gimp"
-   echo >&2 "* SuSE     sudo zypper install -y gimp"
-   echo >&2 "* Alpine:  sudo apk add gimp"
-   echo >&2 "* FreeBSD: sudo pkg install -y gimp3-app"
+   echo >&2 "ERROR: GIMP is not installed! Try:"
+   echo >&2 " * Ubuntu/Debian: sudo apt install -y gimp"
+   echo >&2 " * Fedora:        sudo dnf install -y gimp"
+   echo >&2 " * SuSE           sudo zypper install -y gimp"
+   echo >&2 " * Alpine:        sudo apk add gimp"
+   echo >&2 " * FreeBSD:       sudo pkg install -y gimp3-app"
+   echo >&2 " * NetBSD:        sudo pkgin -y install gimp"
+   echo >&2 " * OpenBSD:       sudo pkg_add gimp"
+   echo >&2 " * Apple:         brew install gimp"
    exit 1
 fi
 GIMP_VERSION="$(LC_ALL=C.UTF-8 "${GIMP_CONSOLE}" --version | sed -e 's/GNU Image Manipulation Program version //')"
@@ -247,7 +278,7 @@ else
 fi
 
 # This script does not use fonts, or gradients/palettes/brushes:
-GIMP_OPTIONS="${GIMP_OPTIONS} --no-fonts --no-data"
+GIMP_OPTIONS="${GIMP_OPTIONS} --no-fonts"
 
 
 # ====== Call GIMP ==========================================================
@@ -359,7 +390,7 @@ EOF
    if [ ${VERBOSE} -ne 0 ] ; then
       cat
    else
-      grep -vE "^ts>|(#t)|^Copyright|Welcome to (GIMP|TinyScheme)|^using gegl copy|^gimp_color_transform_new: using babl|scriptfu-WARNING|-WARNING|^Please use named arguments:|^script quit with code:|^$" || true
+      grep -vE "^ts>|(#t)|^Copyright|Welcome to (GIMP|TinyScheme)|^using gegl copy|^gimp_color_transform_new: using babl|scriptfu-WARNING|-WARNING|^Warning: Unknown input_id|^Failed to parse tag cache|^Please use named arguments:|^script quit with code:|^$" || true
    fi
 )
 
