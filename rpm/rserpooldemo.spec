@@ -13,14 +13,12 @@ ExcludeArch: s390x
 
 AutoReqProv: on
 BuildRequires: cmake
-BuildRequires: dejavu-sans-fonts
-BuildRequires: dejavu-sans-mono-fonts
-BuildRequires: dejavu-serif-fonts
+BuildRequires: ((dejavu-sans-fonts and dejavu-sans-mono-fonts and dejavu-serif-fonts) or dejavu-fonts)
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: ghostscript
 BuildRequires: gimp
-BuildRequires: google-noto-cjk-fonts
+BuildRequires: google-noto-sans-cjk-fonts
 BuildRequires: google-noto-sans-fonts
 BuildRequires: google-noto-serif-fonts
 BuildRequires: GraphicsMagick
@@ -208,8 +206,12 @@ See https://www.nntb.no/~dreibh/rserpool/ for details on RSerPool and the
 RSerPoolDemo tool!
 
 %files desktop
+%dir %attr(0755, root, root) /boot/RSerPoolDemo
 /boot/RSerPoolDemo/Zollverein-*.jpeg
 %{_sysconfdir}/grub.d/??_rserpooldemo_desktop_theme
+%dir %attr(0755, root, root) %{_datadir}/rserpooldemo/background
+%dir %attr(0755, root, root) %{_datadir}/rserpooldemo/desktop
+%dir %attr(0755, root, root) %{_datadir}/rserpooldemo/grub-defaults
 %{_datadir}/rserpooldemo/background/*
 %{_datadir}/rserpooldemo/desktop/*
 %{_datadir}/rserpooldemo/grub-defaults
@@ -262,7 +264,11 @@ RSerPoolDemo tool!
 
 %files tool
 %{_bindir}/rserpooldemo
+%dir %attr(0755, root, root) /boot/RSerPoolDemo
 %{_datadir}/applications/rserpooldemo.desktop
+%dir %attr(0755, root, root) %{_datadir}/icons/hicolor
+%dir %attr(0755, root, root) %{_datadir}/icons/hicolor/*
+%dir %attr(0755, root, root) %{_datadir}/icons/hicolor/*/apps
 %{_datadir}/icons/hicolor/512x512/apps/rserpooldemo.png
 %{_datadir}/mime/packages/rserpooldemo.xml
 %{_mandir}/man1/rserpooldemo.1.gz
