@@ -464,7 +464,7 @@ FOREACH(resolution IN LISTS TDD_RESOLUTIONS)
             # MESSAGE("Mosaic: ${width} ${height} -> ${tileSize} ${tileHeight}")
             ADD_CUSTOM_COMMAND(OUTPUT  ${imageWithoutLogo}
                                COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} GIMP3_DIRECTORY=${GIMP_DIRECTORY} ${GS_RESIZE_WITH_CROPPING} ${image} ${imageTemp2} --aspect ${aspectRatio} --width ${width}
-                               COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} GIMP3_DIRECTORY=${GIMP_DIRECTORY} ${GS_MOSAIC} ${imageTemp2} ${imageTemp1} $--tile-size ${tileSize} --tile-height ${tileHeight} --tile-spacing ${tileHeight} --tile-type hexagons --tile-surface rough
+                               COMMAND env GIMP2_DIRECTORY=${GIMP_DIRECTORY} GIMP3_DIRECTORY=${GIMP_DIRECTORY} ${GS_MOSAIC} ${imageTemp2} ${imageTemp1} --tile-size ${tileSize} --tile-height ${tileHeight} --tile-spacing ${tileHeight} --tile-type hexagons --tile-surface rough
                                COMMAND ${GM} convert ${imageTemp1} -interlace line ${imageWithoutLogo}
                                COMMAND ${EXIFTOOL} -m -q -overwrite_original -Copyright="${TDD_COPYRIGHT}" ${imageWithoutLogo} || true
                                COMMAND ${RM} -f ${imageTemp1} ${imageTemp2}

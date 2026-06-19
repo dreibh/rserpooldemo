@@ -13,7 +13,10 @@ ExcludeArch: s390x
 
 AutoReqProv: on
 BuildRequires: cmake
-BuildRequires: ((dejavu-sans-fonts and dejavu-sans-mono-fonts and dejavu-serif-fonts) or dejavu-fonts)
+# DejaVu fonts and ExifTool
+# Fedora:   dejavu-sans-fonts dejavu-sans-mono-fonts dejavu-serif-fonts   perl-Image-ExifTool
+# OpenSuSE: dejavu-fonts    exiftool
+BuildRequires: ((dejavu-sans-fonts and dejavu-sans-mono-fonts and dejavu-serif-fonts and perl-Image-ExifTool) or (dejavu-fonts and exiftool))
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: ghostscript
@@ -22,7 +25,6 @@ BuildRequires: google-noto-sans-cjk-fonts
 BuildRequires: google-noto-sans-fonts
 BuildRequires: google-noto-serif-fonts
 BuildRequires: GraphicsMagick
-BuildRequires: (exiftool or perl-Image-ExifTool)
 BuildRequires: (qt6-qtbase-devel or qt6-base-devel)
 BuildRequires: texlive-epstopdf-bin
 BuildRequires: urw-base35-fonts
@@ -209,9 +211,9 @@ RSerPoolDemo tool!
 %dir %attr(0755, root, root) /boot/RSerPoolDemo
 /boot/RSerPoolDemo/Zollverein-*.jpeg
 %{_sysconfdir}/grub.d/??_rserpooldemo_desktop_theme
+%dir %attr(0755, root, root) %{_datadir}/rserpooldemo
 %dir %attr(0755, root, root) %{_datadir}/rserpooldemo/background
 %dir %attr(0755, root, root) %{_datadir}/rserpooldemo/desktop
-%dir %attr(0755, root, root) %{_datadir}/rserpooldemo/grub-defaults
 %{_datadir}/rserpooldemo/background/*
 %{_datadir}/rserpooldemo/desktop/*
 %{_datadir}/rserpooldemo/grub-defaults
