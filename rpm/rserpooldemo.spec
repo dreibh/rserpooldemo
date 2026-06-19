@@ -209,9 +209,9 @@ RSerPoolDemo tool!
 %dir %attr(0755, root, root) /boot/RSerPoolDemo
 /boot/RSerPoolDemo/Zollverein-*.jpeg
 %{_sysconfdir}/grub.d/??_rserpooldemo_desktop_theme
+%dir %attr(0755, root, root) %{_datadir}/rserpooldemo
 %dir %attr(0755, root, root) %{_datadir}/rserpooldemo/background
 %dir %attr(0755, root, root) %{_datadir}/rserpooldemo/desktop
-%dir %attr(0755, root, root) %{_datadir}/rserpooldemo/grub-defaults
 %{_datadir}/rserpooldemo/background/*
 %{_datadir}/rserpooldemo/desktop/*
 %{_datadir}/rserpooldemo/grub-defaults
