@@ -51,11 +51,25 @@ RSerPoolDemo tool!
 
 %install
 %cmake_install
+
 # ====== Relocate files =====================================================
 mkdir -p %{buildroot}/boot/RSerPoolDemo
-mv %{buildroot}/usr/share/rserpooldemo/splash/Zollverein-*.jpeg %{buildroot}/boot/RSerPoolDemo
+mv %{buildroot}/%{_datadir}/rserpooldemo/splash/Zollverein-*.jpeg %{buildroot}/boot/RSerPoolDemo
 mkdir -p %{buildroot}/etc/rserpooldemo
-mv %{buildroot}/usr/share/rserpooldemo/splash/rserpooldemo-version %{buildroot}/etc/rserpooldemo
+mv %{buildroot}/%{_datadir}/rserpooldemo/splash/rserpooldemo-version %{buildroot}/etc/rserpooldemo
+# ===========================================================================
+
+# ====== Apply shebang fix for scripts ======================================
+for directory in %{_bindir} \
+                 %{_datadir}/rserpooldemo/local-scenario \
+                 %{_datadir}/rserpooldemo/nornet-mec-scenario \
+                 ; do
+   find "%{buildroot}/$directory" -type f -exec sed -i \
+      -e 's|^#!/usr/bin/env bash|#!/usr/bin/bash|' \
+      -e 's|^#!/usr/bin/env python3|#!/usr/bin/python3|' \
+      -e 's|^#!/usr/bin/env Rscript|#!/usr/bin/Rscript|' \
+      {} +
+done
 # ===========================================================================
 
 %files
