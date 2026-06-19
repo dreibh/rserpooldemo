@@ -22,7 +22,7 @@ BuildRequires: google-noto-sans-cjk-fonts
 BuildRequires: google-noto-sans-fonts
 BuildRequires: google-noto-serif-fonts
 BuildRequires: GraphicsMagick
-BuildRequires: perl-Image-ExifTool
+BuildRequires: (exiftool or perl-Image-ExifTool)
 BuildRequires: (qt6-qtbase-devel or qt6-base-devel)
 BuildRequires: texlive-epstopdf-bin
 BuildRequires: urw-base35-fonts
