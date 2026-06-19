@@ -144,6 +144,7 @@ See https://www.nntb.no/~dreibh/rserpool/ for details on RSerPool and the
 RSerPoolDemo tool!
 
 %files management
+%dir %attr(0755, root, root) %{_sysconfdir}/rserpooldemo
 %{_sysconfdir}/rserpooldemo/rserpooldemo-version
 
 
@@ -224,6 +225,7 @@ RSerPoolDemo tool!
 %files desktop
 %dir %attr(0755, root, root) /boot/RSerPoolDemo
 /boot/RSerPoolDemo/Zollverein-*.jpeg
+%dir %attr(0755, root, root) %{_sysconfdir}/grub.d
 %{_sysconfdir}/grub.d/??_rserpooldemo_desktop_theme
 %dir %attr(0755, root, root) %{_datadir}/rserpooldemo
 %dir %attr(0755, root, root) %{_datadir}/rserpooldemo/background
@@ -231,7 +233,9 @@ RSerPoolDemo tool!
 %{_datadir}/rserpooldemo/background/*
 %{_datadir}/rserpooldemo/desktop/*
 %{_datadir}/rserpooldemo/grub-defaults
+%dir %attr(0755, root, root) %{_sysconfdir}/system-info.d
 %{_sysconfdir}/system-info.d/30-rsplib
+%dir %attr(0755, root, root) %{_sysconfdir}/system-maintenance.d
 %{_sysconfdir}/system-maintenance.d/30-rsplib
 %ghost %{_datadir}/rserpooldemo/splash
 
@@ -256,6 +260,9 @@ RSerPoolDemo tool!
 
 %files scenario-cfgfiles
 %dir %attr(0755, root, root) %{_datadir}/rserpooldemo
+%dir %attr(0755, root, root) %{_datadir}/rserpooldemo/graphics
+%dir %attr(0755, root, root) %{_datadir}/rserpooldemo/local-scenario
+%dir %attr(0755, root, root) %{_datadir}/rserpooldemo/nornet-mec-scenario
 %{_datadir}/rserpooldemo/graphics/*
 %{_datadir}/rserpooldemo/local-scenario/*
 %{_datadir}/rserpooldemo/nornet-mec-scenario/*
