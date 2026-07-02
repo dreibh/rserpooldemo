@@ -42,11 +42,6 @@
 #include <netinet/in.h>
 #include <sys/time.h>
 #include <time.h>
-#ifdef __FreeBSD__
-#include <sys/endian.h>
-#else
-#include <endian.h>
-#endif
 
 #include "rdconfignode.h"
 #include "componentstatuspackets.h"
