@@ -1,3 +1,112 @@
+commit 5aa97a69238ae5863229cb65fcbdb2ef798e789d
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jul 2 11:04:29 2026 +0200
+
+    Include file clean-ups.
+
+commit 55acc87ab1df7e7f9cfb2773bc8945cbbe50f574
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jul 2 10:54:30 2026 +0200
+
+    Updated background image scripts.
+
+commit e44b1405151c476eda20ce67ad91c94158ccb268
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Jun 29 15:42:47 2026 +0200
+
+    Updated CI configuration
+
+commit fc38e627ec37584e098f88488fd119fefc992050
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Jun 29 15:42:46 2026 +0200
+
+    Updated CI scripts
+
+commit 131417ff56b87f6e92efeef6c2dd4aee5e2f5060
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Mon Jun 29 15:41:33 2026 +0200
+
+    Updated FreeBSD workflow.
+
+commit b4bc9e9b19dc54e1850b42ad720bc126a40630cb
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jun 19 16:09:31 2026 +0200
+
+    RPM spec fix.
+
+commit 047e3f583126cd8287db00f460bb0aacd4f90d70
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jun 19 15:37:21 2026 +0200
+
+    Further RPM spec improvements.
+
+commit d2a1918267829df4bd53457939383600ecc1db11
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jun 19 13:36:08 2026 +0200
+
+    Further RPM spec improvements.
+
+commit 100d397304c41e283513a8b2f3730c7ffe9d38a0
+Merge: d661c9b 999c4d0
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jun 19 13:25:44 2026 +0200
+
+    Merge branch 'master' of https://github.com/dreibh/rserpooldemo
+
+commit d661c9b167958c4a28d738e60b7ab796fa59d1bc
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jun 19 13:25:38 2026 +0200
+
+    Further improvements.
+
+commit 999c4d02521a02d872c458dfa62332d1429e18c7
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jun 19 13:12:20 2026 +0200
+
+    RPM spec improvements.
+
+commit f2b601d13338b65780ffd056909c39ce7684da2a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jun 19 13:11:12 2026 +0200
+
+    Improved CMakeLists.txt.
+
+commit f02dd6ffd42dd03001bb7b42bc7c6247eccd7078
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jun 19 10:59:20 2026 +0200
+
+    RPM spec update.
+
+commit ebbd97d744ef3c19e7c344d884a6967bb012753f
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jun 18 17:51:56 2026 +0200
+
+    Yet another RPM spec update.
+
+commit 5fe0f6784cc5424ca78900945fbc063248b87606
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jun 18 16:07:31 2026 +0200
+
+    RPM spec improvements.
+
+commit 0a75597648a5099455808c500f2032171af8f258
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Jun 18 15:54:27 2026 +0200
+
+    Updated GIMP Scripts.
+
+commit 7d8f87bac0cf475dfb8a93431096ffeffda27d0f
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Jun 17 17:36:27 2026 +0200
+
+    Improved RPM spec.
+
+commit fa98269f004d30b4c10f74cc67284cdba7b0d435
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Jun 12 18:24:09 2026 +0200
+
+    New release rserpooldemo-3.2.7.
+
 commit 0174811db000d1665236796f16a8ea947dc1c5fc
 Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Thu Jun 11 18:28:29 2026 +0200
