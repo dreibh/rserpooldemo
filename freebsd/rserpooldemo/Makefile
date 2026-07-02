@@ -29,4 +29,15 @@ USE_QT=         base
 
 CMAKE_ARGS+=	-DCMAKE_INSTALL_MANDIR=${PREFIX}/share/man
 
+MAKE_ENV+=	PYTHONDONTWRITEBYTECODE=1 \
+		FONTCONFIG_FILE=${WRKDIR}/fonts.conf
+
+pre-configure:
+	@${ECHO_CMD} '<?xml version="1.0"?>' > ${WRKDIR}/fonts.conf
+	@${ECHO_CMD} '<!DOCTYPE fontconfig SYSTEM "fonts.dtd">' >> ${WRKDIR}/fonts.conf
+	@${ECHO_CMD} '<fontconfig>' >> ${WRKDIR}/fonts.conf
+	@${ECHO_CMD} '  <cachedir>${WRKDIR}/.cache/fontconfig</cachedir>' >> ${WRKDIR}/fonts.conf
+	@${ECHO_CMD} '  <include>${LOCALBASE}/etc/fonts/fonts.conf</include>' >> ${WRKDIR}/fonts.conf
+	@${ECHO_CMD} '</fontconfig>' >> ${WRKDIR}/fonts.conf
+
 .include <bsd.port.mk>
