@@ -42,7 +42,7 @@ usage () {
 
 # ###### Version ############################################################
 version () {
-   echo "gs-clothify 2.7.5~rc0"
+   echo "gs-clothify 2.7.7"
    exit 0
 }
 
@@ -58,19 +58,19 @@ fi
 UNAME="$(uname)"
 case "${UNAME}" in
    FreeBSD)
-      GETOPT="$(PATH="/usr/local/bin:${PATH}" command -v getopt)"
+      GETOPT="$(PATH="/usr/local/bin:${PATH}" command -v getopt || true)"
       ;;
    NetBSD)
-      GETOPT="$(PATH="/usr/pkg/bin:${PATH}" command -v getopt)"
+      GETOPT="$(PATH="/usr/pkg/bin:${PATH}" command -v getopt || true)"
       ;;
    OpenBSD)
-      GETOPT="$(command -v gnugetopt)"
+      GETOPT="$(command -v gnugetopt || true)"
       ;;
    Darwin)
-      GETOPT="$(env PATH="/opt/homebrew/opt/gnu-getopt/bin:${PATH}" command -v getopt)"
+      GETOPT="$(env PATH="/opt/homebrew/opt/gnu-getopt/bin:${PATH}" command -v getopt || true)"
       ;;
    *)
-      GETOPT="$(command -v getopt)"
+      GETOPT="$(command -v getopt || true)"
       ;;
 esac
 if "${GETOPT}" -T >/dev/null 2>&1 || [[ $? -ne 4 ]]; then
@@ -280,7 +280,7 @@ EOF
    if [ ${VERBOSE} -ne 0 ] ; then
       cat
    else
-      grep -vE "^ts>|(#t)|^Copyright|Welcome to (GIMP|TinyScheme)|^using gegl copy|^gimp_color_transform_new: using babl|scriptfu-WARNING|-WARNING|^Warning: Unknown input_id|^Failed to parse tag cache|^Please use named arguments:|^script quit with code:|^$" || true
+      grep -vE "^ts>|(#t)|^Copyright|Welcome to (GIMP|TinyScheme)|^using gegl copy|^gimp_color_transform_new: using babl|scriptfu-WARNING|-WARNING|^Warning: Unknown input_id|^Failed to parse tag cache|^Please use named arguments:|^script quit with code:|^GIMP is started|^$" || true
    fi
 )
 
