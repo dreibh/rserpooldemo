@@ -34,7 +34,7 @@
 set -euo pipefail
 
 # This year:
-THIS_YEAR=2026   # "$(date +"%Y")"
+THIS_YEAR=2027   # "$(date +"%Y")"
 
 BASE_YEAR=2002
 years=$((THIS_YEAR-BASE_YEAR))
