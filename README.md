@@ -19,7 +19,7 @@ Please use the issue tracker at [https://github.com/dreibh/rserpooldemo/issues](
 
 ## Ubuntu Linux
 
-For ready-to-install Ubuntu Linux packages of RSerPool Demo Tool, see [Launchpad PPA for Thomas Dreibholz](https://launchpad.net/~dreibh/+archive/ubuntu/ppa/+packages?field.name_filter=rserpooldemo&field.status_filter=published&field.series_filter=)!
+For ready-to-install [Ubuntu Linux](https://ubuntu.com/) packages of RSerPool Demo Tool, see the [Launchpad PPA for Thomas Dreibholz](https://launchpad.net/~dreibh/+archive/ubuntu/ppa/+packages?field.name_filter=rserpooldemo&field.status_filter=published&field.series_filter=)!
 
 ```bash
 sudo apt-add-repository -sy ppa:dreibh/ppa
@@ -27,23 +27,75 @@ sudo apt-get update
 sudo apt-get install rserpooldemo
 ```
 
+## Debian Linux
+
+For ready-to-install [Debian Linux](https://www.debian.org/) packages of RSerPool Demo Tool, see the [Open Build Service PPA for Thomas Dreibholz](https://build.opensuse.org/project/show/home:dreibh)!
+
+Add the PPA repository:
+
+```bash
+. /etc/os-release
+DISTRIBUTION="Debian_${VERSION_ID:-$([ "${VERSION_CODENAME:-}" = sid ] && echo Unstable || echo Testing)}"
+URL="https://download.opensuse.org/repositories/home:/dreibh/${DISTRIBUTION}"
+KEY="/etc/apt/keyrings/dreibh-obs.gpg"
+
+curl -fsSL "${URL}/Release.key" | sudo gpg --batch --yes --dearmor -o "${KEY}"
+printf "deb [signed-by=%s] %s/ /\ndeb-src [signed-by=%s] %s/ /\n" "${KEY}" "${URL}" "${KEY}" "${URL}" | \
+   sudo tee /etc/apt/sources.list.d/obs-dreibh.list
+sudo apt update
+```
+
+Then, install RSerPool Demo Tool:
+
+```bash
+sudo apt-get install rserpooldemo
+```
+
 ## Fedora Linux
 
-For ready-to-install Fedora Linux packages of RSerPool Demo Tool, see [COPR PPA for Thomas Dreibholz](https://copr.fedorainfracloud.org/coprs/dreibh/ppa/package/rserpooldemo/)!
+For ready-to-install [Fedora Linux](https://fedoraproject.org/) packages of RSerPool Demo Tool, see the [COPR PPA for Thomas Dreibholz](https://copr.fedorainfracloud.org/coprs/dreibh/ppa/package/rserpooldemo/)!
 
 ```bash
 sudo dnf copr enable -y dreibh/ppa
 sudo dnf install rserpooldemo
 ```
 
+## OpenSUSE Linux
+
+For ready-to-install [OpenSUSE Linux](https://www.opensuse.org/) packages of RSerPool Demo Tool, see the [Open Build Service PPA for Thomas Dreibholz](https://build.opensuse.org/project/show/home:dreibh)!
+
+Add the PPA repository:
+
+```bash
+. /etc/os-release
+[[ $VERSION_ID =~ ^[0-9]+\.[0-9]+$ ]] && DISTRIBUTION="${VERSION_ID}" || DISTRIBUTION="${NAME// /_}"
+URL="https://download.opensuse.org/repositories/home:/dreibh/${DISTRIBUTION}"
+rpm --import "${URL}/repodata/repomd.xml.key"
+zypper addrepo -f "${URL}/" dreibh-obs
+```
+
+Then, install RSerPool Demo Tool:
+
+```bash
+sudo zypper install rserpooldemo
+```
+
 ## FreeBSD
 
-The RSerPool Demo Tool is still waiting for being added to the FreeBSD ports collection ...
+The RSerPool Demo Tool is still waiting to be added to the FreeBSD ports collection ...
+
+## NetBSD
+
+RSerPool Demo Tool supports [NetBSD](https://netbsd.org/). However, there is no NetBSD packaging yet. Just build from sources!
+
+## Solaris (OpenIndiana)
+
+RSerPool Demo Tool supports [Solaris (OpenIndiana)](https://www.openindiana.org/). However, there is no Solaris packaging yet. Just build from sources!
 
 
 # 💾 Build from Sources
 
-RSerPool Demo Tool is released under the [GNU General Public Licence&nbsp;(GPL)](https://www.gnu.org/licenses/gpl-3.0.en.html#license-text).
+RSerPool Demo Tool is released under the [GNU General Public License&nbsp;(GPL)](https://www.gnu.org/licenses/gpl-3.0.en.html#license-text).
 
 Please use the issue tracker at [https://github.com/dreibh/rserpooldemo/issues](https://github.com/dreibh/rserpooldemo/issues) to report bugs and issues!
 
@@ -65,7 +117,11 @@ Optionally, for installation to the standard paths (usually under `/usr/local`):
 sudo make install
 ```
 
-Note: The script [`ci/get-dependencies`](https://github.com/dreibh/rserpooldemo/blob/master/ci/get-dependencies) automatically  installs the build dependencies under Debian/Ubuntu Linux, Fedora Linux, and FreeBSD. For manual handling of the build dependencies, see the packaging configuration in [`debian/control`](https://github.com/dreibh/rserpooldemo/blob/master/debian/control) (Debian/Ubuntu Linux), [`rserpooldemo.spec`](https://github.com/dreibh/rserpooldemo/blob/master/rpm/rserpooldemo.spec) (Fedora Linux), and [`Makefile`](https://github.com/dreibh/rserpooldemo/blob/master/freebsd/rserpooldemo/Makefile) FreeBSD.
+Note: The script [`ci/get-dependencies`](https://github.com/dreibh/rserpooldemo/blob/master/ci/get-dependencies) automatically installs the build dependencies under Debian/Ubuntu Linux, Fedora Linux, OpenSUSE Linux, and FreeBSD. For manual handling of the build dependencies, take a look at the packaging configuration files:
+
+* [`debian/control`](https://github.com/dreibh/rserpooldemo/blob/master/debian/control) (Debian/Ubuntu Linux),
+* [`rserpooldemo.spec`](https://github.com/dreibh/rserpooldemo/blob/master/rpm/rserpooldemo.spec) (Fedora Linux, OpenSUSE Linux), and
+* [`Makefile`](https://github.com/dreibh/rserpooldemo/blob/master/freebsd/rserpooldemo/Makefile) (FreeBSD).
 
 Contributions:
 
@@ -86,7 +142,7 @@ See [https://www.nntb.no/~dreibh/rserpool/#current-stable-release](https://www.n
 
 # 😀 Running the RSerPool Demo
 
-Go to one of the demo directories, and start ```rserpooldemo``` with the corresponding demo configuration file name.
+Go to one of the demo directories, and start `rserpooldemo` with the corresponding demo configuration file name.
 
 ```bash
 cd <PATH>/local-scenario
