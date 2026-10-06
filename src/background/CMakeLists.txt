@@ -90,7 +90,7 @@ IF(AWK)
    MESSAGE(STATUS "GNU Awk found: ${AWK} (version ${AWK_VERSION})")
 ELSE()
    MESSAGE(FATAL_ERROR
-           " Cannot find GNU Awk! Try:\n"
+           " Cannot find Awk! Try:\n"
            " * Ubuntu/Debian: sudo apt install -y awk\n"
            " * Fedora:        sudo dnf install -y awk\n"
            " * OpenSUSE:      sudo zypper install -y awk\n"
@@ -98,6 +98,7 @@ ELSE()
            " * FreeBSD:       (should always be there!)\n"
            " * NetBSD:        (should always be there!)\n"
            " * OpenBSD:       (should always be there!)\n"
+           " * Solaris:       (should always be there!)\n"
            " * Apple:         brew install gawk")
 ENDIF()
 
@@ -120,11 +121,12 @@ ELSE()
            " * FreeBSD:       sudo pkg install -y p5-Image-ExifTool\n"
            " * NetBSD:        sudo pkgin -y install p5-Image-ExifTool\n"
            " * OpenBSD:       sudo pkg_add p5-Image-ExifTool\n"
-           " * Apple:         brew install gimp")
+           " * Solaris:       sudo pkg install image-exiftool-542\n"
+           " * Apple:         brew install exiftool")
 ENDIF()
 
 # ====== GIMP ===============================================================
-FIND_PROGRAM(GIMP gimp HINTS /bin /usr/bin /usr/local/bin /usr/pkg/bin)
+FIND_PROGRAM(GIMP gimp gimp-3.6 gimp-3.4 gimp-3.2 gimp-3.0 gimp-2.8 gimp-3.6 HINTS /bin /usr/bin /usr/local/bin /usr/pkg/bin)
 IF(GIMP)
    EXECUTE_PROCESS(COMMAND ${GIMP} --version | head -n1
                    OUTPUT_VARIABLE GIMP_OUTPUT
@@ -141,6 +143,7 @@ ELSE()
            " * FreeBSD:       sudo pkg install -y gimp\n"
            " * NetBSD:        sudo pkgin -y install gimp\n"
            " * OpenBSD:       sudo pkg_add \"\$(pkg_info -z \"gimp->=3\")\"\n"
+           " * Solaris:       sudo pkg install gimp\n"
            " * Apple:         brew install gimp")
 ENDIF()
 
