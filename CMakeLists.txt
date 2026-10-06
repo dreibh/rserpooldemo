@@ -99,8 +99,12 @@ ELSEIF (CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
    MESSAGE(STATUS "${CMAKE_SYSTEM_NAME} supported")
 ELSEIF (CMAKE_SYSTEM_NAME MATCHES "NetBSD")
    MESSAGE(STATUS "${CMAKE_SYSTEM_NAME} supported")
-# ELSEIF (CMAKE_SYSTEM_NAME MATCHES "OpenBSD")
-   # OpenBSD does not support SCTP!
+ELSEIF (CMAKE_SYSTEM_NAME MATCHES "OpenBSD")
+   MESSAGE(STATUS "${CMAKE_SYSTEM_NAME} supported")
+ELSEIF (CMAKE_SYSTEM_NAME MATCHES "SunOS")
+   MESSAGE(STATUS "${CMAKE_SYSTEM_NAME} supported")
+ELSEIF (CMAKE_SYSTEM_NAME MATCHES "GNU")
+   MESSAGE(STATUS "${CMAKE_SYSTEM_NAME} supported")
 ELSEIF (CMAKE_SYSTEM_NAME MATCHES "Darwin")
    MESSAGE(STATUS "${CMAKE_SYSTEM_NAME} supported")
 ELSE()
@@ -113,13 +117,42 @@ ENDIF()
 #############################################################################
 
 # ====== Qt =================================================================
+FIND_PROGRAM(QMAKE NAMES qmake6 qmake-qt6 qmake5 qmake-qt5 qmake PATHS /usr/lib/qt/*/bin)
+IF (QMAKE)
+   EXECUTE_PROCESS(
+      COMMAND "${QMAKE}" -query QT_INSTALL_LIBS
+      OUTPUT_VARIABLE QT_INSTALL_LIBS
+      OUTPUT_STRIP_TRAILING_WHITESPACE
+   )
+   LIST(APPEND CMAKE_PREFIX_PATH "${QT_INSTALL_LIBS}/cmake")
+ENDIF()
+
 SET(CMAKE_AUTOMOC ON)
-FIND_PACKAGE(QT NAMES Qt6 COMPONENTS Core Network Widgets Xml)
-IF (NOT QT_FOUND)
-   FIND_PACKAGE(QT NAMES Qt5 REQUIRED COMPONENTS Core Network Widgets Xml)
+FIND_PACKAGE(Qt6 COMPONENTS Core Network Widgets Xml PrintSupport)
+IF (NOT Qt6_FOUND)
+   # Try Qt5 instead:
+   FIND_PACKAGE(Qt5 COMPONENTS Core Network Widgets Xml PrintSupport)
+ENDIF()
+IF ((NOT Qt6_FOUND) AND (NOT Qt5_FOUND))
+   MESSAGE(FATAL_ERROR
+           "Cannot find Qt! Try:\n"
+           " * Ubuntu/Debian: sudo apt install -y qt6-base-dev\n"
+           " * Fedora:        sudo dnf install -y qt6-qtbase-devel\n"
+           " * OpenSUSE:      sudo zypper install -y qt6-base-devel\n"
+           " * Alpine:        sudo apk add qt6-qtbase-dev\n"
+           " * FreeBSD:       sudo pkg install -y qt6-base\n"
+           " * NetBSD:        sudo pkgin -y install qt6-qtbase\n"
+           " * OpenBSD:       sudo pkg_add qt6-qtbase\n"
+           " * Solaris:       sudo pkg install library/qt6 print/cups\n"
+           " * Apple:         brew install qt")
+ELSEIF (Qt6_FOUND)
+   SET(QT_FOUND TRUE)
+   SET(QT_VERSION_MAJOR ${Qt6_VERSION_MAJOR})
+ELSEIF (Qt5_FOUND)
+   SET(QT_FOUND TRUE)
+   SET(QT_VERSION_MAJOR ${Qt5_VERSION_MAJOR})
 ENDIF()
 MESSAGE("Using Qt version ${QT_VERSION_MAJOR}!")
-FIND_PACKAGE(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Network Widgets Xml)
 
 
 #############################################################################
